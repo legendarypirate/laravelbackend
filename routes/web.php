@@ -1,0 +1,76 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Order;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::prefix('order')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\OrderController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\OrderController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\OrderController::class, 'list']);
+    Route::get('/datatable-order', [App\Http\Controllers\OrderController::class, 'loadOrderDataTable'])->name('datatable-order'); 
+    Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+
+    Route::get('/deleted','DeliveryController@deleted');
+    Route::get('/finish','DeliveryController@finish');
+    Route::get('/del_delete','DeliveryController@del_delete')->name('del_delete');
+    Route::get('/edit/{id}','DeliveryController@edit');
+    Route::post('/edit','DeliveryController@update');
+    Route::post('/bulk','DeliveryController@bulk');
+    Route::get('/change_status_on_delivery','DeliveryController@change_status_on_delivery')->name('change_status_on_delivery');
+    Route::get('/change_bus_on_delivery','DeliveryController@change_bus_on_delivery')->name('change_bus_on_delivery');
+    Route::get('/change_driver_on_delivery','DeliveryController@change_driver_on_delivery')->name('change_driver_on_delivery');
+    Route::get('/phone/{id}', 'DeliveryController@phone'); 
+    Route::get('/address/{id}', 'DeliveryController@address');
+    Route::get('/datatable-delivery', [DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
+    Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
+
+    Route::get('/excel-export-delivery', [DeliveryController::class, 'ExcelExport'])->name('excel-export-delivery'); 
+    Route::get('/detail/{id}', 'DeliveryController@detail')->name( 'delivery.detail');
+    Route::get('/delete/{id}','DeliveryController@delete');
+    Route::get('/recover/{id}','DeliveryController@recover');
+    Route::get('/print-data-delivery', [DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery');
+});
+
+
+Route::prefix('delivery')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\DeliveryController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
+    Route::get('/datatable-order', [App\Http\Controllers\DeliveryController::class, 'loadOrderDataTable'])->name('datatable-order'); 
+    Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+});
+
+
+Route::prefix('region')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\RegionController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\RegionController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\RegionController::class, 'list']);
+});
+Route::prefix('good')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\GoodController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\GoodController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\GoodController::class, 'list']);
+    Route::post('/income',[App\Http\Controllers\GoodController::class, 'income']);
+});
