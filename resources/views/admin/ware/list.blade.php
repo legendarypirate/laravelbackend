@@ -1,229 +1,70 @@
 @extends('admin.master')
 
 @section('mainContent')
-<style>
-
-
-
-</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Захиалга</h1>
+            <h1>Агуулах</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              <li class="breadcrumb-item active">Бүс</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    
+
     <!-- Main content -->
     <section class="content">
-        
       <div class="container-fluid">
-
+       
         <!-- /.row -->
         <div class="row">
-          <div class="col-12">
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Print</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Export</a></button> 
-         <div class="row">
-         <div class="form-group">
-                    <label for="status">Төлөв:</label>
-                    <select id="filterByStatus" class="form-control inputStatus">
-                        <option value="">Бүгд</option>
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Бүс:</label>
-                    <select id="filterByBus" class="form-control inputStatus9">
-                        <?php $bus=DB::table('regions')->get(); ?>
-                        <option value="">Бүгд</option>
-                        @foreach($bus as $region)
-                        <option value="{{$region->name}}">{{$region->name}}</option>
-                        @endforeach                      
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="status">Жолооч:</label>
-                    <select id="filterByDriver" class="form-control inputStatus9">
-                        <option value="">Бүгд</option>
-                        <option value="altansukhJ1">altansukhJ1</option>   
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="status">Харилцагч:</label>
-                    <select id="filterByCustomer" class="form-control inputStatus9">
-                        <option value="">Бүгд</option>
-                        <option value="&quot; энхрий онлайн шоп&quot;">&quot; энхрий онлайн шоп&quot;</option>
-                    </select>
-                </div>
-            </div>
-           
-            <div class="card">
-                
-              <div class="card-header">
-
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                
-                <table class="table table-hover text-nowrap" id="datatable">
-                <thead>
-                    <tr>
-                        <th class="whitespace-nowrap"> <input type="checkbox"  style="width:20px;height:20px;" onClick="toggle(this);updateCount();" /></th>
-                        <th class="text-center whitespace-nowrap">Үүссэн огноо</th>
-                        <th class="whitespace-nowrap">Нэр</th>
-                        <th class="text-center whitespace-nowrap">Утас</th>
-                        <th class="text-center whitespace-nowrap">Хаяг</th>
-                    
-                        <th class="text-center whitespace-nowrap">Төлөв</th>
-                        @if(auth()->user()->role=='Customer')
 
 
-                        <th ></th>
-                        <th ></th>
-                        @else 
+<div class="card-body table-responsive p-0" style="height: 300px;">
+<table class="table table-head-fixed text-nowrap">
+<thead>
+<tr>
+<th>ID</th>
+<th>Агуулах</th>
+<th>Үйлдэл</th>
+<th>Огноо</th>
 
-                        <th class="text-center whitespace-nowrap">Бүс</th>
-                        <th class="text-center whitespace-nowrap">Жолооч</th>
-                        @endif
-                        <th class="text-center whitespace-nowrap">Тайлбар</th>
+</tr>
+</thead>
+<tbody>
 
-                        <th class="text-center whitespace-nowrap">Үйлдэл</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
+@foreach($ware as $wares)
+<tr>
+<td>{{$wares->id}}</td>
+<td>{{$wares->name}}</td>
+<td>{{$wares->created_at}}</td>
+<td>Устгах</td>
 
-    <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
-         <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
-         <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
-         <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
-         <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
-    </div> 
+</tr>
+@endforeach
 
- 
-                
-        
-        
-    
-
-       
-</div>
-<div id="statusModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Төлөв солих</h4>
-                </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
-            </div>
-        </div>
-</div>
-<div id="busModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Бүс солих</h4>
-                </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <?php $bus=DB::table('regions')->get(); ?>
-                        @foreach($bus as $region)
-                        <option value="{{$region->name}}">{{$region->name}}</option>
-                        @endforeach
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
-            </div>
-        </div>
+</tbody>
+</table>
 </div>
 
-<div id="driverModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Төлөв солих</h4>
-                </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                    <?php $bus=DB::table('users')->get(); ?>
-                        @foreach($bus as $region)
-                        <option value="{{$region->name}}">{{$region->name}}</option>
-                        @endforeach
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
-            </div>
-        </div>
 </div>
 
-<div id="deleteModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">sss солих</h4>
-                </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
-            </div>
-        </div>
 </div>
-
-
-    <div id="print_wrapper" hidden> </div>
-    
-   
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
+</div>
         <!-- /.row -->
       
         <!-- /.row -->
       </div><!-- /.container-fluid -->
-     
     </section>
-
-    
     <!-- /.content -->
   </div>
-  
- 
-        
   <script type="text/javascript">
    var rows_selected = [];
     function toggle(source) {
@@ -346,8 +187,8 @@
                         ],
                         paginationType: 'numbers',
                         "language": {
-                            "search": "Хайх:"
-                        },
+    "search": "Хайх:"
+  },
                         lengthMenu: [1000, 2000, 3000, 4000], 
                     });
                     // setInterval(function(){  table.ajax.reload();  },30000);
@@ -366,13 +207,20 @@
                 let customer = $('#filterByCustomer').val();
 
                 loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+    
+
+                
                 $('#filterByStatus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $(this).val();
                     var bus = $('#filterByBus').val();
                     var driver = $('#filterByDriver').val();
                     loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-                });                
+                });
+
+
+
+                
                 $('#filterByBus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $('#filterByStatus').val();
@@ -406,21 +254,20 @@
 
                 $(document).on('click', '#btnBusModal', function() {
                     $('#busModal').attr('style','display:block');
-                    console.log("hi");
-            });
+                });
 
                 window.updateCount = function() {
-                    var x = $(".checkbox:checked").length;
-                    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
-                };
+    var x = $(".checkbox:checked").length;
+    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
+};
 
-                $(document).on('click', '#btnDriverModal', function() {
-                    $('#driverModal').attr('style','display:block');
-                    console.log("btnDeleteModal");
 
+                $(document).on('click', '#btnDriveModal', function() {
+                    $('#driveModal').attr('style','display:block');
                 });
     
                 $(document).on('click', '#btnDeleteModal', function() {
+                    console.log("btnDeleteModal");
                     $('#deleteModal').attr('style','display:block');
                 });
 
@@ -490,6 +337,7 @@
                     });
                 });
 
+
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");
                     console.log(rows_selected);
@@ -514,6 +362,8 @@
                 });
 
 
+           
+               
                 $(document).on('click', 'input[type="checkbox"]', function() {
                     // Get row ID
                     var rowId = $(this).attr('data-id');
@@ -607,12 +457,10 @@
     
         <script>
         // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.closing', function() {
+            $(document).on('click', '.close', function() {
             $('#customModal').attr('style','display:none');
             $('#statusModal').attr('style','display:none');
-            $('#driverModal').attr('style','display:none');
-            $('#deleteModal').attr('style','display:none');
-
+            $('#driveModal').attr('style','display:none');
         $('#busModal').attr('style','display:none');
         });
 

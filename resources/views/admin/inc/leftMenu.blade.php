@@ -3,7 +3,12 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
+          @if(request()->is('home*'))
             <a href="{{route('home')}}" class="nav-link active">
+              @else 
+              <a href="{{route('home')}}" class="nav-link">
+
+              @endif
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Хянах самбар
@@ -12,9 +17,13 @@
             </a>
           
           </li>
-       
+          @if(request()->is('delivery*'))
           <li class="nav-item">
+            <a href="#" class="nav-link active">
+              @else 
+              <li class="nav-item">
             <a href="#" class="nav-link">
+              @endif
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Хүргэлт
@@ -67,8 +76,14 @@
               </li>
             </ul>
           </li>
+        
           <li class="nav-item">
-            <a href="#" class="nav-link">
+          @if(request()->is('order*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+
+              @endif
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Захиалга
@@ -110,7 +125,11 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+          @if(request()->is('region*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Бүс
@@ -135,7 +154,11 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+          @if(request()->is('good*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Барааны цэс
@@ -165,7 +188,40 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+          @if(request()->is('ware*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Агуулах
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/ware/index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Агуулах үүсгэх</p>
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a href="{{url('/ware/list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Жагсаалт</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
+          <li class="nav-item">
+          @if(request()->is('report*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif
               <i class="nav-icon fas fa-table"></i>
               <p>
                 Тайлан
@@ -204,6 +260,85 @@
                   <p>Тайлан захиалгаар</p>
                 </a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+          @if(request()->is('role*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Role
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/ware/index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Role үүсгэх</p>
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a href="{{url('/ware/list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Жагсаалт</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
+          <li class="nav-item">
+          @if(request()->is('user*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif              <i class="nav-icon fas fa-user"></i>
+              <p>
+                User
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/user/index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User үүсгэх</p>
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a href="{{url('/user/list')}}" class="nav-link">
+                  <i class="far fa-list nav-icon"></i>
+                  <p>Жагсаалт</p>
+                </a>
+              </li>
+            
+            </ul>
+          </li>
+          <li class="nav-item">
+          @if(request()->is('log*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Log
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+             
+              <li class="nav-item">
+                <a href="{{url('/ware/list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Жагсаалт</p>
+                </a>
+              </li>
+            
             </ul>
           </li>
         </ul>

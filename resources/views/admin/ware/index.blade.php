@@ -25,25 +25,16 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Хэрэглэгч үүсгэх</h3>
+                <h3 class="card-title">Агуулах үүсгэх</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'user/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'ware/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Нэр</label>
                     <input type="text" name="name" class="form-control"  placeholder="Нэр">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Нууц үг</label>
-                    <input type="text" name="password" class="form-control"  placeholder="Нууц үг">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Эрх</label>
-                    <input type="text" name="role" class="form-control"  placeholder="Role">
-                  </div>
-                
                 
                 </div>
                 <!-- /.card-body -->

@@ -5,9 +5,9 @@ use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
-use App\Models\Order;
+use App\Models\Ware;
 
-class DeliveryController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,24 +26,21 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        return view('admin.delivery.index');
+        return view('admin.user.index');
     }
 
     public function create(Request $request){ 
         
-        $order = new Delivery();
-        $order->shop = $request->shop;
-        $order->phone = $request-> phone;
-        $order->address = $request->address;
-        $order->comment = $request-> comment;
+        $order = new Ware();
+        $order->name = $request->name;
         $order->save();
-        return redirect('/order/list')->with('message','Амжилттай хадгалагдлаа');
+        return redirect('/ware/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
     public function list(){
-       
-        return view('admin.order.list');
+        $ware=Ware::all();
+        return view('admin.ware.list',compact('ware'));
     }
 
     public function loadOrderDataTable(Request $request)

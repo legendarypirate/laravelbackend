@@ -68,9 +68,23 @@ Route::prefix('region')->group(function(){;
     Route::post('/create',[App\Http\Controllers\RegionController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\RegionController::class, 'list']);
 });
+
+Route::prefix('ware')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\WareController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\WareController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\WareController::class, 'list']);
+});
 Route::prefix('good')->group(function(){;
     Route::get('/index',[App\Http\Controllers\GoodController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\GoodController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\GoodController::class, 'list']);
     Route::post('/income',[App\Http\Controllers\GoodController::class, 'income']);
 });
+
+Route::prefix('user')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\UserController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\UserController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\UserController::class, 'list']);
+    Route::post('/income',[App\Http\Controllers\UserController::class, 'income']);
+});
+

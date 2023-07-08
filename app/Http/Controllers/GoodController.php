@@ -31,19 +31,19 @@ class GoodController extends Controller
 
     public function create(Request $request){ 
         
-        $order = new Order();
+        $order = new Good();
         $order->shop = $request->shop;
-        $order->phone = $request-> phone;
-        $order->address = $request->address;
-        $order->comment = $request-> comment;
+        $order->ware = $request-> ware;
+        $order->goodname = $request->goodname;
+        $order->price = $request-> price;
         $order->save();
-        return redirect('/order/list')->with('message','Амжилттай хадгалагдлаа');
+        return redirect('/good/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
     public function list(){
        
-        return view('admin.order.list');
+        return view('admin.good.list');
     }
 
     public function loadOrderDataTable(Request $request)
