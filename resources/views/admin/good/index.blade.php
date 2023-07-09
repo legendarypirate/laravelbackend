@@ -29,7 +29,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'user/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'good/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Нэр</label>
