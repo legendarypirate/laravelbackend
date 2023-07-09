@@ -40,9 +40,9 @@ Route::prefix('order')->group(function(){;
     Route::post('/bulk','DeliveryController@bulk');
     Route::get('/change_status_on_delivery','DeliveryController@change_status_on_delivery')->name('change_status_on_delivery');
     Route::get('/change_bus_on_delivery','DeliveryController@change_bus_on_delivery')->name('change_bus_on_delivery');
-    Route::get('/change_driver_on_delivery','DeliveryController@change_driver_on_delivery')->name('change_driver_on_delivery');
-    Route::get('/phone/{id}', 'DeliveryController@phone'); 
-    Route::get('/address/{id}', 'DeliveryController@address');
+    Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add.to.cart');
+    Route::patch('update-cart', [ProductController::class, 'update'])->name('update.cart');
+    Route::delete('remove-from-cart', [ProductController::class, 'remove'])->name('remove.from.cart');
     Route::get('/datatable-delivery', [DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
     Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
 
@@ -88,3 +88,8 @@ Route::prefix('user')->group(function(){;
     Route::post('/income',[App\Http\Controllers\UserController::class, 'income']);
 });
 
+Route::prefix('role')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\RoleController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\RoleController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\RoleController::class, 'list']);
+});

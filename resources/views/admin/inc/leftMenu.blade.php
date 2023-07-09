@@ -275,14 +275,14 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/ware/index')}}" class="nav-link">
+                <a href="{{url('/role/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Role үүсгэх</p>
                 </a>
               </li>
              
               <li class="nav-item">
-                <a href="{{url('/ware/list')}}" class="nav-link">
+                <a href="{{url('/role/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Жагсаалт</p>
                 </a>
