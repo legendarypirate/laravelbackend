@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 01, 2023 at 08:52 AM
+-- Generation Time: Jul 15, 2023 at 04:03 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -36,6 +36,29 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `goods`
+--
+
+CREATE TABLE `goods` (
+  `id` int(11) NOT NULL,
+  `shop` varchar(255) DEFAULT NULL,
+  `ware` varchar(255) DEFAULT NULL,
+  `goodname` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `goods`
+--
+
+INSERT INTO `goods` (`id`, `shop`, `ware`, `goodname`, `price`, `created_at`, `updated_at`) VALUES
+(4, 'tete', 'tetete', 'tetet', '1111', '2023-07-04 13:34:29', '2023-07-04 13:34:29');
 
 -- --------------------------------------------------------
 
@@ -135,7 +158,29 @@ CREATE TABLE `regions` (
 
 INSERT INTO `regions` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (4, 'urd', '2023-06-30 20:06:36', '2023-06-30 20:06:36'),
-(5, 'qqq', '2023-06-30 20:12:09', '2023-06-30 20:12:09');
+(5, 'qqq', '2023-06-30 20:12:09', '2023-06-30 20:12:09'),
+(6, 'baruun', '2023-07-04 14:00:05', '2023-07-04 14:00:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `guard_name` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(8, NULL, 'web', '2023-07-08 02:04:23', '2023-07-08 02:04:23');
 
 -- --------------------------------------------------------
 
@@ -161,6 +206,26 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'bb', 'bb@yahoo.com', NULL, '$2y$10$WyBBnCbbkswV8Vim7iBy.u1e43qkTrdiKbuvcAqo6j2qHFkAlfy96', NULL, '2023-06-30 17:21:55', '2023-06-30 17:21:55');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wares`
+--
+
+CREATE TABLE `wares` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `wares`
+--
+
+INSERT INTO `wares` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(7, 'ddd', '2023-07-04 19:19:06', '2023-07-04 19:19:06');
+
 --
 -- Indexes for dumped tables
 --
@@ -171,6 +236,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `goods`
+--
+ALTER TABLE `goods`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `migrations`
@@ -205,11 +276,23 @@ ALTER TABLE `regions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wares`
+--
+ALTER TABLE `wares`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -220,6 +303,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `goods`
+--
+ALTER TABLE `goods`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -243,13 +332,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `regions`
 --
 ALTER TABLE `regions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `wares`
+--
+ALTER TABLE `wares`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

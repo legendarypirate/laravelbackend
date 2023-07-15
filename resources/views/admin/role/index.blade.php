@@ -37,7 +37,7 @@
                   </div>
                 
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card-body --> 
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Хадгалах</button>
