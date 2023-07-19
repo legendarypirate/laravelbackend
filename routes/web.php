@@ -33,7 +33,7 @@ Route::prefix('order')->group(function(){;
     Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
 
     Route::get('/deleted','DeliveryController@deleted');
-    Route::get('/finish','DeliveryController@finish');
+    Route::get('/done','DeliveryController@done');
     Route::get('/del_delete','DeliveryController@del_delete')->name('del_delete');
     Route::get('/edit/{id}','DeliveryController@edit');
     Route::post('/edit','DeliveryController@update');
@@ -56,10 +56,14 @@ Route::prefix('order')->group(function(){;
 
 Route::prefix('delivery')->group(function(){;
     Route::get('/index',[App\Http\Controllers\DeliveryController::class, 'index']);
+    Route::get('/new',[App\Http\Controllers\DeliveryController::class, 'new']);
+    Route::get('/received',[App\Http\Controllers\DeliveryController::class, 'received']);
+    Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
-    Route::get('/datatable-order', [App\Http\Controllers\DeliveryController::class, 'loadOrderDataTable'])->name('datatable-order'); 
-    Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+    Route::get('/datatable-delivery', [App\Http\Controllers\DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
+    Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+    Route::get('/change_driver_on_delivery',[App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('change_driver_on_delivery');
 });
 
 
@@ -92,4 +96,11 @@ Route::prefix('role')->group(function(){;
     Route::get('/index',[App\Http\Controllers\RoleController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\RoleController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\RoleController::class, 'list']);
+});
+
+Route::prefix('log')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\LogController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\LogController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\LogController::class, 'list']);
+    Route::post('/income',[App\Http\Controllers\LogController::class, 'income']);
 });

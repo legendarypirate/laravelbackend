@@ -38,38 +38,38 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/order/list')}}" class="nav-link">
+                <a href="{{url('/delivery/new')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Шинэ хүргэлт</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/delivery/received')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Хүлээн авсан</p>
                 </a>
               </li>
            
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/delivery/deleted')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Устгасан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/delivery/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Хүргэлтийн жагсаалт</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/delivery/done')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Дууссан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/delivery/report')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Тайлан</p>
                 </a>
@@ -333,7 +333,7 @@
               
              
               <li class="nav-item">
-                <a href="{{url('/ware/list')}}" class="nav-link">
+                <a href="{{url('/log/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Жагсаалт</p>
                 </a>

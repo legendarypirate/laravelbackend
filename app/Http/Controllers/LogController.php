@@ -5,10 +5,9 @@ use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
-use App\Models\Order;
-use App\Models\Good;
+use App\Models\Log;
 
-class DeliveryController extends Controller
+class LogController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,87 +24,16 @@ class DeliveryController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('admin.delivery.index');
-    }
-
-    public function create(Request $request){ 
-        
-        $order = new Delivery();
-        $order->shop = $request->shop;
-        $order->phone = $request-> phone;
-        $order->address = $request->address;
-        $order->comment = $request-> comment;
-        $order->save();
-        return redirect('/delivery/new')->with('message','Амжилттай хадгалагдлаа');
-
-    }
-
-    public function addToCart($id)
-    {
-        $product = Product::findOrFail($id);
-          
-        $cart = session()->get('cart', []);
-  
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price
-            ];
-        }
-          
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
-    }
-
-    public function update(Request $request)
-    {
-        if($request->id && $request->quantity){
-            $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
-            session()->put('cart', $cart);
-            session()->flash('success', 'Cart updated successfully');
-        }
-    }
-  
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function remove(Request $request)
-    {
-        if($request->id) {
-            $cart = session()->get('cart');
-            if(isset($cart[$request->id])) {
-                unset($cart[$request->id]);
-                session()->put('cart', $cart);
-            }
-            session()->flash('success', 'Product removed successfully');
-        }
-    }
+   
+   
 
     public function list(){
-        return view('admin.order.list');
+        
+        $log=Log::all();
+        return view('admin.log.list',compact('log'));
     }
 
-    public function new(){
-        return view('admin.delivery.new');
-    }
-
-    public function received(){
-        return view('admin.delivery.received');
-    }
-
-    public function deleted(){
-        return view('admin.delivery.deleted');
-    }
-
-    public function loadDeliveryDataTable(Request $request)
+    public function loadOrderDataTable(Request $request)
     {
         if ($request->ajax()) {
             $user_id = Auth::user()->id;
@@ -120,13 +48,12 @@ class DeliveryController extends Controller
             $start_date = $request->get('start_date',0);
             $late = $request->get('late',0);
             $customer = $request->get('customer',0);
-            $status_100 = $request->get('status_100',0);
+
             $end_date = $request->get('end_date',0);
             $driverselected = $request->get('driver',0);
             $except_status = $request->get('except_status',0);
             $except_stat = $request->get('except_stat',0);
-            $status_10 = $request->get('status_10',0);
-            $status_1 = $request->get('status_1',0);
+
             $offset = $request->get('start', 0);
             $limit = $request->get('length', 10);
             if ($limit < 1 OR $limit > 500) {
@@ -172,8 +99,6 @@ class DeliveryController extends Controller
                 'order_dir' => $orderColumnDir,
                 'ids' => $ids,
                 'status' => $status,
-                'status_10' => $status_10,
-                'status_1' => $status_1,
                 'tuluv' => $tuluv,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
@@ -181,8 +106,9 @@ class DeliveryController extends Controller
                 'note' => $note,
                 'late' => $late,
                 'customer' => $customer,
-                'phone' => $phone,
-                'address' => $address,
+
+            'phone' => $phone,
+            'address' => $address,
                 'driverselected' => $driverselected,
                 'except_status' => $except_status,
                 'except_stat' => $except_stat,
@@ -190,9 +116,9 @@ class DeliveryController extends Controller
             ];
 
           
-            $data = Delivery::GetExcelData($Params);
+            $data = Order::GetExcelData($Params);
            
-            $dataCount = Delivery::GetExcelDataCount($Params);
+            $dataCount = Order::GetExcelDataCount($Params);
             $table = Datatables::of($data)
                         ->addColumn('checkbox', function ($row) {
                             return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="'.$row->id.'" value="'.$row->id.'">';
@@ -200,19 +126,24 @@ class DeliveryController extends Controller
                         ->addColumn('id', function ($row) {
                             return $row->id;
                         })
+
+                        
                         ->addColumn('shop', function ($row) {
                             return $row->shop;
                         })
                         ->addColumn('phone', function ($row) {
                             return $row->phone;
                         })
+                      
                         ->addColumn('address', function ($row) {
                             return $row->address;
                         })
                         ->addColumn('comment', function ($row) {
                             return  '
+                             
                             <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
-                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <input type="hidden" value="'.$row->id.'" name="realid">
+                            
                             <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
                             <a class="font-medium whitespace-nowrap"></a>
                        ';
@@ -231,8 +162,10 @@ class DeliveryController extends Controller
                                 return 'Жолооч хүлээн авсан';
                             }elseif($row->status==4) {
                                 return 'Дууссан';
-                            }                   
+                            }
+                                                  
                         })
+
                         ->addColumn('region', function ($row) {
                             if(Auth::user()->role=='Customer'){
                                 return '';
@@ -240,13 +173,15 @@ class DeliveryController extends Controller
                                 return $row->region;
                             }
                         })
+                        
                         ->addColumn('driver', function ($row) {
                                        if(Auth::user()->role=='Customer'){
                                            return '';
                                        } else {
                                            return $row->driver;
-                                       }              
-                        })
+                                       }
+                                      
+                                   })
                         ->addColumn('actions', function ($row) {
                                     if(Auth::user()->role=='Customer')
                                                                 {
@@ -280,10 +215,12 @@ class DeliveryController extends Controller
                                                                 }
                                                                 return $actions;
                         })
+                       
                         ->rawColumns(['checkbox','actions','comment'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);
+
             return $table;
         }
     }
