@@ -25,29 +25,28 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Хэрэглэгч үүсгэх</h3>
+                <h3 class="card-title">Утас үүсгэх</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'user/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'phone/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Нэр</label>
-                    <input type="text" name="name" class="form-control"  placeholder="Нэр">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Нууц үг</label>
-                    <input type="password" name="password" class="form-control"  placeholder="Нууц үг">
-                  </div>
-                  <div class="form-group">
-                        <label for="exampleSelectRounded0">Role <code></code></label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="role">
-                        <option value="admin">admin</option>
-                        <option value="admin">customer</option>
-                        <option value="driver">driver</option>
+                 <div class="form-group">
+                        <label for="exampleSelectRounded0">Овор <code></code></label>
+                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="userid">
+                        <?php $user=DB::table('users')->where('id','!=','1')->get(); ?>
+                        @foreach($user as $users)
+                        <option value="{{$users->id}}">{{$users->name}}</option>
+                        @endforeach
                         </select>
                   </div>
+               
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Утас</label>
+                    <input type="phone" name="phone" class="form-control"  placeholder="Утас">
+                  </div>
                 </div>
+                
                 <!-- /.card-body -->
 
                 <div class="card-footer">

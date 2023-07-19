@@ -22,13 +22,15 @@ class Delivery extends Model
         $status10=NULL;
         $status100=NULL;
         $idsFilter = NULL;
-        $statusFilter = NULL;
         $tuluvFilter=NULL;
         $regionFilter = NULL;
         $driverFilter = NULL;
         $limitFilter = NULL;
-        $exceptStatusFilter = NULL;
-        $exceptStatFilter = NULL;
+        $status2 = NULL;
+        $status6 = NULL;
+        $status3 = NULL;
+        $status4 = NULL;
+        $status5 = NULL;
         $custFilter = NULL;
         $joinUsersTable = NULL;
         $roleFilter = NULL;
@@ -36,26 +38,39 @@ class Delivery extends Model
         $late = NULL;
 
         if (!empty($Params['ids'])) {
-            $idsFilter = "AND orders.id in ({$Params['ids']})";
+            $idsFilter = "AND deliveries.id in ({$Params['ids']})";
         }
 
         if (!empty($Params['status'])) {
             $statusFilter = "AND `status`= {$Params['tuluv']}";
         }
 
-        if (!empty($Params['tuluv'])) {
-            $tuluvFilter = "AND `status`= {$Params['tuluv']}";
-        }
-
         if (!empty($Params['customer'])) {
-            $custFilter = "AND organization= '{$Params['customer']}'";
+            $custFilter = "AND shop= '{$Params['customer']}'";
         }
         if (!empty($Params['status_10'])) {
             $status10 = "AND status in('{$Params['status_10']}')";
         }
 
+        if (!empty($Params['status_3'])) {
+            $status3 = "AND status in('{$Params['status_3']}')";
+        }
+        if (!empty($Params['status_4'])) {
+            $status4 = "OR status in('{$Params['status_4']}')";
+        }
+        if (!empty($Params['status_5'])) {
+            $status5 = "OR status in('{$Params['status_5']}')";
+        }
+
         if (!empty($Params['status_100'])) {
-            $status10 = "AND status in('{$Params['status_100']}')";
+            $status100 = "AND status in('{$Params['status_100']}')";
+        }
+
+        if (!empty($Params['status_2'])) {
+            $status2 = "AND status in ('{$Params['status_2']}')";
+        }
+        if (!empty($Params['status_6'])) {
+            $status6 = "OR status in ('{$Params['status_6']}')";
         }
         
         if (!empty($Params['status_1'])) {
@@ -67,7 +82,7 @@ class Delivery extends Model
         
 
         if (!empty($Params['driverselected'])) {
-            $driverFilter = "AND driverselected= '{$Params['driverselected']}'";
+            $driverFilter = "AND driver= '{$Params['driverselected']}'";
         }
 
         if ($Params['role']=='Customer') {
@@ -93,36 +108,33 @@ class Delivery extends Model
             $limitFilter = "LIMIT {$limit} OFFSET {$offset}";
         }
 
-        if (!empty($Params['except_status'])) {
-            $exceptStatusFilter = "AND status not in('{$Params['except_status']}')";
-        }
-        if (!empty($Params['except_stat'])) {
-            $exceptStatFilter = "AND status not in('{$Params['except_stat']}')";
-        }
-
+      
         return DB::select(DB::raw("SELECT $deliveryTable.* 
                         FROM
                             $deliveryTable
                             {$joinUsersTable}
                         WHERE 1 = 1
                         {$idsFilter}
-                        {$statusFilter}
                         {$tuluvFilter}
                         {$status1}
                         {$status10}
                         {$status100}
+                        {$status2}
+                        {$status6}
+                        {$status3}
+                        {$status4}
+                        {$status5}
                         {$regionFilter}
                         {$custFilter}
                         {$driverFilter}
-                        {$exceptStatusFilter}
-                        {$exceptStatFilter}
                         {$roleFilter}
                         {$date_filter}
                         {$orderByFilter}
                         {$limitFilter}
                 "));
+                
     }
-
+    
     /**
      * Query for `Delivery` data Count
      *
@@ -150,6 +162,11 @@ class Delivery extends Model
         $status10=NULL;
         $status1=NULL;
         $status100=NULL;
+        $status2 = NULL;
+        $status6 = NULL;
+        $status3= NULL;
+        $status4 = NULL;
+        $status5 = NULL;
 
         if (!empty($Params['ids'])) {
             $idsFilter = "AND orders.id in ({$Params['ids']})";
@@ -167,8 +184,25 @@ class Delivery extends Model
             $status10 = "AND status in('{$Params['status_10']}')";
         }
 
+        if (!empty($Params['status_3'])) {
+            $status3 = "AND status in ('{$Params['status_3']}')";
+        }
+        if (!empty($Params['status_4'])) {
+            $status4 = "OR status in ('{$Params['status_4']}')";
+        }
+        if (!empty($Params['status_5'])) {
+            $status5 = "OR status in ('{$Params['status_5']}')";
+        }
+
         if (!empty($Params['status_100'])) {
             $status100 = "AND status in('{$Params['status_100']}')";
+        }
+
+        if (!empty($Params['status_2'])) {
+            $status2 = "AND status in ('{$Params['status_2']}')";
+        }
+        if (!empty($Params['status_6'])) {
+            $status6 = "AND status in ('{$Params['status_6']}')";
         }
 
          if (!empty($Params['customer'])) {
@@ -180,7 +214,7 @@ class Delivery extends Model
         }
    
         if (!empty($Params['driverselected'])) {
-            $driverFilter = "AND driverselected= '{$Params['driverselected']}'";
+            $driverFilter = "AND driver= '{$Params['driverselected']}'";
         }
 
         if (!empty($Params['except_status'])) {
@@ -220,6 +254,11 @@ class Delivery extends Model
                     {$status1}
                     {$status10}
                     {$status100}
+                    {$status2}
+                    {$status6}
+                    {$status3}
+                    {$status4}
+                    {$status5}
                     {$exceptStatusFilter}
                     {$exceptStatFilter}
                     {$roleFilter}

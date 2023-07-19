@@ -5,9 +5,9 @@ use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
-use App\Models\User;
+use App\Models\Phone;
 
-class UserController extends Controller
+class PhoneController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,23 +26,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user.index');
+        return view('admin.phone.index');
     }
 
     public function create(Request $request){ 
         
-        $user = new User();
-        $user->name = $request->name;
-        $user->password=bcrypt($request->password);
-        $user->role = $request->role;
-        $user->save();
-        return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
+        $phone = new Phone();
+        $phone->userid = $request->userid;
+        $phone->phone = $request-> phone;
+        $phone->save();
+        return redirect('/phone/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
     public function list(){
-        $ware=User::all();
-        return view('admin.user.list',compact('ware'));
+        $phone=Phone::all();
+        return view('admin.phone.list',compact('phone'));
     }
 
     public function loadOrderDataTable(Request $request)

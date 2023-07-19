@@ -90,11 +90,15 @@ class DeliveryController extends Controller
     }
 
     public function list(){
-        return view('admin.order.list');
+        return view('admin.delivery.list');
     }
 
     public function new(){
         return view('admin.delivery.new');
+    }
+
+    public function done(){
+        return view('admin.delivery.done');
     }
 
     public function received(){
@@ -127,6 +131,11 @@ class DeliveryController extends Controller
             $except_stat = $request->get('except_stat',0);
             $status_10 = $request->get('status_10',0);
             $status_1 = $request->get('status_1',0);
+            $status_6 = $request->get('status_6',0);
+            $status_2 = $request->get('status_2',0);
+            $status_3 = $request->get('status_3',0);
+            $status_4 = $request->get('status_4',0);
+            $status_5 = $request->get('status_5',0);
             $offset = $request->get('start', 0);
             $limit = $request->get('length', 10);
             if ($limit < 1 OR $limit > 500) {
@@ -173,7 +182,13 @@ class DeliveryController extends Controller
                 'ids' => $ids,
                 'status' => $status,
                 'status_10' => $status_10,
+                'status_100' => $status_100,
                 'status_1' => $status_1,
+                'status_6' => $status_6,
+                'status_2' => $status_2,
+                'status_5' => $status_5,
+                'status_4' => $status_4,
+                'status_3' => $status_3,
                 'tuluv' => $tuluv,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
@@ -184,14 +199,8 @@ class DeliveryController extends Controller
                 'phone' => $phone,
                 'address' => $address,
                 'driverselected' => $driverselected,
-                'except_status' => $except_status,
-                'except_stat' => $except_stat,
-
             ];
-
-          
             $data = Delivery::GetExcelData($Params);
-           
             $dataCount = Delivery::GetExcelDataCount($Params);
             $table = Datatables::of($data)
                         ->addColumn('checkbox', function ($row) {
@@ -249,36 +258,36 @@ class DeliveryController extends Controller
                         })
                         ->addColumn('actions', function ($row) {
                                     if(Auth::user()->role=='Customer')
-                                                                {
-                                                                    $actions = '
-                                                                <div class="flex justify-center items-center">
-                                                                    
-                                                                    <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                                    Устгах</a>
-                                                                </div>
-                                                                ';
-                                                                } elseif(Auth::user()->role=='operator'){
-                                                                    $actions = '
-                                                                    <div class="flex justify-center items-center">
-                                                                        <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                                                                        Дэлгэрэнгүй  </a>
-                                                                        </div>';
-                                                                }
-                                                                
-                                                                else {
-                                                                    $actions = '
-                                                                    <div class="flex justify-center items-center">
-                                                                        <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                                                                        Дэлгэрэнгүй  </a>
-                                                                        <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                                        Устгах</a>
-                                                                    </div>';
-                                                                }
-                                                                return $actions;
+                                        {
+                                            $actions = '
+                                        <div class="flex justify-center items-center">
+                                            
+                                            <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            Устгах</a>
+                                        </div>
+                                        ';
+                                        } elseif(Auth::user()->role=='operator'){
+                                            $actions = '
+                                            <div class="flex justify-center items-center">
+                                                <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                                                Дэлгэрэнгүй  </a>
+                                                </div>';
+                                        }
+                                        
+                                        else {
+                                            $actions = '
+                                            <div class="flex justify-center items-center">
+                                                <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                                                Дэлгэрэнгүй  </a>
+                                                <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                Устгах</a>
+                                            </div>';
+                                        }
+                                        return $actions;
                         })
                         ->rawColumns(['checkbox','actions','comment'])
                         ->skipPaging()

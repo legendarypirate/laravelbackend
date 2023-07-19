@@ -58,6 +58,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/index',[App\Http\Controllers\DeliveryController::class, 'index']);
     Route::get('/new',[App\Http\Controllers\DeliveryController::class, 'new']);
     Route::get('/received',[App\Http\Controllers\DeliveryController::class, 'received']);
+    Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
     Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
@@ -103,4 +104,16 @@ Route::prefix('log')->group(function(){;
     Route::post('/create',[App\Http\Controllers\LogController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\LogController::class, 'list']);
     Route::post('/income',[App\Http\Controllers\LogController::class, 'income']);
+});
+
+Route::prefix('phone')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\PhoneController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\PhoneController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\PhoneController::class, 'list']);
+});
+
+Route::prefix('address')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\AddressController::class, 'index']);
+    Route::post('/create',[App\Http\Controllers\AddressController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\AddressController::class, 'list']);
 });
