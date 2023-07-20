@@ -451,8 +451,8 @@ class ComposerStaticInit183d3dee93d7f20c33f7af05c7d07356
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
-            1 => __DIR__ . '/..' . '/league/uri/src',
+            0 => __DIR__ . '/..' . '/league/uri/src',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
         ),
         'League\\OAuth2\\Server\\' => 
         array (
@@ -670,6 +670,7 @@ class ComposerStaticInit183d3dee93d7f20c33f7af05c7d07356
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\PhoneController' => __DIR__ . '/../..' . '/app/Http/Controllers/PhoneController.php',
         'App\\Http\\Controllers\\RegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegionController.php',
+        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\WareController' => __DIR__ . '/../..' . '/app/Http/Controllers/WareController.php',
@@ -684,9 +685,12 @@ class ComposerStaticInit183d3dee93d7f20c33f7af05c7d07356
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\Address' => __DIR__ . '/../..' . '/app/Models/Address.php',
         'App\\Models\\Delivery' => __DIR__ . '/../..' . '/app/Models/Delivery.php',
+        'App\\Models\\General' => __DIR__ . '/../..' . '/app/Models/General.php',
         'App\\Models\\Good' => __DIR__ . '/../..' . '/app/Models/Good.php',
         'App\\Models\\Log' => __DIR__ . '/../..' . '/app/Models/Log.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
+        'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
+        'App\\Models\\PermissionCategory' => __DIR__ . '/../..' . '/app/Models/PermissionCategory.php',
         'App\\Models\\Phone' => __DIR__ . '/../..' . '/app/Models/Phone.php',
         'App\\Models\\Region' => __DIR__ . '/../..' . '/app/Models/Region.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',

@@ -149,3 +149,12 @@ Route::prefix('report')->group(function(){;
     Route::get('/report_compile_customer',[App\Http\Controllers\ReportController::class, 'report_compile_customer'])->name('report_compile_customer');
 
 });
+
+
+Route::prefix('role')->group(function(){
+    Route::get('list', [App\Http\Controllers\RoleController::class, 'list']);
+    Route::get('index', [App\Http\Controllers\RoleController::class, 'index'])->name('role.index');
+    Route::post('create', [App\Http\Controllers\RoleController::class, 'create'])->name('role.create');
+    Route::get('edit/{id}', [App\Http\Controllers\RoleController::class, 'editRole'])->name('role.edit');
+    Route::post('update/{id}', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('role.update');
+});

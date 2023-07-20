@@ -32,8 +32,13 @@
               {!! Form::open(['url' => 'delivery/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Дэлгүүр</label>
-                    <input type="text" name="shop" class="form-control"  placeholder="Дэлгүүр">
+                  <label for="exampleSelectRounded0">Захиалга <code></code></label>
+                        <select class="custom-select rounded-0" name="shop" id="deliver">
+                        <?php $user=DB::table('users')->where('role','=','customer')->get(); ?>
+                        @foreach($user as $users)
+                        <option value="{{$users->id}}">{{$users->name}}</option>
+                        @endforeach
+                        </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Утас</label>

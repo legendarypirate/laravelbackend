@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-// use App\PermissionCategory;
-// use App\User;
-// use App\Log;
+use App\Models\PermissionCategory;
+use App\Models\User;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use DB;
 use Mail;
@@ -24,11 +24,14 @@ class RoleController extends Controller
     }
 
     public function create(Request $request){
-        
-        $roles=new Role();
-        $roles->name=$request->role;
-        $roles->save();
-        return redirect(route('role.list'));
+        $data = $request->all();
+
+        $role = Role::where('name',$request->name)->first();
+        if(!$role){
+
+            Role::create($data);
+        }
+        return redirect('/role/list');
     }
 
     public function editRole($id){
