@@ -94,110 +94,13 @@
 
             <script type="text/javascript">
                 var $j = jQuery.noConflict();
-                $(document).ready(function($j){
-                const deliveryTableUrl = '{{ route('datatable-order') }}';
-                
-                const loadDeliveryDataTable = (status,bus,driver,customer,except_status,except_stat) => {
-                  var table =  $j('#datatable').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        bDestroy: true,
-                        ajax: {
-                            type: 'GET',
-                            url: deliveryTableUrl,
-                            data: {
-                                status: status,
-                                region: bus,
-                                driver: driver,
-                                customer: customer,
-                                except_status : except_status,
-                                except_stat : except_stat
-
-                            },
-                            dataSrc: function ( json ) {
-    
-                            //console.log(json);
-    
-                             return json.data;
-                            }
-                        },
-    
-    
-                        columns: [
-                            {
-                                name: 'checkbox',
-                                data: 'checkbox',
-                            },
-                            {
-                                name: 'created_at',
-                                data: 'created_at'
-                            },
-                            {
-                                name: 'shop',
-                                data: 'shop'
-                            },
-                            {
-                                name: 'phone',
-                                data: 'phone'
-                            },
-                            {
-                                name: 'address',
-                                data: 'address'
-                            },
-                           
-                            {
-                                name: 'status',
-                                data: 'status'
-                            },
-                            {
-                                name: 'region',
-                                data: 'region'
-                            },
-                            {
-                                name: 'driver',
-                                data: 'driver'
-                            },
-                            {
-                                name: 'comment',
-                                data: 'comment'
-                            },
-                            {
-                                name: 'actions',
-                                data: 'actions'
-                            }
-                            
-                        ],
-                        columnDefs: [
-                            {
-                                'targets': 0,
-                                'searchable':false,
-                                'orderable':false,
-                                'width':'1%',
-                                'className': 'dt-body-center',
-                                
-                            },
-                            {
-                                targets: [7],
-                                orderable: false
-                            },
-                            {
-                                targets: [1],
-                                className: 'text-center'
-                            }
-                        ],
-                        paginationType: 'numbers',
-                        "language": {
-    "search": "Хайх:"
-  },
-                        lengthMenu: [1000, 2000, 3000, 4000], 
-                    });
+              
                     // setInterval(function(){  table.ajax.reload();  },30000);
 
                     //selectedIds.forEach(function(selectedId) {
                    // alert(selectedId);
                     //}
     
-                }
                 let except_status = 3;
                 let except_stat = 4;
 
@@ -294,26 +197,7 @@
                     });
                 });
 
-                $('.btn_delete').click(function () {
-                        console.log("btn_delete click");
-                        console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
-                        var ids = rows_selected.join(",");
-                           
-                        $.ajax({
-                            type: 'GET',
-                            url: changeVerifyUrl,
-                            data: {
-                                ids : ids
-                                },
-                            beforeSend: function() {
-                                console.log("Loading");
-                                                    }
-                            }).done(function(result) {
-                            $('#customModal').attr('style','display:none');
-                            window.location.reload();
-                    });
-                });
+                
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);

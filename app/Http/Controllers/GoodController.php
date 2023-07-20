@@ -6,6 +6,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Good;
+use Illuminate\Support\Facades\DB;
 
 class GoodController extends Controller
 {
@@ -29,21 +30,40 @@ class GoodController extends Controller
         return view('admin.good.index');
     }
 
+    public function income()
+    {
+        return view('admin.good.income');
+    }
+
     public function create(Request $request){ 
-        
         $order = new Good();
         $order->shop = $request->shop;
         $order->ware = $request-> ware;
-        $order->good = $request->good;
+        $order->goodname = $request->goodname;
         $order->price = $request-> price;
         $order->save();
         return redirect('/good/list')->with('message','Амжилттай хадгалагдлаа');
+    }
 
+    public function add(Request $request){
+          $good=Good::find($request->goodid);
+        if($request->type==1){
+                $good->end=$good->end+$request->count;
+                $good->count=$good->count+$request->count;
+        } else {
+                 $good->end=$good->end-$request->count;
+                 $good->count=$good->count-$request->count;
+        }
+        $good->save();
+    }
+
+    public function good($name){
+        echo json_encode(DB::table('goods')->where('shop', $name)->get());
     }
 
     public function list(){
-       
-        return view('admin.good.list');
+        $good=Good::all();
+        return view('admin.good.list',compact('good'));
     }
 
     public function loadOrderDataTable(Request $request)
@@ -86,7 +106,6 @@ class GoodController extends Controller
                  'status',
                  'region',
                  'note',
-
                  'driverselected',
                  'actions'
             ];

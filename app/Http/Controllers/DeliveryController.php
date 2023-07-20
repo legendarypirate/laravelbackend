@@ -43,6 +43,11 @@ class DeliveryController extends Controller
 
     }
 
+
+    public function good($name){
+        echo json_encode(DB::table('goods')->where('shop', $name)->get());
+    }
+    
     public function addToCart($id)
     {
         $product = Product::findOrFail($id);
@@ -360,13 +365,12 @@ class DeliveryController extends Controller
         $array_ids = array_filter(explode(',',$request->ids));
         $arr_tracking = array();
      
+        $ids = explode(',',$request->ids);
+        Delivery::whereIn('id',$ids)->update(['driver'=>$request->driverselected]);
+        Delivery::whereIn('id',$ids)->update(['status'=>'2']);
 
-            $ids = explode(',',$request->ids);
-            Delivery::whereIn('id',$ids)->update(['driver'=>$request->driverselected]);
-            Delivery::whereIn('id',$ids)->update(['status'=>'2']);
-
-            $data['driverselected'] = 1;
-            $data['message'] = "Success";
+        $data['driverselected'] = 1;
+        $data['message'] = "Success";
 
             // for($i=0; $i<count($array_ids);$i++){
             //     $dddd=Delivery::where('id','=',$array_ids[$i])->first();

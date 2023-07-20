@@ -94,14 +94,17 @@ Route::prefix('good')->group(function(){;
     Route::get('/index',[App\Http\Controllers\GoodController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\GoodController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\GoodController::class, 'list']);
+    Route::get('/good/{name}', [App\Http\Controllers\GoodController::class, 'good']); 
+    Route::get('/income',[App\Http\Controllers\GoodController::class, 'income']);
     Route::post('/income',[App\Http\Controllers\GoodController::class, 'income']);
+
 });
 
 Route::prefix('user')->group(function(){;
     Route::get('/index',[App\Http\Controllers\UserController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\UserController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\UserController::class, 'list']);
-    Route::post('/income',[App\Http\Controllers\UserController::class, 'income']);
+  
 });
 
 Route::prefix('role')->group(function(){;

@@ -25,15 +25,15 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Бараа үүсгэх</h3>
+                <h3 class="card-title">Бараа орлогодох</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'good/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'good/income', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Дэлгүүр</label>
-                    <select class="custom-select rounded-0" name="shop">
+                <div class="form-group">
+                        <label for="exampleSelectRounded0">Дэлгүүр <code></code></label>
+                        <select class="custom-select rounded-0" name="shop" id="deliver">
                         <?php $user=DB::table('users')->where('role','=','customer')->get(); ?>
                         @foreach($user as $users)
                         <option value="{{$users->name}}">{{$users->name}}</option>
@@ -41,23 +41,21 @@
                         </select>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Агуулах</label>
-                    <select class="custom-select rounded-0" name="ware">
-                        <?php $ware=DB::table('wares')->get(); ?>
-                        @foreach($ware as $wares)
-                        <option value="{{$wares->name}}">{{$wares->name}}</option>
-                        @endforeach
-                        </select>
-                  </div>
-                  <div class="form-group">
                     <label for="exampleInputEmail1">Барааны нэр</label>
-                    <input type="text" name="goodname" class="form-control"  placeholder="good">
+                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="goodid" id="field" >
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Үнэ</label>
-                    <input type="text" name="price" class="form-control"  placeholder="price">
+                    <label for="exampleInputEmail1">Төрөл</label>
+                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="type" >
+                            <option value="1">Орлого</option>
+                            <option value="2">Зарлага</option>
+                    </select>
                   </div>
-                
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Тоо</label>
+                    <input type="text" name="count" class="form-control"  placeholder="Тоо ширхэг">
+                  </div>
                 
                 </div>
                 <!-- /.card-body -->
@@ -102,5 +100,27 @@
     </section>
     <!-- /.content -->
   </div>
+<script>
+             $(document).ready(function () {
+                $('#deliver').on('change', function () {
+                    let name = $(this).val();
+                    $('#field').empty();
+                    $('#field').append(`<option value="0" disabled selected>Processing...</option>`);
+                    $.ajax({
+                    type: 'GET',
+                    url: 'good/' + name,
+                    success: function (response) {
+                    var response = JSON.parse(response);
+                    console.log(response);   
+                    $('#field').empty();
+        
+                    response.forEach(element => {
+                    $('#field').append(`<option value="${element['goodid']}">${element['goodname']}</option>`);
+                    });
+                            }
+                        });
+                    });
+                });
 
+</script>
 @endsection

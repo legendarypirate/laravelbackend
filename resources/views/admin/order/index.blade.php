@@ -32,7 +32,7 @@
               {!! Form::open(['url' => 'order/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                 <div class="form-group">
-                        <label for="exampleSelectRounded0">Овор <code></code></label>
+                        <label for="exampleSelectRounded0">Захиалга <code></code></label>
                         <select class="custom-select rounded-0" name="shop" id="deliver">
                         <?php $user=DB::table('users')->where('role','=','customer')->get(); ?>
                         @foreach($user as $users)
