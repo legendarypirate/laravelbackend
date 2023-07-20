@@ -33,7 +33,7 @@
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a style="color:white;">Print</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
           <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
          <div class="form-group">
@@ -139,7 +139,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_status">Солих</button>
             </div>
         </div>
 </div>
@@ -234,16 +234,14 @@
         
       }
 
-      checkboxes.forEach((input) => {
+        checkboxes.forEach((input) => {
                 if (input.checked) {
                     rows_selected.push(input.value);
                 }else{
                          rows_selected.length = 0;
                 }
             });
-
-    }
-
+        }
     $('input[name="foo"]').click(function() {
     document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
 
@@ -255,7 +253,6 @@
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
                 const deliveryTableUrl = '{{ route('datatable-order') }}';
-                
                 const loadDeliveryDataTable = (status,bus,driver,customer,except_status,except_stat) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
@@ -280,8 +277,6 @@
                              return json.data;
                             }
                         },
-    
-    
                         columns: [
                             {
                                 name: 'checkbox',
@@ -359,7 +354,6 @@
                 }
                 let except_status = 3;
                 let except_stat = 4;
-
                 let status = $('#filterByStatus').val();
                 let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
@@ -427,7 +421,7 @@
                 $('.btn_change_status').click(function () {
                     console.log("btn_change_status click");
                     console.log(rows_selected);
-                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
+                    const changeStatusUrl = '{{ route('change_status_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_status = $('.inputStatus1').val();
     
@@ -618,57 +612,52 @@
 
     
         $(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#customModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#statusModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#deleteModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 13) {
-    $('#dri').submit();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#driveModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#busModal').hide();
-  }
-});
-
+        if (event.keyCode == 27) {
+            $('#customModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#statusModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#deleteModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 13) {
+            $('#dri').submit();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#driveModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#busModal').hide();
+        }
+        });
         </script>
+    <style>
+    .dataTables_wrapper .dt-buttons {
+    position: absolute;
+    margin: 10px
+    }
 
+    div.dtsp-panesContainer:after {
+    content: '';
+    display: table;
+    clear: both;
+    }
+    .dtsp-title {
+    display: none;  
+    }
 
-
-
-<style>
-.dataTables_wrapper .dt-buttons {
-position: absolute;
-margin: 10px
-}
-
-div.dtsp-panesContainer:after {
-content: '';
-display: table;
-clear: both;
-}
-.dtsp-title {
-display: none;
-}
-
-#print_wrapper .table th {
+    #print_wrapper .table th {
     padding: 0.75rem 1.25rem;
     border: 1px solid;
     font-weight: 700;
@@ -690,5 +679,4 @@ display: none;
         }
     }
 </style>
-
-  @endsection
+@endsection

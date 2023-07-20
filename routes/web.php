@@ -38,7 +38,7 @@ Route::prefix('order')->group(function(){;
     Route::get('/edit/{id}','DeliveryController@edit');
     Route::post('/edit','DeliveryController@update');
     Route::post('/bulk','DeliveryController@bulk');
-    Route::get('/change_status_on_delivery','DeliveryController@change_status_on_delivery')->name('change_status_on_delivery');
+    Route::get('/change_status_on_order',[App\Http\Controllers\OrderController::class, 'change_status_on_order'])->name('change_status_on_order');
     Route::get('/change_bus_on_delivery','DeliveryController@change_bus_on_delivery')->name('change_bus_on_delivery');
     Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add.to.cart');
     Route::patch('update-cart', [ProductController::class, 'update'])->name('update.cart');
