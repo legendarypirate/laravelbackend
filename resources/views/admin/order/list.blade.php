@@ -149,7 +149,7 @@
                     <h4 class="modal-title">Бүс солих</h4>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control inputStatus1">
+                    <select class="form-control inputStatus3">
                         <?php $bus=DB::table('regions')->get(); ?>
                         @foreach($bus as $region)
                         <option value="{{$region->name}}">{{$region->name}}</option>
@@ -158,7 +158,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_bus">Солих</button>
             </div>
         </div>
 </div>
@@ -169,7 +169,7 @@
                     <h4 class="modal-title">Төлөв солих</h4>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control inputStatus1">
+                    <select class="form-control inputStatus4">
                     <?php $bus=DB::table('users')->get(); ?>
                         @foreach($bus as $region)
                         <option value="{{$region->name}}">{{$region->name}}</option>
@@ -178,7 +178,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
             </div>
         </div>
 </div>
@@ -186,19 +186,12 @@
 <div id="deleteModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
-                    <h4 class="modal-title">sss солих</h4>
+                    <h4 class="modal-title">Устгах</h4>
                 </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
-                    </select>       
-                </div>
+               
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
             </div>
         </div>
 </div>
@@ -444,7 +437,7 @@
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
                         console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
+                        const changeVerifyUrl = '{{ route('change_delete_on_order') }}';
                         var ids = rows_selected.join(",");
                            
                         $.ajax({
@@ -464,7 +457,7 @@
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
+                    const changeBusUrl = '{{ route('change_bus_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_bus = $('.inputStatus3').val();
     
@@ -487,7 +480,7 @@
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");
                     console.log(rows_selected);
-                    const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
+                    const changeDriverUrl = '{{ route('change_driver_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_driver = $('.inputStatus4').val();
     
@@ -496,7 +489,7 @@
                         url: changeDriverUrl,
                         data: {
                             ids : ids,
-                            driverselected : selected_driver
+                            driver : selected_driver
                         },
                         beforeSend: function() {
                             console.log("Loading");

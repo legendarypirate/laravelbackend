@@ -6,9 +6,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Phone;
+use App\Models\Address;
+use App\Models\User;
+
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExport;
 class OrderController extends Controller
@@ -21,6 +26,14 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function phone($id){
+        echo json_encode(DB::table('phones')->where('userid', $id)->get());
+    }
+
+    public function address($id){
+        echo json_encode(DB::table('addresses')->where('userid', $id)->get());
     }
 
     /**
@@ -36,9 +49,12 @@ class OrderController extends Controller
     public function create(Request $request){ 
         
         $order = new Order();
-        $order->shop = $request->shop;
-        $order->phone = $request-> phone;
-        $order->address = $request->address;
+        $user=User::where('id',$request->shop)->first()->name;
+        $order->shop = $user;
+        $phone=Phone::where('phone',$request->phone)->first()->phone;
+        $address=Address::where('address',$request->address)->first()->address;
+        $order->phone = $phone;
+        $order->address =  $request-> address;
         $order->comment = $request-> comment;
         $order->status = 1;
         $order->save();
@@ -79,6 +95,144 @@ class OrderController extends Controller
         return json_encode($data);
     }
 
+    public function change_bus_on_order(Request $request){
+
+        $data = array();
+        $data['status'] = 0;
+
+        if($request->ids && $request->region){
+
+            $ids = explode(',',$request->ids);
+            Order::whereIn('id',$ids)->update(['region'=>$request->region]);
+
+            $data['region'] = 1;
+            $data['message'] = "Success";
+        }
+        Alert::success('Захиалга', 'Бүс солигдлоо');
+
+        return json_encode($data);
+    }
+
+    public function change_driver_on_order(Request $request){
+
+            $data = array();
+            $data['status'] = 0;
+            $array_ids = array_filter(explode(',',$request->ids));
+            $arr_tracking = array();
+     
+            $ids = explode(',',$request->ids);
+            Order::whereIn('id',$ids)->update(['driver'=>$request->driver]);
+            Order::whereIn('id',$ids)->update(['status'=>'2']);
+
+            $data['driver'] = 1;
+            $data['message'] = "Success";
+
+            // for($i=0; $i<count($array_ids);$i++){
+            //     $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+               
+                
+            //     $arr_tracking[] = $dddd['organization'];
+
+            //     $SERVER_API_KEY = 'AAAA2aRXNbE:APA91bFEfJsbgOnLV7Y3VWKRNhyR7TX8hrXjO6YxKbp5CDBqFJDhvYddPfRUx38-0mi9UMPO5uoasAmesn2HfLIPtd5kky34WbsDXzDwG3UR7JSVlUy5NiWJKKpCCoACPkazcpkGeQS6';
+
+            //     $tk=Token::where('userid',$request->driverselected)->latest()->first();
+            //     if($tk){
+            //     $tkn=$tk->token;
+            //     $token_1 = $tkn;
+            //     $ssq='Танд '.$dddd["organization"].' дэлгүүрээс захиалга ирлээ';
+            //     $data = [
+            
+            //         "registration_ids" => [
+            //             $token_1
+            //         ],
+            
+            //         "notification" => [
+            
+            //             "title" => 'Захиалга',
+            
+            //             "body" => $ssq,
+            
+            //             "sound"=> "default" // required for sound on ios
+            
+            //         ],
+            
+            //     ];
+            
+            //     $dataString = json_encode($data);
+            
+            //     $headers = [
+            
+            //         'Authorization: key=' . $SERVER_API_KEY,
+            
+            //         'Content-Type: application/json',
+            
+            //     ];
+            
+            //     $ch = curl_init();
+            
+            //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            
+            //     curl_setopt($ch, CURLOPT_POST, true);
+            
+            //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            
+            //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            
+            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            
+            //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+            
+            //     $response = curl_exec($ch);
+            // }
+            
+               
+            // }   
+         
+        Alert::success('Захиалга', 'Жолооч солигдлоо');
+
+        $dds= implode(",",$arr_tracking);
+               
+        // $log = new Log();
+        // $log -> desc = Auth::user()->name.' ажилтан нь '.$dds.' захиалгыг '.$request->driverselected.'-д хуваариллаа';
+        // $log->staff=Auth::user()->name;
+        // $log->value='';
+
+        // $log -> save();
+        return json_encode($data);
+    }
+
+
+    public function change_delete_on_order(Request $request){
+
+        $data = array();
+        $data['status'] = 0;
+        $ids = explode(',',$request->ids);
+    
+        if($request->ids){
+             $array_ids = array_filter(explode(',',$request->ids));
+             $ids= implode(',',$array_ids);
+             // Req::whereIn('id',$ids)->update(['status'=>'8']);
+             $cc=Order::whereIn('id',$array_ids)->get();
+             $data['status'] = 1;
+             $data['message'] = "Success";
+             $data1=Order::whereIn('id',$array_ids)->get();
+             $arr_ware = array();
+             $arr_tracking = array();
+             for($i=0; $i<count($array_ids);$i++){
+                 // Req::where('id','=',$array_ids[$i])->delete();
+                  $dddd=Order::where('id','=',$array_ids[$i])->first();
+                  $dddd->delete();
+                //   $log = new Log();
+                //   $log -> desc = Auth::user()->name.', нь'.$dddd["track"].' ID-тай захиалгыг устгалаа.';
+                //   $log -> phone = $dddd['phone'];
+                //   $log -> value = $dddd['track'];
+                //   $log->staff=Auth::user()->name;
+                //   $log -> save();
+             }
+         }
+         Alert::success('Захиалга', 'Амжилттай устгагдлаа');
+        return json_encode($data);
+    }
 
     public function loadOrderDataTable(Request $request)
     {

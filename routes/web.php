@@ -25,7 +25,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
 Route::prefix('order')->group(function(){;
+    Route::get('/phone/{id}', [App\Http\Controllers\OrderController::class, 'phone']); 
+    Route::get('/address/{id}', [App\Http\Controllers\OrderController::class, 'address']);
     Route::get('/index',[App\Http\Controllers\OrderController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\OrderController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\OrderController::class, 'list']);
@@ -34,17 +37,21 @@ Route::prefix('order')->group(function(){;
     Route::get('/driver',[App\Http\Controllers\OrderController::class, 'driver']);
 
     Route::get('/finished',[App\Http\Controllers\OrderController::class, 'finished']);
-    Route::get('/del_delete','DeliveryController@del_delete')->name('del_delete');
+    Route::get('/change_delete_on_order',[App\Http\Controllers\OrderController::class, 'change_delete_on_order'])->name('change_delete_on_order');
     Route::get('/edit/{id}','DeliveryController@edit');
     Route::post('/edit','DeliveryController@update');
     Route::post('/bulk','DeliveryController@bulk');
+    Route::get('/change_driver_on_order',[App\Http\Controllers\OrderController::class, 'change_driver_on_order'])->name('change_driver_on_order');
+
     Route::get('/change_status_on_order',[App\Http\Controllers\OrderController::class, 'change_status_on_order'])->name('change_status_on_order');
-    Route::get('/change_bus_on_delivery','DeliveryController@change_bus_on_delivery')->name('change_bus_on_delivery');
+    Route::get('/change_bus_on_order',[App\Http\Controllers\OrderController::class, 'change_status_on_order'])->name('change_bus_on_order');
     Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add.to.cart');
     Route::patch('update-cart', [ProductController::class, 'update'])->name('update.cart');
     Route::delete('remove-from-cart', [ProductController::class, 'remove'])->name('remove.from.cart');
     Route::get('/datatable-delivery', [DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
     Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
+
+  
 
     Route::get('/excel-export-delivery', [App\Http\Controllers\OrderController::class, 'ExcelExport'])->name('excel-export-delivery'); 
     Route::get('/detail/{id}', 'DeliveryController@detail')->name( 'delivery.detail');

@@ -276,7 +276,7 @@
                 $('.btn_change_status').click(function () {
                     console.log("btn_change_status click");
                     console.log(rows_selected);
-                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
+                    const changeStatusUrl = '{{ route('change_status_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_status = $('.inputStatus1').val();
     
@@ -299,7 +299,7 @@
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
                         console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
+                        const changeVerifyUrl = '{{ route('change_delete_on_order') }}';
                         var ids = rows_selected.join(",");
                            
                         $.ajax({
@@ -319,7 +319,7 @@
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
+                    const changeBusUrl = '{{ route('change_bus_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_bus = $('.inputStatus3').val();
     

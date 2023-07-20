@@ -33,20 +33,22 @@
                 <div class="card-body">
                 <div class="form-group">
                         <label for="exampleSelectRounded0">Овор <code></code></label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="shop">
+                        <select class="custom-select rounded-0" name="shop" id="deliver">
                         <?php $user=DB::table('users')->where('role','=','customer')->get(); ?>
                         @foreach($user as $users)
-                        <option value="{{$users->name}}">{{$users->name}}</option>
+                        <option value="{{$users->id}}">{{$users->name}}</option>
                         @endforeach
                         </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Утас</label>
-                    <input type="text" name="phone" class="form-control"  placeholder="Утас">
+                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="phone" id="textField" >
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Хаяг</label>
-                    <input type="text" name="address" class="form-control"  placeholder="Хаяг">
+                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="address" id="textField1">
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Тайлбар</label>
@@ -96,5 +98,48 @@
     </section>
     <!-- /.content -->
   </div>
+<script>
+             $(document).ready(function () {
+                $('#deliver').on('change', function () {
+                    let id = $(this).val();
+                    $('#textField').empty();
+                    $('#textField').append(`<option value="0" disabled selected>Processing...</option>`);
+                    $.ajax({
+                    type: 'GET',
+                    url: 'phone/' + id,
+                    success: function (response) {
+                    var response = JSON.parse(response);
+                    console.log(response);   
+                    $('#textField').empty();
+        
+                    response.forEach(element => {
+                    $('#textField').append(`<option value="${element['phone']}">${element['phone']}</option>`);
+                    });
+                            }
+                        });
+                    });
+                });
 
+                $(document).ready(function () {
+                $('#deliver').on('change', function () {
+                let id = $(this).val();
+                $('#textField1').empty();
+                $('#textField1').append(`<option value="0" disabled selected>Processing...</option>`);
+                $.ajax({
+                type: 'GET',
+                url: 'address/' + id,
+                success: function (response) {
+                var response = JSON.parse(response);
+                console.log(response);   
+                $('#textField1').empty();
+       
+                response.forEach(element => {
+                    $('#textField1').append(`<option value="${element['address']}">${element['address']}</option>`);
+                    });
+                }
+            });
+        });
+    });
+
+</script>
 @endsection

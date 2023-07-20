@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
@@ -109,26 +110,7 @@ class DeliveryController extends Controller
         return view('admin.delivery.deleted');
     }
 
-    public function change_status_on_order(Request $request){
-
-        $data = array();
-        $data['status'] = 0;
-
-        if($request->ids && $request->status){
-
-            $ids = explode(',',$request->ids);
-            Order::whereIn('id',$ids)->update(['status'=>$request->status]);
-
-            $data['status'] = 1;
-            $data['message'] = "Success";
-        }
-
-        
-        Alert::success('Захиалга', 'Төлөв солигдлоо');
-
-        return json_encode($data);
-    }
-
+   
 
     public function loadDeliveryDataTable(Request $request)
     {
