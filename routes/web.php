@@ -96,7 +96,7 @@ Route::prefix('good')->group(function(){;
     Route::get('/list',[App\Http\Controllers\GoodController::class, 'list']);
     Route::get('/good/{name}', [App\Http\Controllers\GoodController::class, 'good']); 
     Route::get('/income',[App\Http\Controllers\GoodController::class, 'income']);
-    Route::post('/income',[App\Http\Controllers\GoodController::class, 'income']);
+    Route::post('/add',[App\Http\Controllers\GoodController::class, 'add']);
 
 });
 
@@ -130,4 +130,22 @@ Route::prefix('address')->group(function(){;
     Route::get('/index',[App\Http\Controllers\AddressController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\AddressController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\AddressController::class, 'list']);
+});
+
+
+Route::prefix('report')->group(function(){;
+    Route::get('/driver',[App\Http\Controllers\ReportController::class, 'driver']);
+    Route::get('/new',[App\Http\Controllers\DeliveryController::class, 'new']);
+    Route::get('/received',[App\Http\Controllers\DeliveryController::class, 'received']);
+    Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
+    Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
+    Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
+    Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
+    Route::get('/datatable-delivery', [App\Http\Controllers\DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
+    Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+    Route::get('/change_driver_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_driver_on_delivery'])->name('change_driver_on_delivery');
+    Route::get('/change_status_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_status_on_delivery'])->name('change_status_on_delivery');
+    Route::get('/change_delete_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_delete_on_delivery'])->name('change_delete_on_delivery');
+    Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
+
 });

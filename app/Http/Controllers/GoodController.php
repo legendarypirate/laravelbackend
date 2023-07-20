@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
@@ -42,19 +43,24 @@ class GoodController extends Controller
         $order->goodname = $request->goodname;
         $order->price = $request-> price;
         $order->save();
+        Alert::success('Бараа', 'Үүслээ');
+
         return redirect('/good/list')->with('message','Амжилттай хадгалагдлаа');
+        
     }
 
     public function add(Request $request){
-          $good=Good::find($request->goodid);
+        $good=Good::find($request->goodid);
         if($request->type==1){
-                $good->end=$good->end+$request->count;
-                $good->count=$good->count+$request->count;
+            $good->count=$good->count+$request->count;
         } else {
-                 $good->end=$good->end-$request->count;
-                 $good->count=$good->count-$request->count;
+            $good->count=$good->count-$request->count;
         }
         $good->save();
+        Alert::success('Бараа', 'Тоо өөрчлөгдлөө');
+
+        return redirect('/good/income')->with('message','Амжилттай хадгалагдлаа');
+
     }
 
     public function good($name){

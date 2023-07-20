@@ -230,34 +230,46 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/order/index')}}" class="nav-link">
+                <a href="{{url('/report/driver')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Захиалга үүсгэх</p>
+                  <p>Жолоочийн тайлан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/order/list')}}" class="nav-link">
+                <a href="{{url('/report/driverdone')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Захиалга</p>
+                  <p>Жолоочийн нийлсэн тайлан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/report/customer')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Жолооч хүлээж авсан</p>
+                  <p>Харилцагчийн тайлан</p>
                 </a>
               </li>
            
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/report/customerdone')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Бараа хүлээж авсан</p>
+                  <p>Харилцагчийн нийлсэн тайлан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/report/general')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Тайлан захиалгаар</p>
+                  <p>Ерөнхий тайлан</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/report/ware')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Агуулахын тайлан</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/report/delivery')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Тайлан хүргэлтээр</p>
                 </a>
               </li>
             </ul>

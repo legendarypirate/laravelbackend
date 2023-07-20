@@ -29,7 +29,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'good/income', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'good/add', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                 <div class="form-group">
                         <label for="exampleSelectRounded0">Дэлгүүр <code></code></label>
@@ -47,14 +47,14 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Төрөл</label>
-                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="type" >
+                    <select class="custom-select rounded-0" aria-label=".form-select-lg example" name="type">
                             <option value="1">Орлого</option>
                             <option value="2">Зарлага</option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Тоо</label>
-                    <input type="text" name="count" class="form-control"  placeholder="Тоо ширхэг">
+                    <input type="number" name="count" class="form-control"  placeholder="Тоо ширхэг">
                   </div>
                 
                 </div>
@@ -115,7 +115,7 @@
                     $('#field').empty();
         
                     response.forEach(element => {
-                    $('#field').append(`<option value="${element['goodid']}">${element['goodname']}</option>`);
+                    $('#field').append(`<option value="${element['id']}">${element['goodname']}</option>`);
                     });
                             }
                         });
@@ -123,4 +123,7 @@
                 });
 
 </script>
+
+@include('sweetalert::alert')
+
 @endsection
