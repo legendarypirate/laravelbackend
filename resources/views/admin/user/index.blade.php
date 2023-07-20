@@ -43,7 +43,7 @@
                         <label for="exampleSelectRounded0">Role <code></code></label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="role">
                         <option value="admin">admin</option>
-                        <option value="admin">customer</option>
+                        <option value="customer">customer</option>
                         <option value="driver">driver</option>
                         </select>
                   </div>

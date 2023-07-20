@@ -31,9 +31,9 @@ Route::prefix('order')->group(function(){;
     Route::get('/list',[App\Http\Controllers\OrderController::class, 'list']);
     Route::get('/datatable-order', [App\Http\Controllers\OrderController::class, 'loadOrderDataTable'])->name('datatable-order'); 
     Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
+    Route::get('/driver',[App\Http\Controllers\OrderController::class, 'driver']);
 
-    Route::get('/deleted','DeliveryController@deleted');
-    Route::get('/done','DeliveryController@done');
+    Route::get('/finished',[App\Http\Controllers\OrderController::class, 'finished']);
     Route::get('/del_delete','DeliveryController@del_delete')->name('del_delete');
     Route::get('/edit/{id}','DeliveryController@edit');
     Route::post('/edit','DeliveryController@update');
@@ -46,11 +46,11 @@ Route::prefix('order')->group(function(){;
     Route::get('/datatable-delivery', [DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
     Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
 
-    Route::get('/excel-export-delivery', [DeliveryController::class, 'ExcelExport'])->name('excel-export-delivery'); 
+    Route::get('/excel-export-delivery', [App\Http\Controllers\OrderController::class, 'ExcelExport'])->name('excel-export-delivery'); 
     Route::get('/detail/{id}', 'DeliveryController@detail')->name( 'delivery.detail');
     Route::get('/delete/{id}','DeliveryController@delete');
     Route::get('/recover/{id}','DeliveryController@recover');
-    Route::get('/print-data-delivery', [DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery');
+    Route::get('/print-data-delivery', [App\Http\Controllers\OrderController::class, 'PrintdeliveryData'])->name('print-data-delivery');
 });
 
 

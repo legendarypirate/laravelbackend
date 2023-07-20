@@ -8,7 +8,8 @@ use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrderExport;
 class OrderController extends Controller
 {
     /**
@@ -49,6 +50,14 @@ class OrderController extends Controller
         return view('admin.order.list');
     }
 
+    public function driver(){
+        return view('admin.order.driver');
+    }
+
+    public function finished(){
+        return view('admin.order.finished');
+    }
+
     public function loadOrderDataTable(Request $request)
     {
         if ($request->ajax()) {
@@ -69,7 +78,7 @@ class OrderController extends Controller
             $driverselected = $request->get('driver',0);
             $except_status = $request->get('except_status',0);
             $except_stat = $request->get('except_stat',0);
-
+            $status_3 = $request->get('status_3',0);
             $offset = $request->get('start', 0);
             $limit = $request->get('length', 10);
             if ($limit < 1 OR $limit > 500) {
@@ -122,9 +131,9 @@ class OrderController extends Controller
                 'note' => $note,
                 'late' => $late,
                 'customer' => $customer,
-
-            'phone' => $phone,
-            'address' => $address,
+                'status_3' => $status_3,
+                'phone' => $phone,
+                'address' => $address,
                 'driverselected' => $driverselected,
                 'except_status' => $except_status,
                 'except_stat' => $except_stat,
@@ -240,5 +249,104 @@ class OrderController extends Controller
             return $table;
         }
     }
+
+    public function ExcelExport(Request $request)
+    {
+        if ($request->ajax()) {
+            if(isset($request->excel)){
+                $user_id = Auth::user()->id;
+                $role = Auth::user()->role;
+                $ids = $request->get('ids', array());
+                $excel = $request->get('excel', 0);
+                
+                $Params = [
+                    'ids' => $ids,
+                'user_id' => $user_id,
+                'role' => $role,
+               
+                ];
+
+                $excel_data = array();
+                $dataExcel = Order::GetExcelData($Params);
+                $excel_data = [];
+                foreach($dataExcel as $key=>$row)
+                    {
+                        if($row->status==1){
+                            $row->status='Бүртгэгдсэн';
+                        } elseif($row->status==2){
+                            $row->status='Жолоочид хуваарилсан';
+                        } elseif($row->status==3){
+                            $row->status='Жолооч хүлээж авсан';
+                        } else {
+                            $row->status='Дууссан';
+                        }
+                        $excel_data[$key]['id']= $row->id;
+                        $excel_data[$key]['shop']= $row->shop;
+                        $excel_data[$key]['phone']= $row->phone;
+                        $excel_data[$key]['address']= $row->address;
+                        $excel_data[$key]['comment']= $row->comment;
+
+                        $excel_data[$key]['created_at']= $row->created_at;
+                        $excel_data[$key]['status']= $row->status;
+                        $excel_data[$key]['driver']= $row->driver;
+                    }
+                $export_order_analysis = new OrderExport($excel_data);
+                $excel = Excel::download($export_order_analysis, 'delivery.xlsx');
+                $excel->setContentDisposition('attachment','delivery')->getFile()->move(public_path('/delivery'), 'delivery'.time().'.xlsx');
+                return asset('delivery').'/delivery'.time().'.xlsx';
+            }
+        }
+    }
     
+    public function PrintdeliveryData(Request $request)
+    {
+        if ($request->ajax()) {
+            if(isset($request->print)){
+                $user_id = Auth::user()->id;
+                $role = Auth::user()->role;
+                $arr_ids = explode(",",$request->post('ids'));
+                $ids = implode(",",array_filter($arr_ids));
+                $print = $request->get('print', 0);
+                
+                $Params = [
+                    'ids' => $ids,
+                'user_id' => $user_id,
+                'role' => $role,
+                ];
+                $i=0;
+                $print_data = array();
+                $dataExcel = Order::GetExcelData($Params);
+
+                $table = '<table class="table table-striped  table-bordered" style="border-width: 1px;border-style: solid;border-color: black;">
+                <thead>
+                    <tr>
+                    <th class="text-center whitespace-nowrap">#</th>
+
+                        <th class="text-center whitespace-nowrap">Б/Авсан цаг</th>
+                        <th class="whitespace-nowrap">Нэр</th>
+                        <th class="text-center whitespace-nowrap">Утас</th>
+                        <th class="text-center whitespace-nowrap">Захиалгын дэлгэрэнгүй хаягийн мэдээлэл</th>
+                        <th class="text-center whitespace-nowrap">Барааны тоо</th>
+                      
+                        <th class="text-center whitespace-nowrap">Жолооч</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                foreach($dataExcel as $key=>$row)
+                    {
+                        $table .= "<tr>
+                            <td style='border-width: 1px;border-style: solid;border-color: black;'>".++$i."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->created_at."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->shop."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->phone."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->address."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->comment."</td>
+                        
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->driver."</td>
+                           </tr>";
+                    }
+                echo $table;
+            }
+        }
+    }
 }

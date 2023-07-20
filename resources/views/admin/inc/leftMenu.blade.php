@@ -104,20 +104,20 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/order/driver')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Жолооч хүлээж авсан</p>
                 </a>
               </li>
            
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/order/finished')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Бараа хүлээж авсан</p>
+                  <p>Бараа авсан</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{url('/order/report')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Тайлан захиалгаар</p>
                 </a>
@@ -328,7 +328,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/address/index')}}" class="nav-link">
+                <a href="{{url('/address/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Хаяг жагсаалт</p>
                 </a>

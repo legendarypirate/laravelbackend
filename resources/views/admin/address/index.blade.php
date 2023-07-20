@@ -25,14 +25,14 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Утас үүсгэх</h3>
+                <h3 class="card-title">Хаяг үүсгэх</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'phone/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'address/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                  <div class="form-group">
-                        <label for="exampleSelectRounded0">Овор <code></code></label>
+                        <label for="exampleSelectRounded0">Хаяг <code></code></label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="userid">
                         <?php $user=DB::table('users')->where('id','!=','1')->get(); ?>
                         @foreach($user as $users)
@@ -42,8 +42,8 @@
                   </div>
                
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Утас</label>
-                    <input type="phone" name="phone" class="form-control"  placeholder="Утас">
+                    <label for="exampleInputEmail1">Хаяг</label>
+                    <input type="address" name="address" class="form-control"  placeholder="Хаяг">
                   </div>
                 </div>
                 

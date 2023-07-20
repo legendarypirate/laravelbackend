@@ -28,7 +28,7 @@ class Order extends Model
         $exceptStatusFilter = NULL;
         $exceptStatFilter = NULL;
         $custFilter = NULL;
-
+        $status3=NULL;
         $joinUsersTable = NULL;
         $roleFilter = NULL;
         $date_filter = NULL;
@@ -46,6 +46,11 @@ class Order extends Model
         if (!empty($Params['tuluv'])) {
             $tuluvFilter = "AND `status`= {$Params['tuluv']}";
         }
+
+        if (!empty($Params['status_3'])) {
+            $status3 = "AND `status`= {$Params['status_3']}";
+        }
+
 
         if (!empty($Params['customer'])) {
             $custFilter = "AND organization= '{$Params['customer']}'";
@@ -102,6 +107,7 @@ class Order extends Model
                         {$driverFilter}
                         {$exceptStatusFilter}
                         {$exceptStatFilter}
+                        {$status3}
                         {$roleFilter}
                         {$date_filter}
                         {$orderByFilter}
@@ -133,7 +139,7 @@ class Order extends Model
         $roleFilter = NULL;
         $date_filter = NULL;
         $late = NULL;
-
+        $status3 = NULL;
 
         if (!empty($Params['ids'])) {
             $idsFilter = "AND orders.id in ({$Params['ids']})";
@@ -143,9 +149,13 @@ class Order extends Model
             $statusFilter = "AND `status`= {$Params['status']}";
            }
 
-           if (!empty($Params['tuluv'])) {
+        if (!empty($Params['tuluv'])) {
             $tuluvFilter = "AND `status`= {$Params['tuluv']}";
-         }
+        }
+
+        if (!empty($Params['status_3'])) {
+            $status3 = "AND `status`= {$Params['status_3']}";
+        }
 
          if (!empty($Params['customer'])) {
             $custFilter = "AND shop= '{$Params['customer']}'";
@@ -191,6 +201,7 @@ class Order extends Model
                     WHERE 1 = 1
                     {$idsFilter}
                     {$statusFilter}
+                    {$status3}
                     {$tuluvFilter}
                     {$regionFilter}
                     {$custFilter}

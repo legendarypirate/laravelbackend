@@ -33,8 +33,8 @@
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Print</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a style="color:white;">Print</a></button> 
+          <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
          <div class="form-group">
                     <label for="status">Төлөв:</label>

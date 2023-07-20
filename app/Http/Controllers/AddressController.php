@@ -31,17 +31,17 @@ class AddressController extends Controller
 
     public function create(Request $request){ 
         
-        $phone = new Phone();
+        $phone = new Address();
         $phone->userid = $request->userid;
-        $phone->phone = $request-> phone;
+        $phone->address = $request-> address;
         $phone->save();
-        return redirect('/phone/list')->with('message','Амжилттай хадгалагдлаа');
+        return redirect('/address/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
     public function list(){
-        $phone=Phone::all();
-        return view('admin.phone.list',compact('phone'));
+        $address=Address::all();
+        return view('admin.address.list',compact('address'));
     }
 
     public function loadOrderDataTable(Request $request)
