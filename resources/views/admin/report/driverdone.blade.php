@@ -107,7 +107,6 @@
 
     <div style="position:fixed;bottom:20px;">
          <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
-         <button type="button" class="btn btn-default"  id="btnReport">Тайлан нийлэх</button> 
      
     </div> 
 
@@ -288,7 +287,7 @@
     
                 }
                
-                let verified = 1;
+                let verified = 2;
                 let not_1 = 1;
                 let not_100 = 1;
                 let status = $('#filterByStatus').val();

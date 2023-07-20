@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Good;
+use App\Models\User;
+use Carbon\Carbon;
+use App\Models\General;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ReportController extends Controller
@@ -29,6 +33,11 @@ class ReportController extends Controller
     public function driver()
     {
         return view('admin.report.driver');
+    }
+
+    public function driverdone()
+    {
+        return view('admin.report.driverdone');
     }
 
     
@@ -99,400 +108,112 @@ class ReportController extends Controller
         return view('admin.delivery.deleted');
     }
 
-    public function change_status_on_delivery(Request $request){
 
-        $data = array();
-        $data['status'] = 0;
-    
-        if($request->ids && $request->status){
-            $ids = explode(',',$request->ids);
-            $dddd=Delivery::whereIn('id',$ids)->where('verified','0')->count();
-            $dddds=Delivery::whereIn('id',$ids)->where('driver',NULL)->count();
-          
-            if($request->status==10){
-                $data=Order::where('reqid','=',$ids)->get();
-                $data['status'] = 1;
-                $data['message'] = "Success";
-                $data=Order::where('reqid','=',$ids)->get();
-                if($request->status==3){
-                    foreach($data as $datas){
-                        $good=Good::where('goodname',$datas->good)->first();
-                        $good->inprogress=$good->inprogress-$datas->count;
-                        $good->delivered=$good->delivered+$datas->count;
-                        $good->save();
-                    }
-                }
-             
-                $array_ids = array_filter(explode(',',$request->ids));
-                $ids= implode(',',$array_ids);
-                $idss = explode(',',$request->ids);
-                Delivery::whereIn('id',$idss)->update(['status'=>'10']);
-                // for($i=0; $i<count($array_ids);$i++){
-                //     $dddd=Req::where('id','=',$array_ids[$i])->first();
-                //     $log = new Log();
-                //     $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүлээн авсан төлөвт орууллаа.';
-                //     $log -> phone = $dddd['phone'];
-                //     $log -> value = $dddd['tracking'];
-                //     $log->staff=Auth::user()->name;
-                //     $log -> save();
-                // }
-                // if($request->status==3)
-                // {
-                //     $ido = explode(',',$request->ids);
-                //     Req::whereIn('id',$ido)->update(['deliveryprice'=>5000]);
-                // } else {
-                //     $ido = explode(',',$request->ids);
+ public function report_compile(Request $request){
+    $data = array();
+    $data['status'] = 0;
+    $array_ids = array_filter(explode(',',$request->ids));
+    $ids= implode(',',$array_ids);
+    // Req::whereIn('id',$ids)->update(['status'=>'8']);
 
-                //     Req::whereIn('id',$ido)->update(['deliveryprice'=>0]);
-                // }
-               
-                Alert::success('Хүргэлт', 'Төлөв солигдлоо');
-            }
-            elseif($dddd>0||$dddds>0)
-            {
-                // dd('www');
-                Alert::error('Хүргэлт', 'Баталгаажаагүй эсвэл жолоочгүй хүргэлт байна');
-            } else {
-                // dd('qqq');
-                $idss = explode(',',$request->ids);
-                $array_ids = array_filter(explode(',',$request->ids));
-                // $data=Order::where('reqid','=',$ids)->get();
-                $data['status'] = 1;
-                $data['message'] = "Success";
-                // $data=Order::where('reqid','=',$ids)->get();
-                if($request->status==3){
-                    $ids= implode(',',$array_ids);
-                    $array_ids = array_filter(explode(',',$request->ids));
-
-                    Delivery::whereIn('id',$idss)->update(['status'=>'3']);
-               
-                    $cc=Delivery::whereIn('id',$array_ids)->get();
-                    // $data=Order::where('reqid','=',$ids)->get();
-                    $data1=Delivery::whereIn('id',$array_ids)->get();
-                    $arr_ware = array();
-                    $arr_tracking = array();
-                    for($i=0; $i<count($array_ids);$i++){
-                        $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        $arr_tracking[]=$dddd['tracking'];
-                        $cust=$dddd['custname'];
-                        $phone=$dddd['phone'];
-                       
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүргэсэн төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
-                    }   
-                    // $qqq=Ware::where('deliverid',$arr_tracking)->get();
-                        // $wareg= Ware::whereIn('deliverid',$arr_tracking)->get();
-                        // $arr_goodid = array();
-                        // for($i=0; $i<count($arr_tracking);$i++){
-                        //     $good=Ware::where('deliverid',$arr_tracking[$i])->first();
-                        //     if($good){
-                        //     $arr_goodid[]=$good['goodid'];
-                        //     }
-                        // }   
-                    // if(!empty($wareg)){
-                    //     foreach($wareg as $wares){
-                    //         $good=Good::where('id',$wares['goodid'])->first();
-                    //         $good->inprogress=$good->inprogress-$wares['count'];
-                    //         $good->delivered=$good->delivered+$wares['count'];
-                    //         $good->save();
-                    //     }
-                    // }
-                 }
-                 $idss = explode(',',$request->ids);
-                if($request->status==3)
-                {
-                    Delivery::whereIn('id',$idss)->update(['deliveryprice'=>5000]);
-                } else {
-                    Delivery::whereIn('id',$idss)->update(['deliveryprice'=>0]);
-                }
-                if($request->status==6){
-                    $array_ids = array_filter(explode(',',$request->ids));
-                    $ids= implode(',',$array_ids);
-                    $idss = explode(',',$request->ids);
-                    Delivery::whereIn('id',$idss)->update(['status'=>'6']);
-                    $cc=Delivery::whereIn('id',$array_ids)->get();
-                    // $data=Order::where('reqid','=',$ids)->get();
-                    $data1=Delivery::whereIn('id',$array_ids)->get();
-                    $arr_ware = array();
-                    dd('hi');
-                    $arr_tracking = array();
-                    for($i=0; $i<count($array_ids);$i++){
-                        // Req::where('id','=',$array_ids[$i])->delete();
-                        $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        $arr_tracking[]=$dddd['tracking'];
-                        $cust=$dddd['custname'];
-                        $phone=$dddd['phone'];
-                       
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүлээгдэж буй төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];  
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
-                    }   
-            
-                }
-                if($request->status==2)
-                {   
-                    $array_ids = array_filter(explode(',',$request->ids));
-                    $ids= implode(',',$array_ids);
-                  
-                    $idss = explode(',',$request->ids);
-                    Delivery::whereIn('id',$idss)->update(['status'=>'2']);
-                    for($i=0; $i<count($array_ids);$i++){
-                        $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг жолоочид хуваарилсан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
-                    }
-                }
-                if($request->status==4||$request->status==5||$request->status==6){
-                 
-                $array_ids = array_filter(explode(',',$request->ids));
-                $ids= implode(',',$array_ids);
-                // Req::whereIn('id',$ids)->update(['status'=>'8']);
-                Delivery::where('id',$ids)->orWhere('status','4')->orWhere('status','6')->update(['deliveryprice'=>'0']);
-                $cc=Delivery::whereIn('id',$array_ids)->get();
-                Delivery::where('id',$ids)->orWhere('status','4')->orWhere('status','5')->orWhere('status','6')->update(['received'=>'0']);
-                // $data=Order::where('reqid','=',$ids)->get();
-                $data1=Delivery::whereIn('id',$array_ids)->get();
-                $arr_ware = array();
-                $arr_tracking = array();
-                for($i=0; $i<count($array_ids);$i++){
-                    // Req::where('id','=',$array_ids[$i])->delete();
-                     $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                     $arr_tracking[]=$dddd['tracking'];
-                    if($request->status==4){
-                        $idss = explode(',',$request->ids);
-                        Delivery::whereIn('id',$idss)->update(['status'=>'4']);
-                        $cust=$dddd['custname'];
-                        $phone=$dddd['phone'];
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг цуцалсан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log -> reject = '1';
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
-                    }
-                    if($request->status==5){
-                        $idss = explode(',',$request->ids);
-                        Delivery::whereIn('id',$idss)->update(['status'=>'5']);
-                        $cust=$dddd['custname'];
-                        $phone=$dddd['phone'];
-                       
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг буцаасан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log -> reject = '2';
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
-                    }
-
-                }   
-                // $qqq=Ware::where('deliverid',$arr_tracking)->get();
-                    // $wareg= Ware::whereIn('deliverid',$arr_tracking)->get();
-                    $arr_goodid = array();
-                    for($i=0; $i<count($arr_tracking);$i++){
-                        // $good=Ware::where('deliverid',$arr_tracking[$i])->first();
-                        // if($good){
-                        //     $arr_goodid[]=$good['goodid'];
-                        // }
-                    
-                    }   
-                    // if(!empty($wareg)){
-                    //     foreach($wareg as $wares){
-                    //         $good=Good::where('id',$wares['goodid'])->first();
-                    //         $good->inprogress=$good->inprogress-$wares['count'];
-                    //         $good->count=$good->count+$wares['count'];
-                    //         $good->save();
-                    //     }
-                    // }
-                    // Ware::whereIn('deliverid',$arr_tracking)->delete();
-                }
-                Alert::success('Хүргэлт', 'Төлөв солигдлоо');
-            } 
-        }
-    
-        return json_encode($data);
+    $useridq= Delivery::where('id',$ids)->first();
+    $uidq=User::where('name',$useridq->driver)->first();
+    $urealname=$uidq->name;
+    $arr_name = array();
+    for($i=0; $i<count($array_ids);$i++){
+        $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+        $arr_name[] = $dddd['driver'];
     }
-
+    $countss = array_count_values($arr_name);
    
-    public function change_bus_on_delivery(Request $request){
-
-        $data = array();
-        $data['status'] = 0;
-        if($request->ids && $request->region){
-            $ids = explode(',',$request->ids);
-            Delivery::whereIn('id',$ids)->update(['region'=>$request->region]);
-            $data['region'] = 1;
-            $data['message'] = "Success";
-        }
-        Alert::success('Хүргэлт', 'Бүс солигдлоо');
-        return json_encode($data);
-    }
-
-    public function change_driver_on_delivery(Request $request){
-   
-      
-        $data = array();
-        $data['status'] = 0;
+    $qwe=Delivery::whereIn('driver',$arr_name)->whereIn('id',$array_ids)->count();   
+        if(count($array_ids)==count(array_keys($arr_name, $useridq->driver))){
         $array_ids = array_filter(explode(',',$request->ids));
-        $arr_tracking = array();
-     
-        $ids = explode(',',$request->ids);
-        Delivery::whereIn('id',$ids)->update(['driver'=>$request->driverselected]);
-        Delivery::whereIn('id',$ids)->update(['status'=>'2']);
+        $ids= implode(',',$array_ids);
+        // Req::whereIn('id',$ids)->update(['status'=>'8']);
+        Delivery::whereIn('id',$array_ids)->where('status','4')->update(['deliveryprice'=>'0']);
+        Delivery::whereIn('id',$array_ids)->where('status','5')->update(['deliveryprice'=>'0']);
 
-        $data['driverselected'] = 1;
+      
+        $userid= Delivery::where('id',$ids)->first();
+        $uid=User::where('name',$userid->driver)->first();
+        $urealid=$uid->id;
+        $cc=Delivery::whereIn('id',$array_ids)->get();
+        $data['status'] = 1;
         $data['message'] = "Success";
-
-            // for($i=0; $i<count($array_ids);$i++){
-            //     $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-               
-                
-            //     $arr_tracking[] = $dddd['organization'];
-
-            //     $SERVER_API_KEY = 'AAAA2aRXNbE:APA91bFEfJsbgOnLV7Y3VWKRNhyR7TX8hrXjO6YxKbp5CDBqFJDhvYddPfRUx38-0mi9UMPO5uoasAmesn2HfLIPtd5kky34WbsDXzDwG3UR7JSVlUy5NiWJKKpCCoACPkazcpkGeQS6';
-
-            //     $tk=Token::where('userid',$request->driverselected)->latest()->first();
-            //     if($tk){
-            //     $tkn=$tk->token;
-            //     $token_1 = $tkn;
-            //     $ssq='Танд '.$dddd["organization"].' дэлгүүрээс захиалга ирлээ';
-            //     $data = [
-            
-            //         "registration_ids" => [
-            //             $token_1
-            //         ],
-            
-            //         "notification" => [
-            
-            //             "title" => 'Захиалга',
-            
-            //             "body" => $ssq,
-            
-            //             "sound"=> "default" // required for sound on ios
-            
-            //         ],
-            
-            //     ];
-            
-            //     $dataString = json_encode($data);
-            
-            //     $headers = [
-            
-            //         'Authorization: key=' . $SERVER_API_KEY,
-            
-            //         'Content-Type: application/json',
-            
-            //     ];
-            
-            //     $ch = curl_init();
-            
-            //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            
-            //     curl_setopt($ch, CURLOPT_POST, true);
-            
-            //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            
-            //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            
-            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-            //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-            
-            //     $response = curl_exec($ch);
-            // }
-            
-               
-            // }   
-         
-        Alert::success('Захиалга', 'Жолооч солигдлоо');
-
-        // $dds= implode(",",$arr_tracking);
-               
-        // $log = new Log();
-        // $log -> desc = Auth::user()->name.' ажилтан нь '.$dds.' захиалгыг '.$request->driverselected.'-д хуваариллаа';
-        // $log->staff=Auth::user()->name;
-        // $log->value='';
-
-        // $log -> save();
-        return json_encode($data);
-    }
-
-    public function change_delete_on_delivery(Request $request){
-
-        $data = array();
-        $data['status'] = 0;
-        $ids = explode(',',$request->ids);
-        $dddd=Delivery::whereIn('id',$ids)->where('verified','1')->count();
-        $st=Delivery::whereIn('id',$ids)->where('status','10')->count();
-        if($dddd>0||$st>0){
-         Alert::error('Хүргэлт', 'Баталгаажсан хүргэлт устгах боломжгүй');
-        } else {
-         if($request->ids){
-             $array_ids = array_filter(explode(',',$request->ids));
-             $ids= implode(',',$array_ids);
-             // Req::whereIn('id',$ids)->update(['status'=>'8']);
-             Delivery::where('id',$ids)->orWhere('status','4')->orWhere('status','5')->update(['deliveryprice'=>'0']);
-             $cc=Delivery::whereIn('id',$array_ids)->get();
-             $data['status'] = 1;
-             $data['message'] = "Success";
-            //  $data=Order::where('reqid','=',$ids)->get();
-             $data1=Delivery::whereIn('id',$array_ids)->get();
-             $arr_ware = array();
-             $arr_tracking = array();
-             for($i=0; $i<count($array_ids);$i++){
-                 // Req::where('id','=',$array_ids[$i])->delete();
-                 $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                 $dddd->status=100;
-                 $dddd->save();
-                 $arr_tracking[]=$dddd['tracking'];
-                //  $log = new Log();
-                //  $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг устгалаа.';
-                //  $log -> phone = $dddd['phone'];
-                //  $log -> value = $dddd['tracking'];
-                //  $log -> reject = '3';
-
-                //  $log->staff=Auth::user()->name;
-                //  $log -> save();
-             }
-             // $qqq=Ware::where('deliverid',$arr_tracking)->get();
-                //  $wareg= Ware::whereIn('deliverid',$arr_tracking)->get();
-                //  $arr_goodid = array();
-                //  for($i=0; $i<count($arr_tracking);$i++){
-                //      $good=Ware::where('deliverid',$arr_tracking[$i])->first();
-                //      if($good){
-                //          $arr_goodid[]=$good['goodid'];
-                //      }
-                //  }   
-                //      if(!empty($wareg)){
-                //          foreach($wareg as $wares){
-                //              $good=Good::where('id',$wares['goodid'])->first();
-                //              $good->inprogress=$good->inprogress-$wares['count'];
-                //              $good->count=$good->count+$wares['count'];
-                //              $good->save();
-                //          }
-                //      }
-                //  Ware::whereIn('deliverid',$arr_tracking)->delete();
-         }
-         Alert::success('Хүргэлт', 'Амжилттай устгагдлаа');
+        // $data=Order::where('reqid','=',$ids)->get();
+        $data1=Delivery::whereIn('id',$array_ids)->get();
+        $cbt=Delivery::whereIn('id',$array_ids)->where('status','=','3')->get();
+        $price=$data1[0]->price;
+        $sum=0;
+        $arr_tracking = array();
+        for($i=0; $i<count($array_ids);$i++){
+            $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+            if($dddd['status']==2||$dddd['status']==6){
+                $dddd['status']='6';
+                $dddd['verified']='0';
+                $dddd['reportdate']=Carbon::now();
+                $dddd->save();
+            } else {
+                $dddd['verified']='2';
+                $dddd['reportdate']=Carbon::now();
+                $dddd->save();
+            }
+            $sum+=$dddd['received'];
+            $arr_tracking[] = $dddd['tracking'];
+            // $log = new Log();
+            // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг хүргэлтийн ажилтны тайлан нийлүүллээ.';
+            // $log -> phone = $dddd['phone'];
+            // $log -> value = $dddd['tracking'];
+            // $log->staff=Auth::user()->name;
+            // $log -> save();
+        }   
+        $general = new General();
+        $general->amount=$sum;
+        $general->count=count($cbt);
+        // // $general->count=count($array_ids);
+        $general->rand=Auth::user()->id.'R'.rand(100000,999999);
+        $general->type='1';
+        $general->users=Delivery::whereIn('id',$array_ids)->first()->driver;
+        $general->sid=$urealid;
+        $general->staff=Auth::user()->name;
+        $general->save();  
+        for($i=0; $i<count($array_ids);$i++){
+            $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+            $dddd['geniddr']=$general->id;
+            $dddd->save();
         }
-        return json_encode($data);
- }
+        // $dlid=Ware::whereIn('deliverid',$arr_tracking)->get();            
+        // if(!empty($dlid)){
+        //     foreach($dlid as $item){
+        //         $genrep = new Goodrep();
+        //         $genrep->delid=$item['deliverid'];
+        //         $genrep->randid=$general->rand;
+        //         $genrep->goods=$item['goodname'];
+        //         $genrep->numb=$item['count'] ? $item['count'] : 0;
+        //         $genrep->start=$item['endcount'] ? $item['endcount'] : 0;
+        //         $genrep->end=$item['endcount']-$item['count'];                
+        //         $genrep->save();
+        //     }
+        // }
+        if($request->status==3){
+           foreach($data as $datas){
+               $good=Good::where('goodname',$datas->good)->first();
+               $good->inprogress=$good->inprogress-$datas->count;
+               $good->delivered=$good->delivered+$datas->count;
+               $good->save();
+           }
+        }
+    } else {
+        Alert::error('Анхаар', 'Өөр жолооч нарын тайлан нийлэх боломжгүй');
 
+    }
+    return json_encode($data);
+    return redirect('/report/driver')->with('message','updated');
 
-    public function loadDeliveryDataTable(Request $request)
+}
+
+    public function loadDeliveryDataTableForReport(Request $request)
     {
         if ($request->ajax()) {
             $user_id = Auth::user()->id;
@@ -504,6 +225,9 @@ class ReportController extends Controller
             $address = $request->get('address',0);
             $note = $request->get('note',0);
             $tuluv = $request->get('tuluv',0);
+            $not_1 = $request->get('not_1',0);
+            $not_100 = $request->get('not_100',0);
+            $verified=$request->get('verified');
             $start_date = $request->get('start_date',0);
             $late = $request->get('late',0);
             $customer = $request->get('customer',0);
@@ -573,6 +297,9 @@ class ReportController extends Controller
                 'status_4' => $status_4,
                 'status_3' => $status_3,
                 'tuluv' => $tuluv,
+                'not_1' => $not_1,
+                'not_100' => $not_100,
+                'verified' => $verified,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
                 'region' => $region,
@@ -616,7 +343,12 @@ class ReportController extends Controller
                        ';
                         })
                         ->addColumn('received', function ($row) {
-                            return $row->received;
+                            return  '
+                            <input class="font-medium whitespace-nowrap input" id="received_'.$row->id.'"  style="width:80px;"  value="'.$row->received.'" name="received"/>
+                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_received" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>
+                       ';
                         })
                         ->addColumn('status', function ($row) {
                             if($row->status==1){
@@ -683,12 +415,14 @@ class ReportController extends Controller
                                         }
                                         return $actions;
                         })
-                        ->rawColumns(['checkbox','actions','comment'])
+                        ->rawColumns(['checkbox','actions','comment','note','received'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);
             return $table;
         }
+
+        
     }
     
 }

@@ -31,6 +31,9 @@ class Delivery extends Model
         $status3 = NULL;
         $status4 = NULL;
         $status5 = NULL;
+        $not1 = NULL;
+        $not100 = NULL;
+        $verified = NULL;
         $custFilter = NULL;
         $joinUsersTable = NULL;
         $roleFilter = NULL;
@@ -50,6 +53,18 @@ class Delivery extends Model
         }
         if (!empty($Params['status_10'])) {
             $status10 = "AND status in('{$Params['status_10']}')";
+        }
+
+        if (!empty($Params['not_1'])) {
+            $not1 = "AND status not in('{$Params['not_1']}')";
+        }
+
+        if (!empty($Params['not_100'])) {
+            $not_100 = "AND status not in('{$Params['not_100']}')";
+        }
+
+        if (!empty($Params['verified'])) {
+            $verified = "AND verified in('{$Params['verified']}')";
         }
 
         if (!empty($Params['status_3'])) {
@@ -124,6 +139,9 @@ class Delivery extends Model
                         {$status3}
                         {$status4}
                         {$status5}
+                        {$not1}
+                        {$not100}
+                        {$verified}
                         {$regionFilter}
                         {$custFilter}
                         {$driverFilter}
@@ -159,6 +177,9 @@ class Delivery extends Model
         $roleFilter = NULL;
         $date_filter = NULL;
         $late = NULL;
+        $not1 = NULL;
+        $not100 = NULL;
+        $verified = NULL;
         $status10=NULL;
         $status1=NULL;
         $status100=NULL;
@@ -203,6 +224,18 @@ class Delivery extends Model
         }
         if (!empty($Params['status_6'])) {
             $status6 = "AND status in ('{$Params['status_6']}')";
+        }   
+
+        if (!empty($Params['not_1'])) {
+            $not1 = "AND status not in('{$Params['not_1']}')";
+        }
+
+        if (!empty($Params['not_100'])) {
+            $not_100 = "AND status not in('{$Params['not_100']}')";
+        }
+
+        if (!empty($Params['verified'])) {
+            $verified = "AND verified in('{$Params['verified']}')";
         }
 
          if (!empty($Params['customer'])) {
@@ -259,6 +292,9 @@ class Delivery extends Model
                     {$status3}
                     {$status4}
                     {$status5}
+                    {$not1}
+                    {$not100}
+                    {$verified}
                     {$exceptStatusFilter}
                     {$exceptStatFilter}
                     {$roleFilter}

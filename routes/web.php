@@ -135,17 +135,14 @@ Route::prefix('address')->group(function(){;
 
 Route::prefix('report')->group(function(){;
     Route::get('/driver',[App\Http\Controllers\ReportController::class, 'driver']);
-    Route::get('/new',[App\Http\Controllers\DeliveryController::class, 'new']);
-    Route::get('/received',[App\Http\Controllers\DeliveryController::class, 'received']);
-    Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
-    Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
-    Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
-    Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
-    Route::get('/datatable-delivery', [App\Http\Controllers\DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
+    Route::get('/driverdone',[App\Http\Controllers\ReportController::class, 'driverdone']);
+
+    Route::get('/datatable-delivery-report', [App\Http\Controllers\ReportController::class, 'loadDeliveryDataTableForReport'])->name('datatable-delivery-report'); 
     Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
     Route::get('/change_driver_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_driver_on_delivery'])->name('change_driver_on_delivery');
     Route::get('/change_status_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_status_on_delivery'])->name('change_status_on_delivery');
     Route::get('/change_delete_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_delete_on_delivery'])->name('change_delete_on_delivery');
     Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
+    Route::get('/report_compile',[App\Http\Controllers\ReportController::class, 'report_compile'])->name('report_compile');
 
 });
