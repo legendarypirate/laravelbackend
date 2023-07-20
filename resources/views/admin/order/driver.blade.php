@@ -33,8 +33,8 @@
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Print</a></button> 
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
+          <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
          <div class="form-group">
                     <label for="status">Төлөв:</label>
@@ -139,7 +139,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_status">Солих</button>
             </div>
         </div>
 </div>
@@ -149,7 +149,7 @@
                     <h4 class="modal-title">Бүс солих</h4>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control inputStatus1">
+                    <select class="form-control inputStatus3">
                         <?php $bus=DB::table('regions')->get(); ?>
                         @foreach($bus as $region)
                         <option value="{{$region->name}}">{{$region->name}}</option>
@@ -158,7 +158,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_bus">Солих</button>
             </div>
         </div>
 </div>
@@ -169,7 +169,7 @@
                     <h4 class="modal-title">Төлөв солих</h4>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control inputStatus1">
+                    <select class="form-control inputStatus4">
                     <?php $bus=DB::table('users')->get(); ?>
                         @foreach($bus as $region)
                         <option value="{{$region->name}}">{{$region->name}}</option>
@@ -178,7 +178,7 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
             </div>
         </div>
 </div>
@@ -186,19 +186,12 @@
 <div id="deleteModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
-                    <h4 class="modal-title">sss солих</h4>
+                    <h4 class="modal-title">Устгах</h4>
                 </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
-                    </select>       
-                </div>
+               
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
             </div>
         </div>
 </div>
@@ -234,16 +227,14 @@
         
       }
 
-      checkboxes.forEach((input) => {
+        checkboxes.forEach((input) => {
                 if (input.checked) {
                     rows_selected.push(input.value);
                 }else{
                          rows_selected.length = 0;
                 }
             });
-
-    }
-
+        }
     $('input[name="foo"]').click(function() {
     document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
 
@@ -255,7 +246,6 @@
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
                 const deliveryTableUrl = '{{ route('datatable-order') }}';
-                
                 const loadDeliveryDataTable = (status,bus,driver,customer,status_3) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
@@ -270,6 +260,7 @@
                                 driver: driver,
                                 customer: customer,
                                 status_3 : status_3
+
                             },
                             dataSrc: function ( json ) {
     
@@ -278,8 +269,6 @@
                              return json.data;
                             }
                         },
-    
-    
                         columns: [
                             {
                                 name: 'checkbox',
@@ -489,7 +478,7 @@
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");
                     console.log(rows_selected);
-                    const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
+                    const changeDriverUrl = '{{ route('change_driver_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_driver = $('.inputStatus4').val();
     
@@ -498,7 +487,7 @@
                         url: changeDriverUrl,
                         data: {
                             ids : ids,
-                            driverselected : selected_driver
+                            driver : selected_driver
                         },
                         beforeSend: function() {
                             console.log("Loading");
@@ -614,57 +603,52 @@
 
     
         $(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#customModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#statusModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#deleteModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 13) {
-    $('#dri').submit();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#driveModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#busModal').hide();
-  }
-});
-
+        if (event.keyCode == 27) {
+            $('#customModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#statusModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#deleteModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 13) {
+            $('#dri').submit();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#driveModal').hide();
+        }
+        });
+        $(document).keydown(function(event) {
+        if (event.keyCode == 27) {
+            $('#busModal').hide();
+        }
+        });
         </script>
+    <style>
+    .dataTables_wrapper .dt-buttons {
+    position: absolute;
+    margin: 10px
+    }
 
+    div.dtsp-panesContainer:after {
+    content: '';
+    display: table;
+    clear: both;
+    }
+    .dtsp-title {
+    display: none;  
+    }
 
-
-
-<style>
-.dataTables_wrapper .dt-buttons {
-position: absolute;
-margin: 10px
-}
-
-div.dtsp-panesContainer:after {
-content: '';
-display: table;
-clear: both;
-}
-.dtsp-title {
-display: none;
-}
-
-#print_wrapper .table th {
+    #print_wrapper .table th {
     padding: 0.75rem 1.25rem;
     border: 1px solid;
     font-weight: 700;
@@ -686,5 +670,4 @@ display: none;
         }
     }
 </style>
-
-  @endsection
+@endsection
