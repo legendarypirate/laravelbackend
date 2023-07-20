@@ -32,16 +32,20 @@
               {!! Form::open(['url' => 'good/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Нэр</label>
-                    <input type="text" name="name" class="form-control"  placeholder="Нэр">
+                    <label for="exampleInputEmail1">Дэлгүүр</label>
+                    <input type="text" name="shop" class="form-control"  placeholder="shop">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Нууц үг</label>
-                    <input type="text" name="password" class="form-control"  placeholder="Нууц үг">
+                    <label for="exampleInputEmail1">Агуулах</label>
+                    <input type="text" name="ware" class="form-control"  placeholder="ware">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Эрх</label>
-                    <input type="text" name="role" class="form-control"  placeholder="Role">
+                    <label for="exampleInputEmail1">Барааны нэр</label>
+                    <input type="text" name="good" class="form-control"  placeholder="good">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Үнэ</label>
+                    <input type="text" name="price" class="form-control"  placeholder="price">
                   </div>
                 
                 

@@ -1,6 +1,8 @@
 @extends('admin.master')
 
 @section('mainContent')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.min.css" integrity="sha512-A374yR9LJTApGsMhH1Mn4e9yh0ngysmlMwt/uKPpudcFwLNDgN3E9S/ZeHcWTbyhb5bVHCtvqWey9DLXB4MmZg==" crossorigin="anonymous" />
+
 <style>
 
 
@@ -130,14 +132,16 @@
                 <div class="modal-body">
                     <select class="form-control inputStatus1">
                         <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
+                        <option value="3">Хүргэгдсэн</option>
+                        <option value="4">Цуцалсан</option>
+                        <option value="5">Буцаасан</option>
+                        <option value="6">Хүлээгдэж буй</option>
+                        <option value="10">Хүлээн авсан</option>
                     </select>       
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_status">Солих</button>
             </div>
         </div>
 </div>
@@ -147,7 +151,7 @@
                     <h4 class="modal-title">Бүс солих</h4>
                 </div>
                 <div class="modal-body">
-                    <select class="form-control inputStatus1">
+                    <select class="form-control inputStatus3">
                         <?php $bus=DB::table('regions')->get(); ?>
                         @foreach($bus as $region)
                         <option value="{{$region->name}}">{{$region->name}}</option>
@@ -156,47 +160,40 @@
                 </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_change_bus">Солих</button>
             </div>
         </div>
 </div>
 
-<div id="driverModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Төлөв солих</h4>
+                <div id="driverModal" class="modal" >
+                            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Төлөв солих</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <select class="form-control inputStatus4">
+                                    <?php $bus=DB::table('users')->get(); ?>
+                                        @foreach($bus as $region)
+                                        <option value="{{$region->name}}">{{$region->name}}</option>
+                                        @endforeach
+                                    </select>       
+                                </div>
+                            <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
+                            </div>
+                        </div>
                 </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                    <?php $bus=DB::table('users')->get(); ?>
-                        @foreach($bus as $region)
-                        <option value="{{$region->name}}">{{$region->name}}</option>
-                        @endforeach
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
-            </div>
-        </div>
-</div>
 
 <div id="deleteModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
-                    <h4 class="modal-title">sss солих</h4>
+                    <h4 class="modal-title">Устгах</h4>
                 </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="2">Жолоочид хуваарилсан</option>
-                        <option value="3">Жолооч хүлээн авсан</option>
-                        <option value="4">Дууссан</option>
-                    </select>       
-                </div>
+                
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Солих</button>
+            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
             </div>
         </div>
 </div>
@@ -251,23 +248,21 @@
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
                 const deliveryTableUrl = '{{ route('datatable-delivery') }}';
-                const loadDeliveryDataTable = (status_2,status_6,status,bus,driver,customer) => {
+                const loadDeliveryDataTable = (status,bus,driver,customer,status_2,status_6) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
                         serverSide: true,
                         bDestroy: true,
-                        "searching":true,
                         ajax: {
                             type: 'GET',
                             url: deliveryTableUrl,
                             data: {
-                           
                                 status: status,
                                 region: bus,
-                                status_6 : status_6,
-                                status_2 : status_2,
                                 driver: driver,
-                                customer: customer
+                                customer: customer,
+                                status_2 : status_2,
+                                status_6 : status_6
                             },
                             dataSrc: function ( json ) {
                              return json.data;
@@ -356,27 +351,27 @@
                     //}
     
                 }
-                let status_2 = 2;
                 let status_6 = 6;
+                let status_2 = 2;
                 let status = $('#filterByStatus').val();
                 let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
                 let customer = $('#filterByCustomer').val();
 
-                loadDeliveryDataTable(status_2,status_6,status,bus,driver,customer);
+                loadDeliveryDataTable(status,bus,driver,customer,status_2,status_6);
                 $('#filterByStatus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $(this).val();
                     var bus = $('#filterByBus').val();
                     var driver = $('#filterByDriver').val();
-                    loadDeliveryDataTable(status_2,status_6,status,bus,driver,customer);
+                    loadDeliveryDataTable(status,bus,driver,customer,status_2,status_6);
                 });                
                 $('#filterByBus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
                     var bus = $(this).val();
-                    loadDeliveryDataTable(status_2,status_6,status,bus,driver,customer);
+                    loadDeliveryDataTable(status,bus,driver,customer,status_2,status_6);
                 });
 
                 $('#filterByDriver').change(function () {
@@ -384,7 +379,7 @@
                     var status = $('#filterByStatus').val();
                     var driver = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status_2,status_6,status,bus,driver,customer);
+                    loadDeliveryDataTable(status,bus,driver,customer,status_2,status_6);
                 });
 
                 $('#filterByCustomer').change(function () {
@@ -392,7 +387,7 @@
                     var status = $('#filterByStatus').val();
                     var customer = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status_2,status_6,status,bus,driver,customer);
+                    loadDeliveryDataTable(status,bus,driver,customer,status_2,status_6);
                 });
                
                 var selected_status = 1;
@@ -448,7 +443,7 @@
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
                         console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
+                        const changeVerifyUrl = '{{ route('change_delete_on_delivery') }}';
                         var ids = rows_selected.join(",");
                            
                         $.ajax({
@@ -602,8 +597,11 @@
 
             });
         </script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.all.min.js" integrity="sha512-LXVbtSLdKM9Rpog8WtfAbD3Wks1NSDE7tMwOW3XbQTPQnaTrpIot0rzzekOslA1DVbXSVzS7c/lWZHRGkn3Xpg==" crossorigin="anonymous"></script>
+
         <script>
+
+            
         // When the user clicks on <span> (x), close the modal
             $(document).on('click', '.closing', function() {
             $('#customModal').attr('style','display:none');
@@ -683,5 +681,6 @@
         }
     }
 </style>
+@include('sweetalert::alert')
 
   @endsection

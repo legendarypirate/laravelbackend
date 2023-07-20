@@ -34,7 +34,7 @@ class GoodController extends Controller
         $order = new Good();
         $order->shop = $request->shop;
         $order->ware = $request-> ware;
-        $order->goodname = $request->goodname;
+        $order->good = $request->good;
         $order->price = $request-> price;
         $order->save();
         return redirect('/good/list')->with('message','Амжилттай хадгалагдлаа');

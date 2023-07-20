@@ -71,7 +71,11 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
     Route::get('/datatable-delivery', [App\Http\Controllers\DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
     Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
-    Route::get('/change_driver_on_delivery',[App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('change_driver_on_delivery');
+    Route::get('/change_driver_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_driver_on_delivery'])->name('change_driver_on_delivery');
+    Route::get('/change_status_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_status_on_delivery'])->name('change_status_on_delivery');
+    Route::get('/change_delete_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_delete_on_delivery'])->name('change_delete_on_delivery');
+    Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
+
 });
 
 
