@@ -45,12 +45,238 @@ class ReportController extends Controller
         return view('admin.report.customer');
     }
 
+    public function general()
+    {
+        return view('admin.report.general');
+    }
+
     
     public function customerdone()
     {
         return view('admin.report.customerdone');
     }
-    
+
+    public function loadGeneralDataTable(Request $request)
+    {
+        if ($request->ajax()) {
+            $user_id = Auth::user()->id;
+            $role = Auth::user()->role;
+            $ids = $request->get('ids', array());
+            $status = $request->get('status',0);
+            $region = $request->get('region',0);
+            $driverselected = $request->get('driver',0);  
+            $dr = $request->get('dr',0);  
+            $customer = $request->get('customer',0);  
+
+            $start_date = $request->get('start_date',0);  
+            $end_date = $request->get('end_date',0);  
+            $offset = $request->get('start', 0);
+            $limit = $request->get('length', 10);
+            if ($limit < 1 OR $limit > 500) {
+                $limit = 500;
+            }
+
+            $search = isset($request->get('search')['value'])
+                    ? $request->get('search')['value']
+                    : null;
+
+            $orderColumnList = [
+                'id',
+                 'amount',
+                 'created_at',
+                 'type',
+
+                 'staff'
+            ];
+
+            $orderColumnIndex = isset($request->get('order')[0]['column'])
+                                ? $request->get('order')[0]['column']
+                                : 0;
+            $orderColumnDir = isset($request->get('order')[0]['dir'])
+                                ? $request->get('order')[0]['dir']
+                                : 'asc';
+
+            $orderColumn = isset($orderColumnList[$orderColumnIndex])
+                            ? $orderColumnList[$orderColumnIndex]
+                            : 'product_name';
+
+            $Params = [
+                'user_id' => $user_id,
+                'role' => $role,
+                'search' => $search,
+                'limit' => $limit,
+                'offset' => $offset,
+                'driverselected' => $driverselected,
+                'dr' => $dr,
+                'customer' => $customer,
+
+                'order_column' => $orderColumn,
+                'order_dir' => $orderColumnDir,
+                'ids' => $ids,
+                'start_date' => $start_date,
+                'end_date' => $end_date
+             
+            ];
+
+            $data = General::GetExcelData($Params);
+           
+            $dataCount = General::GetExcelDataCount($Params);
+            $table = Datatables::of($data)
+                        ->addColumn('checkbox', function ($row) {
+                            return '<input type="checkbox" style="width:30px;height:30px;" class="checkbox" onclick="updateCount()" name="foo" data-id="'.$row->id.'" value="'.$row->id.'">';
+                        })
+                        ->addColumn('id', function ($row) {
+                            return '<button id="__genExcelExport" value="'.$row->id.'" style="  text-decoration: underline;">'.$row->id.'</button>';
+                        })
+
+                        ->addColumn('amount', function ($row) {
+                            return $row->amount;
+                        })
+                        ->addColumn('sent', function ($row) {
+                            
+                            if($row->sent==0){
+                            //     if(\Auth::user()->hasPermissionTo('money_sent')){
+                            //     $delete = '
+                            //     <div class="flex justify-center items-center">
+                            //     <a class="flex items-center text-theme-6" href="'.url('/report/sent/'.$row->id).'">
+                            //     Төлбөр шилжээгүй  </a>
+                             
+                            // </div>
+                              
+                            //    ';
+                            //     return $delete;} else {
+                                    return ' <a class="flex items-center text-theme-6" href="#">
+                                    Төлбөр шилжээгүй  </a>';
+                                // }
+                            } else{
+                                if(\Auth::user()->hasPermissionTo('money_sent')){
+                                $delete = '
+                                <div class="flex justify-center items-center">
+                                    <a class="flex items-center text-theme-9" href="'.url('/report/sentback/'.$row->id).'">
+                                    Төлбөр шилжсэн  </a>
+                                 
+                                </div>
+                               ';
+                                return $delete;
+                                } else {
+                                    return ' <a class="flex items-center text-theme-9" href="#">
+                                    Төлбөр шилжсэн  </a>';
+                                }
+
+                            }
+                       
+                        })
+                        ->addColumn('count', function ($row) {
+                                    if(Auth::user()->role!='Customer'){
+                            return '    <input class="font-medium whitespace-nowrap input" id="recieved_'.$row->id.'"  style="width:80px;"  value="'.$row->count.'" name="count"/>
+                            <input type="hidden" value="'.$row->id.'" name="countid">
+                            
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_count" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>';
+                                    } else {
+                                    return '    <input class="font-medium whitespace-nowrap input" id="recieved_'.$row->id.'"  style="width:80px;"  value="'.$row->count.'" name="count"/>
+                                    <input type="hidden" value="'.$row->id.'" name="countid">';
+                                    }
+                            
+                        })
+                        ->addColumn('created_at', function ($row) {
+                            return $row->created_at;
+                        })
+			 ->addColumn('cash', function ($row) {
+                              return  '
+                             
+                                <input class="font-medium whitespace-nowrap input" id="cash_'.$row->id.'"  style="width:80px;"  value="'.$row->cash.'" name="cash"/>
+                                <input type="hidden" value="'.$row->id.'" name="realid">
+                                
+                                <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_cash" style="color:red; text-decoration: underline;" >  Засах </button>
+                                <a class="font-medium whitespace-nowrap"></a>  
+                           ';  
+                        })
+			 ->addColumn('account', function ($row) {
+                              return  '
+                             
+                                <input class="font-medium whitespace-nowrap input" id="account_'.$row->id.'"  style="width:80px;"  value="'.$row->account.'" name="account"/>
+                                <input type="hidden" value="'.$row->id.'" name="realid">
+                                
+                                <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_account" style="color:red; text-decoration: underline;" >  Засах </button>
+                                <a class="font-medium whitespace-nowrap"></a>  
+                           ';  
+                        })
+                        ->addColumn('type', function ($row) {
+                            if($row->type==1){
+                                return 'Хүргэлтийн ажилтан';
+
+                            }else {
+                                return 'Харилцагч';
+
+                            }
+                        })
+			
+                        ->addColumn('staff', function ($row) {
+                            return $row->staff;
+                        })   
+                        ->addColumn('delprice', function ($row) {
+                            return $row->delprice;
+                        })  
+                        ->addColumn('sub', function ($row) {
+                            return $row->sub;
+                        })  
+                        ->addColumn('actions', function ($row) {
+                                 
+                            $actions = '
+                            <div class="flex justify-center items-center">
+                                <a class="flex items-center text-theme-9" href="'.url('/report/gen/'.$row->rand).'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="edit edit w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                                Дэлгэрэнгүй  </a>
+                             
+                            </div>
+                            
+                            <div class="flex justify-center items-center">
+                            <a class="flex items-center text-theme-6" onclick="return confirmation()" href="'.url('/report/gendel/'.$row->id).'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="edit edit w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            Устгах  </a>
+                         
+                        </div> ';
+                        $ust = '
+                        <div class="flex justify-center items-center">
+                        <a class="flex items-center text-theme-6" onclick="return confirmation()" href="'.url('/report/gendel/'.$row->id).'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="edit edit w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                        Устгах  </a>
+                     
+                    </div>
+                       ';
+                        $delete = '
+                        <div class="flex justify-center items-center">
+                            <a class="flex items-center text-theme-9" href="'.url('/report/gen/'.$row->rand).'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="edit edit w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            Дэлгэрэнгүй  </a>
+                         
+                        </div>
+                       ';
+                        if(\Auth::user()->hasPermissionTo('delete_general')&&\Auth::user()->hasPermissionTo('general_det')){
+                            return $actions.'<br>';
+                        }elseif(\Auth::user()->hasPermissionTo('delete_general')) {
+                            return $ust;
+                        } elseif(\Auth::user()->hasPermissionTo('general_det')) {
+                            return $delete;
+                        } else {
+                            return '';
+                        }
+                            
+                            
+                        })              
+                        ->rawColumns(['checkbox','actions','count','cash','account','sent','id'])
+                        ->skipPaging()
+			            ->addIndexColumn()
+                        ->setTotalRecords($dataCount)
+                        ->make(true);
+
+            return $table;
+
+        }
+
+    }
+
     public function addToCart($id)
     {
         $product = Product::findOrFail($id);

@@ -84,22 +84,20 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap"> <input type="checkbox"  style="width:20px;height:20px;" onClick="toggle(this);updateCount();" /></th>
-                        <th class="text-center whitespace-nowrap">Үүссэн огноо</th>
-                        <th class="whitespace-nowrap">Нэр</th>
-                        <th class="text-center whitespace-nowrap">Утас</th>
+                    
+                        <th class="whitespace-nowrap">Дугаар</th>
+                        <th class="text-center whitespace-nowrap">Огноо</th>
+                        <th class="text-center whitespace-nowrap">Хүргэлтийн тоо</th>
                         <th class="text-center whitespace-nowrap">Дүн</th>
+                      
+                        <th class="text-center whitespace-nowrap">Мөнгөн дүн</th>
+                        <th class="text-center whitespace-nowrap">Авсан мөнгө</th>
+                        <th class="text-center whitespace-nowrap">Хүргэлтийн үнэ</th>
 
-                        <th class="text-center whitespace-nowrap">Хаяг</th>
-                        <th class="text-center whitespace-nowrap">Тайлбар</th>
+                        <th class="text-center whitespace-nowrap">Нэмэлт төлбөр</th>
+                        <th class="text-center whitespace-nowrap">Оп үйлчилгээ</th>
 
                         <th class="text-center whitespace-nowrap">Төлөв</th>
-                      
-
-                        <th class="text-center whitespace-nowrap">Бүс</th>
-                        <th class="text-center whitespace-nowrap">Жолооч</th>
-                     
-                        <th class="text-center whitespace-nowrap">Баталгаажсан</th>
-
                         <th class="text-center whitespace-nowrap">Үйлдэл</th>
                     </tr>
                 </thead>
@@ -110,11 +108,8 @@
 
     <div style="position:fixed;bottom:20px;">
          <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
-         <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
-         <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
-         <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
-         <button type="button" class="btn btn-default" id="btnVerifyModal">Баталгаажуулах</button>
-         <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         <button type="button" class="btn btn-default"  id="btnReport">Тайлан нийлэх</button> 
+     
     </div> 
 
  
@@ -128,99 +123,17 @@
 <div id="statusModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
-                    <h4 class="modal-title">Төлөв солих</h4>
+                    <h4 class="modal-title">Тайлан нийлэх</h4>
                 </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus1">
-                        <option value="1">Бүртгэгдсэн</option>
-                        <option value="3">Хүргэгдсэн</option>
-                        <option value="4">Цуцалсан</option>
-                        <option value="5">Буцаасан</option>
-                        <option value="6">Хүлээгдэж буй</option>
-                        <option value="10">Хүлээн авсан</option>
-                    </select>       
-                </div>
+             
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn_change_status">Солих</button>
-            </div>
-        </div>
-</div>
-<div id="busModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Бүс солих</h4>
-                </div>
-                <div class="modal-body">
-                    <select class="form-control inputStatus3">
-                        <?php $bus=DB::table('regions')->get(); ?>
-                        @foreach($bus as $region)
-                        <option value="{{$region->name}}">{{$region->name}}</option>
-                        @endforeach
-                    </select>       
-                </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn_change_bus">Солих</button>
-            </div>
-        </div>
-</div>
-
-                <div id="driverModal" class="modal" >
-                            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Төлөв солих</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <select class="form-control inputStatus4">
-                                    <?php $bus=DB::table('users')->get(); ?>
-                                        @foreach($bus as $region)
-                                        <option value="{{$region->name}}">{{$region->name}}</option>
-                                        @endforeach
-                                    </select>       
-                                </div>
-                            <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
-                            </div>
-                        </div>
-                </div>
-
-<div id="deleteModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Устгах</h4>
-                </div>
-                
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
+            <button type="button" class="btn btn-primary btn_report">Нийлэх</button>
             </div>
         </div>
 </div>
 
 
-<div id="verifyModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-left:700px;margin-top:200px;">
-                <div class="modal-header">
-                    <h4 class="modal-title">Баталгаажуулах</h4>
-                </div>
-                <div class="form-group">
-            <label for="status">Баталгаажсан:</label>
-            <select class="form-control inputStatus15">
-                        <option value="1">Тийм</option>
-            </select>
-        </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn_verify">Баталгаажуулах</button>
-            </div>
-        </div>
-</div>
-
-
-
-</div>
 
 
     <div id="print_wrapper" hidden> </div>
@@ -271,8 +184,8 @@
             <script type="text/javascript">
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
-                const deliveryTableUrl = '{{ route('datatable-delivery') }}';
-                const loadDeliveryDataTable = (status,bus,driver,customer,status_1) => {
+                const deliveryTableUrl = '{{ route('datatable-general') }}';
+                const loadDeliveryDataTable = (status,bus,driver,customer,verified) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
                         serverSide: true,
@@ -285,7 +198,7 @@
                                 region: bus,
                                 driver: driver,
                                 customer: customer,
-                                status_1 : status_1
+                                verified:verified
                             },
                             dataSrc: function ( json ) {
                              return json.data;
@@ -296,10 +209,7 @@
                                 name: 'checkbox',
                                 data: 'checkbox',
                             },
-                            {
-                                name: 'created_at',
-                                data: 'created_at'
-                            },
+                          
                             {
                                 name: 'shop',
                                 data: 'shop'
@@ -309,34 +219,38 @@
                                 data: 'phone'
                             },
                             {
+                                name: 'created_at',
+                                data: 'created_at'
+                            },
+                            {
+                                name: 'reportdate',
+                                data: 'reportdate'
+                            },  
+                           
+                            {
                                 name: 'price',
                                 data: 'price'
                             },
-                           
                             {
-                                name: 'address',
-                                data: 'address'
+                                name: 'received',
+                                data: 'received'
                             },
                             {
-                                name: 'comment',
-                                data: 'comment'
+                                name: 'deliveryprice',
+                                data: 'deliveryprice'
+                            },
+                            {
+                                name: 'additional',
+                                data: 'additional'
+                            },
+                            {
+                                name: 'opservice',
+                                data: 'opservice'
                             },
                             {
                                 name: 'status',
                                 data: 'status'
-                            },
-                            {
-                                name: 'region',
-                                data: 'region'
-                            },
-                            {
-                                name: 'driver',
-                                data: 'driver'
-                            },
-                            {
-                                name: 'verified',
-                                data: 'verified'
-                            },
+                            },  
                             {
                                 name: 'actions',
                                 data: 'actions'
@@ -374,27 +288,28 @@
                     //}
     
                 }
-                let status_10 = 10;
-                let status_1 = 1;
+               
+                let verified = 2;
+              
                 let status = $('#filterByStatus').val();
                 let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
                 let customer = $('#filterByCustomer').val();
 
-                loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                loadDeliveryDataTable(status,bus,driver,customer,verified);
                 $('#filterByStatus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $(this).val();
                     var bus = $('#filterByBus').val();
                     var driver = $('#filterByDriver').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    loadDeliveryDataTable(status,bus,driver,customer,verified);
                 });                
                 $('#filterByBus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
                     var bus = $(this).val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    loadDeliveryDataTable(status,bus,driver,customer,verified);
                 });
 
                 $('#filterByDriver').change(function () {
@@ -402,7 +317,7 @@
                     var status = $('#filterByStatus').val();
                     var driver = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    loadDeliveryDataTable(status,bus,driver,customer,verified);
                 });
 
                 $('#filterByCustomer').change(function () {
@@ -410,25 +325,20 @@
                     var status = $('#filterByStatus').val();
                     var customer = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    loadDeliveryDataTable(status,bus,driver,customer,verified);
                 });
                
                 var selected_status = 1;
                 var selected_bus = 1;
                 var selected_driver = 1;
-                $(document).on('click', '#btnStatusModal', function() {
+                $(document).on('click', '#btnReport', function() {
                     $('#statusModal').attr('style','display:block');
                 });
 
                 $(document).on('click', '#btnBusModal', function() {
                     $('#busModal').attr('style','display:block');
                     console.log("hi");
-               });
-
-               $(document).on('click', '#btnVerifyModal', function() {
-                    $('#verifyModal').attr('style','display:block');
-                    console.log("hi");
-               });
+            });
 
                 window.updateCount = function() {
                     var x = $(".checkbox:checked").length;
@@ -445,51 +355,33 @@
                     $('#deleteModal').attr('style','display:block');
                 });
 
-                $('.btn_change_status').click(function () {
-                    console.log("btn_change_status click");
-                    console.log(rows_selected);
-                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_status = $('.inputStatus1').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeStatusUrl,
-                        data: {
-                            ids : ids,
-                            status : selected_status
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
+                $('.btn_report').click(function () {
+                console.log("btn_report click");
+                console.log(rows_selected);
+                const changeStatusUrl = '{{ route('report_compile_customer') }}';
+                var ids = rows_selected.join(",");
+                selected_status = $('.inputStatus1').val();
+             
+                $.ajax({
+                    type: 'GET',
+                    url: changeStatusUrl,
+                    data: {
+                        ids : ids,
+                        status : selected_status,
+                        verified : 0
+                    },
+                    beforeSend: function() {
+                        console.log("Loading");
+                    }
+                }).done(function(result) {
+                    $('#customModal').attr('style','display:none');
+                    window.location.reload();
 
-                $('.btn_change_verify').click(function () {
-                    console.log("btn_change_verify click");
-                    console.log(rows_selected);
-                    const changeVerifyUrl = '{{ route('change_verify_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    verified = $('.inputStatus15').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeVerifyUrl,
-                        data: {
-                            ids : ids,
-                            verified : verified
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
                 });
+                this.disabled=true; this.value='Sending…';
+                return false;
+
+            });
 
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
@@ -511,34 +403,10 @@
                             window.location.reload();
                     });
                 });
-                
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
                     const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_bus = $('.inputStatus3').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeBusUrl,
-                        data: {
-                            ids : ids,
-                            region : selected_bus
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
-
-                $('.btn_verify').click(function () {
-                    console.log("btn_verify click");
-                    console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_verify_on_delivery') }}';
                     var ids = rows_selected.join(",");
                     selected_bus = $('.inputStatus3').val();
     

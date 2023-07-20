@@ -292,26 +292,7 @@
                     });
                 });
 
-                $('.btn_delete').click(function () {
-                        console.log("btn_delete click");
-                        console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
-                        var ids = rows_selected.join(",");
-                           
-                        $.ajax({
-                            type: 'GET',
-                            url: changeVerifyUrl,
-                            data: {
-                                ids : ids
-                                },
-                            beforeSend: function() {
-                                console.log("Loading");
-                                                    }
-                            }).done(function(result) {
-                            $('#customModal').attr('style','display:none');
-                            window.location.reload();
-                    });
-                });
+              
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);

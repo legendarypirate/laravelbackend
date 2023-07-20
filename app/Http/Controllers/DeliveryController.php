@@ -38,15 +38,14 @@ class DeliveryController extends Controller
         $order->phone = $request-> phone;
         $order->address = $request->address;
         $order->comment = $request-> comment;
+        $order->status = 1;
         $order->save();
         return redirect('/delivery/new')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
 
-    public function good($name){
-        echo json_encode(DB::table('goods')->where('shop', $name)->get());
-    }
+ 
     
     public function addToCart($id)
     {
@@ -443,6 +442,53 @@ class DeliveryController extends Controller
         // $log->value='';
 
         // $log -> save();
+        return json_encode($data);
+    }
+
+
+    public function change_verify_on_delivery(Request $request){
+
+        $data = array();
+        $data['status'] = 0;
+
+        if($request->ids){
+            $ids = explode(',',$request->ids);
+            $array_ids = array_filter(explode(',',$request->ids));
+            if($request->verified==1){
+            for($i=0; $i<count($array_ids);$i++){
+                $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+               
+                // $log = new Log();
+                // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталгаажууллаа.';
+                // $log -> phone = $dddd['phone'];
+                // $log -> value = $dddd['tracking'];
+                // $log->staff=Auth::user()->name;
+                // $log -> save();
+            }
+        }  else {
+            for($i=0; $i<count($array_ids);$i++){
+                $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+               
+                // $log = new Log();
+                // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталсныг цуцаллаа.';
+                // $log -> phone = $dddd['phone'];
+                // $log -> value = $dddd['tracking'];
+                // $log->staff=Auth::user()->name;
+                // $log -> save();
+            }
+        }
+        Delivery::whereIn('id',$ids)->update(['verified'=>$request->verified]);
+            $req=Delivery::where('id',$ids)->get();
+            // $good = Ware::where('deliverid',$req[0]['tracking'])->get();
+            // foreach($good as $goods){
+            //     $goods->verify=1;
+            //     $goods->save();
+            // }
+            $data['status'] = 1;
+            $data['message'] = "Success";
+        }
+        Alert::success('Хүргэлт', 'Баталгаажлаа');
+     
         return json_encode($data);
     }
 
