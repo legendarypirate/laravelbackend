@@ -136,6 +136,8 @@ Route::prefix('address')->group(function(){;
 Route::prefix('report')->group(function(){;
     Route::get('/driver',[App\Http\Controllers\ReportController::class, 'driver']);
     Route::get('/driverdone',[App\Http\Controllers\ReportController::class, 'driverdone']);
+    Route::get('/customer',[App\Http\Controllers\ReportController::class, 'customer']);
+    Route::get('/customerdone',[App\Http\Controllers\ReportController::class, 'customerdone']);
 
     Route::get('/datatable-delivery-report', [App\Http\Controllers\ReportController::class, 'loadDeliveryDataTableForReport'])->name('datatable-delivery-report'); 
     Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
@@ -144,5 +146,6 @@ Route::prefix('report')->group(function(){;
     Route::get('/change_delete_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_delete_on_delivery'])->name('change_delete_on_delivery');
     Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
     Route::get('/report_compile',[App\Http\Controllers\ReportController::class, 'report_compile'])->name('report_compile');
+    Route::get('/report_compile_customer',[App\Http\Controllers\ReportController::class, 'report_compile_customer'])->name('report_compile_customer');
 
 });

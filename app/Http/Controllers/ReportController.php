@@ -40,6 +40,16 @@ class ReportController extends Controller
         return view('admin.report.driverdone');
     }
 
+    public function customer()
+    {
+        return view('admin.report.customer');
+    }
+
+    
+    public function customerdone()
+    {
+        return view('admin.report.customerdone');
+    }
     
     public function addToCart($id)
     {
@@ -211,6 +221,117 @@ class ReportController extends Controller
     return json_encode($data);
     return redirect('/report/driver')->with('message','updated');
 
+}   
+
+public function report_compile_customer(Request $request){
+
+
+    $data = array();
+    $data['status'] = 0;
+    $array_ids = array_filter(explode(',',$request->ids));
+    $ids= implode(',',$array_ids);
+    // Req::whereIn('id',$ids)->update(['status'=>'8']);
+
+    $useridq= Delivery::where('id',$ids)->first();
+    $uidq=User::where('name',$useridq->shop)->first();
+    $urealname=$uidq->name;
+    $arr_name = array();
+    for($i=0; $i<count($array_ids);$i++){
+        $dddd=Delivery::where('shop','=',$urealname)->first();
+        $arr_name[] = $dddd['shop'];
+    }   
+    $qwe=Delivery::whereIn('shop',$arr_name)->whereIn('id',$array_ids)->count();  
+
+    $data = array();
+    $data['status'] = 0;
+    if(count($array_ids)==$qwe){
+        $array_ids = array_filter(explode(',',$request->ids));
+        $ids= implode(',',$array_ids);
+        $cbt=Delivery::whereIn('id',$array_ids)->where('status','=','3')->get();
+        Delivery::whereIn('id',$array_ids)->update(['verified'=>'3']);
+        $userid= Delivery::where('id',$ids)->first();
+        $uid=User::where('name',$userid->shop)->first();
+        $urealid=$uid->id;
+        $data['status'] = 1;
+        $data['message'] = "Success";
+        // $data=Order::where('reqid','=',$ids)->get();
+        $data1=Delivery::where('id','=',$array_ids)->get();
+        $price=$data1[0]->price;
+        $sum=0;
+        $tot=0;
+        for($i=0; $i<count($array_ids);$i++){
+            $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+            $sum+=$dddd['received'];
+            $tot+=$dddd['deliveryprice'];
+            $arr_tracking[] = $dddd['tracking'];
+            // $log = new Log();
+            // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг харилцагчтай тайлан нийлүүллээ.';
+            // $log -> phone = $dddd['phone'];
+            // $log -> value = $dddd['tracking'];
+            // $log->staff=Auth::user()->name;
+            // $log -> save();
+        }   
+        $ddss=Delivery::whereIn('id',$array_ids)->first();
+        $general = new General();
+        $general->amount=$sum;
+        $general->delprice=$tot;
+        $general->sub=$sum-$tot;
+        $general->count=count($cbt);
+        $general->rand=Auth::user()->id.'R'.rand(100000,999999);
+        $general->users=Delivery::whereIn('id',$array_ids)->first()->custname;
+        $general->type='2';
+        $general->sid=$urealid;
+        $general->staff=Auth::user()->name;
+        $general->save();  
+    //   $dlid=Ware::whereIn('deliverid',$arr_tracking)->get();            
+    //   if(!empty($dlid)){
+    //       foreach($dlid as $item){
+    //           $genrep = new Goodrep();
+    //           $genrep->delid=$item['deliverid'];
+    //           $genrep->randid=$general->rand;
+    //           $genrep->goods=$item['goodname'];
+    //           $genrep->phone=$item['phone'];
+    //           $genrep->gid=$item['goodid'];
+    //           $genrep->numb=$item['count'] ? $item['count'] : 0;
+    //           $genrep->start=$item['endcount'] ? $item['endcount'] : 0;
+    //           $genrep->end=$item['endcount']-$item['count'];                
+    //           $genrep->save();
+  
+    //       }
+    //   }
+    //   if(!empty($dlid)){
+    //     foreach($dlid as $data){
+    //             $fb=Repgood::where('goodsid',$data['goodid'])->first();
+    //             $fb->start=$fb->count;
+    //             $fb->end=$data['count'];
+    //             $fb->phone=$data['phone'];
+    //             $fb->count=$fb->count-$data['count'];
+    //             $fb->custname=$general->rand;
+    //             $fb->save();
+    //             $rec=new Finalrep();
+    //             $rec->goodsid=$fb->goodsid;
+    //             $rec->start=$fb->start;
+    //             $rec->phone=$fb->phone;
+    //             $rec->end=$fb->end;
+    //             $rec->count=$fb->count;
+    //             $rec->rid=$fb->custname;
+    //             $rec->save();
+    //     }
+    // }
+        if($request->status==3){
+           foreach($data as $datas){
+               $good=Good::where('goodname',$datas->good)->first();
+               $good->inprogress=$good->inprogress-$datas->count;
+               $good->delivered=$good->delivered+$datas->count;
+               $good->save();
+           }
+        } 
+    } 
+    else {
+        Alert::error('Анхаар', 'Өөр харилцагч нарын тайлан нийлэх боломжгүй');
+
+    }
+    return json_encode($data);
 }
 
     public function loadDeliveryDataTableForReport(Request $request)
@@ -350,6 +471,30 @@ class ReportController extends Controller
                             <a class="font-medium whitespace-nowrap"></a>
                        ';
                         })
+                        ->addColumn('deliveryprice', function ($row) {
+                            return  '
+                            <input class="font-medium whitespace-nowrap input" id="deliveryprice_'.$row->id.'"  style="width:80px;"  value="'.$row->deliveryprice.'" name="received"/>
+                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_deliveryprice" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>
+                       ';
+                        })
+                        ->addColumn('additional', function ($row) {
+                            return  '
+                            <input class="font-medium whitespace-nowrap input" id="additional_'.$row->id.'"  style="width:80px;"  value="'.$row->additional.'" name="received"/>
+                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_additional" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>
+                       ';
+                        })
+                        ->addColumn('opservice', function ($row) {
+                            return  '
+                            <input class="font-medium whitespace-nowrap input" id="opservice_'.$row->id.'"  style="width:80px;"  value="'.$row->opservice.'" name="received"/>
+                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_opservice" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>
+                       ';
+                        })
                         ->addColumn('status', function ($row) {
                             if($row->status==1){
                                 return 'Бүртгэгдсэн';
@@ -415,7 +560,7 @@ class ReportController extends Controller
                                         }
                                         return $actions;
                         })
-                        ->rawColumns(['checkbox','actions','comment','note','received'])
+                        ->rawColumns(['checkbox','actions','comment','note','received','deliveryprice','opservice','additional'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);
