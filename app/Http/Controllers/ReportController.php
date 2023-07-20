@@ -602,18 +602,18 @@ class ReportController extends Controller
                             return $row->address;
                         })
                         ->addColumn('comment', function ($row) {
-                            return  '
-                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
-                            <input type="hidden" value="'.$row->id.'" name="realid"> 
-                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
-                            <a class="font-medium whitespace-nowrap"></a>
-                       ';
+                            return $row->comment;
                         })
                         ->addColumn('created_at', function ($row) {
                             return $row->created_at;
                         })
                         ->addColumn('note', function ($row) {
-                            return $row->note;
+                            return  '
+                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->note.'" name="note"/>
+                            <input type="hidden" value="'.$row->id.'" name="realid"> 
+                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
+                            <a class="font-medium whitespace-nowrap"></a>
+                       ';
                         })
                         ->addColumn('received', function ($row) {
                             return $row->received;

@@ -290,6 +290,10 @@
                                 data: 'address'
                             },
                             {
+                                name: 'comment',
+                                data: 'comment'
+                            },
+                            {
                                 name: 'price',
                                 data: 'price'
                             },
@@ -298,19 +302,13 @@
                                 data: 'received'
                             },
                             {
-                                name: 'note',
-                                data: 'note'
-                            },
-                            {
                                 name: 'status',
                                 data: 'status'
                             },
                             {
-                                name: 'region',
-                                data: 'region'
-                            },
-                          
-                           
+                                name: 'note',
+                                data: 'note'
+                            },  
                             {
                                 name: 'actions',
                                 data: 'actions'
