@@ -38,7 +38,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         if($role){
             $categories = PermissionCategory::with('permissions')->get();
-            $roleper = $role->permissions()->pluck('id')->toArray();
+            $roleper = $role->permissions()->pluck('permissions.id')->toArray();
             return view('admin.role.edit', compact('role','categories','roleper'));
         }
         return redirect(route('role.manage'));
@@ -61,7 +61,7 @@ class RoleController extends Controller
                 }
             }
         }
-        return redirect(route('role.manage'));
+        return redirect('/role/list');
     }
 }
 

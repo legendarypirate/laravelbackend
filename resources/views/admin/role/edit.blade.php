@@ -1,141 +1,534 @@
 @extends('admin.master')
 
 @section('mainContent')
-<style>
-    .switch {
-        display: inline-block;
-        height: 34px;
-        position: relative;
-        width: 60px;
-    }
-
-    .switch input {
-        display:none;
-    }
-
-    .slider {
-        background-color: #ccc;
-        bottom: 0;
-        cursor: pointer;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transition: .4s;
-    }
-
-    .slider:before {
-        background-color: #fff;
-        bottom: 4px;
-        content: "";
-        height: 26px;
-        left: 4px;
-        position: absolute;
-        transition: .4s;
-        width: 26px;
-    }
-
-    input:checked + .slider {
-        background-color: #66bb6a;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(26px);
-    }
-
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-</style>
-
-    <div class="content">
-        <!-- END: Top Bar -->
-        <div class="intro-y flex items-center mt-8">
-            <h2 class="text-lg font-medium mr-auto">
-                Edit Role
-            </h2>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Role</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Role</li>
+            </ol>
+          </div>
         </div>
-        <div class="grid grid-cols-12 gap-6 mt-5">
+      </div><!-- /.container-fluid -->
+    </section>
 
-            <div class="intro-y col-span-12 lg:col-span-6">
-                <!-- BEGIN: Input -->
-                <div class="intro-y box">
-                    <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+      {!! Form::open(['url' => 'role/update/'.$role->id, 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
 
-
-                    </div>
-                    {!! Form::open(['url' => 'role/update/'.$role->id, 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
-
-                    <div id="input" class="p-5">
-                        <div class="preview">
-
-                            <div class="mt-3">
-                                <label for="regular-form-2" class="form-label">Name</label>
-                                <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="name" name="name" required disabled value="{{$role->name}}">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+        <!-- /.row -->
+        <div class="row">
 
 
-                <div class="source-code hidden">
-                    <button data-target="#copy-checkbox-switch" class="copy-code btn py-1 px-2 btn-outline-secondary"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Copy example code </button>
-                    <div class="overflow-y-auto mt-3 rounded-md">
-                        <pre id="copy-checkbox-switch" class="source-preview"> <code class="text-xs p-0 rounded-md html pl-5 pt-8 pb-4 -mb-10 -mt-10"> HTMLOpenTagdivHTMLCloseTag HTMLOpenTaglabelHTMLCloseTagVertical CheckboxHTMLOpenTag/labelHTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mt-2&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-1&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-1&quot;HTMLCloseTagChris EvansHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mt-2&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-2&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-2&quot;HTMLCloseTagLiam NeesonHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mt-2&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-3&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-3&quot;HTMLCloseTagDaniel CraigHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;mt-3&quot;HTMLCloseTag HTMLOpenTaglabelHTMLCloseTagHorizontal CheckboxHTMLOpenTag/labelHTMLCloseTag HTMLOpenTagdiv class=&quot;flex flex-col sm:flex-row mt-2&quot;HTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mr-2&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-4&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-4&quot;HTMLCloseTagChris EvansHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mr-2 mt-2 sm:mt-0&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-5&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-5&quot;HTMLCloseTagLiam NeesonHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;form-check mr-2 mt-2 sm:mt-0&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-6&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-6&quot;HTMLCloseTagDaniel CraigHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTagdiv class=&quot;mt-3&quot;HTMLCloseTag HTMLOpenTaglabelHTMLCloseTagSwitchHTMLOpenTag/labelHTMLCloseTag HTMLOpenTagdiv class=&quot;mt-2&quot;HTMLCloseTag HTMLOpenTagdiv class=&quot;form-check form-switch&quot;HTMLCloseTag HTMLOpenTaginput id=&quot;checkbox-switch-7&quot; class=&quot;form-check-input&quot; type=&quot;checkbox&quot;HTMLCloseTag HTMLOpenTaglabel class=&quot;form-check-label&quot; for=&quot;checkbox-switch-7&quot;HTMLCloseTagDefault switch checkbox inputHTMLOpenTag/labelHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTag/divHTMLCloseTag HTMLOpenTag/divHTMLCloseTag </code> </pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{--<button class="btn btn-primary mt-5">Хадгалах</button>--}}
-        <br>
-        <div class="intro-y col-span-12 lg:col-span-6">
-            <!-- BEGIN: Input -->
-            <div class="intro-y box">
-                <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                Permissions
-                </div>
-                <div id="input" class="p-5">
-                    <div class="col-md-8" id="main">
+<div class="card-body table-responsive p-0" style="height: 600px;">
+<table class="table table-head-fixed text-nowrap">
 
-                        @foreach($categories as $category)
+<tbody>
 
-                            <h1><b>{{ ucwords($category->name)}}</b></h1>
+@foreach($categories as $category)
+
+                            <h4><b>{{ ucwords($category->name)}}</b></h4>
                             <br>
                             @foreach($category->permissions as $permission)
                                 <div class="sm:col-span-2">
                                         <div class="col-span-6 sm:col-span-6">
                                             {{ ucwords(str_replace('_',' ',$permission->name)) }}
                                         </div>
-                                        <div class="col-span-6 sm:col-span-6" style="text-align: right;">
-                                            <label class="switch" for="checkbox_{{$permission->id}}">
-                                                <input type="checkbox" id="checkbox_{{$permission->id}}"  name="permissions[]" value="{{$permission->id}}" {{ in_array($permission->id,$roleper) ? 'checked' : '' }}/>
-                                                <div class="slider round"></div>
-                                            </label>
+                                                                                    <div class="col-span-6 sm:col-span-6 custom-control custom-switch" style="text-align: right;">
+                                                                                    <div class="form-group">
+                                            <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="checkbox_{{$permission->id}}" name="permissions[]" value="{{$permission->id}}" {{ in_array($permission->id,$roleper) ? 'checked' : '' }}>
+                                            <label class="custom-control-label" for="checkbox_{{$permission->id}}"></label>
+                                            </div>
+                                            </div>
+                                           
                                         </div>
                                 </div>
 
                             @endforeach
                             <hr style="padding: 5px">
                         @endforeach
-                </div>
-            </div>
-        </div>
-    <button class="btn btn-primary mt-5">Хадгалах</button>
 
-    {!! Form::close()!!}
-    <!-- END: Checkbox & Switch -->
-        <!-- BEGIN: Radio Button -->
+</tbody>
+</table>
 
-        <!-- END: Radio Button -->
-    </div>
+<button class="btn btn-primary mt-5">Хадгалах</button>
 
-    <!-- BEGIN: Top Bar -->
+{!! Form::close()!!}
+</div>
 
-    <!-- END: Top Bar -->
+</div>
 
-@endsection
+</div>
+</div>
+        <!-- /.row -->
+      
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <script type="text/javascript">
+   var rows_selected = [];
+    function toggle(source) {
+       
+      checkboxes = document.getElementsByName('foo');
+      for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = source.checked;
+        
+      }
+
+      checkboxes.forEach((input) => {
+                if (input.checked) {
+                    rows_selected.push(input.value);
+                }else{
+                         rows_selected.length = 0;
+                }
+            });
+
+    }
+
+    $('input[name="foo"]').click(function() {
+    document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
+
+});
+    </script>
+
+
+            <script type="text/javascript">
+                var $j = jQuery.noConflict();
+                $(document).ready(function($j){
+                const deliveryTableUrl = '{{ route('datatable-order') }}';
+                
+                const loadDeliveryDataTable = (status,bus,driver,customer,except_status,except_stat) => {
+                  var table =  $j('#datatable').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        bDestroy: true,
+                        ajax: {
+                            type: 'GET',
+                            url: deliveryTableUrl,
+                            data: {
+                                status: status,
+                                region: bus,
+                                driver: driver,
+                                customer: customer,
+                                except_status : except_status,
+                                except_stat : except_stat
+
+                            },
+                            dataSrc: function ( json ) {
+    
+                            //console.log(json);
+    
+                             return json.data;
+                            }
+                        },
+    
+    
+                        columns: [
+                            {
+                                name: 'checkbox',
+                                data: 'checkbox',
+                            },
+                            {
+                                name: 'created_at',
+                                data: 'created_at'
+                            },
+                            {
+                                name: 'shop',
+                                data: 'shop'
+                            },
+                            {
+                                name: 'phone',
+                                data: 'phone'
+                            },
+                            {
+                                name: 'address',
+                                data: 'address'
+                            },
+                           
+                            {
+                                name: 'status',
+                                data: 'status'
+                            },
+                            {
+                                name: 'region',
+                                data: 'region'
+                            },
+                            {
+                                name: 'driver',
+                                data: 'driver'
+                            },
+                            {
+                                name: 'comment',
+                                data: 'comment'
+                            },
+                            {
+                                name: 'actions',
+                                data: 'actions'
+                            }
+                            
+                        ],
+                        columnDefs: [
+                            {
+                                'targets': 0,
+                                'searchable':false,
+                                'orderable':false,
+                                'width':'1%',
+                                'className': 'dt-body-center',
+                                
+                            },
+                            {
+                                targets: [7],
+                                orderable: false
+                            },
+                            {
+                                targets: [1],
+                                className: 'text-center'
+                            }
+                        ],
+                        paginationType: 'numbers',
+                        "language": {
+    "search": "Хайх:"
+  },
+                        lengthMenu: [1000, 2000, 3000, 4000], 
+                    });
+                    // setInterval(function(){  table.ajax.reload();  },30000);
+
+                    //selectedIds.forEach(function(selectedId) {
+                   // alert(selectedId);
+                    //}
+    
+                }
+                let except_status = 3;
+                let except_stat = 4;
+
+                let status = $('#filterByStatus').val();
+                let bus = $('#filterByBus').val();
+                let driver = $('#filterByDriver').val();
+                let customer = $('#filterByCustomer').val();
+
+                loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+    
+
+                
+                $('#filterByStatus').change(function () {
+                   // $('.dataTables_wrapper').html('');
+                    var status = $(this).val();
+                    var bus = $('#filterByBus').val();
+                    var driver = $('#filterByDriver').val();
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+                });
+
+
+
+                
+                $('#filterByBus').change(function () {
+                   // $('.dataTables_wrapper').html('');
+                    var status = $('#filterByStatus').val();
+                    var driver = $('#filterByDriver').val();
+                    var bus = $(this).val();
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+                });
+
+                $('#filterByDriver').change(function () {
+                   // $('.dataTables_wrapper').html('');
+                    var status = $('#filterByStatus').val();
+                    var driver = $(this).val();
+                    var bus = $('#filterByBus').val();
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+                });
+
+                $('#filterByCustomer').change(function () {
+                   // $('.dataTables_wrapper').html('');
+                    var status = $('#filterByStatus').val();
+                    var customer = $(this).val();
+                    var bus = $('#filterByBus').val();
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
+                });
+               
+                var selected_status = 1;
+                var selected_bus = 1;
+                var selected_driver = 1;
+                $(document).on('click', '#btnStatusModal', function() {
+                    $('#statusModal').attr('style','display:block');
+                });
+
+                $(document).on('click', '#btnBusModal', function() {
+                    $('#busModal').attr('style','display:block');
+                });
+
+                window.updateCount = function() {
+    var x = $(".checkbox:checked").length;
+    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
+};
+
+
+                $(document).on('click', '#btnDriveModal', function() {
+                    $('#driveModal').attr('style','display:block');
+                });
+    
+                $(document).on('click', '#btnDeleteModal', function() {
+                    console.log("btnDeleteModal");
+                    $('#deleteModal').attr('style','display:block');
+                });
+
+                $('.btn_change_status').click(function () {
+                    console.log("btn_change_status click");
+                    console.log(rows_selected);
+                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
+                    var ids = rows_selected.join(",");
+                    selected_status = $('.inputStatus1').val();
+    
+                    $.ajax({
+                        type: 'GET',
+                        url: changeStatusUrl,
+                        data: {
+                            ids : ids,
+                            status : selected_status
+                        },
+                        beforeSend: function() {
+                            console.log("Loading");
+                        }
+                    }).done(function(result) {
+                        $('#customModal').attr('style','display:none');
+                        window.location.reload();
+                    });
+                });
+
+              
+                $('.btn_change_bus').click(function () {
+                    console.log("btn_change_bus click");
+                    console.log(rows_selected);
+                    const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
+                    var ids = rows_selected.join(",");
+                    selected_bus = $('.inputStatus3').val();
+    
+                    $.ajax({
+                        type: 'GET',
+                        url: changeBusUrl,
+                        data: {
+                            ids : ids,
+                            region : selected_bus
+                        },
+                        beforeSend: function() {
+                            console.log("Loading");
+                        }
+                    }).done(function(result) {
+                        $('#customModal').attr('style','display:none');
+                        window.location.reload();
+                    });
+                });
+
+
+                $('.btn_change_drive').click(function () {
+                    console.log("btn_change_drive click");
+                    console.log(rows_selected);
+                    const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
+                    var ids = rows_selected.join(",");
+                    selected_driver = $('.inputStatus4').val();
+    
+                    $.ajax({
+                        type: 'GET',
+                        url: changeDriverUrl,
+                        data: {
+                            ids : ids,
+                            driverselected : selected_driver
+                        },
+                        beforeSend: function() {
+                            console.log("Loading");
+                        }
+                    }).done(function(result) {
+                        $('#customModal').attr('style','display:none');
+                        window.location.reload();
+                    });
+                });
+
+
+           
+               
+                $(document).on('click', 'input[type="checkbox"]', function() {
+                    // Get row ID
+                    var rowId = $(this).attr('data-id');
+                    // Determine whether row ID is in the list of selected row IDs
+                    var index = $.inArray(rowId, rows_selected);
+
+                    // If checkbox is checked and row ID is not in list of selected row IDs
+                    if(this.checked && index === -1){
+                    rows_selected.push(rowId);
+
+                    // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
+                    } else if (!this.checked && index !== -1){
+                    rows_selected.splice(index, 1);
+                    }
+                    //console.log(rows_selected);
+                    //$("#selectedIds").val(rows_selected);
+                });
+    
+                // Handle to Export as a excel file
+                $(document).on('click', '#__btnExcelExport', function() {
+    
+                    $('#customModal').attr('style','display:block');
+    
+                    const excelExportUrl = '{{ route('excel-export-delivery') }}';
+                    var ids = rows_selected.join(",");
+                    var status = $('#filterByStatus').val();
+                    $.ajax({
+                           type: 'GET',
+                            url: excelExportUrl,
+                            data: {
+                                excel: 1,
+                                ids : ids,
+                                status : status
+                            },
+                        beforeSend: function() {
+                            $('#excel-wrapper').html('Excel File is processing. Please wait a bit...');
+                            $('.modal-excel').removeClass('modal-hide');
+                        }
+                    }).done(function(result) {
+                       // console.log(result);
+                        let downloadLink = 'Success. <a href="'+result+'" download >Download Now</a>';
+                        $('#excel-wrapper').html(downloadLink);
+                        //reinitialize array
+                        rows_selected = [];
+                    });
+                });
+
+
+                function printData(divID) {
+                    //Get the HTML of div
+                    var divElements = document.getElementById(divID).innerHTML;
+                    //Get the HTML of whole page
+                    var oldPage = document.body.innerHTML;
+                    //Reset the page's HTML with div's HTML only
+                    document.body.innerHTML =
+                    "<html><head><title></title></head><body>" +
+                    divElements + "</body>";
+                    //Print Page
+                    window.print();
+                    //Restore orignal HTML
+                    document.body.innerHTML = oldPage;
+                    
+                }
+                // Handle to Print Data
+                $(document).on('click', '#__btnPrint', function() {
+                    const printDataDeliveryURL = '{{ route('print-data-delivery') }}';
+                    var ids = rows_selected.join(",");
+                    $.ajax({
+                        type: 'GET',
+                            url: printDataDeliveryURL,
+                            data: {
+                                print: 1,
+                                ids : ids,
+                            },
+                        beforeSend: function() {
+            
+                        }
+                    }).done(function(result) {
+                    // console.log(result);
+                        $("#print_wrapper").html(result);
+                        printData("print_wrapper");
+                        $("#print_wrapper").html('');
+                        rows_selected.length = 0;
+                        //return false;
+                        
+                    });
+                });
+
+            });
+        </script>
+    
+        <script>
+        // When the user clicks on <span> (x), close the modal
+            $(document).on('click', '.close', function() {
+            $('#customModal').attr('style','display:none');
+            $('#statusModal').attr('style','display:none');
+            $('#driveModal').attr('style','display:none');
+        $('#busModal').attr('style','display:none');
+        });
+
+    
+        $(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#customModal').hide();
+  }
+});
+$(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#statusModal').hide();
+  }
+});
+$(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#deleteModal').hide();
+  }
+});
+$(document).keydown(function(event) {
+  if (event.keyCode == 13) {
+    $('#dri').submit();
+  }
+});
+$(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#driveModal').hide();
+  }
+});
+$(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#busModal').hide();
+  }
+});
+
+        </script>
+
+
+
+
+<style>
+.dataTables_wrapper .dt-buttons {
+position: absolute;
+margin: 10px
+}
+
+div.dtsp-panesContainer:after {
+content: '';
+display: table;
+clear: both;
+}
+.dtsp-title {
+display: none;
+}
+
+#print_wrapper .table th {
+    padding: 0.75rem 1.25rem;
+    border: 1px solid;
+    font-weight: 700;
+    }
+    #print_wrapper .table td{
+    padding: 0.75rem 1.25rem;
+    border: 1px solid;
+    }
+
+    @media print{
+        .table thead tr td,.table tbody tr td{
+            border-width: 1px;
+            border-style: solid;
+            border-color: black;
+            font-size: 10px;
+            background-color: red;
+            padding:0px;
+            -webkit-print-color-adjust:exact;
+        }
+    }
+</style>
+
+  @endsection
