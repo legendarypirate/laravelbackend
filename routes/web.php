@@ -105,7 +105,8 @@ Route::prefix('user')->group(function(){;
     Route::get('/index',[App\Http\Controllers\UserController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\UserController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\UserController::class, 'list']);
-  
+    Route::get('/delete/{id}',[App\Http\Controllers\UserController::class, 'delete']);
+
 });
 
 Route::prefix('role')->group(function(){;

@@ -132,10 +132,10 @@ class DeliveryController extends Controller
             $dddds=Delivery::whereIn('id',$ids)->where('driver',NULL)->count();
           
             if($request->status==10){
-                $data=Order::where('reqid','=',$ids)->get();
+                // $data=Order::where('reqid','=',$ids)->get();
                 $data['status'] = 1;
                 $data['message'] = "Success";
-                $data=Order::where('reqid','=',$ids)->get();
+         
                 if($request->status==3){
                     foreach($data as $datas){
                         $good=Good::where('goodname',$datas->good)->first();
@@ -463,9 +463,8 @@ class DeliveryController extends Controller
             $array_ids = array_filter(explode(',',$request->ids));
             if($request->verified==1){
             for($i=0; $i<count($array_ids);$i++){
-                $delivery=Delivery::where('id','=',$array_ids[$i])->first();
-                $delivery->verified=1;
-                $delivery->save();
+                // $delivery=Delivery::where('id','=',$array_ids[$i])->first();
+           
                 // $log = new Log();
                 // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталгаажууллаа.';
                 // $log -> phone = $dddd['phone'];
@@ -475,9 +474,8 @@ class DeliveryController extends Controller
             }
         }  else {
             for($i=0; $i<count($array_ids);$i++){
-                $delivery=Delivery::where('id','=',$array_ids[$i])->first();
-                $delivery->verified=0;
-                $delivery->save();
+                // $delivery=Delivery::where('id','=',$array_ids[$i])->first();
+            
                 // $log = new Log();
                 // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталсныг цуцаллаа.';
                 // $log -> phone = $dddd['phone'];
@@ -486,8 +484,10 @@ class DeliveryController extends Controller
                 // $log -> save();
             }
         }
+
         Delivery::whereIn('id',$ids)->update(['verified'=>$request->verified]);
-            $req=Delivery::where('id',$ids)->get();
+
+            // $req=Delivery::where('id',$ids)->get();
             // $good = Ware::where('deliverid',$req[0]['tracking'])->get();
             // foreach($good as $goods){
             //     $goods->verify=1;
@@ -682,6 +682,13 @@ class DeliveryController extends Controller
                         })
                         ->addColumn('created_at', function ($row) {
                             return $row->created_at;
+                        })
+                        ->addColumn('verified', function ($row) {
+                            if($row->verified==1){
+                                return 'Тийм';
+                            } else {
+                                return 'Үгүй';
+                            }
                         })
                         ->addColumn('status', function ($row) {
                             if($row->status==1){

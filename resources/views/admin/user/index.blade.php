@@ -42,9 +42,10 @@
                   <div class="form-group">
                         <label for="exampleSelectRounded0">Role <code></code></label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="role">
-                        <option value="admin">admin</option>
-                        <option value="customer">customer</option>
-                        <option value="driver">driver</option>
+                      <?php $role=DB::table('roles')->get(); ?>
+                        @foreach($role as $roles)
+                        <option value="{{$roles->name}}">{{$roles->name}}</option>
+                        @endforeach
                         </select>
                   </div>
                 </div>

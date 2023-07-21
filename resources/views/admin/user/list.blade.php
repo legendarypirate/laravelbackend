@@ -27,12 +27,13 @@
         <div class="row">
 
 
-<div class="card-body table-responsive p-0" style="height: 300px;">
+<div class="card-body table-responsive p-0" style="">
 <table class="table table-head-fixed text-nowrap">
 <thead>
 <tr>
 <th>ID</th>
 <th>Нэр</th>
+<th>Role</th>
 <th>Огноо</th>
 <th>Үйлдэл</th>
 
@@ -45,8 +46,9 @@
 <tr>
 <td>{{$wares->id}}</td>
 <td>{{$wares->name}}</td>
+<td>{{$wares->role}}</td>
 <td>{{$wares->created_at}}</td>
-<td>Устгах</td>
+<td><a href="{{url('/user/delete/'.$wares->id)}}">Устгах</a></td>
 
 </tr>
 @endforeach
@@ -295,26 +297,7 @@
                     });
                 });
 
-                $('.btn_delete').click(function () {
-                        console.log("btn_delete click");
-                        console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('del_delete') }}';
-                        var ids = rows_selected.join(",");
-                           
-                        $.ajax({
-                            type: 'GET',
-                            url: changeVerifyUrl,
-                            data: {
-                                ids : ids
-                                },
-                            beforeSend: function() {
-                                console.log("Loading");
-                                                    }
-                            }).done(function(result) {
-                            $('#customModal').attr('style','display:none');
-                            window.location.reload();
-                    });
-                });
+               
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
@@ -539,5 +522,6 @@ display: none;
         }
     }
 </style>
+@include('sweetalert::alert')
 
   @endsection

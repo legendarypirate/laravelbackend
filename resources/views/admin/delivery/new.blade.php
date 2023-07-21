@@ -169,11 +169,11 @@
                 <div id="driverModal" class="modal" >
                             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Төлөв солих</h4>
+                                    <h4 class="modal-title">Жолооч солих</h4>
                                 </div>
                                 <div class="modal-body">
                                     <select class="form-control inputStatus4">
-                                    <?php $bus=DB::table('users')->get(); ?>
+                                    <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
                                         @foreach($bus as $region)
                                         <option value="{{$region->name}}">{{$region->name}}</option>
                                         @endforeach
@@ -468,7 +468,7 @@
                     });
                 });
 
-                $('.btn_change_verify').click(function () {
+                $('.btn_verify').click(function () {
                     console.log("btn_change_verify click");
                     console.log(rows_selected);
                     const changeVerifyUrl = '{{ route('change_verify_on_delivery') }}';
@@ -535,28 +535,7 @@
                     });
                 });
 
-                $('.btn_verify').click(function () {
-                    console.log("btn_verify click");
-                    console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_verify_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_bus = $('.inputStatus3').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeBusUrl,
-                        data: {
-                            ids : ids,
-                            region : selected_bus
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
+                
 
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");

@@ -6,6 +6,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -36,6 +37,7 @@ class UserController extends Controller
         $user->password=bcrypt($request->password);
         $user->role = $request->role;
         $user->save();
+      
         return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
@@ -45,6 +47,13 @@ class UserController extends Controller
         return view('admin.user.list',compact('ware'));
     }
 
+    public function delete($id){
+        $user = User::find($id);
+        $user->delete();
+        Alert::success('Хэрэглэгч', 'Амжилттай устгагдлаа');
+
+        return redirect('/user/list')->with('message','deleted');
+    }
     public function loadOrderDataTable(Request $request)
     {
         if ($request->ajax()) {
