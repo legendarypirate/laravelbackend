@@ -18,7 +18,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-      
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Simple Tables</li>
             </ol>
           </div>
         </div>
@@ -90,7 +91,10 @@
 
                         <th class="text-center whitespace-nowrap">Хаяг</th>
                         <th class="text-center whitespace-nowrap">Тайлбар</th>
+
                         <th class="text-center whitespace-nowrap">Төлөв</th>
+                      
+
                         <th class="text-center whitespace-nowrap">Бүс</th>
                         <th class="text-center whitespace-nowrap">Жолооч</th>
                      
@@ -109,8 +113,16 @@
          <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
          <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
+         <button type="button" class="btn btn-default" id="btnVerifyModal">Баталгаажуулах</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
     </div> 
+
+ 
+                
+        
+        
+    
+
        
 </div>
 <div id="statusModal" class="modal" >
@@ -162,7 +174,6 @@
                                 <div class="modal-body">
                                     <select class="form-control inputStatus4">
                                     <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
-
                                         @foreach($bus as $region)
                                         <option value="{{$region->name}}">{{$region->name}}</option>
                                         @endforeach
@@ -175,48 +186,87 @@
                         </div>
                 </div>
 
-                <div id="deleteModal" class="modal" >
-                            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Устгах</h4>
-                                </div>
-                                
-                            <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
-                            </div>
-                        </div>
+<div id="deleteModal" class="modal" >
+            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Устгах</h4>
                 </div>
+                
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn_delete">Устгах</button>
+            </div>
+        </div>
+</div>
+
+
+<div id="verifyModal" class="modal" >
+            <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-left:700px;margin-top:200px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Баталгаажуулах</h4>
+                </div>
+                <div class="form-group">
+            <label for="status">Баталгаажсан:</label>
+            <select class="form-control inputStatus15">
+                        <option value="1">Тийм</option>
+            </select>
+        </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn_verify">Баталгаажуулах</button>
+            </div>
+        </div>
+</div>
+
+
+
+</div>
 
 
     <div id="print_wrapper" hidden> </div>
+    
+   
             </div>
+            <!-- /.card -->
           </div>
         </div>
-      </div>
+        <!-- /.row -->
+      
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+     
     </section>
-  </div>
+
     
-        <script type="text/javascript">
-        var rows_selected = [];
-            function toggle(source) {
-            checkboxes = document.getElementsByName('foo');
-            for(var i=0, n=checkboxes.length;i<n;i++) {
-                checkboxes[i].checked = source.checked;
-                
-            }
-                checkboxes.forEach((input) => {
-                        if (input.checked) {
-                            rows_selected.push(input.value);
-                        }else{
-                                rows_selected.length = 0;
-                        }
-                    });
+    <!-- /.content -->
+  </div>
+  
+ 
+        
+  <script type="text/javascript">
+   var rows_selected = [];
+    function toggle(source) {
+       
+      checkboxes = document.getElementsByName('foo');
+      for(var i=0, n=checkboxes.length;i<n;i++) {
+        checkboxes[i].checked = source.checked;
+        
+      }
+
+        checkboxes.forEach((input) => {
+                if (input.checked) {
+                    rows_selected.push(input.value);
+                }else{
+                         rows_selected.length = 0;
                 }
-                $('input[name="foo"]').click(function() {
-                    document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
-                });
-            </script>
+            });
+        }
+    $('input[name="foo"]').click(function() {
+    document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
+
+});
+    </script>
+
 
             <script type="text/javascript">
                 var $j = jQuery.noConflict();
@@ -374,7 +424,12 @@
                 $(document).on('click', '#btnBusModal', function() {
                     $('#busModal').attr('style','display:block');
                     console.log("hi");
-            });
+               });
+
+               $(document).on('click', '#btnVerifyModal', function() {
+                    $('#verifyModal').attr('style','display:block');
+                    console.log("hi");
+               });
 
                 window.updateCount = function() {
                     var x = $(".checkbox:checked").length;
@@ -414,6 +469,29 @@
                     });
                 });
 
+                $('.btn_verify').click(function () {
+                    console.log("btn_change_verify click");
+                    console.log(rows_selected);
+                    const changeVerifyUrl = '{{ route('change_verify_on_delivery') }}';
+                    var ids = rows_selected.join(",");
+                    verified = $('.inputStatus15').val();
+    
+                    $.ajax({
+                        type: 'GET',
+                        url: changeVerifyUrl,
+                        data: {
+                            ids : ids,
+                            verified : verified
+                        },
+                        beforeSend: function() {
+                            console.log("Loading");
+                        }
+                    }).done(function(result) {
+                        $('#customModal').attr('style','display:none');
+                        window.location.reload();
+                    });
+                });
+
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
                         console.log(rows_selected);
@@ -431,9 +509,10 @@
                                                     }
                             }).done(function(result) {
                             $('#customModal').attr('style','display:none');
-                            // window.location.reload();
+                            window.location.reload();
                     });
                 });
+                
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
@@ -456,6 +535,8 @@
                         window.location.reload();
                     });
                 });
+
+                
 
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");
@@ -571,6 +652,7 @@
 
             });
         </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.all.min.js" integrity="sha512-LXVbtSLdKM9Rpog8WtfAbD3Wks1NSDE7tMwOW3XbQTPQnaTrpIot0rzzekOslA1DVbXSVzS7c/lWZHRGkn3Xpg==" crossorigin="anonymous"></script>
 
         <script>
 
@@ -654,8 +736,6 @@
         }
     }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.all.min.js" integrity="sha512-LXVbtSLdKM9Rpog8WtfAbD3Wks1NSDE7tMwOW3XbQTPQnaTrpIot0rzzekOslA1DVbXSVzS7c/lWZHRGkn3Xpg==" crossorigin="anonymous"></script>
-
 @include('sweetalert::alert')
 
   @endsection

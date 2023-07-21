@@ -84,6 +84,7 @@ Route::prefix('region')->group(function(){;
     Route::get('/index',[App\Http\Controllers\RegionController::class, 'index']);
     Route::post('/create',[App\Http\Controllers\RegionController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\RegionController::class, 'list']);
+    Route::get('/delete/{id}',[App\Http\Controllers\RegionController::class, 'delete']);
 });
 
 Route::prefix('ware')->group(function(){;

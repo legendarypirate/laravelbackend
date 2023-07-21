@@ -43,7 +43,7 @@
 <tr>
 <td>{{$regions->id}}</td>
 <td>{{$regions->name}}</td>
-<td>Устгах</td>
+<td><a href="{{url('/region/delete/'.$regions->id)}}">Устгах</a></td>
 
 </tr>
 @endforeach

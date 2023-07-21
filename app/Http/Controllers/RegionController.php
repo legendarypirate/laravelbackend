@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use App\Models\Region;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RegionController extends Controller
 {
@@ -45,4 +46,11 @@ class RegionController extends Controller
         return view('admin.region.list',compact('region'));
     }
 
+    public function delete($id){
+        $user = Region::find($id);
+        $user->delete();
+        Alert::success('Бүс', 'Амжилттай устгагдлаа');
+
+        return redirect('/region/list')->with('message','deleted');
+    }
 }
