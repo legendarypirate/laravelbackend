@@ -95,23 +95,20 @@
                   
                   <div class="form-group">
                     <label for="exampleInputEmail1">Барааны өртөг</label>
-                    <input type="text" name="shop" class="form-control"  placeholder="Барааны өртөг">
+                    <input type="text" name="price" class="form-control"  placeholder="Барааны өртөг">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Барааны нэмэлт тайлбар</label>
-                    <input type="text" name="phone" class="form-control"  placeholder="Барааны нэмэлт тайлбар">
-                  </div>
+               
                   <div class="form-group">
                     <label for="exampleInputEmail1">Баглаа боодлын тоо</label>
-                    <input type="text" name="province" class="form-control"  placeholder="Баглаа боодлын тоо">
+                    <input type="text" name="number" class="form-control"  placeholder="Баглаа боодлын тоо">
                   </div>
 
                   <div class="form-group">
                         <label for="exampleSelectRounded0">Овор <code></code></label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0">
-                        <option>1-5 kg</option>
-                        <option>5-10 kg</option>
-                        <option>10 kg<</option>
+                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="size">
+                        <option value="1-5 kg">1-5 kg</option>
+                        <option value="5-10 kg">5-10 kg</option>
+                        <option value="10 kg">10 kg<</option>
                         </select>
                   </div>
                

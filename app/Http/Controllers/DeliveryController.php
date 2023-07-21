@@ -6,6 +6,8 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Order;
+use App\Models\User;
+
 use App\Models\Good;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -32,12 +34,17 @@ class DeliveryController extends Controller
     }
 
     public function create(Request $request){ 
-        
+        $user=User::where('id',$request->shop)->first();
+        $name=$user->name;
         $order = new Delivery();
-        $order->shop = $request->shop;
+        $order->shop = $name;
         $order->phone = $request-> phone;
         $order->address = $request->address;
         $order->comment = $request-> comment;
+        $order->size = $request-> size;
+        $order->number = $request-> number;
+        $order->price = $request-> price;
+        $order->verified = 0;
         $order->status = 1;
         $order->save();
         return redirect('/delivery/new')->with('message','Амжилттай хадгалагдлаа');
@@ -456,8 +463,9 @@ class DeliveryController extends Controller
             $array_ids = array_filter(explode(',',$request->ids));
             if($request->verified==1){
             for($i=0; $i<count($array_ids);$i++){
-                $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-               
+                $delivery=Delivery::where('id','=',$array_ids[$i])->first();
+                $delivery->verified=1;
+                $delivery->save();
                 // $log = new Log();
                 // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталгаажууллаа.';
                 // $log -> phone = $dddd['phone'];
@@ -467,8 +475,9 @@ class DeliveryController extends Controller
             }
         }  else {
             for($i=0; $i<count($array_ids);$i++){
-                $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-               
+                $delivery=Delivery::where('id','=',$array_ids[$i])->first();
+                $delivery->verified=0;
+                $delivery->save();
                 // $log = new Log();
                 // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг баталсныг цуцаллаа.';
                 // $log -> phone = $dddd['phone'];
