@@ -85,20 +85,26 @@
                     <tr>
                         <th class="whitespace-nowrap"> <input type="checkbox"  style="width:20px;height:20px;" onClick="toggle(this);updateCount();" /></th>
                     
-                        <th class="whitespace-nowrap">Дугаар</th>
-                        <th class="text-center whitespace-nowrap">Огноо</th>
-                        <th class="text-center whitespace-nowrap">Хүргэлтийн тоо</th>
-                        <th class="text-center whitespace-nowrap">Дүн</th>
-                      
-                        <th class="text-center whitespace-nowrap">Мөнгөн дүн</th>
-                        <th class="text-center whitespace-nowrap">Авсан мөнгө</th>
-                        <th class="text-center whitespace-nowrap">Хүргэлтийн үнэ</th>
+                        <th class="whitespace-nowrap">Огноо</th>
+                  
+                    <th class="whitespace-nowrap">Хүргэлтийн тоо</th>
 
-                        <th class="text-center whitespace-nowrap">Нэмэлт төлбөр</th>
-                        <th class="text-center whitespace-nowrap">Оп үйлчилгээ</th>
+                    <th class="whitespace-nowrap">Дүн</th>
+                    <th class="whitespace-nowrap">Cash</th>
+                    <th class="whitespace-nowrap">Account</th>
 
-                        <th class="text-center whitespace-nowrap">Төлөв</th>
-                        <th class="text-center whitespace-nowrap">Үйлдэл</th>
+                    <th class="whitespace-nowrap">Хүргэлтийн үнэ</th>
+
+                    <th class="whitespace-nowrap">Зөрүү</th>
+
+                    <th class="whitespace-nowrap">Төрөл</th>
+                  
+
+                    <th class="whitespace-nowrap">Ажилтан</th>
+                <th class="whitespace-nowrap">Хэрэглэгч</th>
+                <th class="whitespace-nowrap">Мөнгө</th>
+
+                    <th class="whitespace-nowrap">Үйлдэл</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -209,52 +215,56 @@
                                 name: 'checkbox',
                                 data: 'checkbox',
                             },
-                          
                             {
-                                name: 'shop',
-                                data: 'shop'
-                            },
-                            {
-                                name: 'phone',
-                                data: 'phone'
-                            },
-                            {
-                                name: 'created_at',
-                                data: 'created_at'
-                            },
-                            {
-                                name: 'reportdate',
-                                data: 'reportdate'
-                            },  
-                           
-                            {
-                                name: 'price',
-                                data: 'price'
-                            },
-                            {
-                                name: 'received',
-                                data: 'received'
-                            },
-                            {
-                                name: 'deliveryprice',
-                                data: 'deliveryprice'
-                            },
-                            {
-                                name: 'additional',
-                                data: 'additional'
-                            },
-                            {
-                                name: 'opservice',
-                                data: 'opservice'
-                            },
-                            {
-                                name: 'status',
-                                data: 'status'
-                            },  
-                            {
-                                name: 'actions',
-                                data: 'actions'
-                            }
+                            name: 'created_at',
+                            data: 'created_at'
+                        },
+                     
+                        {
+                            name: 'count',
+                            data: 'count'
+                        },
+                        {
+                            name: 'amount',
+                            data: 'amount'
+                        },
+  {
+                            name: 'cash',
+                            data: 'cash'
+                        },
+  {
+                            name: 'account',
+                            data: 'account'
+                        },
+                        {
+                            name: 'delprice',
+                            data: 'delprice'
+                        },
+                        {
+                            name: 'sub',
+                            data: 'sub'
+                        },
+                        {
+                            name: 'type',
+                            data: 'type'
+                        },
+                     
+                        {
+                            name: 'staff',
+                            data: 'staff'
+                        },
+   			            {
+                            name: 'users',
+                            data: 'users'
+                        },
+                        {
+                            name: 'sent',
+                            data: 'sent'
+                        },
+                        {
+                            name: 'actions',
+                            data: 'actions'
+                        },
                             
                         ],
                         columnDefs: [

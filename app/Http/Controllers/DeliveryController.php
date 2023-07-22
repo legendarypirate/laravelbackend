@@ -117,6 +117,10 @@ class DeliveryController extends Controller
         return view('admin.delivery.received');
     }
 
+    public function report(){
+        return view('admin.delivery.report');
+    }
+
     public function deleted(){
         return view('admin.delivery.deleted');
     }
@@ -592,6 +596,8 @@ class DeliveryController extends Controller
             $status_5 = $request->get('status_5',0);
             $not_3 = $request->get('not_3',0);
             $not_4 = $request->get('not_4',0);
+            $not_2 = $request->get('not_2',0);
+            $not_6 = $request->get('not_6',0);
             $not_5 = $request->get('not_5',0);
             $not_1 = $request->get('not_1',0);
             $not_100 = $request->get('not_100',0);
@@ -652,6 +658,8 @@ class DeliveryController extends Controller
                 'not_4' => $not_4,
                 'not_3' => $not_3,
                 'not_1' => $not_1,
+                'not_2' => $not_2,
+                'not_6' => $not_6,
                 'not_100' => $not_100,
                 'tuluv' => $tuluv,
                 'start_date' => $start_date,

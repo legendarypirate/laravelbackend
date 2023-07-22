@@ -173,16 +173,16 @@ class ReportController extends Controller
                             
                             <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_count" >  Засах </button>
                             <a class="font-medium whitespace-nowrap"></a>';
-                                    } else {
-                                    return '    <input class="font-medium whitespace-nowrap input" id="recieved_'.$row->id.'"  style="width:80px;"  value="'.$row->count.'" name="count"/>
-                                    <input type="hidden" value="'.$row->id.'" name="countid">';
-                                    }
+                            } else {
+                            return '    <input class="font-medium whitespace-nowrap input" id="recieved_'.$row->id.'"  style="width:80px;"  value="'.$row->count.'" name="count"/>
+                            <input type="hidden" value="'.$row->id.'" name="countid">';
+                            }
                             
                         })
                         ->addColumn('created_at', function ($row) {
                             return $row->created_at;
                         })
-			 ->addColumn('cash', function ($row) {
+			            ->addColumn('cash', function ($row) {
                               return  '
                              
                                 <input class="font-medium whitespace-nowrap input" id="cash_'.$row->id.'"  style="width:80px;"  value="'.$row->cash.'" name="cash"/>
@@ -192,7 +192,7 @@ class ReportController extends Controller
                                 <a class="font-medium whitespace-nowrap"></a>  
                            ';  
                         })
-			 ->addColumn('account', function ($row) {
+			            ->addColumn('account', function ($row) {
                               return  '
                              
                                 <input class="font-medium whitespace-nowrap input" id="account_'.$row->id.'"  style="width:80px;"  value="'.$row->account.'" name="account"/>
@@ -253,15 +253,8 @@ class ReportController extends Controller
                          
                         </div>
                        ';
-                        if(\Auth::user()->hasPermissionTo('delete_general')&&\Auth::user()->hasPermissionTo('general_det')){
-                            return $actions.'<br>';
-                        }elseif(\Auth::user()->hasPermissionTo('delete_general')) {
-                            return $ust;
-                        } elseif(\Auth::user()->hasPermissionTo('general_det')) {
-                            return $delete;
-                        } else {
-                            return '';
-                        }
+                            return $actions;
+                        
                             
                             
                         })              
@@ -602,7 +595,7 @@ public function report_compile_customer(Request $request){
 
             $orderColumnList = [
                 'id',
-                 'organization',
+                 'shop',
                  'phone',
                  'address',
                  'created_at',

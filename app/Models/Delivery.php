@@ -34,6 +34,8 @@ class Delivery extends Model
         $status5 = NULL;
         $not1 = NULL;
         $not100 = NULL;
+        $not2 = NULL;
+        $not6 = NULL;
         $not3 = NULL;
         $not4 = NULL;
         $not5 = NULL;
@@ -67,6 +69,13 @@ class Delivery extends Model
             $not3 = "AND status not in('{$Params['not_3']}')";
         }
 
+        if (!empty($Params['not_2'])) {
+            $not2 = "AND status not in('{$Params['not_2']}')";
+        }
+        if (!empty($Params['not_6'])) {
+            $not6 = "AND status not in('{$Params['not_6']}')";
+        }
+
         if (!empty($Params['not_5'])) {
             $not5 = "AND status not in('{$Params['not_5']}')";
         }
@@ -76,7 +85,7 @@ class Delivery extends Model
         }
 
         if (!empty($Params['not_100'])) {
-            $not_100 = "AND status not in('{$Params['not_100']}')";
+            $not100 = "AND status not in('{$Params['not_100']}')";
         }
 
         if (!empty($Params['verified'])) {
@@ -159,6 +168,8 @@ class Delivery extends Model
                         {$not3}
                         {$not4}
                         {$not5}
+                        {$not2}
+                        {$not6}
                         {$not100}
                         {$verified}
                         {$regionFilter}
@@ -200,6 +211,8 @@ class Delivery extends Model
         $not1 = NULL;
         $not3 = NULL;
         $not4 = NULL;
+        $not6 = NULL;
+        $not2 = NULL;
         $not5 = NULL;
         $not100 = NULL;
         $verified = NULL;
@@ -234,6 +247,13 @@ class Delivery extends Model
 
         if (!empty($Params['not_3'])) {
             $not3 = "AND status not in('{$Params['not_3']}')";
+        }
+
+        if (!empty($Params['not_2'])) {
+            $not2 = "AND status not in('{$Params['not_2']}')";
+        }
+        if (!empty($Params['not_6'])) {
+            $not6 = "AND status not in('{$Params['not_6']}')";
         }
 
         if (!empty($Params['not_5'])) {
@@ -271,7 +291,7 @@ class Delivery extends Model
         }
 
         if (!empty($Params['not_100'])) {
-            $not_100 = "AND status not in('{$Params['not_100']}')";
+            $not100 = "AND status not in('{$Params['not_100']}')";
         }
 
         if (!empty($Params['verified'])) {
@@ -334,6 +354,8 @@ class Delivery extends Model
                     {$status5}
                     {$not3}
                     {$not4}
+                    {$not2}
+                    {$not6}
                     {$not5}
                     {$not1}
                     {$not100}

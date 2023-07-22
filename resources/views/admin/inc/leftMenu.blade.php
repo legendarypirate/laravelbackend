@@ -266,12 +266,7 @@
                   <p>Агуулахын тайлан</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{url('/report/delivery')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Тайлан хүргэлтээр</p>
-                </a>
-              </li>
+            
             </ul>
           </li>
           <li class="nav-item">

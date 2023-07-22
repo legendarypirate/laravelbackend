@@ -5,6 +5,7 @@
 
 <style>
 
+
 [type=search] {
         -webkit-appearance: textfield;
         outline-offset: -2px;
@@ -78,6 +79,8 @@ input[type=checkbox]:checked {
             -webkit-print-color-adjust:exact;
         }
     }
+
+
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -109,15 +112,7 @@ input[type=checkbox]:checked {
           <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
           <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
-         <div class="form-group">
-                    <label for="status">Төлөв:</label>
-                    <select id="filterByStatus" class="form-control inputStatus">
-                        <option value="">Бүгд</option>
-                        <option value="3">Хүргэгдсэн</option>
-                        <option value="4">Цуцалсан</option>
-                        <option value="5">Буцаасан</option>
-                    </select>
-                </div>
+       
 
                 <div class="form-group">
                     <label for="status">Бүс:</label>
@@ -129,16 +124,7 @@ input[type=checkbox]:checked {
                         @endforeach                      
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="status">Жолооч:</label>
-                    <select id="filterByDriver" class="form-control inputStatus9">
-                    <?php $shop=DB::table('users')->where('role','driver')->get(); ?>
-                        <option value="">Бүгд</option>
-                        @foreach($shop as $shops)
-                        <option value="{{$shops->name}}">{{$shops->name}}</option>
-                        @endforeach    
-                    </select>
-                </div>
+              
                 <div class="form-group">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
@@ -194,7 +180,9 @@ input[type=checkbox]:checked {
          <button type="button" class="btn btn-default" id="btnVerifyModal">Баталгаажуулах</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
     </div> 
+
 </div>
+
 <div id="customModal" class="modal-custom">
     
         <!-- Modal content -->
@@ -330,7 +318,6 @@ input[type=checkbox]:checked {
         checkboxes[i].checked = source.checked;
         
       }
-
         checkboxes.forEach((input) => {
                 if (input.checked) {
                     rows_selected.push(input.value);
@@ -341,7 +328,6 @@ input[type=checkbox]:checked {
         }
     $('input[name="foo"]').click(function() {
     document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
-
 });
     </script>
 
@@ -350,7 +336,7 @@ input[type=checkbox]:checked {
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
                 const deliveryTableUrl = '{{ route('datatable-delivery') }}';
-                const loadDeliveryDataTable = (status,region,driver,customer,not_2,not_1,not_6,not_10,not_100) => {
+                const loadDeliveryDataTable = (status,bus,driver,customer,not_100) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
                         serverSide: true,
@@ -360,13 +346,9 @@ input[type=checkbox]:checked {
                             url: deliveryTableUrl,
                             data: {
                                 status: status,
-                                region: region,
+                                region: bus,
                                 driver: driver,
                                 customer: customer,
-                                not_2 : not_2,
-                                not_1 : not_1,
-                                not_6 : not_6,
-                                not_10 : not_10,
                                 not_100 : not_100
                             },
                             dataSrc: function ( json ) {
@@ -454,60 +436,44 @@ input[type=checkbox]:checked {
                     //selectedIds.forEach(function(selectedId) {
                    // alert(selectedId);
                     //}
-    
                 }
-                let not_2 = 2;
-                let not_1 = 1;
-                let not_6 = 6;
-                let not_10 = 10;
+                let status_10 = 10;
                 let not_100 = 100;
                 let status = $('#filterByStatus').val();
-                let region = $('#filterByBus').val();
+                let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
                 let customer = $('#filterByCustomer').val();
 
-                loadDeliveryDataTable(status,region,driver,customer,not_2,not_1,not_6,not_10,not_100);
+                loadDeliveryDataTable(status,bus,driver,customer,not_100);
                 $('#filterByStatus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $(this).val();
-                    var region = $('#filterByBus').val();
+                    var bus = $('#filterByBus').val();
                     var driver = $('#filterByDriver').val();
-                    var customer = $('#filterByCustomer').val();
-                    var status_6 = 6;
-                    var status_2 = 2;
-                    loadDeliveryDataTable(status,region,driver,customer,not_2,not_1,not_6,not_10,not_100);
+                    loadDeliveryDataTable(status,bus,driver,customer,not_100);
                 });                
                 $('#filterByBus').change(function () {
                    // $('.dataTables_wrapper').html('');
-                    var customer = $('#filterByCustomer').val();
                     var status = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
-                    var status_6 = 6;
-                    var status_2 = 2;
-                    var region = $(this).val();
-                    loadDeliveryDataTable(status,region,driver,customer,not_2,not_1,not_6,not_10,not_100);
+                    var bus = $(this).val();
+                    loadDeliveryDataTable(status,bus,driver,customer,not_100);
                 });
 
                 $('#filterByDriver').change(function () {
                    // $('.dataTables_wrapper').html('');
-                   var customer = $('#filterByCustomer').val();
-                   var status_6 = 6;
-                    var status_2 = 2;
                     var status = $('#filterByStatus').val();
                     var driver = $(this).val();
-                    var region = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,region,driver,customer,not_2,not_1,not_6,not_10,not_100);
+                    var bus = $('#filterByBus').val();
+                    loadDeliveryDataTable(status,bus,driver,customer,not_100);
                 });
 
                 $('#filterByCustomer').change(function () {
                    // $('.dataTables_wrapper').html('');
-                   var customer = $('#filterByCustomer').val();
-                   var status_6 = 6;
-                    var status_2 = 2;
                     var status = $('#filterByStatus').val();
                     var customer = $(this).val();
-                    var region = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,region,driver,customer,not_2,not_1,not_6,not_10,not_100);
+                    var bus = $('#filterByBus').val();
+                    loadDeliveryDataTable(status,bus,driver,customer,not_100);
                 });
                
                 var selected_status = 1;
