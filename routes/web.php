@@ -67,6 +67,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/received',[App\Http\Controllers\DeliveryController::class, 'received']);
     Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
     Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
+    Route::get('/print-data-delivery_item', [App\Http\Controllers\DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery_item');
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
     Route::get('/datatable-delivery', [App\Http\Controllers\DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 

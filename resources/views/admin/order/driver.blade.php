@@ -3,7 +3,79 @@
 @section('mainContent')
 <style>
 
+[type=search] {
+        -webkit-appearance: textfield;
+        outline-offset: -2px;
+        border: 1px solid #a6bcce;
+        padding: 8px;
+        border-radius: 10px;
+    }
+    /* The Modal (background) */
+    .modal-custom {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 99999999; /* Sit on top */
+      padding-top: 10%; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+    }
+    
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    h6::after {
+  content: ' ' counter(checked);
+}
 
+input[type=checkbox]:checked {
+  counter-increment: checked;
+}
+    #print_wrapper .table th {
+    padding: 0.75rem 1.25rem;
+    border: 1px solid;
+    font-weight: 700;
+    }
+    #print_wrapper .table td{
+    padding: 0.75rem 1.25rem;
+    border: 1px solid;
+    }
+
+    @media print{
+        .table thead tr td,.table tbody tr td{
+            border-width: 1px;
+            border-style: solid;
+            border-color: black;
+            font-size: 10px;
+            background-color: red;
+            padding:0px;
+            -webkit-print-color-adjust:exact;
+        }
+    }
 
 </style>
 <div class="content-wrapper">
@@ -115,15 +187,17 @@
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
     </div> 
-
- 
-                
-        
-        
-    
-
        
 </div>
+<div id="customModal" class="modal-custom">
+    
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="excel-wrapper">......</div>
+        </div>
+    </div>
+
 <div id="statusModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
@@ -197,16 +271,12 @@
 </div>
 
 
-    <div id="print_wrapper" hidden> </div>
-    
-   
+             <div id="print_wrapper" hidden> </div>   
             </div>
-            <!-- /.card -->
+        
           </div>
         </div>
-        <!-- /.row -->
-      
-        <!-- /.row -->
+
       </div><!-- /.container-fluid -->
      
     </section>
@@ -592,7 +662,7 @@
     
         <script>
         // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.closing', function() {
+            $(document).on('click', '.close', function() {
             $('#customModal').attr('style','display:none');
             $('#statusModal').attr('style','display:none');
             $('#driverModal').attr('style','display:none');

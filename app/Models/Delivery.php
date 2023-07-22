@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use App\Models\Order;
+use App\Models\Delivery;
 
 class Delivery extends Model
 {
@@ -30,9 +30,13 @@ class Delivery extends Model
         $status6 = NULL;
         $status3 = NULL;
         $status4 = NULL;
+        $statusFilter=NULL;
         $status5 = NULL;
         $not1 = NULL;
         $not100 = NULL;
+        $not3 = NULL;
+        $not4 = NULL;
+        $not5 = NULL;
         $verified = NULL;
         $custFilter = NULL;
         $joinUsersTable = NULL;
@@ -45,7 +49,7 @@ class Delivery extends Model
         }
 
         if (!empty($Params['status'])) {
-            $statusFilter = "AND `status`= {$Params['tuluv']}";
+            $statusFilter = "AND `status`= {$Params['status']}";
         }
 
         if (!empty($Params['customer'])) {
@@ -57,6 +61,18 @@ class Delivery extends Model
 
         if (!empty($Params['not_1'])) {
             $not1 = "AND status not in('{$Params['not_1']}')";
+        }
+
+        if (!empty($Params['not_3'])) {
+            $not3 = "AND status not in('{$Params['not_3']}')";
+        }
+
+        if (!empty($Params['not_5'])) {
+            $not5 = "AND status not in('{$Params['not_5']}')";
+        }
+
+        if (!empty($Params['not_4'])) {
+            $not4 = "AND status not in('{$Params['not_4']}')";
         }
 
         if (!empty($Params['not_100'])) {
@@ -140,10 +156,14 @@ class Delivery extends Model
                         {$status4}
                         {$status5}
                         {$not1}
+                        {$not3}
+                        {$not4}
+                        {$not5}
                         {$not100}
                         {$verified}
                         {$regionFilter}
                         {$custFilter}
+                        {$statusFilter}
                         {$driverFilter}
                         {$roleFilter}
                         {$date_filter}
@@ -178,6 +198,9 @@ class Delivery extends Model
         $date_filter = NULL;
         $late = NULL;
         $not1 = NULL;
+        $not3 = NULL;
+        $not4 = NULL;
+        $not5 = NULL;
         $not100 = NULL;
         $verified = NULL;
         $status10=NULL;
@@ -190,7 +213,7 @@ class Delivery extends Model
         $status5 = NULL;
 
         if (!empty($Params['ids'])) {
-            $idsFilter = "AND orders.id in ({$Params['ids']})";
+            $idsFilter = "AND deliveries.id in ({$Params['ids']})";
         }
 
         if (!empty($Params['status'])) {
@@ -208,6 +231,19 @@ class Delivery extends Model
         if (!empty($Params['status_3'])) {
             $status3 = "AND status in ('{$Params['status_3']}')";
         }
+
+        if (!empty($Params['not_3'])) {
+            $not3 = "AND status not in('{$Params['not_3']}')";
+        }
+
+        if (!empty($Params['not_5'])) {
+            $not5 = "AND status not in('{$Params['not_5']}')";
+        }
+
+        if (!empty($Params['not_4'])) {
+            $not4 = "AND status not in('{$Params['not_4']}')";
+        }
+
         if (!empty($Params['status_4'])) {
             $status4 = "OR status in ('{$Params['status_4']}')";
         }
@@ -217,6 +253,10 @@ class Delivery extends Model
 
         if (!empty($Params['status_100'])) {
             $status100 = "AND status in('{$Params['status_100']}')";
+        }
+
+        if (!empty($Params['customer'])) {
+            $custFilter = "AND shop= '{$Params['customer']}'";
         }
 
         if (!empty($Params['status_2'])) {
@@ -292,6 +332,9 @@ class Delivery extends Model
                     {$status3}
                     {$status4}
                     {$status5}
+                    {$not3}
+                    {$not4}
+                    {$not5}
                     {$not1}
                     {$not100}
                     {$verified}

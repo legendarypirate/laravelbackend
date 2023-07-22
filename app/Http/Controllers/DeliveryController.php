@@ -241,7 +241,7 @@ class DeliveryController extends Controller
                     // $data=Order::where('reqid','=',$ids)->get();
                     $data1=Delivery::whereIn('id',$array_ids)->get();
                     $arr_ware = array();
-                    dd('hi');
+                 
                     $arr_tracking = array();
                     for($i=0; $i<count($array_ids);$i++){
                         // Req::where('id','=',$array_ids[$i])->delete();
@@ -590,6 +590,11 @@ class DeliveryController extends Controller
             $status_3 = $request->get('status_3',0);
             $status_4 = $request->get('status_4',0);
             $status_5 = $request->get('status_5',0);
+            $not_3 = $request->get('not_3',0);
+            $not_4 = $request->get('not_4',0);
+            $not_5 = $request->get('not_5',0);
+            $not_1 = $request->get('not_1',0);
+            $not_100 = $request->get('not_100',0);
             $offset = $request->get('start', 0);
             $limit = $request->get('length', 10);
             if ($limit < 1 OR $limit > 500) {
@@ -643,6 +648,11 @@ class DeliveryController extends Controller
                 'status_5' => $status_5,
                 'status_4' => $status_4,
                 'status_3' => $status_3,
+                'not_5' => $not_5,
+                'not_4' => $not_4,
+                'not_3' => $not_3,
+                'not_1' => $not_1,
+                'not_100' => $not_100,
                 'tuluv' => $tuluv,
                 'start_date' => $start_date,
                 'end_date' => $end_date,
@@ -760,5 +770,131 @@ class DeliveryController extends Controller
             return $table;
         }
     }
+
+    public function ExcelExport(Request $request)
+    {
+        if ($request->ajax()) {
+            if(isset($request->excel)){
+                $user_id = Auth::user()->id;
+                $role = Auth::user()->role;
+                $arr_ids = explode(",",$request->post('ids'));
+                $ids = implode(",",array_filter($arr_ids));
+                $excel = $request->get('excel', 0);
+                $Params = [
+                'ids' => $ids,
+                'user_id' => $user_id,
+                'role' => $role,
+                ];
+                $excel_data = array();
+                $dataExcel = Delivery::GetExcelData($Params);
+                $excel_data = [];
+                foreach($dataExcel as $key=>$row)
+                    {
+                        $item='';
+                        $excel_data[$key]['id']= $row->id;
+                        $excel_data[$key]['organization']= $row->organization;
+                        $excel_data[$key]['organization']= $row->organization;
+                        $excel_data[$key]['phone']= $row->phone;
+                        $excel_data[$key]['address']= $row->address;
+                        $excel_data[$key]['created_at']= $row->created_at;
+                        if($row->status==1){
+                            $excel_data[$key]['status']='Бүртгэгдсэн';
+                        }elseif($row->status==2){
+                            $excel_data[$key]['status']='Жолоочид хуваарилсан';
+                        }elseif($row->status==3){
+                            $excel_data[$key]['status']='Хүргэгдсэн';
+                        }elseif($row->status==4){
+                            $excel_data[$key]['status']='Цуцалсан';
+                        }elseif($row->status==5){
+                            $excel_data[$key]['status']='Буцаасан';
+                        }elseif($row->status==6){
+                            $excel_data[$key]['status']='Хүлээгдэж буй';
+                        }elseif($row->status==10){
+                            $excel_data[$key]['status']='Хүлээн авсан';
+                        }
+                        $excel_data[$key]['driverselected']= $row->driverselected;
+                        $excel_data[$key]['tracking']= $row->tracking;
+                        $excel_data[$key]['city']= $row->city;
+                        $excel_data[$key]['dist']= $row->dist;
+                        $excel_data[$key]['khoroo']= $row->khoroo;
+                        $excel_data[$key]['khotkhon']= $row->khotkhon;
+                        $excel_data[$key]['street']= $row->street;
+                        $excel_data[$key]['orts']= $row->orts;
+                        $excel_data[$key]['code']= $row->code;
+                        $excel_data[$key]['floor']= $row->floor;
+                        $excel_data[$key]['toot']= $row->toot;
+                        $excel_data[$key]['price']= $row->price;
+                        $excel_data[$key]['received']= $row->received;
+                        $excel_data[$key]['deliveryprice']= $row->deliveryprice;
+
+                        $excel_data[$key]['comm']= $row->comm;
+                        $excel_data[$key]['note']= $row->note;
+                        $excel_data[$key]['comm3']= $row->comm3;
+                        $excel_data[$key]['updated_at']= $row->updated_at;
+                        $good=Ware::where('deliverid','=',$row->tracking)->get();
+                        foreach($good as $goods){
+                            $item.=$goods->goodname.' '.$goods->count.",";
+                        }
+                        $excel_data[$key]['item']=$item;
+                    }
+                $export_request = new DeliveryExport($excel_data);
+                $excel = Excel::download($export_request, 'req.xlsx');
+                $excel->setContentDisposition('attachment','req')->getFile()->move(public_path('/req'), 'req'.time().'.xlsx');
+                return asset('req').'/req'.time().'.xlsx';
+            }
+        }
+    }
+
     
+    public function PrintdeliveryData(Request $request)
+    {
+        if ($request->ajax()) {
+            if(isset($request->print)){
+                $user_id = Auth::user()->id;
+                $role = Auth::user()->role;
+                $arr_ids = explode(",",$request->post('ids'));
+                $ids = implode(",",array_filter($arr_ids));
+                $print = $request->get('print', 0);
+                
+                $Params = [
+                    'ids' => $ids,
+                'user_id' => $user_id,
+                'role' => $role,
+                ];
+                $i=0;
+                $print_data = array();
+                $dataExcel = Delivery::GetExcelData($Params);
+
+                $table = '<table class="table table-striped  table-bordered" style="border-width: 1px;border-style: solid;border-color: black;">
+                <thead>
+                    <tr>
+                    <th class="text-center whitespace-nowrap">#</th>
+
+                        <th class="text-center whitespace-nowrap">Үүссэн цаг</th>
+                        <th class="whitespace-nowrap">Нэр</th>
+                        <th class="text-center whitespace-nowrap">Утас</th>
+                        <th class="text-center whitespace-nowrap">Хаягийн мэдээлэл</th>
+                        <th class="text-center whitespace-nowrap">Барааны тоо</th>
+                      
+                        <th class="text-center whitespace-nowrap">Жолооч</th>
+                    </tr>
+                </thead>
+                <tbody>';
+                foreach($dataExcel as $key=>$row)
+                    {
+                        $table .= "<tr>
+                            <td style='border-width: 1px;border-style: solid;border-color: black;'>".++$i."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->created_at."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->shop."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->phone."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->address."</td>
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->comment."</td>
+                        
+                           <td style='border-width: 1px;border-style: solid;border-color: black;'>".$row->driver."</td>
+                           </tr>";
+                    }
+                echo $table;
+            }
+        }
+    }
 }
