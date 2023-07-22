@@ -44,6 +44,7 @@ class DeliveryController extends Controller
         $order->size = $request-> size;
         $order->number = $request-> number;
         $order->price = $request-> price;
+        $order->goodtype = $request-> goodtype;
         $order->verified = 0;
         $order->status = 1;
         $order->save();

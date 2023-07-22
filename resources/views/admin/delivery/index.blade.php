@@ -104,6 +104,12 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="exampleInputEmail1">Барааны төрөл</label>
+                    <input type="text" name="goodtype" class="form-control"  placeholder="Хувцас, гоо сайхан, тоглоом гэх мэт">
+                  </div>
+
+
+                  <div class="form-group">
                         <label for="exampleSelectRounded0">Овор <code></code></label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="size">
                         <option value="1-5 kg">1-5 kg</option>

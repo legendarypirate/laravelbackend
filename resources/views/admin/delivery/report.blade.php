@@ -151,18 +151,19 @@ input[type=checkbox]:checked {
                         <th class="text-center whitespace-nowrap">Үүссэн огноо</th>
                         <th class="whitespace-nowrap">Нэр</th>
                         <th class="text-center whitespace-nowrap">Утас</th>
-                        <th class="text-center whitespace-nowrap">Дүн</th>
+                       
 
                         <th class="text-center whitespace-nowrap">Хаяг</th>
                         <th class="text-center whitespace-nowrap">Тайлбар</th>
 
                         <th class="text-center whitespace-nowrap">Төлөв</th>
-                      
+                        <th class="text-center whitespace-nowrap">Дүн</th>
+                        <th class="text-center whitespace-nowrap">Бараа</th>
 
-                        <th class="text-center whitespace-nowrap">Бүс</th>
                         <th class="text-center whitespace-nowrap">Жолооч</th>
                      
                         <th class="text-center whitespace-nowrap">Баталгаажсан</th>
+                        <th class="text-center whitespace-nowrap">Бүс</th>
 
                         <th class="text-center whitespace-nowrap">Үйлдэл</th>
                     </tr>
@@ -372,11 +373,7 @@ input[type=checkbox]:checked {
                                 name: 'phone',
                                 data: 'phone'
                             },
-                            {
-                                name: 'price',
-                                data: 'price'
-                            },
-                           
+                          
                             {
                                 name: 'address',
                                 data: 'address'
@@ -390,9 +387,14 @@ input[type=checkbox]:checked {
                                 data: 'status'
                             },
                             {
-                                name: 'region',
-                                data: 'region'
+                                name: 'price',
+                                data: 'price'
                             },
+                            {
+                                name: 'goodtype',
+                                data: 'goodtype'
+                            },
+                           
                             {
                                 name: 'driver',
                                 data: 'driver'
@@ -400,6 +402,11 @@ input[type=checkbox]:checked {
                             {
                                 name: 'verified',
                                 data: 'verified'
+                            },
+
+                            {
+                                name: 'region',
+                                data: 'region'
                             },
                             {
                                 name: 'actions',
