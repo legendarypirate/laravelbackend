@@ -9,21 +9,30 @@ use App\Models\Delivery;
 use App\Models\User;
 use App\Models\Phone;
 use App\Models\Address;
-
+use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+   
+
+    public function login(Request $request)
     {
-        $this->middleware('auth');
+        $credentials = $request->validate([
+            'name' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('API Token')->accessToken;
+            return response()->json(['token' => $token,'data'=>$user,'success'=>true]);
+        }
+
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
+   
     /**
      * Show the application dashboard.
      *
@@ -57,7 +66,6 @@ class UserController extends Controller
                 $order = new Address();
                 $order->userid = $user->id;
                 $order->address = urldecode($cdata['item_id']);
-            
                 $order -> save();  
             }
         }

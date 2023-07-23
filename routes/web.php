@@ -33,7 +33,6 @@ Route::prefix('order')->group(function(){;
     Route::post('/create',[App\Http\Controllers\OrderController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\OrderController::class, 'list']);
     Route::get('/datatable-order', [App\Http\Controllers\OrderController::class, 'loadOrderDataTable'])->name('datatable-order'); 
-    Route::get('/edit_note_on_datatable', [DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
     Route::get('/driver',[App\Http\Controllers\OrderController::class, 'driver']);
 
     Route::get('/finished',[App\Http\Controllers\OrderController::class, 'finished']);
@@ -48,7 +47,6 @@ Route::prefix('order')->group(function(){;
     Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add.to.cart');
     Route::patch('update-cart', [ProductController::class, 'update'])->name('update.cart');
     Route::delete('remove-from-cart', [ProductController::class, 'remove'])->name('remove.from.cart');
-    Route::get('/datatable-delivery', [DeliveryController::class, 'loadDeliveryDataTable'])->name('datatable-delivery'); 
     Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
 
   
@@ -148,9 +146,7 @@ Route::prefix('report')->group(function(){;
     Route::get('/general',[App\Http\Controllers\ReportController::class, 'general']);
     Route::get('/datatable-general', [App\Http\Controllers\ReportController::class, 'loadGeneralDataTable'])->name('datatable-general');
     Route::get('/datatable-delivery-report', [App\Http\Controllers\ReportController::class, 'loadDeliveryDataTableForReport'])->name('datatable-delivery-report'); 
-    Route::get('/edit_note_on_datatable', [App\Http\Controllers\DeliveryController::class, 'editNoteOnDataTable'])->name('edit_note_on_datatable');
   
-    Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
     Route::get('/report_compile',[App\Http\Controllers\ReportController::class, 'report_compile'])->name('report_compile');
     Route::get('/report_compile_customer',[App\Http\Controllers\ReportController::class, 'report_compile_customer'])->name('report_compile_customer');
 
