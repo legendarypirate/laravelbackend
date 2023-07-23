@@ -17,6 +17,56 @@
               </p>
             </a>
           
+         
+        
+          <li class="nav-item">
+          @if(request()->is('order*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+
+              @endif
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Захиалга
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/order/index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Захиалга үүсгэх</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/order/list')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Захиалга</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/order/driver')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Жолооч хүлээж авсан</p>
+                </a>
+              </li>
+           
+              <li class="nav-item">
+                <a href="{{url('/order/finished')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Бараа авсан</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/order/report')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Тайлан захиалгаар</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           </li>
           @if(request()->is('delivery*'))
           <li class="nav-item">
@@ -73,54 +123,6 @@
                 <a href="{{url('/delivery/report')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Тайлан</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        
-          <li class="nav-item">
-          @if(request()->is('order*'))
-            <a href="#" class="nav-link active">
-              @else
-              <a href="#" class="nav-link">
-
-              @endif
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Захиалга
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('/order/index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Захиалга үүсгэх</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/order/list')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Захиалга</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/order/driver')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Жолооч хүлээж авсан</p>
-                </a>
-              </li>
-           
-              <li class="nav-item">
-                <a href="{{url('/order/finished')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Бараа авсан</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/order/report')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Тайлан захиалгаар</p>
                 </a>
               </li>
             </ul>
@@ -277,7 +279,7 @@
               <a href="#" class="nav-link">
                @endif              <i class="nav-icon fas fa-table"></i>
               <p>
-                Role
+                Эрхийн зохицуулалт
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -285,7 +287,7 @@
               <li class="nav-item">
                 <a href="{{url('/role/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Role үүсгэх</p>
+                  <p>Эрх үүсгэх</p>
                 </a>
               </li>
              
@@ -305,7 +307,7 @@
               <a href="#" class="nav-link">
                @endif              <i class="nav-icon fas fa-user"></i>
               <p>
-                User
+                Хэрэглэгч
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -313,7 +315,7 @@
               <li class="nav-item">
                 <a href="{{url('/user/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>User үүсгэх</p>
+                  <p>Хэрэглэгч үүсгэх</p>
                 </a>
               </li>
              
@@ -358,7 +360,7 @@
               <a href="#" class="nav-link">
                @endif              <i class="nav-icon fas fa-table"></i>
               <p>
-                Log
+                Үйлдлийн лог
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -378,7 +380,7 @@
                   <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
+                      {{ __('Гарах') }}
                   </a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

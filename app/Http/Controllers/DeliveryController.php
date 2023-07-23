@@ -2,11 +2,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cookie;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Good;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -34,10 +36,10 @@ class DeliveryController extends Controller
     }
 
     public function create(Request $request){ 
-        $user=User::where('id',$request->shop)->first();
-        $name=$user->name;
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true, 512, JSON_UNESCAPED_UNICODE);
         $order = new Delivery();
-        $order->shop = $name;
+        $order->shop = $request->shop;
         $order->phone = $request-> phone;
         $order->address = $request->address;
         $order->comment = $request-> comment;
@@ -48,32 +50,112 @@ class DeliveryController extends Controller
         $order->verified = 0;
         $order->status = 1;
         $order->save();
+
+        $psum=0;
+        if($cart_data){
+        foreach($cart_data as $cdata){
+            // $order = new Order();
+            // $order->reqid = $blackEntry->id;
+            // $order->good = urldecode($cdata['item_name']);
+            // $order->price=$cdata['item_price'];
+            // $order->count=$cdata['item_quantity'];
+            // $order->status=1;
+            // $order->sid=Auth::user()->id;
+            // $order->staff=Auth::user()->name;
+            // $order -> save();
+            $updatedgood=Good::find($cdata['item_id']);
+            $updatedgood->count=Good::where('id','=',$cdata['item_id'])->first()->count-$cdata['item_quantity'];
+            $updatedgood->indelivery=Good::where('id','=',$cdata['item_id'])->first()->indelivery+$cdata['item_quantity'];
+            $updatedgood->save();
+            // $ware = new Ware();
+            // $ware->goodid = urldecode($cdata['item_id']);
+            // $ware->deliverid = $blackEntry->tracking;
+            // $ware->custname = $blackEntry->custname;
+            // $ware->phone = $blackEntry->phone;
+            // $ware->goodname = urldecode($cdata['item_name']);
+            // $ware->count=$cdata['item_quantity'];
+            // $ware->status=1;
+            // $ware -> save();
+            $psum+=$cdata['item_price']*$cdata['item_quantity'];
+            $order->price=$psum;
+            $order->received=$psum;
+            $order->save();
+            
+        }
+     }
+        Cookie::queue(Cookie::forget('shopping_cart'));
+        Cookie::queue(Cookie::forget('phone_cart'));
+        Cookie::queue(Cookie::forget('address_cart'));
         return redirect('/delivery/new')->with('message','Амжилттай хадгалагдлаа');
 
     }
 
-
+    public function good($shop){
+        echo json_encode(DB::table('goods')->where('shop', $shop)->get());
+    }
  
     
-    public function addToCart($id)
+    public function addtocart(Request $request)
     {
-        $product = Product::findOrFail($id);
-          
-        $cart = session()->get('cart', []);
-  
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => $product->price
-            ];
+        $prod_id = $request->input('product_id');
+     
+        $quantity = $request->input('quantity');
+        $product_name = $request->input('product_name');
+
+        if(Cookie::get('shopping_cart'))
+        {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
         }
-          
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+        else
+        {
+            $cart_data = array();
+        }
+
+        $item_id_list = array_column($cart_data, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if(in_array($prod_id_is_there, $item_id_list))
+        {
+            foreach($cart_data as $keys => $values)
+            {
+                if($cart_data[$keys]["item_id"] == $prod_id)
+                {
+                    $cart_data[$keys]["item_quantity"] = $request->input('quantity');
+                    $cart_data[$keys]["item_name"] = urldecode($request->input('product_name'));
+                    $item_data = json_encode($cart_data);
+                    $minutes = 60;
+                    // Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return response()->json(['status'=>'"'.$cart_data[$keys]["item_name"].'" Уг бүтээгдэхүүн сагсанд байна']);
+                }
+            }
+        }
+        else
+        {
+            $products = Good::find($prod_id);
+            $prod_name = $products['goodname'];
+            $priceval = $products['price'];
+            $quantity = $request->input('quantity');
+            if($products)
+            {
+                $item_array = array(
+                    'item_id' => $prod_id,
+                    'item_name' => urlencode($prod_name),
+                    'item_quantity' => $quantity,
+                    'item_price' => $priceval,
+                
+                );
+                $cart_data[] = $item_array;
+              
+                $item_data = json_encode($cart_data);
+                $minutes = 60;
+                Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                return response()->json(['status'=>'"'.$prod_name.'" сагсанд нэмэгдлээ']);
+            }
+        }
     }
+  
+    
 
     public function update(Request $request)
     {
@@ -367,6 +449,107 @@ class DeliveryController extends Controller
         Alert::success('Хүргэлт', 'Бүс солигдлоо');
         return json_encode($data);
     }
+
+    public function cartDetailsAjaxS(){
+        
+        if(Cookie::get('shopping_cart')){
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+         $cart_data = json_decode($cookie_data, true);
+           $total=0;
+        $html ='<div class="col-md-7 ms-auto">
+            <div class="cart-page-header"><h6 class="cart-page-header-title">Order list</h6></div>
+            <div class="d-flex flex-column gap-3">';
+            
+                foreach ($cart_data as $data){
+                    $html .='<label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
+                        <!-- <input class="order-card__input" type="checkbox" checked /> -->
+                        <div class="order-card__body">
+                    
+                            <input type="hidden" class="product_id" value="'. $data['item_id'] .'" >
+                            <div class="product-row">
+                        
+                                <div class="product-row__content">
+                                    <h6 class="product-row__content-title"><div style="width:200px;">'.urldecode($data['item_name']).'</div>  Тоо:'. number_format($data['item_quantity']) .' <div style="display:inline;margin-left:50px;">Үнэ:'. number_format($data['item_price']) .'</div></h6>
+                                    <div class="product-row__content-author">
+                                    </div>
+                                </div>
+                                <div class="product-row__tally" style="display:inline;">
+                                    <div class="product-row__tally--price">
+                                    
+                                    </div>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <script>
+                    
+                    $(".delete_cart_data_bask").click(function (e) {
+    e.preventDefault();
+    
+    var product_id = $(this).closest(".cartpage").find(".product_id").val();
+    
+    var data = {
+        "_token": $("input[name=_token]").val(),
+        "product_id": product_id,
+    };
+    
+    // $(this).closest(".cartpage").remove();
+    
+    $.ajax({
+        url: "/delete-from",
+        type: "DELETE",
+    
+        data: data,
+        success: function (response) {
+            window.location.reload();
+        }
+    });
+    });  
+    
+                </script>
+                    ';
+                }
+                $html .='</div>
+        </div>
+    
+    
+        <div class="col-md-3 me-auto">
+      
+        <div class="cart-page__purchase">
+            <div class="cart-page__purchase-lists">';
+                foreach ($cart_data as $data):
+                    $html .='<div class="cart-page__purchase-lists-item">
+                
+                </div>';
+                   $total = $total + ( $data["item_price"] * $data["item_quantity"]);
+                endforeach;
+            
+            $html .='</div>
+            <div class="cart-page__purchase-total">
+                <div class="cart-page__purchase-total-item">
+                    <div class="span">Total sum:</div>
+                    <div class="total-price">₮ '. number_format($total, 2) .'</div>
+                </div>
+            </div>
+            
+        </div>
+        </div>';
+        }else {
+            $html .='<div class="row">
+            <div class="col-md-12 mycard py-5 text-center">
+                <div class="mycards">
+                    <h4>Таны сагс одоогоор хоосон байна.</h4>
+                
+                </div>
+            </div>
+        </div>';
+        }
+    
+    
+        return $html;
+    }
+    
 
     public function change_driver_on_delivery(Request $request){
    

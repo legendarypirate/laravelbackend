@@ -68,6 +68,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/report',[App\Http\Controllers\DeliveryController::class, 'report']);
     Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
     Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
+    Route::get('/good/{shop}',[App\Http\Controllers\DeliveryController::class, 'good']);
     Route::get('/print-data-delivery_item', [App\Http\Controllers\DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery_item');
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
@@ -170,3 +171,5 @@ Route::get('/load-phone-details',[App\Http\Controllers\UserController::class, 'c
 Route::post('add-address-cart',[App\Http\Controllers\UserController::class, 'addaddresscart']);
 Route::get('/load-address-details',[App\Http\Controllers\UserController::class, 'cartDetailsAjaxAdd']);
 Route::get('clear-cart',[App\Http\Controllers\UserController::class, 'clearcart']);
+Route::post('add-to-cart',[App\Http\Controllers\DeliveryController::class, 'addtocart']);
+Route::get('/load-cart-details',[App\Http\Controllers\DeliveryController::class, 'cartDetailsAjaxS']);
