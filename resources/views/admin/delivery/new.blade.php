@@ -111,6 +111,7 @@ input[type=checkbox]:checked {
           <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
           <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
           <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnImportExcel" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Excel Import</a></button> 
          <div class="row">
        
 
@@ -266,7 +267,22 @@ input[type=checkbox]:checked {
         </div>
 </div>
 
+<div id="importModal" class="modal-custom">
+    
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="message-wrapper">
+        <form action="{{ route('excel_import_file') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" id="import_file" name="file" class="form-control">
+            <br>
+            <button id="btn_import" class="btn btn-success">Import</button>
+        </form>
 
+      </div>
+    </div>
+</div>
 <div id="verifyModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-left:700px;margin-top:200px;">
                 <div class="modal-header">
@@ -677,7 +693,13 @@ input[type=checkbox]:checked {
                         rows_selected = [];
                     });
                 });
+                
+                $('#importModal').attr('style','display:none');
+                // Handle to Export as a excel file
+                $(document).on('click', '#__btnImportExcel', function() {
 
+                $('#importModal').attr('style','display:block');
+                });
 
                 function printData(divID) {
                     //Get the HTML of div
@@ -732,7 +754,7 @@ input[type=checkbox]:checked {
             $('#statusModal').attr('style','display:none');
             $('#driverModal').attr('style','display:none');
             $('#deleteModal').attr('style','display:none');
-
+            $('#importModal').attr('style','display:none');
         $('#busModal').attr('style','display:none');
         });
 

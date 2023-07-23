@@ -2,10 +2,14 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Cookie;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\User;
+use App\Models\Phone;
+use App\Models\Address;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -31,13 +35,32 @@ class UserController extends Controller
     }
 
     public function create(Request $request){ 
-        
+        $cookie_data = stripslashes(Cookie::get('phone_cart'));
+        $phone_data = json_decode($cookie_data, true, 512, JSON_UNESCAPED_UNICODE);
+        $address_data = stripslashes(Cookie::get('address_cart'));
+        $address = json_decode($address_data, true, 512, JSON_UNESCAPED_UNICODE);
         $user = new User();
         $user->name = $request->name;
         $user->password=bcrypt($request->password);
         $user->role = $request->role;
         $user->save();
-      
+        if($phone_data){
+            foreach($phone_data as $cdata){
+                $order = new Phone();
+                $order->userid = $user->id;
+                $order->phone = urldecode($cdata['item_id']);
+                $order -> save();  
+            }
+        }
+        if($address){
+            foreach($address as $cdata){
+                $order = new Address();
+                $order->userid = $user->id;
+                $order->address = urldecode($cdata['item_id']);
+            
+                $order -> save();  
+            }
+        }
         return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
@@ -54,6 +77,124 @@ class UserController extends Controller
 
         return redirect('/user/list')->with('message','deleted');
     }
+
+    public function clearcart()
+    {
+        Cookie::queue(Cookie::forget('shopping_cart'));
+        Cookie::queue(Cookie::forget('phone_cart'));
+        Cookie::queue(Cookie::forget('address_cart'));
+        return response()->json(['status' => 'Your Cart is Cleared']);
+    }
+    
+    public function addaddresscart(Request $request)
+    {
+        $prod_id = $request->input('product_id');
+     
+        $quantity = $request->input('quantity');
+        $product_name = $request->input('product_name');
+
+        if(Cookie::get('address_cart'))
+        {
+            $cookie_data1 = stripslashes(Cookie::get('address_cart'));
+            $cart_data1 = json_decode($cookie_data1, true);
+        }
+        else
+        {
+            $cart_data1 = array();
+        }
+
+    
+        $item_id_list = array_column($cart_data1, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if(in_array($prod_id_is_there, $item_id_list))
+        {
+            foreach($cart_data1 as $keys => $values)
+            {
+                if($cart_data1[$keys]["item_id"] == $prod_id)
+                {
+                    $cart_data1[$keys]["item_quantity"] = $request->input('quantity');
+                    $cart_data1[$keys]["item_name"] = urldecode($request->input('product_name'));
+                    $item_data = json_encode($cart_data1);
+                    $minutes = 60;
+                    // Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return response()->json(['status'=>'"'.$cart_data1[$keys]["item_name"].'" Уг бүтээгдэхүүн сагсанд байна']);
+                }
+            }
+        }
+        else
+        {
+          
+            $address = $request->input('address');
+          
+           
+                $item_array = array(
+                    'item_id' => urlencode($address),
+                  
+                
+                );
+                $cart_data1[] = $item_array;
+              
+                $item_data = json_encode($cart_data1);
+                $minutes = 60;
+                Cookie::queue(Cookie::make('address_cart', $item_data, $minutes));
+                return response()->json(['status'=>'"'.$address.'" сагсанд нэмэгдлээ']);
+           
+        }
+    }
+
+
+    public function cartDetailsAjaxAdd(){
+        
+        if(Cookie::get('address_cart')){
+            $cookie_data = stripslashes(Cookie::get('address_cart'));
+         $cart_data = json_decode($cookie_data, true);
+           $total=0;
+        $html ='<div class="col-md-7 ms-auto">
+            <div class="cart-page-header"><h6 class="cart-page-header-title">Хаягийн жагсаалт</h6></div>
+            <div class="d-flex flex-column gap-3">';
+            
+                foreach ($cart_data as $data){
+                    $html .='<label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
+                        <!-- <input class="order-card__input" type="checkbox" checked /> -->
+                        <div class="order-card__body">
+                    
+                            <div class="product-row">
+                        
+                                <div class="product-row__content">
+                                    <h6 class="product-row__content-title"><div style="width:200px;">'.urldecode($data['item_id']).'</div>  </h6>
+                                    <div class="product-row__content-author">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </label>';
+                }
+                $html .='</div>
+        </div>
+        <div class="col-md-3 me-auto">
+        <div class="cart-page__purchase">
+            <div class="cart-page__purchase-lists">';
+                foreach ($cart_data as $data):
+                    $html .='<div class="cart-page__purchase-lists-item">
+                </div>';
+                endforeach;
+            $html .='</div>
+            <div class="cart-page__purchase-total">
+                <div class="cart-page__purchase-total-item">
+                
+                </div>
+            </div>
+        </div>
+        </div>';
+        }else {
+            $html .='<div class="row">
+        </div>';
+        }
+        return $html;
+}
+
     public function loadOrderDataTable(Request $request)
     {
         if ($request->ajax()) {
@@ -245,5 +386,153 @@ class UserController extends Controller
             return $table;
         }
     }
+    public function addphonecart(Request $request)
+    {
+        $prod_id = $request->input('product_id');
+     
+        $quantity = $request->input('quantity');
+        $product_name = $request->input('product_name');
+
+        if(Cookie::get('phone_cart'))
+        {
+            $cookie_data = stripslashes(Cookie::get('phone_cart'));
+            $cart_data = json_decode($cookie_data, true);
+        }
+        else
+        {
+            $cart_data = array();
+        }
+        $item_id_list = array_column($cart_data, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if(in_array($prod_id_is_there, $item_id_list))
+        {
+            foreach($cart_data as $keys => $values)
+            {
+                if($cart_data[$keys]["item_id"] == $prod_id)
+                {
+                    $cart_data[$keys]["item_quantity"] = $request->input('quantity');
+                    $cart_data[$keys]["item_name"] = urldecode($request->input('product_name'));
+                    $item_data = json_encode($cart_data);
+                    $minutes = 60;
+                    // Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return response()->json(['status'=>'"'.$cart_data[$keys]["item_name"].'" Уг бүтээгдэхүүн сагсанд байна']);
+                }
+            }
+        }
+        else
+        {
+            $phone = $request->input('phone');
+                $item_array = array(
+                    'item_id' => $phone,
+                );
+                $cart_data[] = $item_array;
+              
+                $item_data = json_encode($cart_data);
+                $minutes = 60;
+                Cookie::queue(Cookie::make('phone_cart', $item_data, $minutes));
+                return response()->json(['status'=>'"'.$phone.'" сагсанд нэмэгдлээ']);
+        }
+    }
+
+    public function cartDetailsAjax(){
+        
+        if(Cookie::get('phone_cart')){
+            $cookie_data = stripslashes(Cookie::get('phone_cart'));
+         $cart_data = json_decode($cookie_data, true);
+           $total=0;
+        $html ='
+        <div class="row" id="cart_details">
     
+        <div class="col-md-7 ms-auto">
+            <div class="cart-page-header"><h6 class="cart-page-header-title">Утасны жагсаалт</h6></div>
+            <div class="d-flex flex-column gap-3">';
+            
+                foreach ($cart_data as $data){
+                    $html .='            <div class="row" id="cart_details">
+                    <label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
+                        <!-- <input class="order-card__input" type="checkbox" checked /> -->
+                        <div class="order-card__body">
+                    
+                            <input type="hidden" class="product_id" value="'. $data['item_id'] .'" >
+                            <div class="product-row">
+                        
+                                <div class="product-row__content">
+                                    <div class="product-row__content-title"><div style="width:200px;">'.urldecode($data['item_id']).'</div>  </div>
+                                    <div class="product-row__content-author">
+                                    </div>
+                                </div>
+                                <div class="product-row__tally" style="display:inline;">
+                                    <div class="product-row__tally--price">
+                                    
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    </div>
+                    <script>
+                    
+                    $(".delete_cart_data_phone").click(function (e) {
+    e.preventDefault();
+    
+    var product_id = $(this).closest(".cartpage").find(".product_id").val();
+    var thisarea=$(this);
+    
+    var data = {
+        "_token": $("input[name=_token]").val(),
+        "product_id": product_id,
+    };
+    
+    // $(this).closest(".cartpage").remove();
+    
+    $.ajax({
+        url: "/clear-cart",
+        type: "GET",
+        data: data,
+        success: function (response) {
+            thisarea.closest(".cartpage").remove();
+            $("#cart_details").html(response);
+    
+          
+        }
+    });
+    });  
+    
+                </script>
+                    ';
+                }
+                $html .='</div>
+        </div>
+    
+    
+        <div class="col-md-3 me-auto">
+      
+        <div class="cart-page__purchase">
+            <div class="cart-page__purchase-lists">';
+                foreach ($cart_data as $data):
+                    $html .='<div class="cart-page__purchase-lists-item">
+                
+                </div>';
+               
+                endforeach;
+            
+            $html .='</div>
+            <div class="cart-page__purchase-total">
+                <div class="cart-page__purchase-total-item">
+                
+                </div>
+            </div>
+            
+        </div>
+        </div>';
+        }else {
+            $html .='<div class="row">
+          
+        </div>';
+        }
+        return $html;
+    }   
+      
 }

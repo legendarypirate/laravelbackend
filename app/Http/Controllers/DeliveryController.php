@@ -567,6 +567,16 @@ class DeliveryController extends Controller
         return json_encode($data);
  }
 
+    public function excelImport() 
+    {
+            $file = request()->file('file');
+            if($file){
+                Excel::import(new RequestImportExcel,$file); 
+                return back();        
+            }else{
+                return back()->with('error', 'Please Select File');
+            }
+    }
 
     public function loadDeliveryDataTable(Request $request)
     {

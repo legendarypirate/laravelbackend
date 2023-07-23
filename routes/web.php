@@ -78,6 +78,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/change_delete_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_delete_on_delivery'])->name('change_delete_on_delivery');
     Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
     Route::get('/change_verify_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_verify_on_delivery'])->name('change_verify_on_delivery');
+    Route::post('/excel_import_file', [App\Http\Controllers\DeliveryController::class, 'excelImport'])->name('excel_import_file');
 
 });
 
@@ -162,3 +163,10 @@ Route::prefix('role')->group(function(){
     Route::get('edit/{id}', [App\Http\Controllers\RoleController::class, 'editRole'])->name('role.edit');
     Route::post('update/{id}', [App\Http\Controllers\RoleController::class, 'updateRole'])->name('role.update');
 });
+
+
+Route::post('add-phone-cart',[App\Http\Controllers\UserController::class, 'addphonecart']);
+Route::get('/load-phone-details',[App\Http\Controllers\UserController::class, 'cartDetailsAjax']);
+Route::post('add-address-cart',[App\Http\Controllers\UserController::class, 'addaddresscart']);
+Route::get('/load-address-details',[App\Http\Controllers\UserController::class, 'cartDetailsAjaxAdd']);
+Route::get('clear-cart',[App\Http\Controllers\UserController::class, 'clearcart']);
