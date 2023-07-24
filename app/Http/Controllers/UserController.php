@@ -52,6 +52,9 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->password=bcrypt($request->password);
         $user->role = $request->role;
+        if($request->role=='driver'){
+            $user->type=$request->type;
+        }
         $user->save();
         if($phone_data){
             foreach($phone_data as $cdata){

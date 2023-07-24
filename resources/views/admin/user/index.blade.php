@@ -173,6 +173,13 @@
                         @endforeach
                         </select>
                   </div>
+                  <div class="form-group">
+                        <label for="exampleSelectRounded0">Төрөл <code></code></label>
+                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="type">
+                        <option value="1">Бараа авалт</option>
+                        <option value="2">Хүргэлт</option>
+                        </select>
+                  </div>
                 </div>
                 <!-- /.card-body -->
 
