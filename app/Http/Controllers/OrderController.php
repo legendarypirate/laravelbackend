@@ -18,15 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExport;
 class OrderController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  
 
     public function phone($id){
         echo json_encode(DB::table('phones')->where('userid', $id)->get());
@@ -65,6 +57,127 @@ class OrderController extends Controller
     public function list(){
        
         return view('admin.order.list');
+    }
+
+    public function order($name){
+        $list=Order::where('driver',$name)->where('status',2)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function delivered(Request $request){
+        $order=Order::find($request->id);
+        $order->comment=$request->comm;
+        $order->status=3;
+        $order->save();
+        return response()->json(['data'=>$order,'success'=>true]);
+    }
+
+    public function writecomment(Request $request){
+        $order=Order::find($request->id);
+        $order->comment=$request->comm;
+        $order->save();
+        return response()->json(['data'=>$order,'success'=>true]);
+    }
+
+    public function decline(Request $request){
+      
+        $order = Order::find($request->id);
+        $order->status=$request->status;
+        if($request->status=="Цуцалсан"){
+            $order->status=4;
+        } else {
+            $order->status=6;
+        }
+        $order->comment=$request->comm;
+        $order->save();
+
+        // if($request->status=="Цуцалсан"){
+        //     $ssq='Таны захиалга цуцлагдлаа';
+        // } else {
+        //     $ssq='Таны захиалга '.$black->note.' шалтгаанаар барааг авалгүй буцлаа';
+        // } 
+        // $SERVER_API_KEY = 'AAAARg9HwNY:APA91bGKk4ebfKj1Kpq4cIG0TDpVCqfdrK1bdbZZVLZcBVOTiV_oyJC31EDDFYXZNfPIBdCC6KD32VcpT-CCkBEom0OXwWtUniURy-FGAhHq9jvx-F0zqM8TnLBlSHBmBBSkvpKu0nvI';
+
+        // $tk=Token::where('userid',$black->organization)->latest()->first();
+        // if($tk){
+        //     $tkn=$tk->token;
+        //     $token_1 = $tkn;
+        
+        //     $data = [
+        
+        //         "registration_ids" => [
+        //             $token_1
+        //                         ],
+        
+        //         "notification" => [
+        
+        //             "title" => 'Захиалга',
+        
+        //             "body" => $ssq,
+        
+        //             "sound"=> "default" // required for sound on ios
+        
+        //         ],
+        
+        //     ];
+        
+        //     $dataString = json_encode($data);
+        
+        //     $headers = [
+        
+        //         'Authorization: key=' . $SERVER_API_KEY,
+        
+        //         'Content-Type: application/json',
+        
+        //     ];
+        
+        //     $ch = curl_init();
+        
+        //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        
+        //     curl_setopt($ch, CURLOPT_POST, true);
+        
+        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        
+        //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        
+        //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+        
+        //     $response = curl_exec($ch);
+        // }
+
+
+        // $phone=$black->phone;
+        // $msg = "Tanii%20baraag%20".str_replace(' ','%20',$black->note)."%20shaltgaanaar%20baraag%20avalgui%20butslaa.%20Buuhia%20Elch%20Hurgeltiin%20Uilchilgee.";
+        // $headers = array(
+        //     "Accept:  application/json",
+        //     "Content-Type: application/json",
+        // );
+        // $chsms = curl_init();
+        // curl_setopt($chsms, CURLOPT_URL, "https://ebuuhia.mn/sendsms.php?phone=".$phone."&msg=".$msg);
+        // // SSL important
+        // curl_setopt($chsms, CURLOPT_SSL_VERIFYPEER, FALSE);
+        // curl_setopt($chsms, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($chsms, CURLOPT_HTTPHEADER, $headers);
+        // $output = curl_exec($chsms);
+        // curl_close($chsms);
+            return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай',
+            'data'=>$order
+        ], 200);
+    }
+    
+    public function orderdetail($id){
+        $list=Order::where('id',$id)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function doneorder($name){
+        $list=Order::where('driver',$name)->where('status','!=',2)->where('status','!=',1)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
     }
 
     public function driver(){

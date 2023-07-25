@@ -319,24 +319,14 @@
                 </a>
               </li>
              
-              <li class="nav-item">
-                <a href="{{url('/phone/index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Утас бүртгэх</p>
-                </a>
-              </li>
+            
               <li class="nav-item">
                 <a href="{{url('/phone/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Утас жагсаалт</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{url('/address/index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Хаяг үүсгэх</p>
-                </a>
-              </li>
+           
               <li class="nav-item">
                 <a href="{{url('/address/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

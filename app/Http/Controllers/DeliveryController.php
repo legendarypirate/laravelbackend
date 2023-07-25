@@ -15,16 +15,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class DeliveryController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -33,6 +24,110 @@ class DeliveryController extends Controller
     public function index()
     {
         return view('admin.delivery.index');
+    }
+
+    public function delivery($name){
+        $list=Delivery::where('driver',$name)->where('status',2)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function donedelivery($name){
+        $delivery=Delivery::where('driver', '=', $name)
+        ->where(function ($query) {
+            $query->where('status', "=", "3");
+            $query->orWhere('status', "=", "4");
+            $query->orWhere('status', "=", "5");
+        })->orderBy('deliveries.id','DESC')->get();
+        return response()->json([
+           'success' => true,
+           'message' => 'Амжилттай',
+           'data'=>$delivery
+       ], 200);
+    }
+
+    public function write(Request $request){
+        $order=Delivery::find($request->id);
+        $order->comment=$request->comm;
+        $order->save();
+        return response()->json(['data'=>$order,'success'=>true]);
+    }
+
+    public function decline_delivery(Request $request){
+      
+        $delivery = Delivery::find($request->id);
+        $delivery->status=$request->status;
+        if($request->status=="Цуцалсан"){
+            $delivery->status=4;
+            $delivery->note=$request->comm;
+            $delivery->received=0;
+            $delivery->save(); 
+               
+            // $ware=Ware::where('deliverid',$black->tracking)->first();
+            // $wareg=Ware::where('deliverid',$black->tracking)->get();
+            //     if($ware){
+            //         $ware->delete();
+            //         foreach($wareg as $wares){
+            //             $good=Good::where('id',$wares->goodid)->first();
+            //             $good->inprogress=$good->inprogress-$wares->count;
+            //             $good->count=$good->count+$wares->count;
+            //             $good->save();
+            //         }
+            //     }
+            
+        } elseif($request->status=="Буцаасан") {
+            $delivery->status=5;
+            $delivery->note=$request->comm;
+            $delivery->received=0;
+            $delivery->save();
+          
+                // if($ware){
+                //     $ware->delete();
+                //     foreach($wareg as $wares){
+                //     $good=Good::where('id',$wares->goodid)->first();
+                //     $good->inprogress=$good->inprogress-$wares->count;
+                //     $good->count=$good->count+$wares->count;
+                //     $good->save();
+                //             }
+                // }
+          
+        } else {
+                $delivery->status=6;
+                $delivery->note=$request->comm;
+
+                if($request->status=='Утсаа аваагүй'){
+                        $delivery->save();
+                      
+                } elseif($request->status=='Хэрэглэгч хойшлуулсан') {
+                    $delivery->save();
+               
+                } elseif($request->status=='Хаяг солигдсон'){
+                    $delivery->save();
+               
+                } elseif($request->status=='Хаасан байсан'){
+                    $delivery->save();
+               
+                } elseif($request->status=='Жолоочийн машинд асуудал гарсан'){
+                    $delivery->save();
+
+                } else {
+                    $delivery->save();
+
+                }     
+    }
+    
+    
+    return response()->json([
+        'success' => true,
+        'message' => 'Амжилттай',
+        'data'=>$delivery
+    ], 200);
+      
+    }
+
+
+    public function deliverydetail($id){
+        $list=Delivery::where('id',$id)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
     }
 
     public function create(Request $request){ 
@@ -206,6 +301,18 @@ class DeliveryController extends Controller
 
     public function deleted(){
         return view('admin.delivery.deleted');
+    }
+
+    public function delivered_delivery($id){
+        $delivery=Delivery::find($id);
+        $delivery->status=3;
+        $delivery->deliveryprice=5000;
+        $delivery->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай',
+            'data'=>$delivery
+        ], 200);
     }
 
     public function change_status_on_delivery(Request $request){
