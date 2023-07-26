@@ -11,21 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class GoodController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    
     public function index()
     {
         return view('admin.good.index');
@@ -34,6 +20,11 @@ class GoodController extends Controller
     public function income()
     {
         return view('admin.good.income');
+    }
+
+    public function gooddata($name){
+        $list=Good::where('shop',$name)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
     }
 
     public function create(Request $request){ 

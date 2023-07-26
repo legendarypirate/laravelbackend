@@ -37,4 +37,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/delivered_delivery/{id}',[App\Http\Controllers\DeliveryController::class, 'delivered_delivery']);
     Route::post('/write',[App\Http\Controllers\DeliveryController::class, 'write']);
     Route::post('/decline_delivery',[App\Http\Controllers\DeliveryController::class, 'decline_delivery']);
+
+    //customer api
+    Route::post('/logincust',[App\Http\Controllers\UserController::class, 'logincust']);
+    Route::get('/deliveryshop/{name}',[App\Http\Controllers\DeliveryController::class, 'deliveryshop']);
+    Route::get('/ordershop/{name}',[App\Http\Controllers\OrderController::class, 'ordershop']);
+    Route::get('/gooddata/{name}',[App\Http\Controllers\GoodController::class, 'gooddata']);
+
 });

@@ -43,8 +43,13 @@ class OrderController extends Controller
         $order = new Order();
         $user=User::where('id',$request->shop)->first()->name;
         $order->shop = $user;
-        $phone=Phone::where('phone',$request->phone)->first()->phone;
-        $address=Address::where('address',$request->address)->first()->address;
+        $phone='';
+        if($request->phone){
+            $phone=Phone::where('phone',$request->phone)->first()->phone;
+        }
+        if($request->address){
+            $address=Address::where('address',$request->address)->first()->address;
+        }
         $order->phone = $phone;
         $order->address =  $request-> address;
         $order->comment = $request-> comment;
@@ -61,6 +66,11 @@ class OrderController extends Controller
 
     public function order($name){
         $list=Order::where('driver',$name)->where('status',2)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function ordershop($name){
+        $list=Order::where('shop',$name)->get();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 

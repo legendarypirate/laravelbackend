@@ -32,7 +32,22 @@ class UserController extends Controller
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
-   
+    public function logincust()
+    {
+        if (Auth::attempt(['name' => request('name'), 'password' => request('password'),'role'=>'Customer'])) {
+            $user = Auth::user();
+            $token = $user->createToken('API Token')->accessToken;
+           //After successfull authentication, notice how I return json parameters
+           return response()->json(['token' => $token,'data'=>$user,'success'=>true]);
+        } else {
+       //if authentication is unsuccessfull, notice how I return json parameters
+          return response()->json([
+            'success' => false,
+            'message' => 'Invalid username or Password',
+        ], 401);
+        }
+
+    }
     /**
      * Show the application dashboard.
      *

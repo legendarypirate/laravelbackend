@@ -287,6 +287,11 @@ class DeliveryController extends Controller
         return view('admin.delivery.new');
     }
 
+    public function deliveryshop($name){
+        $list=Delivery::where('shop',$name)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
     public function done(){
         return view('admin.delivery.done');
     }
