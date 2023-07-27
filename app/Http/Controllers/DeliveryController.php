@@ -31,6 +31,16 @@ class DeliveryController extends Controller
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
+    public function createdelivery(Request $request){
+        $order=new Delivery();
+        $order->shop=$request->name;
+        $order->phone=$request->phone;
+        $order->address=$request->address;
+        $order->comment=$request->comment;
+        $order->status=1;
+        $order->save();
+        return response()->json(['data'=>$order,'success'=>true]);
+    }
     public function donedelivery($name){
         $delivery=Delivery::where('driver', '=', $name)
         ->where(function ($query) {

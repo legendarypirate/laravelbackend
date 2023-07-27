@@ -69,6 +69,31 @@ class OrderController extends Controller
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
+    public function phoneinfo($name){
+        $user=User::where('name',$name)->first();
+        $id=$user->id;
+        $list=Phone::where('userid',$id)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function addressinfo($name){
+        $user=User::where('name',$name)->first();
+        $id=$user->id;
+        $list=Address::where('userid',$id)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function createorder(Request $request){
+        $order=new Order();
+        $order->shop=$request->name;
+        $order->phone=$request->phone;
+        $order->address=$request->address;
+        $order->comment=$request->comment;
+        $order->status=1;
+        $order->save();
+        return response()->json(['data'=>$order,'success'=>true]);
+    }
+
     public function ordershop($name){
         $list=Order::where('shop',$name)->get();
         return response()->json(['data'=>$list,'success'=>true]);
