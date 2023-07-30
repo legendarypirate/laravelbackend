@@ -15,10 +15,10 @@ Class Permission extends BasePermission
         'manage_dashboard' => ['home'],
 
         /*orders*/
-        'manage_order' => ['deliveries.manage'],
-        'create_order' => ['deliveries.create','deliveries.store'],
-        'order_details' => ['delivery.detail'],
-        'delete_order' => ['delivery.delete'],
+        'manage_order' => ['order.list'],
+        'create_order' => ['orders.create','orders.store'],
+        'order_details' => ['orders.detail'],
+        'delete_order' => ['orders.delete'],
         'change_order_status' => ['change_status'],
         'change_region' => ['change_bus'],
         'change_driver' => ['change_driver'],

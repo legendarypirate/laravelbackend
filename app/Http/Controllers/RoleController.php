@@ -31,6 +31,13 @@ class RoleController extends Controller
 
             Role::create($data);
         }
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$role->name.' эрх үүсгэлээ.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+
         return redirect('/role/list');
     }
 

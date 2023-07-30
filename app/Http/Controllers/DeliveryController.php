@@ -9,6 +9,7 @@ use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Log;
 
 use App\Models\Good;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -38,7 +39,14 @@ class DeliveryController extends Controller
         $order->address=$request->address;
         $order->comment=$request->comment;
         $order->status=1;
+        $order->track=rand(100000,999999).'S'.Auth::user()->id;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$request->phone;
+        $log->staff=$request->name;
+        $log->value=$request->name.' '.$order->track.' дугаартай хүргэлт үүсгэлээ';
+        $log->save();
         return response()->json(['data'=>$order,'success'=>true]);
     }
     public function donedelivery($name){
@@ -71,6 +79,12 @@ class DeliveryController extends Controller
             $delivery->note=$request->comm;
             $delivery->received=0;
             $delivery->save(); 
+
+            $log=new Log();
+            $log->phone=$delivery->phone;
+            $log->staff=$delivery->shop;
+            $log->value=$delivery->name.' '.$delivery->track.' дугаартай хүргэлт цуцалсан төлөвт орууллаа';
+            $log->save();
                
             // $ware=Ware::where('deliverid',$black->tracking)->first();
             // $wareg=Ware::where('deliverid',$black->tracking)->get();
@@ -90,6 +104,11 @@ class DeliveryController extends Controller
             $delivery->received=0;
             $delivery->save();
           
+            $log=new Log();
+            $log->phone=$delivery->phone;
+            $log->staff=$delivery->shop;
+            $log->value=$delivery->name.' '.$delivery->track.' дугаартай хүргэлт Буцаасан төлөвт орууллаа';
+            $log->save();
                 // if($ware){
                 //     $ware->delete();
                 //     foreach($wareg as $wares){
@@ -105,23 +124,28 @@ class DeliveryController extends Controller
                 $delivery->note=$request->comm;
 
                 if($request->status=='Утсаа аваагүй'){
+                        $delivery->note=$request->status;
                         $delivery->save();
                       
                 } elseif($request->status=='Хэрэглэгч хойшлуулсан') {
+                    $delivery->note=$request->status;
                     $delivery->save();
                
                 } elseif($request->status=='Хаяг солигдсон'){
+                    $delivery->note=$request->status;
                     $delivery->save();
                
                 } elseif($request->status=='Хаасан байсан'){
+                    $delivery->note=$request->status;
                     $delivery->save();
                
                 } elseif($request->status=='Жолоочийн машинд асуудал гарсан'){
+                    $delivery->note=$request->status;
                     $delivery->save();
 
                 } else {
+                    $delivery->note=$request->status;
                     $delivery->save();
-
                 }     
     }
     
@@ -148,13 +172,21 @@ class DeliveryController extends Controller
         $order->phone = $request-> phone;
         $order->address = $request->address;
         $order->comment = $request-> comment;
+        $order->receivername = $request-> receivername;
         $order->size = $request-> size;
         $order->number = $request-> number;
         $order->price = $request-> price;
         $order->goodtype = $request-> goodtype;
         $order->verified = 0;
+        $order->track=rand(100000,999999).'S'.Auth::user()->id;
         $order->status = 1;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$request->phone;
+        $log->staff=Auth::user()->name;
+        $log->value=Auth::user()->name.' '.$order->track.' дугаартай захиалаг үүсгэлээ';
+        $log->save();
 
         $psum=0;
         if($cart_data){
@@ -323,6 +355,13 @@ class DeliveryController extends Controller
         $delivery->status=3;
         $delivery->deliveryprice=5000;
         $delivery->save();
+
+        $log=new Log();
+        $log->phone=$delivery->phone;
+        $log->staff=$delivery->shop;
+        $log->value=$delivery->shop.' '.$delivery->track.' дугаартай захиалаг үүсгэлээ';
+        $log->save();
+
         return response()->json([
             'success' => true,
             'message' => 'Амжилттай',
@@ -358,15 +397,14 @@ class DeliveryController extends Controller
                 $ids= implode(',',$array_ids);
                 $idss = explode(',',$request->ids);
                 Delivery::whereIn('id',$idss)->update(['status'=>'10']);
-                // for($i=0; $i<count($array_ids);$i++){
-                //     $dddd=Req::where('id','=',$array_ids[$i])->first();
-                //     $log = new Log();
-                //     $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүлээн авсан төлөвт орууллаа.';
-                //     $log -> phone = $dddd['phone'];
-                //     $log -> value = $dddd['tracking'];
-                //     $log->staff=Auth::user()->name;
-                //     $log -> save();
-                // }
+                for($i=0; $i<count($array_ids);$i++){
+                    $dddd=Delivery::where('id','=',$array_ids[$i])->first();
+                    $log = new Log();
+                    $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг хүлээн авсан төлөвт орууллаа.';
+                    $log -> phone = $dddd['phone'];
+                    $log->staff=Auth::user()->name;
+                    $log -> save();
+                }
                 // if($request->status==3)
                 // {
                 //     $ido = explode(',',$request->ids);
@@ -404,17 +442,14 @@ class DeliveryController extends Controller
                     $arr_tracking = array();
                     for($i=0; $i<count($array_ids);$i++){
                         $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        $arr_tracking[]=$dddd['tracking'];
-                        $cust=$dddd['custname'];
+                        $arr_tracking[]=$dddd['track'];
                         $phone=$dddd['phone'];
                        
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүргэсэн төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
+                        $log = new Log();
+                        $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг хүргэсэн төлөвт орууллаа.';
+                        $log -> phone = $dddd['phone'];
+                        $log->staff=Auth::user()->name;
+                        $log -> save();
                     }   
                     // $qqq=Ware::where('deliverid',$arr_tracking)->get();
                         // $wareg= Ware::whereIn('deliverid',$arr_tracking)->get();
@@ -455,16 +490,14 @@ class DeliveryController extends Controller
                     for($i=0; $i<count($array_ids);$i++){
                         // Req::where('id','=',$array_ids[$i])->delete();
                         $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        $arr_tracking[]=$dddd['tracking'];
-                        $cust=$dddd['custname'];
+                        $arr_tracking[]=$dddd['track'];
                         $phone=$dddd['phone'];
                        
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг хүлээгдэж буй төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];  
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
+                        $log = new Log();
+                        $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг хүлээгдэж буй төлөвт орууллаа.';
+                        $log -> phone = $dddd['phone'];
+                        $log->staff=Auth::user()->name;
+                        $log -> save();
                     }   
             
                 }
@@ -477,12 +510,11 @@ class DeliveryController extends Controller
                     Delivery::whereIn('id',$idss)->update(['status'=>'2']);
                     for($i=0; $i<count($array_ids);$i++){
                         $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг жолоочид хуваарилсан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
+                        $log = new Log();
+                        $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг жолоочид хуваарилсан төлөвт орууллаа.';
+                        $log -> phone = $dddd['phone'];
+                        $log->staff=Auth::user()->name;
+                        $log -> save();
                     }
                 }
                 if($request->status==4||$request->status==5||$request->status==6){
@@ -500,19 +532,17 @@ class DeliveryController extends Controller
                 for($i=0; $i<count($array_ids);$i++){
                     // Req::where('id','=',$array_ids[$i])->delete();
                      $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-                     $arr_tracking[]=$dddd['tracking'];
+                     $arr_tracking[]=$dddd['track'];
                     if($request->status==4){
                         $idss = explode(',',$request->ids);
                         Delivery::whereIn('id',$idss)->update(['status'=>'4']);
                         $cust=$dddd['custname'];
                         $phone=$dddd['phone'];
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг цуцалсан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log -> reject = '1';
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
+                        $log = new Log();
+                        $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг цуцалсан төлөвт орууллаа.';
+                        $log -> phone = $dddd['phone'];
+                        $log->staff=Auth::user()->name;
+                        $log -> save();
                     }
                     if($request->status==5){
                         $idss = explode(',',$request->ids);
@@ -520,13 +550,11 @@ class DeliveryController extends Controller
                         $cust=$dddd['custname'];
                         $phone=$dddd['phone'];
                        
-                        // $log = new Log();
-                        // $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг буцаасан төлөвт орууллаа.';
-                        // $log -> phone = $dddd['phone'];
-                        // $log -> value = $dddd['tracking'];
-                        // $log -> reject = '2';
-                        // $log->staff=Auth::user()->name;
-                        // $log -> save();
+                        $log = new Log();
+                        $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг буцаасан төлөвт орууллаа.';
+                        $log -> phone = $dddd['phone'];
+                        $log->staff=Auth::user()->name;
+                        $log -> save();
                     }
 
                 }   
@@ -839,14 +867,11 @@ class DeliveryController extends Controller
                  $dddd->status=100;
                  $dddd->save();
                 //  $arr_tracking[]=$dddd['tracking'];
-                //  $log = new Log();
-                //  $log -> desc = Auth::user()->name.', нь'.$dddd["tracking"].' ID-тай хүргэлтийг устгалаа.';
-                //  $log -> phone = $dddd['phone'];
-                //  $log -> value = $dddd['tracking'];
-                //  $log -> reject = '3';
-
-                //  $log->staff=Auth::user()->name;
-                //  $log -> save();
+                 $log = new Log();
+                 $log -> value = Auth::user()->name.', нь'.$dddd["track"].' ID-тай хүргэлтийг устгалаа.';
+                 $log -> phone = $dddd['phone'];
+                 $log->staff=Auth::user()->name;
+                 $log -> save();
              }
              // $qqq=Ware::where('deliverid',$arr_tracking)->get();
                 //  $wareg= Ware::whereIn('deliverid',$arr_tracking)->get();

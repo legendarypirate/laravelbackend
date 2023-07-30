@@ -29,7 +29,7 @@ class LogController extends Controller
 
     public function list(){
         
-        $log=Log::all();
+        $log=Log::orderBy('id','desc')->get();
         return view('admin.log.list',compact('log'));
     }
 

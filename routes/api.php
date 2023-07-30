@@ -47,5 +47,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/deliveryshop/{name}',[App\Http\Controllers\DeliveryController::class, 'deliveryshop']);
     Route::get('/ordershop/{name}',[App\Http\Controllers\OrderController::class, 'ordershop']);
     Route::get('/gooddata/{name}',[App\Http\Controllers\GoodController::class, 'gooddata']);
+    Route::get('/gooddetail/{id}',[App\Http\Controllers\GoodController::class, 'gooddetail']);
 
 });

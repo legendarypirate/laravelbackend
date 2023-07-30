@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\User;
 use App\Models\Phone;
+use App\Models\Log;
+
 use App\Models\Address;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -71,6 +73,13 @@ class UserController extends Controller
             $user->type=$request->type;
         }
         $user->save();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч үүсгэлээ.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+
         if($phone_data){
             foreach($phone_data as $cdata){
                 $order = new Phone();
@@ -99,6 +108,13 @@ class UserController extends Controller
     public function delete($id){
         $user = User::find($id);
         $user->delete();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч устгалаа.';
+        $log -> phone = '';
+        $log -> staff=Auth::user()->name;
+        $log -> save();
+
         Alert::success('Хэрэглэгч', 'Амжилттай устгагдлаа');
 
         return redirect('/user/list')->with('message','deleted');
@@ -501,30 +517,30 @@ class UserController extends Controller
                     <script>
                     
                     $(".delete_cart_data_phone").click(function (e) {
-    e.preventDefault();
-    
-    var product_id = $(this).closest(".cartpage").find(".product_id").val();
-    var thisarea=$(this);
-    
-    var data = {
-        "_token": $("input[name=_token]").val(),
-        "product_id": product_id,
-    };
-    
-    // $(this).closest(".cartpage").remove();
-    
-    $.ajax({
-        url: "/clear-cart",
-        type: "GET",
-        data: data,
-        success: function (response) {
-            thisarea.closest(".cartpage").remove();
-            $("#cart_details").html(response);
-    
-          
-        }
-    });
-    });  
+                        e.preventDefault();
+                        
+                        var product_id = $(this).closest(".cartpage").find(".product_id").val();
+                        var thisarea=$(this);
+                        
+                        var data = {
+                            "_token": $("input[name=_token]").val(),
+                            "product_id": product_id,
+                        };
+                        
+                        // $(this).closest(".cartpage").remove();
+                        
+                        $.ajax({
+                            url: "/clear-cart",
+                            type: "GET",
+                            data: data,
+                            success: function (response) {
+                                thisarea.closest(".cartpage").remove();
+                                $("#cart_details").html(response);
+                        
+                            
+                            }
+                        });
+                        });  
     
                 </script>
                     ';

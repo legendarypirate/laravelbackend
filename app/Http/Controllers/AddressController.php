@@ -6,6 +6,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Address;
+use App\Models\Log;
 
 class AddressController extends Controller
 {
@@ -35,6 +36,7 @@ class AddressController extends Controller
         $phone->userid = $request->userid;
         $phone->address = $request-> address;
         $phone->save();
+
         return redirect('/address/list')->with('message','Амжилттай хадгалагдлаа');
 
     }

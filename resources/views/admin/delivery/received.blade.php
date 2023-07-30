@@ -142,7 +142,7 @@ input[type=checkbox]:checked {
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 
-                <table class="table table-hover text-nowrap" id="datatable">
+                <table class="table table-hover text-nowrap" id="datatable" style="width:100% !important;">
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap"> <input type="checkbox"  style="width:20px;height:20px;" onClick="toggle(this);updateCount();" /></th>
@@ -191,7 +191,7 @@ input[type=checkbox]:checked {
         </div>
     </div>
 <div id="statusModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Төлөв солих</h4>
                 </div>
@@ -212,7 +212,7 @@ input[type=checkbox]:checked {
         </div>
 </div>
 <div id="busModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Бүс солих</h4>
                 </div>
@@ -232,7 +232,7 @@ input[type=checkbox]:checked {
 </div>
 
                 <div id="driverModal" class="modal" >
-                            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+                <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Жолооч солих</h4>
                                 </div>
@@ -253,7 +253,7 @@ input[type=checkbox]:checked {
                 </div>
 
 <div id="deleteModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Устгах</h4>
                 </div>
@@ -264,6 +264,24 @@ input[type=checkbox]:checked {
             </div>
         </div>
 </div>
+<div id="verifyModal" class="modal" >
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Баталгаажуулах</h4>
+                </div>
+                <div class="form-group">
+            <label for="status">Баталгаажсан:</label>
+            <select class="form-control inputStatus15">
+                        <option value="1">Тийм</option>
+            </select>
+        </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn_verify">Баталгаажуулах</button>
+            </div>
+        </div>
+</div>
+
 
 
     <div id="print_wrapper" hidden> </div>
@@ -675,7 +693,7 @@ input[type=checkbox]:checked {
 
             
         // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.close', function() {
+            $(document).on('click', '.closing', function() {
             $('#customModal').attr('style','display:none');
             $('#statusModal').attr('style','display:none');
             $('#driverModal').attr('style','display:none');

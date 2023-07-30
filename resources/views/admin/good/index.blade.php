@@ -40,15 +40,7 @@
                         @endforeach
                         </select>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Агуулах</label>
-                    <select class="custom-select rounded-0" name="ware">
-                        <?php $ware=DB::table('wares')->get(); ?>
-                        @foreach($ware as $wares)
-                        <option value="{{$wares->name}}">{{$wares->name}}</option>
-                        @endforeach
-                        </select>
-                  </div>
+                 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Барааны нэр</label>
                     <input type="text" name="goodname" class="form-control"  placeholder="good">
@@ -58,7 +50,16 @@
                     <input type="text" name="price" class="form-control"  placeholder="price">
                   </div>
                 
-                
+                  <div class="form-group">
+                    <label for="exampleInputFile">Зураг оруулах</label>
+                    <div class="input-group">
+                    <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="image" id="exampleInputFile" required>
+                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                  
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-body -->
 

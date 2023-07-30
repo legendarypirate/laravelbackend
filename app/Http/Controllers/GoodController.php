@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Log;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
@@ -33,8 +34,29 @@ class GoodController extends Controller
         $order->ware = $request-> ware;
         $order->goodname = $request->goodname;
         $order->price = $request-> price;
+        $order -> image = 'image';
         $order->save();
         Alert::success('Бараа', 'Үүслээ');
+ 
+        $lastId=$order->id;
+ 
+        $pictureInfo=$request->file('image');
+
+        if($request->file('image')){
+            $picName = $lastId.$pictureInfo->getClientOriginalName();
+            $folder="goodImage/";
+            $pictureInfo->move($folder,$picName);
+            $picUrl=$folder.$picName;
+            $newsPic = Good::find($lastId);
+            $newsPic->image = $picUrl;
+            $newsPic-> save(); 
+        }
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$request->goodname.' бараа үүсгэлээ.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
 
         return redirect('/good/list')->with('message','Амжилттай хадгалагдлаа');
         
@@ -44,10 +66,19 @@ class GoodController extends Controller
         $good=Good::find($request->goodid);
         if($request->type==1){
             $good->count=$good->count+$request->count;
+            $value=Auth::user()->name.', нь '.$request->goodname.' бараа орлогодлоо.';
         } else {
             $good->count=$good->count-$request->count;
+            $value=Auth::user()->name.', нь '.$request->goodname.' бараа зарлагадлаа.';
         }
         $good->save();
+
+        $log = new Log();
+        $log -> value = $value;
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+
         Alert::success('Бараа', 'Тоо өөрчлөгдлөө');
 
         return redirect('/good/income')->with('message','Амжилттай хадгалагдлаа');
@@ -61,6 +92,15 @@ class GoodController extends Controller
     public function list(){
         $good=Good::all();
         return view('admin.good.list',compact('good'));
+    }
+
+    public function gooddetail($id){
+        $black = DB::table('goods')->where('id','=',$id)->get();
+            return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай',
+            'data'=>$black
+        ], 200);
     }
 
     public function loadOrderDataTable(Request $request)

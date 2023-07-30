@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -23,6 +25,22 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function roles(): BelongsToMany
+    {
+        return $this->morphToMany(
+            config('permission.models.role'),
+            'model',
+            config('permission.table_names.model_has_roles'),
+            config('permission.column_names.model_morph_key'),
+            'role_id'
+        );
+    }
+
+    public function getRoleNames(): Collection
+    {
+        return $this->roles->pluck('name');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

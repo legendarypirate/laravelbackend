@@ -6,6 +6,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use App\Models\Delivery;
 use App\Models\Ware;
+use App\Models\Log;
 
 class WareController extends Controller
 {
@@ -34,6 +35,13 @@ class WareController extends Controller
         $order = new Ware();
         $order->name = $request->name;
         $order->save();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$order->name.' агуулах үүсгэлээ.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+
         return redirect('/ware/list')->with('message','Амжилттай хадгалагдлаа');
 
     }

@@ -43,13 +43,7 @@ Route::prefix('order')->group(function(){;
     Route::get('/change_driver_on_order',[App\Http\Controllers\OrderController::class, 'change_driver_on_order'])->name('change_driver_on_order');
 
     Route::get('/change_status_on_order',[App\Http\Controllers\OrderController::class, 'change_status_on_order'])->name('change_status_on_order');
-    Route::get('/change_bus_on_order',[App\Http\Controllers\OrderController::class, 'change_status_on_order'])->name('change_bus_on_order');
-    Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add.to.cart');
-    Route::patch('update-cart', [ProductController::class, 'update'])->name('update.cart');
-    Route::delete('remove-from-cart', [ProductController::class, 'remove'])->name('remove.from.cart');
-    Route::get('/datatable-delivery100', [DeliveryController::class, 'loadDeliveryDataTable100'])->name('datatable-delivery100'); 
-
-  
+    Route::get('/change_bus_on_order',[App\Http\Controllers\OrderController::class, 'change_bus_on_order'])->name('change_bus_on_order');
 
     Route::get('/excel-export-delivery', [App\Http\Controllers\OrderController::class, 'ExcelExport'])->name('excel-export-delivery'); 
     Route::get('/detail/{id}', 'DeliveryController@detail')->name( 'delivery.detail');

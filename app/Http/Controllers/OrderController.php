@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\Phone;
 use App\Models\Address;
 use App\Models\User;
+use App\Models\Log;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExport;
@@ -53,8 +54,15 @@ class OrderController extends Controller
         $order->phone = $phone;
         $order->address =  $request-> address;
         $order->comment = $request-> comment;
+        $order->track = rand(1000,9999).'S'.Auth::user()->id;
         $order->status = 1;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$request->phone;
+        $log->staff=Auth::user()->name;
+        $log->value=Auth::user()->name.' '.$order->track.' дугаартай захиалаг үүсгэлээ';
+        $log->save();
         return redirect('/order/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
@@ -91,6 +99,12 @@ class OrderController extends Controller
         $order->comment=$request->comment;
         $order->status=1;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$request->phone;
+        $log->staff=$request->name;
+        $log->value=$request->name.' '.$order->track.' дугаартай захиалаг үүсгэлээ';
+        $log->save();
         return response()->json(['data'=>$order,'success'=>true]);
     }
 
@@ -104,13 +118,21 @@ class OrderController extends Controller
         $order->comment=$request->comm;
         $order->status=3;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$order->phone;
+        $log->staff=$order->shop;
+        $log->value=$order->shop.' '.$order->track.' дугаартай захиалга хүргэгдсэн төлөвт орууллаа';
+        $log->save();
         return response()->json(['data'=>$order,'success'=>true]);
     }
 
     public function writecomment(Request $request){
         $order=Order::find($request->id);
         $order->comment=$request->comm;
+        $order->status=3;
         $order->save();
+        
         return response()->json(['data'=>$order,'success'=>true]);
     }
 
@@ -125,6 +147,12 @@ class OrderController extends Controller
         }
         $order->comment=$request->comm;
         $order->save();
+
+        $log=new Log();
+        $log->phone=$order->phone;
+        $log->staff=$order->shop;
+        $log->value=$order->shop.' '.$order->track.' дугаартай захиалга цуцалсан төлөвт орууллаа';
+        $log->save();
 
         // if($request->status=="Цуцалсан"){
         //     $ssq='Таны захиалга цуцлагдлаа';
@@ -235,6 +263,39 @@ class OrderController extends Controller
 
             $data['status'] = 1;
             $data['message'] = "Success";
+            if($request->status==2)
+            {   
+                $array_ids = array_filter(explode(',',$request->ids));
+                $ids= implode(',',$array_ids);
+                $idss = explode(',',$request->ids);
+                Order::whereIn('id',$idss)->update(['status'=>'2']);
+                $ids = explode(',',$request->ids);
+                for($i=0; $i<count($array_ids);$i++){
+                    $dddd=Order::where('id','=',$array_ids[$i])->first();
+                    $log = new Log();
+                    $log -> value = Auth::user()->name.' '.$dddd["track"].' ID-тай захиалгыг жолоочид хуваарилсан төлөвт орууллаа.';
+                    $log -> phone = $dddd['phone'];
+                    $log->staff=Auth::user()->name;
+                    $log -> save();
+                }
+            }
+
+            if($request->status==3)
+            {   
+                $array_ids = array_filter(explode(',',$request->ids));
+                $ids= implode(',',$array_ids);
+                $idss = explode(',',$request->ids);
+                Order::whereIn('id',$idss)->update(['status'=>'3']);
+                $ids = explode(',',$request->ids);
+                for($i=0; $i<count($array_ids);$i++){
+                    $dddd=Order::where('id','=',$array_ids[$i])->first();
+                    $log = new Log();
+                    $log -> value = Auth::user()->name.' '.$dddd["track"].' ID-тай захиалгыг жолооч бараа авсан төлөвт орууллаа.';
+                    $log -> phone = $dddd['phone'];
+                    $log->staff=Auth::user()->name;
+                    $log -> save();
+                }
+            }
         }
 
         
@@ -252,6 +313,19 @@ class OrderController extends Controller
 
             $ids = explode(',',$request->ids);
             Order::whereIn('id',$ids)->update(['region'=>$request->region]);
+            
+            $array_ids = array_filter(explode(',',$request->ids));
+            $ids= implode(',',$array_ids);
+            $idss = explode(',',$request->ids);
+            $ids = explode(',',$request->ids);
+            for($i=0; $i<count($array_ids);$i++){
+                $dddd=Order::where('id','=',$array_ids[$i])->first();
+                $log = new Log();
+                $log -> value = Auth::user()->name.' '.$dddd["track"].' ID-тай захиалгын бүсийг солилоо.';
+                $log -> phone = $dddd['phone'];
+                $log->staff=Auth::user()->name;
+                $log -> save();
+            }
 
             $data['region'] = 1;
             $data['message'] = "Success";
@@ -271,6 +345,15 @@ class OrderController extends Controller
             $ids = explode(',',$request->ids);
             Order::whereIn('id',$ids)->update(['driver'=>$request->driver]);
             Order::whereIn('id',$ids)->update(['status'=>'2']);
+
+            for($i=0; $i<count($array_ids);$i++){
+                $dddd=Order::where('id','=',$array_ids[$i])->first();
+                $log = new Log();
+                $log -> value = Auth::user()->name.' '.$dddd["track"].' ID-тай захиалгыг '.$dddd["driver"].' жолоочид хуваариллаа.';
+                $log -> phone = $dddd['phone'];
+                $log->staff=Auth::user()->name;
+                $log -> save();
+            }
 
             $data['driver'] = 1;
             $data['message'] = "Success";
@@ -368,14 +451,15 @@ class OrderController extends Controller
              $arr_tracking = array();
              for($i=0; $i<count($array_ids);$i++){
                  // Req::where('id','=',$array_ids[$i])->delete();
-                  $dddd=Order::where('id','=',$array_ids[$i])->first();
-                  $dddd->delete();
-                //   $log = new Log();
-                //   $log -> desc = Auth::user()->name.', нь'.$dddd["track"].' ID-тай захиалгыг устгалаа.';
-                //   $log -> phone = $dddd['phone'];
-                //   $log -> value = $dddd['track'];
-                //   $log->staff=Auth::user()->name;
-                //   $log -> save();
+                $dddd=Order::where('id','=',$array_ids[$i])->first();
+                $dddd->delete();
+
+                $log = new Log();
+                $log -> value = Auth::user()->name.' '.$dddd["track"].' ID-тай захиалгыг устгалаа.';
+                $log -> phone = $dddd['phone'];
+                $log->staff=Auth::user()->name;
+                $log -> save();
+            
              }
          }
          Alert::success('Захиалга', 'Амжилттай устгагдлаа');

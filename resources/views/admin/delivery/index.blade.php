@@ -45,7 +45,11 @@
                     <input type="text" name="phone" class="form-control"  placeholder="Утас">
                   </div>
                 
-               
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Хүлээн авагчийн нэр</label>
+                    <input type="text" name="receivername" class="form-control"  placeholder="Хүлээн авагчийн нэр">
+                  </div>
+                
                   <div class="form-group">
                     <label for="exampleInputEmail1">Хаяг</label>
                     <input type="text" name="address" class="form-control"  placeholder="Хаяг">

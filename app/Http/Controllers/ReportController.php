@@ -8,6 +8,7 @@ use App\Models\Delivery;
 use App\Models\Order;
 use App\Models\Good;
 use App\Models\User;
+use App\Models\Log;
 use Carbon\Carbon;
 use App\Models\General;
 
@@ -389,13 +390,13 @@ class ReportController extends Controller
                 $dddd->save();
             }
             $sum+=$dddd['received'];
-            $arr_tracking[] = $dddd['tracking'];
-            // $log = new Log();
-            // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг хүргэлтийн ажилтны тайлан нийлүүллээ.';
-            // $log -> phone = $dddd['phone'];
-            // $log -> value = $dddd['tracking'];
-            // $log->staff=Auth::user()->name;
-            // $log -> save();
+            $arr_tracking[] = $dddd['track'];
+
+            $log = new Log();
+            $log -> value = Auth::user()->name.', нь '.$dddd["track"].' ID-тай хүргэлтийг хүргэлтийн ажилтны тайлан нийлүүллээ.';
+            $log -> phone = $dddd['phone'];
+            $log->staff=Auth::user()->name;
+            $log -> save();
         }   
         $general = new General();
         $general->amount=$sum;
@@ -483,12 +484,12 @@ public function report_compile_customer(Request $request){
             $sum+=$dddd['received'];
             $tot+=$dddd['deliveryprice'];
             $arr_tracking[] = $dddd['tracking'];
-            // $log = new Log();
-            // $log -> desc = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг харилцагчтай тайлан нийлүүллээ.';
-            // $log -> phone = $dddd['phone'];
-            // $log -> value = $dddd['tracking'];
-            // $log->staff=Auth::user()->name;
-            // $log -> save();
+
+            $log = new Log();
+            $log -> value = Auth::user()->name.', нь '.$dddd["tracking"].' ID-тай хүргэлтийг харилцагчтай тайлан нийлүүллээ.';
+            $log -> phone = $dddd['phone'];
+            $log->staff=Auth::user()->name;
+            $log -> save();
         }   
         $ddss=Delivery::whereIn('id',$array_ids)->first();
         $general = new General();

@@ -18,7 +18,7 @@
             </a>
           
          
-        
+
           <li class="nav-item">
           @if(request()->is('order*'))
             <a href="#" class="nav-link active">
@@ -26,7 +26,7 @@
               <a href="#" class="nav-link">
 
               @endif
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-book"></i>
               <p>
                 Захиалга
                 <i class="fas fa-angle-left right"></i>
@@ -68,6 +68,7 @@
           </li>
 
           </li>
+
           @if(request()->is('delivery*'))
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -75,7 +76,7 @@
               <li class="nav-item">
             <a href="#" class="nav-link">
               @endif
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-truck"></i>
               <p>
                 Хүргэлт
                 <i class="fas fa-angle-left right"></i>
@@ -133,7 +134,7 @@
               @else
               <a href="#" class="nav-link">
                @endif
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-map"></i>
               <p>
                 Бүс
                 <i class="fas fa-angle-left right"></i>
@@ -156,25 +157,27 @@
             </ul>
           </li>
 
+
           <li class="nav-item">
-          @if(request()->is('good*'))
+          @if(request()->is('ware*'))
             <a href="#" class="nav-link active">
               @else
               <a href="#" class="nav-link">
                @endif
-              <i class="nav-icon fas fa-table"></i>
+               <i class="nav-icon fas fa-warehouse"></i>
               <p>
-                Барааны цэс
+                Агуулах
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{url('/good/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Бараа үүсгэх</p>
+                  <p>Агуулах үүсгэх</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="{{url('/good/income')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -187,45 +190,18 @@
                   <p>Жагсаалт</p>
                 </a>
               </li>
+
             
             </ul>
           </li>
-          <li class="nav-item">
-          @if(request()->is('ware*'))
-            <a href="#" class="nav-link active">
-              @else
-              <a href="#" class="nav-link">
-               @endif
-              <i class="nav-icon fas fa-table"></i>
-              <p>
-                Агуулах
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('/ware/index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Агуулах үүсгэх</p>
-                </a>
-              </li>
-             
-              <li class="nav-item">
-                <a href="{{url('/ware/list')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Жагсаалт</p>
-                </a>
-              </li>
-            
-            </ul>
-          </li>
+
           <li class="nav-item">
           @if(request()->is('report*'))
             <a href="#" class="nav-link active">
               @else
               <a href="#" class="nav-link">
                @endif
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-list"></i>
               <p>
                 Тайлан
                 <i class="fas fa-angle-left right"></i>
@@ -277,7 +253,7 @@
             <a href="#" class="nav-link active">
               @else
               <a href="#" class="nav-link">
-               @endif              <i class="nav-icon fas fa-table"></i>
+               @endif              <i class="nav-icon fas fa-key"></i>
               <p>
                 Эрхийн зохицуулалт
                 <i class="fas fa-angle-left right"></i>
@@ -367,10 +343,11 @@
             </ul>
           </li>
           <li class="nav-item">
+            
                   <a class="dropdown-item" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                      {{ __('Гарах') }}
+<i class="fas fa-power-off"></i>                {{ __('Гарах') }}
                   </a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

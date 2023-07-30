@@ -193,7 +193,7 @@ input[type=checkbox]:checked {
         </div>
     </div>
 <div id="statusModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Төлөв солих</h4>
                 </div>
@@ -214,7 +214,7 @@ input[type=checkbox]:checked {
         </div>
 </div>
 <div id="busModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Бүс солих</h4>
                 </div>
@@ -234,7 +234,7 @@ input[type=checkbox]:checked {
 </div>
 
                 <div id="driverModal" class="modal" >
-                            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+                <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Жолооч солих</h4>
                                 </div>
@@ -254,7 +254,7 @@ input[type=checkbox]:checked {
                 </div>
 
 <div id="deleteModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Устгах</h4>
                 </div>
@@ -268,7 +268,7 @@ input[type=checkbox]:checked {
 
 
 <div id="verifyModal" class="modal" >
-            <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-left:700px;margin-top:200px;">
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Баталгаажуулах</h4>
                 </div>
@@ -727,7 +727,7 @@ input[type=checkbox]:checked {
 
             
         // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.close', function() {
+            $(document).on('click', '.closing', function() {
             $('#customModal').attr('style','display:none');
             $('#statusModal').attr('style','display:none');
             $('#driverModal').attr('style','display:none');
