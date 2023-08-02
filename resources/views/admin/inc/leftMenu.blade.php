@@ -157,6 +157,29 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+          @if(request()->is('notif*'))
+            <a href="#" class="nav-link active">
+              @else
+              <a href="#" class="nav-link">
+               @endif
+              <i class="nav-icon fas fa-bell"></i>
+              <p>
+                Масс мэдэгдэл
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/notification/index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Мэдэгдэл илгээх</p>
+                </a>
+              </li>
+            
+            
+            </ul>
+          </li>
 
           <li class="nav-item">
           @if(request()->is('ware*'))

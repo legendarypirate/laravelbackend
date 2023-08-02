@@ -48,7 +48,11 @@
 <td>{{$wares->name}}</td>
 <td>{{$wares->role}}</td>
 <td>{{$wares->created_at}}</td>
-<td><a href="{{url('/user/delete/'.$wares->id)}}">Устгах</a></td>
+
+<td>
+<button type="submit" class="btn btn-info"><a href="{{url('/user/edit/'.$wares->id)}}" style="color:white;">Засах</a></button>
+<button type="submit" class="btn btn-danger"><a href="{{url('/user/delete/'.$wares->id)}}" style="color:white;">Устгах</a></button>
+</td>
 
 </tr>
 @endforeach

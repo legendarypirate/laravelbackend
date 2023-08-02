@@ -144,7 +144,7 @@ input[type=checkbox]:checked {
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 
-                <table class="table table-hover text-nowrap" id="datatable">
+                <table class="table table-hover text-nowrap" id="datatable"  style="width:98% !important;">
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap"> <input type="checkbox"  style="width:20px;height:20px;" onClick="toggle(this);updateCount();" /></th>

@@ -92,31 +92,7 @@
           <!-- Left col -->
           <section class="col-lg-12 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
-                  Шинэ хэрэглэгчид
-                </h3>
-                <div class="card-tools">
-                  <ul class="nav nav-pills ml-auto">
-                   
-                  </ul>
-                </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
-                  </div>
-                </div>
-              </div><!-- /.card-body -->
-            </div>
+            
             <!-- /.card -->
 
             <!-- DIRECT CHAT -->
@@ -132,9 +108,142 @@
         
           <!-- right col -->
         </div>
+          <div class="row"> 
+          <div class="chart-container col-md-6" >
+          <div class="pie-chart-container" style="height:400px">
+            <canvas id="pie-chart"></canvas>
+          </div> 
+
+        </div>
+        <div class="col-md-6">
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      <i class="fas fa-chart-pie mr-1"></i>
+      Шинэ хэрэглэгчид
+    </h3>
+    <div class="card-tools">
+      <ul class="nav nav-pills ml-auto">
+       
+      </ul>
+    </div>
+  </div><!-- /.card-header -->
+  <div class="card-body">
+    <div class="card-body table-responsive p-0" style="">
+<table class="table table-head-fixed text-nowrap">
+<thead>
+<tr>
+<th>ID</th>
+<th>Нэр</th>
+<th>Role</th>
+<th>Огноо</th>
+<th>Үйлдэл</th>
+
+
+</tr>
+</thead>
+<tbody>
+
+@foreach($ware as $wares)
+<tr>
+<td>{{$wares->id}}</td>
+<td>{{$wares->name}}</td>
+<td>{{$wares->role}}</td>
+<td>{{$wares->created_at}}</td>
+<td><a href="{{url('/user/delete/'.$wares->id)}}">Устгах</a></td>
+
+</tr>
+@endforeach
+
+</tbody>
+</table>
+</div>
+  </div><!-- /.card-body -->
+</div>
+</div>
+        </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+  <script>
+  $(function(){
+      //get the pie chart canvas
+      var cData = JSON.parse(`<?php echo $chart_data ; ?>`);
+      var ctx = $("#pie-chart");
+ 
+      //pie chart data
+      var data = {
+        labels: cData.label,
+        datasets: [
+          {
+            label: "Users Count",
+            data: cData.data,
+            backgroundColor: [
+              "#DEB887",
+              "#A9A9A9",
+              "#DC143C",
+              "#F4A460",
+              "#2E8B57",
+              "#1D7A46",
+              "#CDA776",
+            ],
+            borderColor: [
+              "#CDA776",
+              "#989898",
+              "#CB252B",
+              "#E39371",
+              "#1D7A46",
+              "#F4A460",
+              "#CDA776",
+            ],
+            borderWidth: [1, 1, 1, 1, 1,1,1]
+          }
+        ]
+      };
+ 
+      //options
+      var options = {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+              min: 0, // Optionally set the minimum value for the axis
+            }
+          },
+          yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+        },
+        title: {
+          display: true,
+          position: "top",
+          text: "Хүргэлтийн тоо сүүлийн 7 хоног",
+          fontSize: 18,
+          fontColor: "#111"
+        },
+        legend: {
+          display: false,
+          position: "bottom",
+          labels: {
+            fontColor: "#333",
+            fontSize: 16
+          }
+        }
+      };
+ 
+      //create Pie Chart class object
+      var chart1 = new Chart(ctx, {
+        type: "bar",
+        data: data,
+        options: options
+      });
+ 
+  });
+</script>
 @endsection

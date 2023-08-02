@@ -25,15 +25,15 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Хэрэглэгч үүсгэх</h3>
+                <h3 class="card-title">Хэрэглэгч засах</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              {!! Form::open(['url' => 'user/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
+              {!! Form::open(['url' => 'user/edit', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Нэр</label>
-                    <input type="text" name="name" class="form-control"  placeholder="Нэр">
+                    <input type="text" name="name" class="form-control" value="{{$user['name']}}"  placeholder="Нэр" disabled>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Нууц үг</label>
@@ -164,22 +164,9 @@
 </div>
 @endif
 </div>
-                  <div class="form-group">
-                        <label for="exampleSelectRounded0">Role <code></code></label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="role">
-                      <?php $role=DB::table('roles')->get(); ?>
-                        @foreach($role as $roles)
-                        <option value="{{$roles->id}}">{{$roles->name}}</option>
-                        @endforeach
-                        </select>
-                  </div>
-                  <div class="form-group">
-                        <label for="exampleSelectRounded0">Төрөл <code></code></label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="type">
-                        <option value="2">Бараа авалт</option>
-                        <option value="1">Хүргэлт</option>
-                        </select>
-                  </div>
+
+                <input value="{{$user['id']}}" name="userId" type="hidden">
+
                 </div>
                 <!-- /.card-body -->
 

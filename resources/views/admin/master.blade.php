@@ -14,6 +14,10 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('plugins')}}/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel = "icon" href = 

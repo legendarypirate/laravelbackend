@@ -257,9 +257,9 @@
                 });
 
                 window.updateCount = function() {
-    var x = $(".checkbox:checked").length;
-    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
-};
+                    var x = $(".checkbox:checked").length;
+                    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
+                };
 
 
                 $(document).on('click', '#btnDriveModal', function() {

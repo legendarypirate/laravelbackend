@@ -28,7 +28,7 @@ class DeliveryController extends Controller
     }
 
     public function delivery($name){
-        $list=Delivery::where('driver',$name)->where('status',2)->get();
+        $list=Delivery::orderBy('ordering', 'ASC')->where('driver',$name)->where('status',2)->get();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
@@ -334,6 +334,16 @@ class DeliveryController extends Controller
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
+    public function totake($name){
+        $list=Delivery::where('shop',$name)->sum('price');
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function taken($name){
+        $list=Delivery::where('shop',$name)->sum('received');
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
     public function done(){
         return view('admin.delivery.done');
     }
@@ -366,6 +376,27 @@ class DeliveryController extends Controller
             'success' => true,
             'message' => 'Амжилттай',
             'data'=>$delivery
+        ], 200);
+    }
+
+    public function updateindex(Request $request){
+       
+
+        $string = str_replace('\n', '', $request->data);
+
+        $strings = rtrim($string, ',');
+         $convst=str_replace('\\','+',$strings);
+        $qq=json_decode($convst,true);
+
+        foreach($qq as $dds){
+                $delivery=Delivery::where('id',$dds['id'])->first();
+                $delivery->ordering=$dds['ordering'];
+                $delivery->save();
+        }
+      
+        return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай',
         ], 200);
     }
 
@@ -1029,7 +1060,7 @@ class DeliveryController extends Controller
                             return $row->phone;
                         })
                         ->addColumn('address', function ($row) {
-                            return $row->address;
+                            return '<div style="overflow-wrap: break-word; white-space: pre-wrap; width: 320px !important;" class="text-center whitespace-nowrap">'.$row->address.'</div>';
                         })
                         ->addColumn('comment', function ($row) {
                             return  '
@@ -1112,7 +1143,7 @@ class DeliveryController extends Controller
                                         }
                                         return $actions;
                         })
-                        ->rawColumns(['checkbox','actions','comment'])
+                        ->rawColumns(['checkbox','actions','comment','address'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);

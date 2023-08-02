@@ -120,6 +120,49 @@ class UserController extends Controller
         return redirect('/user/list')->with('message','deleted');
     }
 
+    public function edit($id){
+
+        $userEdit = User::where('id', $id)->first();
+        return view('admin.user.edit', ['user'=>$userEdit]);
+
+    }
+
+    public function update(Request $request){ 
+        $cookie_data = stripslashes(Cookie::get('phone_cart'));
+        $phone_data = json_decode($cookie_data, true, 512, JSON_UNESCAPED_UNICODE);
+        $address_data = stripslashes(Cookie::get('address_cart'));
+        $address = json_decode($address_data, true, 512, JSON_UNESCAPED_UNICODE);
+        
+        $user= User::find($request->userId);
+        $user->password=bcrypt($request->password);
+        $user->save();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч заслаа.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+
+        if($phone_data){
+            foreach($phone_data as $cdata){
+                $order = new Phone();
+                $order->userid = $user->id;
+                $order->phone = urldecode($cdata['item_id']);
+                $order -> save();  
+            }
+        }
+        if($address){
+            foreach($address as $cdata){
+                $order = new Address();
+                $order->userid = $user->id;
+                $order->address = urldecode($cdata['item_id']);
+                $order -> save();  
+            }
+        }
+        return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
+
+    }
+
     public function clearcart()
     {
         Cookie::queue(Cookie::forget('shopping_cart'));

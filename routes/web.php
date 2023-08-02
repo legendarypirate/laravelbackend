@@ -61,6 +61,9 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
     Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
     Route::get('/good/{shop}',[App\Http\Controllers\DeliveryController::class, 'good']);
+    Route::get('/totake/{shop}',[App\Http\Controllers\DeliveryController::class, 'totake']);
+    Route::get('/taken/{shop}',[App\Http\Controllers\DeliveryController::class, 'taken']);
+
     Route::get('/print-data-delivery_item', [App\Http\Controllers\DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery_item');
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
@@ -103,7 +106,14 @@ Route::prefix('user')->group(function(){;
     Route::post('/create',[App\Http\Controllers\UserController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\UserController::class, 'list']);
     Route::get('/delete/{id}',[App\Http\Controllers\UserController::class, 'delete']);
+    Route::get('/edit/{id}',[App\Http\Controllers\UserController::class, 'edit']);
+    Route::post('/edit',[App\Http\Controllers\UserController::class, 'update']);
 
+});
+
+Route::prefix('notification')->group(function(){;
+    Route::get('/index',[App\Http\Controllers\NotificationController::class, 'index']);
+    Route::post('/send',[App\Http\Controllers\NotificationController::class, 'send']);
 });
 
 Route::prefix('role')->group(function(){;

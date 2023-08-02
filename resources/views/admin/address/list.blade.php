@@ -27,7 +27,7 @@
         <div class="row">
 
 
-<div class="card-body table-responsive p-0" style="height: 300px;">
+<div class="card-body table-responsive p-0">
 <table class="table table-head-fixed text-nowrap">
 <thead>
 <tr>
@@ -42,10 +42,18 @@
 
 @foreach($address as $addresses)
 <tr>
-<?php $user=DB::table('users')->where('id',$addresses->userid)->first();
+<?php $userss=DB::table('users')->where('id',$addresses->userid)->first();
+      if($userss){
+          $name=$userss->name;
+      } else {
+          $name='';
+      }
+
 ?>
 <td>{{$addresses->id}}</td>
-<td>{{$user->name}}</td>
+
+<td>{{$name}}</td>
+
 <td>{{$addresses->address}}</td>
 <td>Устгах</td>
 
@@ -191,7 +199,7 @@
                         "language": {
     "search": "Хайх:"
   },
-                        lengthMenu: [1000, 2000, 3000, 4000], 
+                        lengthMenu: [1000, 2000, 3000, 4000],
                     });
                     // setInterval(function(){  table.ajax.reload();  },30000);
 
