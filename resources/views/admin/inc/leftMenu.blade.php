@@ -3,6 +3,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                
+
+               @if(\Auth::user()->hasPermissionTo('хянах_самбар'))
           <li class="nav-item menu-open">
           @if(request()->is('home*'))
             <a href="{{route('home')}}" class="nav-link active">
@@ -16,9 +18,10 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          
-         
 
+            @endif
+         
+        
           <li class="nav-item">
           @if(request()->is('order*'))
             <a href="#" class="nav-link active">
@@ -33,12 +36,18 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+            @if(\Auth::user()->hasPermissionTo('захиалга_үүсгэх'))
+
               <li class="nav-item">
                 <a href="{{url('/order/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Захиалга үүсгэх</p>
                 </a>
               </li>
+              @endif
+
+              @if(\Auth::user()->hasPermissionTo('захиалга_жагсаалт'))
+
               <li class="nav-item">
                 <a href="{{url('/order/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -64,6 +73,7 @@
                   <p>Тайлан захиалгаар</p>
                 </a>
               </li>
+              @endif
             </ul>
           </li>
 
@@ -141,19 +151,23 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @if(\Auth::user()->hasPermissionTo('бүс_үүсгэх'))
               <li class="nav-item">
                 <a href="{{url('/region/index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Бүс үүсгэх</p>
                 </a>
               </li>
+              @endif
+
+              @if(\Auth::user()->hasPermissionTo('бүс_жагсаалт'))
               <li class="nav-item">
                 <a href="{{url('/region/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Жагсаалт</p>
                 </a>
               </li>
-            
+              @endif
             </ul>
           </li>
 
@@ -271,6 +285,9 @@
             
             </ul>
           </li>
+
+          @if(\Auth::user()->hasPermissionTo('эрхийн_зохицуулалт'))
+
           <li class="nav-item">
           @if(request()->is('role*'))
             <a href="#" class="nav-link active">
@@ -299,6 +316,10 @@
             
             </ul>
           </li>
+          @endif
+
+          @if(\Auth::user()->hasPermissionTo('хэрэглэгч'))
+
           <li class="nav-item">
           @if(request()->is('user*'))
             <a href="#" class="nav-link active">
@@ -342,6 +363,7 @@
              
             </ul>
           </li>
+          @endif
           <li class="nav-item">
           @if(request()->is('log*'))
             <a href="#" class="nav-link active">

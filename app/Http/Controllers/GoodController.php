@@ -103,6 +103,21 @@ class GoodController extends Controller
         ], 200);
     }
 
+    public function delete($id){
+        $user = Good::find($id);
+        $user->delete();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$user->goodname.' бараа устгалаа.';
+        $log -> phone = '';
+        $log -> staff=Auth::user()->name;
+        $log -> save();
+
+        Alert::success('Бараа', 'Амжилттай устгагдлаа');
+
+        return redirect('/good/list')->with('message','deleted');
+    }
+
     public function loadOrderDataTable(Request $request)
     {
         if ($request->ajax()) {

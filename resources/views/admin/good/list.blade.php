@@ -54,7 +54,7 @@
 <td>{{$goods->indelivery}}</td>
 <td>{{$goods->delivered}}</td>
 
-<td>Устгах</td>
+<td><button type="submit" class="btn btn-danger"><a href="{{url('/good/delete/'.$goods->id)}}" style="color:white;">Устгах</a></button></td>
 
 </tr>
 @endforeach

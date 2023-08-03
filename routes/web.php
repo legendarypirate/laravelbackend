@@ -61,9 +61,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/done',[App\Http\Controllers\DeliveryController::class, 'done']);
     Route::get('/deleted',[App\Http\Controllers\DeliveryController::class, 'deleted']);
     Route::get('/good/{shop}',[App\Http\Controllers\DeliveryController::class, 'good']);
-    Route::get('/totake/{shop}',[App\Http\Controllers\DeliveryController::class, 'totake']);
-    Route::get('/taken/{shop}',[App\Http\Controllers\DeliveryController::class, 'taken']);
-
+  
     Route::get('/print-data-delivery_item', [App\Http\Controllers\DeliveryController::class, 'PrintdeliveryData'])->name('print-data-delivery_item');
     Route::post('/create',[App\Http\Controllers\DeliveryController::class, 'create']);
     Route::get('/list',[App\Http\Controllers\DeliveryController::class, 'list']);
@@ -98,6 +96,7 @@ Route::prefix('good')->group(function(){;
     Route::get('/good/{name}', [App\Http\Controllers\GoodController::class, 'good']); 
     Route::get('/income',[App\Http\Controllers\GoodController::class, 'income']);
     Route::post('/add',[App\Http\Controllers\GoodController::class, 'add']);
+    Route::get('/delete/{id}',[App\Http\Controllers\GoodController::class, 'delete']);
 
 });
 

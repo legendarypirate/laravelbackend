@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
@@ -73,6 +74,19 @@ class UserController extends Controller
             $user->type=$request->type;
         }
         $user->save();
+        
+        $check=DB::table('model_has_roles')->where('model_id',$user->id)->count();
+        if($check==0) {
+
+            $datainfo=[
+                'role_id'=>$request->role,
+                'model_type'=>'App\Models\User',
+                'model_id'=>$user->id
+            ];
+
+            DB::table('model_has_roles')->insert($datainfo);
+            
+        }
 
         $log = new Log();
         $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч үүсгэлээ.';

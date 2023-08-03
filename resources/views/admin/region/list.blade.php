@@ -43,8 +43,12 @@
 <tr>
 <td>{{$regions->id}}</td>
 <td>{{$regions->name}}</td>
-<td><a href="{{url('/region/delete/'.$regions->id)}}">Устгах</a></td>
+    @if(\Auth::user()->hasPermissionTo('бүс_устгах'))
+    <td><a href="{{url('/region/delete/'.$regions->id)}}">Устгах</a></td>
+    @else
+    <td><a href="#">#</a></td>
 
+    @endif
 </tr>
 @endforeach
 
