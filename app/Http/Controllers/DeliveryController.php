@@ -36,10 +36,10 @@ class DeliveryController extends Controller
         $order=new Delivery();
         $order->shop=$request->name;
         $order->phone=$request->phone;
-        $order->address=$request->address;
+        $order->address=$request->detailadd;
         $order->comment=$request->comment;
         $order->status=1;
-        $order->track=rand(100000,999999).'S'.Auth::user()->id;
+        $order->track=rand(100000,999999).'S'.$request->name;
         $order->save();
 
         $log=new Log();

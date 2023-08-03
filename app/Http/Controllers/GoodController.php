@@ -34,7 +34,6 @@ class GoodController extends Controller
         $order->ware = $request-> ware;
         $order->goodname = $request->goodname;
         $order->price = $request-> price;
-        $order -> image = 'image';
         $order->save();
         Alert::success('Бараа', 'Үүслээ');
  

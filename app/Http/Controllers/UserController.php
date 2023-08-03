@@ -76,16 +76,14 @@ class UserController extends Controller
         $user->save();
         
         $check=DB::table('model_has_roles')->where('model_id',$user->id)->count();
+        $role_id=DB::table('roles')->where('name',$request->role)->first()->id;
         if($check==0) {
-
             $datainfo=[
-                'role_id'=>$request->role,
+                'role_id'=>$role_id,
                 'model_type'=>'App\Models\User',
                 'model_id'=>$user->id
             ];
-
             DB::table('model_has_roles')->insert($datainfo);
-            
         }
 
         $log = new Log();
