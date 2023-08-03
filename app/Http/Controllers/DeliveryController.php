@@ -28,7 +28,7 @@ class DeliveryController extends Controller
     }
 
     public function delivery($name){
-        $list=Delivery::orderBy('ordering', 'ASC')->where('driver',$name)->where('status',2)->get();
+        $list=Delivery::orderBy('ordering', 'ASC')->orderBy('id', 'DESC')->where('driver',$name)->where('status',2)->get();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
@@ -38,6 +38,7 @@ class DeliveryController extends Controller
         $order->phone=$request->phone;
         $order->address=$request->detailadd;
         $order->comment=$request->comment;
+        $order->receivername=$request->shop;
         $order->status=1;
         $order->track=rand(100000,999999).'S'.$request->name;
         $order->save();
@@ -63,9 +64,32 @@ class DeliveryController extends Controller
        ], 200);
     }
 
+    //driver statistic begins
+
+    public function todeliver($name){
+        $list=Delivery::where('driver',$name)->where('status',2)->count();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function donedeliver($name){
+        $list=Delivery::where('driver',$name)->where('status',3)->count();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function declinedeliver($name){
+        $list=Delivery::where('driver',$name)->where('status',4)->count();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function totaldeliver($name){
+        $list=Delivery::where('driver',$name)->count();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+    //driver stat ends
+
     public function write(Request $request){
         $order=Delivery::find($request->id);
-        $order->comment=$request->comm;
+        $order->note=$request->comm;
         $order->save();
         return response()->json(['data'=>$order,'success'=>true]);
     }
@@ -746,78 +770,9 @@ class DeliveryController extends Controller
 
         $data['driverselected'] = 1;
         $data['message'] = "Success";
-
-            // for($i=0; $i<count($array_ids);$i++){
-            //     $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-               
-                
-            //     $arr_tracking[] = $dddd['organization'];
-
-            //     $SERVER_API_KEY = 'AAAA2aRXNbE:APA91bFEfJsbgOnLV7Y3VWKRNhyR7TX8hrXjO6YxKbp5CDBqFJDhvYddPfRUx38-0mi9UMPO5uoasAmesn2HfLIPtd5kky34WbsDXzDwG3UR7JSVlUy5NiWJKKpCCoACPkazcpkGeQS6';
-
-            //     $tk=Token::where('userid',$request->driverselected)->latest()->first();
-            //     if($tk){
-            //     $tkn=$tk->token;
-            //     $token_1 = $tkn;
-            //     $ssq='Танд '.$dddd["organization"].' дэлгүүрээс захиалга ирлээ';
-            //     $data = [
-            
-            //         "registration_ids" => [
-            //             $token_1
-            //         ],
-            
-            //         "notification" => [
-            
-            //             "title" => 'Захиалга',
-            
-            //             "body" => $ssq,
-            
-            //             "sound"=> "default" // required for sound on ios
-            
-            //         ],
-            
-            //     ];
-            
-            //     $dataString = json_encode($data);
-            
-            //     $headers = [
-            
-            //         'Authorization: key=' . $SERVER_API_KEY,
-            
-            //         'Content-Type: application/json',
-            
-            //     ];
-            
-            //     $ch = curl_init();
-            
-            //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            
-            //     curl_setopt($ch, CURLOPT_POST, true);
-            
-            //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            
-            //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            
-            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-            //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-            
-            //     $response = curl_exec($ch);
-            // }
-            
-               
-            // }   
          
         Alert::success('Захиалга', 'Жолооч солигдлоо');
 
-        // $dds= implode(",",$arr_tracking);
-               
-        // $log = new Log();
-        // $log -> desc = Auth::user()->name.' ажилтан нь '.$dds.' захиалгыг '.$request->driverselected.'-д хуваариллаа';
-        // $log->staff=Auth::user()->name;
-        // $log->value='';
-
-        // $log -> save();
         return json_encode($data);
     }
 

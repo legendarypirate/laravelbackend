@@ -217,7 +217,7 @@ input[type=checkbox]:checked {
     
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <span class="closing">&times;</span>
           <div id="excel-wrapper">......</div>
         </div>
     </div>

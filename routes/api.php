@@ -45,6 +45,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/decline_delivery',[App\Http\Controllers\DeliveryController::class, 'decline_delivery']);
     Route::post('/createdelivery',[App\Http\Controllers\DeliveryController::class, 'createdelivery']);
     Route::post('/updateindex',[App\Http\Controllers\DeliveryController::class, 'updateindex']);
+    Route::get('/todeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'todeliver']);
+    Route::get('/donedeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'donedeliver']);
+    Route::get('/declinedeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'declinedeliver']);
+    Route::get('/totaldeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'totaldeliver']);
 
 
     //customer api
