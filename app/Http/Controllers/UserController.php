@@ -146,7 +146,9 @@ class UserController extends Controller
         $address = json_decode($address_data, true, 512, JSON_UNESCAPED_UNICODE);
         
         $user= User::find($request->userId);
-        $user->password=bcrypt($request->password);
+        if($request->password){
+            $user->password=bcrypt($request->password);
+        }
         $user->save();
 
         $log = new Log();

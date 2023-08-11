@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel = "icon" href = 
-"{{asset('dist')}}/logo.png" 
+"{{asset('plugins')}}/img/AdminLTELogo.png" 
         type = "image/x-icon">
           
   <!-- Tempusdominus Bootstrap 4 -->
@@ -61,7 +61,36 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
 
 
+  <style>
+      .status1{
+         background-color:orange;
+         border-radius:4px;
+         padding:10px;
+        }
+        .status2{
+          background-color:#ad47cc;
+         border-radius:4px;
+         padding:10px;
+         color:white;
+        }
+        .status3{
+          background-color:green;
+         border-radius:4px;
+         padding:10px;
+         color:white;
+        }
 
+        .status6{
+          background-color:grey;
+         border-radius:4px;
+         padding:10px;
+         color:white;
+
+        }
+        .myform{
+          margin-left:7px;
+        }
+  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

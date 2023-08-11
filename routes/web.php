@@ -34,6 +34,7 @@ Route::prefix('order')->group(function(){;
     Route::get('/list',[App\Http\Controllers\OrderController::class, 'list']);
     Route::get('/datatable-order', [App\Http\Controllers\OrderController::class, 'loadOrderDataTable'])->name('datatable-order'); 
     Route::get('/driver',[App\Http\Controllers\OrderController::class, 'driver']);
+    Route::get('/report',[App\Http\Controllers\OrderController::class, 'report']);
 
     Route::get('/finished',[App\Http\Controllers\OrderController::class, 'finished']);
     Route::get('/change_delete_on_order',[App\Http\Controllers\OrderController::class, 'change_delete_on_order'])->name('change_delete_on_order');
@@ -46,9 +47,7 @@ Route::prefix('order')->group(function(){;
     Route::get('/change_bus_on_order',[App\Http\Controllers\OrderController::class, 'change_bus_on_order'])->name('change_bus_on_order');
 
     Route::get('/excel-export-delivery', [App\Http\Controllers\OrderController::class, 'ExcelExport'])->name('excel-export-delivery'); 
-    Route::get('/detail/{id}', 'DeliveryController@detail')->name( 'delivery.detail');
-    Route::get('/delete/{id}','DeliveryController@delete');
-    Route::get('/recover/{id}','DeliveryController@recover');
+    Route::get('/delete/{id}',[App\Http\Controllers\OrderController::class, 'delete']);
     Route::get('/print-data-delivery', [App\Http\Controllers\OrderController::class, 'PrintdeliveryData'])->name('print-data-delivery');
 });
 
@@ -73,6 +72,7 @@ Route::prefix('delivery')->group(function(){;
     Route::get('/change_bus_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_bus_on_delivery'])->name('change_bus_on_delivery');
     Route::get('/change_verify_on_delivery',[App\Http\Controllers\DeliveryController::class, 'change_verify_on_delivery'])->name('change_verify_on_delivery');
     Route::post('/excel_import_file', [App\Http\Controllers\DeliveryController::class, 'excelImport'])->name('excel_import_file');
+    Route::get('/recover/{id}', [App\Http\Controllers\DeliveryController::class, 'recover'])->name('recover');
 
 });
 

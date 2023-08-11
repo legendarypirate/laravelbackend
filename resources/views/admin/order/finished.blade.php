@@ -106,11 +106,11 @@ input[type=checkbox]:checked {
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
-         <div class="form-group">
+         <div class="form-group myform">
                     <label for="status">Төлөв:</label>
                     <select id="filterByStatus" class="form-control inputStatus">
                         <option value="">Бүгд</option>
@@ -119,7 +119,7 @@ input[type=checkbox]:checked {
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Бүс:</label>
                     <select id="filterByBus" class="form-control inputStatus9">
                         <?php $bus=DB::table('regions')->get(); ?>
@@ -129,14 +129,14 @@ input[type=checkbox]:checked {
                         @endforeach                      
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Жолооч:</label>
                     <select id="filterByDriver" class="form-control inputStatus9">
                         <option value="">Бүгд</option>
                         <option value="altansukhJ1">altansukhJ1</option>   
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
                         <option value="">Бүгд</option>

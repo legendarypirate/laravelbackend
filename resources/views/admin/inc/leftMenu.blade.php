@@ -300,14 +300,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="{{url('/role/index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Эрх үүсгэх</p>
+                  <i class="far fa-circle nav-icon" ></i>
+                  <p >Эрх үүсгэх</p>
                 </a>
               </li>
              
-              <li class="nav-item">
+              <li class="nav-item" >
                 <a href="{{url('/role/list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Жагсаалт</p>

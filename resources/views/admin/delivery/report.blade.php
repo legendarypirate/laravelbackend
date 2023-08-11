@@ -108,13 +108,13 @@ input[type=checkbox]:checked {
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
        
 
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Бүс:</label>
                     <select id="filterByBus" class="form-control inputStatus9">
                         <?php $bus=DB::table('regions')->get(); ?>
@@ -125,7 +125,7 @@ input[type=checkbox]:checked {
                     </select>
                 </div>
               
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
                     <?php $shop=DB::table('users')->where('role','customer')->get(); ?>
@@ -157,7 +157,7 @@ input[type=checkbox]:checked {
                         <th class="text-center whitespace-nowrap">Тайлбар</th>
 
                         <th class="text-center whitespace-nowrap">Төлөв</th>
-                        <th class="text-center whitespace-nowrap">Дүн</th>
+                        <th class="text-center whitespace-nowrap">Тооцоо</th>
                         <th class="text-center whitespace-nowrap">Бараа</th>
 
                         <th class="text-center whitespace-nowrap">Жолооч</th>
@@ -387,8 +387,8 @@ input[type=checkbox]:checked {
                                 data: 'status'
                             },
                             {
-                                name: 'price',
-                                data: 'price'
+                                name: 'received',
+                                data: 'received'
                             },
                             {
                                 name: 'goodtype',

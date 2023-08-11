@@ -20,9 +20,15 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+                            <section class="content">
+                                        <form type="get" action="{{url('look')}}">
+                                            <i data-feather="search" class="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0"></i>
+                                            <input type="text" name="query" class="form-control" required style="width:200px;"><br>
+                                            <button type="Submit"  class="btn btn-primary shadow-md mr-2 ">Хайх</button>
+                                        <form>
+                                            
       <div class="container-fluid">
-       
+      <br>
         <!-- /.row -->
         <div class="row">
 

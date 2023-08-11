@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Log;
+use Redirect;
 
 use App\Models\Good;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -39,6 +40,8 @@ class DeliveryController extends Controller
         $order->address=$request->detailadd;
         $order->comment=$request->comment;
         $order->receivername=$request->shop;
+        $order->price=$request->price;
+        $order->received=$request->received;
         $order->status=1;
         $order->track=rand(100000,999999).'S'.$request->name;
         $order->save();
@@ -48,6 +51,24 @@ class DeliveryController extends Controller
         $log->staff=$request->name;
         $log->value=$request->name.' '.$order->track.' дугаартай хүргэлт үүсгэлээ';
         $log->save();
+
+        $string = str_replace('\n', '', $request->data);
+
+        $strings = rtrim($string, ',');
+        $convst=str_replace('\\','+',$strings);
+        $qq=json_decode($convst,true);
+        
+        if($request->data){
+            foreach($qq as $dd){
+                $idk=Good::where('goodname',str_replace('+','\\',$dd['name']))->where('shop',$dd['cname'])->first();
+                $od=$idk->id;
+                $updatedgood=Good::find($od);
+                $updatedgood->count=Good::where('id','=',$od)->first()->count-$dd['count'];
+                $updatedgood->indelivery=Good::where('id','=',$od)->first()->indelivery+$dd['count'];
+                $updatedgood->save();   
+            }
+        }
+
         return response()->json(['data'=>$order,'success'=>true]);
     }
     public function donedelivery($name){
@@ -71,13 +92,18 @@ class DeliveryController extends Controller
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
+    public function totalforcust($name){
+        $list=Delivery::where('shop',$name)->count();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
     public function donedeliver($name){
         $list=Delivery::where('driver',$name)->where('status',3)->count();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
     public function declinedeliver($name){
-        $list=Delivery::where('driver',$name)->where('status',4)->count();
+        $list=Delivery::where('driver',$name)->where('status',4)->orWhere('status',6)->count();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
@@ -327,6 +353,16 @@ class DeliveryController extends Controller
             session()->flash('success', 'Cart updated successfully');
         }
     }
+    
+    public function recover($id)
+    {
+            $delivery=Delivery::find($id);
+            $delivery->status=1;
+            $delivery->driver='';
+            $delivery->save();
+            return Redirect::back();
+
+    }
   
     /**
      * Write code on Method
@@ -354,7 +390,7 @@ class DeliveryController extends Controller
     }
 
     public function deliveryshop($name){
-        $list=Delivery::where('shop',$name)->get();
+        $list=Delivery::where('shop',$name)->where('status','!=','100')->get();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
@@ -1019,9 +1055,10 @@ class DeliveryController extends Controller
                         })
                         ->addColumn('comment', function ($row) {
                             return  '
-                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
+                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:150px;"  value="'.$row->comment.'" name="note"/>
                             <input type="hidden" value="'.$row->id.'" name="realid"> 
-                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
+                            <button data-id="'.$row->id.'" class="btn btn-primary button_edit_note" >  Засах </button>
+                            
                             <a class="font-medium whitespace-nowrap"></a>
                        ';
                         })
@@ -1037,13 +1074,13 @@ class DeliveryController extends Controller
                         })
                         ->addColumn('status', function ($row) {
                             if($row->status==1){
-                                return 'Бүртгэгдсэн';
+                                return '<div class="status1">Бүртгэгдсэн</div>';
                             }elseif($row->status==2){
-                                return 'Жолоочид хуваарилсан';
+                                return '<div class="status2">Хуваарилсан</div>';
                             }elseif($row->status==6) {
-                                return 'Хүлээгдэж буй';
+                                return '<div class="status6">Хүлээгдэж буй</div>';
                             } elseif($row->status==3) {
-                                return 'Хүргэгдсэн';
+                                return '<div class="status3">Хүргэгдсэн</div>';
                             }elseif($row->status==4) {
                                 return 'Цуцалсан';
                             }elseif($row->status==5) {
@@ -1078,27 +1115,19 @@ class DeliveryController extends Controller
                                             Устгах</a>
                                         </div>
                                         ';
-                                        } elseif(Auth::user()->role=='operator'){
-                                            $actions = '
-                                            <div class="flex justify-center items-center">
-                                                <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                                                Дэлгэрэнгүй  </a>
-                                                </div>';
-                                        }
-                                        
+                                        } 
                                         else {
                                             $actions = '
-                                            <div class="flex justify-center items-center">
-                                                <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
-                                                Дэлгэрэнгүй  </a>
-                                             
-                                            </div>';
+                                            <button type="submit" class="btn btn-info"><a href="#" style="color:white;">Дэлгэрэнгүй</a></button>';
                                         }
                                         return $actions;
                         })
-                        ->rawColumns(['checkbox','actions','comment','address'])
+                        ->addColumn('recover', function ($row) {
+                            
+                            return '<button type="submit" class="btn btn-info"><a href="'.url('/delivery/recover/'.$row->id).'"style="color:white;">Сэргээх</a></button>';
+                           
+                        })
+                        ->rawColumns(['checkbox','actions','comment','address','status','recover'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);

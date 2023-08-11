@@ -28,6 +28,12 @@ class GoodController extends Controller
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
+    public function gd($name){
+        $list=Good::where('shop',$name)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+
     public function create(Request $request){ 
         $order = new Good();
         $order->shop = $request->shop;
@@ -99,6 +105,16 @@ class GoodController extends Controller
             'success' => true,
             'message' => 'Амжилттай',
             'data'=>$black
+        ], 200);
+    }
+
+    public function goodpost(Request $request){
+      
+        $good=DB::table('goods')->where('shop',$request->cname)->where('goodname',$request->goodname)->get();
+            return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай',
+            'data'=>$good
         ], 200);
     }
 

@@ -51,7 +51,7 @@
 
 <td>
 <button type="submit" class="btn btn-info"><a href="{{url('/user/edit/'.$wares->id)}}" style="color:white;">Засах</a></button>
-<button type="submit" class="btn btn-danger"><a href="{{url('/user/delete/'.$wares->id)}}" style="color:white;">Устгах</a></button>
+<button type="submit" class="btn btn-danger"><a href="{{url('/user/delete/'.$wares->id)}}" onclick="return confirm('Are you sure you want to delete this item?');"  style="color:white;">Устгах</a></button>
 </td>
 
 </tr>

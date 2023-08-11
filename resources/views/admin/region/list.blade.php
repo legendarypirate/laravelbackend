@@ -44,7 +44,7 @@
 <td>{{$regions->id}}</td>
 <td>{{$regions->name}}</td>
     @if(\Auth::user()->hasPermissionTo('бүс_устгах'))
-    <td><a href="{{url('/region/delete/'.$regions->id)}}">Устгах</a></td>
+    <td> <button class="btn btn-danger"> <a href="{{url('/region/delete/'.$regions->id)}}" style="color:white;">Устгах</a></button></td>
     @else
     <td><a href="#">#</a></td>
 

@@ -35,6 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::get('/totake/{shop}',[App\Http\Controllers\DeliveryController::class, 'totake']);
     Route::get('/taken/{shop}',[App\Http\Controllers\DeliveryController::class, 'taken']);
+    Route::get('/totalfororder/{shop}',[App\Http\Controllers\OrderController::class, 'totalfororder']);
 
     //devliery section
     Route::get('/delivery/{name}',[App\Http\Controllers\DeliveryController::class, 'delivery']);
@@ -49,6 +50,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/donedeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'donedeliver']);
     Route::get('/declinedeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'declinedeliver']);
     Route::get('/totaldeliver/{name}',[App\Http\Controllers\DeliveryController::class, 'totaldeliver']);
+    Route::get('/totalforcust/{name}',[App\Http\Controllers\DeliveryController::class, 'totalforcust']);
 
 
     //customer api
@@ -57,5 +59,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/ordershop/{name}',[App\Http\Controllers\OrderController::class, 'ordershop']);
     Route::get('/gooddata/{name}',[App\Http\Controllers\GoodController::class, 'gooddata']);
     Route::get('/gooddetail/{id}',[App\Http\Controllers\GoodController::class, 'gooddetail']);
+    Route::get('/gd/{name}',[App\Http\Controllers\GoodController::class, 'gd']);
+    Route::post('/goodpost',[App\Http\Controllers\GoodController::class, 'goodpost']);
 
 });

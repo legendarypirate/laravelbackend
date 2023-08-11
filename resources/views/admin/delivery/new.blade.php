@@ -108,14 +108,14 @@ input[type=checkbox]:checked {
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-          <button type="button" class="btn btn-primary btn-sm"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Export</a></button> 
-          <button type="button" id="__btnImportExcel" class="btn btn-primary btn-sm"> <a href="#" style="color:white;">Excel Import</a></button> 
+          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnImportExcel" class="btn btn-info"> <a href="#" style="color:white;">Excel Import</a></button> 
          <div class="row">
        
 
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Бүс:</label>
                     <select id="filterByBus" class="form-control inputStatus9">
                         <?php $bus=DB::table('regions')->get(); ?>
@@ -126,7 +126,7 @@ input[type=checkbox]:checked {
                     </select>
                 </div>
               
-                <div class="form-group">
+                <div class="form-group myform">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
                     <?php $shop=DB::table('users')->where('role','customer')->get(); ?>
@@ -135,6 +135,28 @@ input[type=checkbox]:checked {
                         <option value="{{$shops->name}}">{{$shops->name}}</option>
                         @endforeach    
                     </select>
+                </div>
+
+                <div class="form-group myform">
+                    <label>Эхлэх:</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                    <input type="date" class="form-control" id="start_date" name="start_date" value="" />
+                    <div class="input-group-append"  data-toggle="datetimepicker">
+                    
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group myform">
+                    <label>Дуусах:</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                    <input type="date" class="form-control" id="end_date" name="end_date" value=""  />
+                    <div class="input-group-append"  data-toggle="datetimepicker">
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group myform" style="margin-top:32px;">
+
+                    <button type="button" id="filterByDateRange" class="btn btn-info"> <a href="#" style="color:white;">Filter</a></button> 
                 </div>
             </div>
            
@@ -353,7 +375,7 @@ input[type=checkbox]:checked {
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
                 const deliveryTableUrl = '{{ route('datatable-delivery') }}';
-                const loadDeliveryDataTable = (status,bus,driver,customer,status_1) => {
+                const loadDeliveryDataTable = (status,bus,driver,customer,status_1,start_date,end_date) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
                         serverSide: true,
@@ -366,7 +388,9 @@ input[type=checkbox]:checked {
                                 region: bus,
                                 driver: driver,
                                 customer: customer,
-                                status_1 : status_1
+                                status_1 : status_1,
+                                start_date: start_date,
+                                end_date: end_date,
                             },
                             dataSrc: function ( json ) {
                              return json.data;
@@ -466,37 +490,67 @@ input[type=checkbox]:checked {
                 let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
                 let customer = $('#filterByCustomer').val();
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
 
-                loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
                 $('#filterByStatus').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $(this).val();
-                    var bus = $('#filterByBus').val();
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var status_1 = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    var bus = $('#filterByBus').val();  
+                    var customer = $('#filterByCustomer').val();
+  
+                    rows_selected.length = 0;
+                    loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
                 });                
                 $('#filterByBus').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var status_1 = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
-                    var bus = $(this).val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    var bus = $('#filterByBus').val();  
+                    var customer = $('#filterByCustomer').val();
+  
+                    rows_selected.length = 0;
+                    loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
                 });
 
                 $('#filterByDriver').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
-                    var driver = $(this).val();
-                    var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var status_1 = $('#filterByStatus').val();
+                    var driver = $('#filterByDriver').val();
+                    var bus = $('#filterByBus').val();  
+                    var customer = $('#filterByCustomer').val();
+  
+                    rows_selected.length = 0;
+                    loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
                 });
 
                 $('#filterByCustomer').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
-                    var customer = $(this).val();
-                    var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_1);
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var status_1 = $('#filterByStatus').val();
+                    var driver = $('#filterByDriver').val();
+                    var bus = $('#filterByBus').val();  
+                    var customer = $('#filterByCustomer').val();
+  
+                    rows_selected.length = 0;
+                    loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
+                });
+
+                $('#filterByDateRange').click(function () {                    
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    var status_1 = $('#filterByStatus').val();
+                    var driver = $('#filterByDriver').val();
+                    var bus = $('#filterByBus').val();  
+                    var customer = $('#filterByCustomer').val();
+  
+                    rows_selected.length = 0;
+                    loadDeliveryDataTable(status,bus,driver,customer,status_1,start_date,end_date);
                 });
                
                 var selected_status = 1;

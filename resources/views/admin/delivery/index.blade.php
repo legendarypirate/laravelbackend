@@ -54,6 +54,7 @@
                     <label for="exampleInputEmail1">Хаяг</label>
                     <input type="text" name="address" class="form-control"  placeholder="Хаяг">
                   </div>
+                  
                   <div class="form-group">
                     <label for="exampleInputEmail1">Тайлбар</label>
                     <input type="text" name="comment" class="form-control"  placeholder="Тайлбар">
@@ -193,7 +194,7 @@
                 
                     @endauth
                     @guest
-                    
+                    ы
                     
                         <div class="d-grid mt-3"><a href="#"><button class="btn btn-success btn-lg rounded-0"  type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" aria-controls="loginToSystem" aria-logedin="false" aria-label="Signin">Purchase</button></a></div>
                     @endguest
@@ -222,8 +223,8 @@
                                     </div>                  
                          
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Барааны өртөг</label>
-                    <input type="text" name="price" class="form-control"  placeholder="Барааны өртөг">
+                    <label for="exampleInputEmail1">Тооцоо</label>
+                    <input type="text" name="price" class="form-control"  placeholder="Тооцоо">
                   </div>
                
                   <div class="form-group">

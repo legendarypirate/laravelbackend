@@ -1,10 +1,7 @@
 @extends('admin.master')
 
 @section('mainContent')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.min.css" integrity="sha512-A374yR9LJTApGsMhH1Mn4e9yh0ngysmlMwt/uKPpudcFwLNDgN3E9S/ZeHcWTbyhb5bVHCtvqWey9DLXB4MmZg==" crossorigin="anonymous" />
-
 <style>
-
 
 [type=search] {
         -webkit-appearance: textfield;
@@ -79,8 +76,6 @@ input[type=checkbox]:checked {
             -webkit-print-color-adjust:exact;
         }
     }
-
-
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -88,7 +83,7 @@ input[type=checkbox]:checked {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Хүргэлт</h1>
+            <h1>Захиалга</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -108,7 +103,7 @@ input[type=checkbox]:checked {
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
+          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
           <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
           <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
          <div class="row">
@@ -131,25 +126,18 @@ input[type=checkbox]:checked {
                         @endforeach                      
                     </select>
                 </div>
-               
-                <div class="form-group myform">
-                    <label for="status">Харилцагч:</label>
-                    <select id="filterByCustomer" class="form-control inputStatus9">
-                    <?php $shop=DB::table('users')->where('role','customer')->get(); ?>
-                        <option value="">Бүгд</option>
-                        @foreach($shop as $shops)
-                        <option value="{{$shops->name}}">{{$shops->name}}</option>
-                        @endforeach    
-                    </select>
-                </div>
                 <div class="form-group myform">
                     <label for="status">Жолооч:</label>
                     <select id="filterByDriver" class="form-control inputStatus9">
-                    <?php $shop=DB::table('users')->where('role','driver')->get(); ?>
                         <option value="">Бүгд</option>
-                        @foreach($shop as $shops)
-                        <option value="{{$shops->name}}">{{$shops->name}}</option>
-                        @endforeach    
+                        <option value="altansukhJ1">altansukhJ1</option>   
+                    </select>
+                </div>
+                <div class="form-group myform">
+                    <label for="status">Харилцагч:</label>
+                    <select id="filterByCustomer" class="form-control inputStatus9">
+                        <option value="">Бүгд</option>
+                        <option value="&quot; энхрий онлайн шоп&quot;">&quot; энхрий онлайн шоп&quot;</option>
                     </select>
                 </div>
                 <div class="form-group myform">
@@ -189,19 +177,20 @@ input[type=checkbox]:checked {
                         <th class="text-center whitespace-nowrap">Үүссэн огноо</th>
                         <th class="whitespace-nowrap">Нэр</th>
                         <th class="text-center whitespace-nowrap">Утас</th>
-                       
-
                         <th class="text-center whitespace-nowrap">Хаяг</th>
-                        <th class="text-center whitespace-nowrap">Тайлбар</th>
-
+                    
                         <th class="text-center whitespace-nowrap">Төлөв</th>
-                        <th class="text-center whitespace-nowrap">Дүн</th>
-                        <th class="text-center whitespace-nowrap">Бараа</th>
+                        @if(auth()->user()->role=='Customer')
 
-                        <th class="text-center whitespace-nowrap">Жолооч</th>
-                     
-                        <th class="text-center whitespace-nowrap">Баталгаажсан</th>
+
+                        <th ></th>
+                        <th ></th>
+                        @else 
+
                         <th class="text-center whitespace-nowrap">Бүс</th>
+                        <th class="text-center whitespace-nowrap">Жолооч</th>
+                        @endif
+                        <th class="text-center whitespace-nowrap">Тайлбар</th>
 
                         <th class="text-center whitespace-nowrap">Үйлдэл</th>
                     </tr>
@@ -218,7 +207,7 @@ input[type=checkbox]:checked {
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
     </div> 
-
+ 
 </div>
 
 <div id="customModal" class="modal-custom">
@@ -226,9 +215,10 @@ input[type=checkbox]:checked {
         <!-- Modal content -->
         <div class="modal-content">
           <span class="close">&times;</span>
-          <div id="excel-wrapper">......</div>
+          <div id="excel-wrapper1">......</div>
         </div>
     </div>
+    
 <div id="statusModal" class="modal" >
 <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
@@ -237,11 +227,9 @@ input[type=checkbox]:checked {
                 <div class="modal-body">
                     <select class="form-control inputStatus1">
                         <option value="1">Бүртгэгдсэн</option>
-                        <option value="3">Хүргэгдсэн</option>
-                        <option value="4">Цуцалсан</option>
-                        <option value="5">Буцаасан</option>
-                        <option value="6">Хүлээгдэж буй</option>
-                        <option value="10">Хүлээн авсан</option>
+                        <option value="2">Жолоочид хуваарилсан</option>
+                        <option value="3">Жолооч хүлээн авсан</option>
+                        <option value="4">Дууссан</option>
                     </select>       
                 </div>
             <div class="modal-footer justify-content-between">
@@ -270,32 +258,32 @@ input[type=checkbox]:checked {
         </div>
 </div>
 
-                <div id="driverModal" class="modal" >
-                <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Жолооч солих</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <select class="form-control inputStatus4">
-                                    <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
-                                        @foreach($bus as $region)
-                                        <option value="{{$region->name}}">{{$region->name}}</option>
-                                        @endforeach
-                                    </select>       
-                                </div>
-                            <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
-                            </div>
-                        </div>
+<div id="driverModal" class="modal" >
+<div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Төлөв солих</h4>
                 </div>
+                <div class="modal-body">
+                    <select class="form-control inputStatus4">
+                    <?php $bus=DB::table('users')->get(); ?>
+                        @foreach($bus as $region)
+                        <option value="{{$region->name}}">{{$region->name}}</option>
+                        @endforeach
+                    </select>       
+                </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
+            </div>
+        </div>
+</div>
 
 <div id="deleteModal" class="modal" >
 <div class="modal-content text-center" style="width:400px !important;height:250px !important;margin-top:200px;">
                 <div class="modal-header">
                     <h4 class="modal-title">Устгах</h4>
                 </div>
-                
+               
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-default closing" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary btn_delete">Устгах</button>
@@ -352,8 +340,8 @@ input[type=checkbox]:checked {
             <script type="text/javascript">
                 var $j = jQuery.noConflict();
                 $(document).ready(function($j){
-                const deliveryTableUrl = '{{ route('datatable-delivery') }}';
-                const loadDeliveryDataTable = (status,bus,driver,customer,status_100,start_date,end_date) => {
+                const deliveryTableUrl = '{{ route('datatable-order') }}';
+                const loadDeliveryDataTable = (status,bus,driver,customer,except_status,start_date,end_date) => {
                   var table =  $j('#datatable').DataTable({
                         processing: true,
                         serverSide: true,
@@ -366,11 +354,14 @@ input[type=checkbox]:checked {
                                 region: bus,
                                 driver: driver,
                                 customer: customer,
-                                status_100 : status_100,
+                                except_status : except_status,
                                 start_date: start_date,
-                                end_date: end_date
+                                end_date: end_date,
                             },
                             dataSrc: function ( json ) {
+    
+                            //console.log(json);
+    
                              return json.data;
                             }
                         },
@@ -391,40 +382,26 @@ input[type=checkbox]:checked {
                                 name: 'phone',
                                 data: 'phone'
                             },
-                          
                             {
                                 name: 'address',
                                 data: 'address'
                             },
-                            {
-                                name: 'comment',
-                                data: 'comment'
-                            },
+                           
                             {
                                 name: 'status',
                                 data: 'status'
                             },
                             {
-                                name: 'price',
-                                data: 'price'
+                                name: 'region',
+                                data: 'region'
                             },
-                            {
-                                name: 'goodtype',
-                                data: 'goodtype'
-                            },
-                           
                             {
                                 name: 'driver',
                                 data: 'driver'
                             },
                             {
-                                name: 'verified',
-                                data: 'verified'
-                            },
-
-                            {
-                                name: 'region',
-                                data: 'region'
+                                name: 'comment',
+                                data: 'comment'
                             },
                             {
                                 name: 'actions',
@@ -463,29 +440,28 @@ input[type=checkbox]:checked {
                     //}
     
                 }
-                let status_100 = 100;
-                let status_1 = 1;
+                let except_status = 1;
+             
                 let status = $('#filterByStatus').val();
                 let bus = $('#filterByBus').val();
                 let driver = $('#filterByDriver').val();
                 let customer = $('#filterByCustomer').val();
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
-
-                loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 $('#filterByStatus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $(this).val();
                     var bus = $('#filterByBus').val();
                     var driver = $('#filterByDriver').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 });                
                 $('#filterByBus').change(function () {
                    // $('.dataTables_wrapper').html('');
                     var status = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
                     var bus = $(this).val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 });
 
                 $('#filterByDriver').change(function () {
@@ -493,7 +469,7 @@ input[type=checkbox]:checked {
                     var status = $('#filterByStatus').val();
                     var driver = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 });
 
                 $('#filterByCustomer').change(function () {
@@ -501,19 +477,19 @@ input[type=checkbox]:checked {
                     var status = $('#filterByStatus').val();
                     var customer = $(this).val();
                     var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 });
 
                 $('#filterByDateRange').click(function () {                    
                     var start_date = $('#start_date').val();
                     var end_date = $('#end_date').val();
-                    var status_1 = $('#filterByStatus').val();
+                    var status = $('#filterByStatus').val();
                     var driver = $('#filterByDriver').val();
                     var bus = $('#filterByBus').val();  
                     var customer = $('#filterByCustomer').val();
   
                     rows_selected.length = 0;
-                    loadDeliveryDataTable(status,bus,driver,customer,status_100,start_date,end_date);
+                    loadDeliveryDataTable(status,bus,driver,customer,except_status,start_date,end_date);
                 });
                
                 var selected_status = 1;
@@ -546,7 +522,7 @@ input[type=checkbox]:checked {
                 $('.btn_change_status').click(function () {
                     console.log("btn_change_status click");
                     console.log(rows_selected);
-                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
+                    const changeStatusUrl = '{{ route('change_status_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_status = $('.inputStatus1').val();
     
@@ -569,7 +545,7 @@ input[type=checkbox]:checked {
                 $('.btn_delete').click(function () {
                         console.log("btn_delete click");
                         console.log(rows_selected);
-                        const changeVerifyUrl = '{{ route('change_delete_on_delivery') }}';
+                        const changeVerifyUrl = '{{ route('change_delete_on_order') }}';
                         var ids = rows_selected.join(",");
                            
                         $.ajax({
@@ -589,7 +565,7 @@ input[type=checkbox]:checked {
                 $('.btn_change_bus').click(function () {
                     console.log("btn_change_bus click");
                     console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
+                    const changeBusUrl = '{{ route('change_bus_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_bus = $('.inputStatus3').val();
     
@@ -612,7 +588,7 @@ input[type=checkbox]:checked {
                 $('.btn_change_drive').click(function () {
                     console.log("btn_change_drive click");
                     console.log(rows_selected);
-                    const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
+                    const changeDriverUrl = '{{ route('change_driver_on_order') }}';
                     var ids = rows_selected.join(",");
                     selected_driver = $('.inputStatus4').val();
     
@@ -621,7 +597,7 @@ input[type=checkbox]:checked {
                         url: changeDriverUrl,
                         data: {
                             ids : ids,
-                            driverselected : selected_driver
+                            driver : selected_driver
                         },
                         beforeSend: function() {
                             console.log("Loading");
@@ -654,7 +630,7 @@ input[type=checkbox]:checked {
                 // Handle to Export as a excel file
                 $(document).on('click', '#__btnExcelExport', function() {
     
-                    $('#customModal').attr('style','display:block');
+                    $('#exportModal').attr('style','display:block');
     
                     const excelExportUrl = '{{ route('excel-export-delivery') }}';
                     var ids = rows_selected.join(",");
@@ -698,7 +674,7 @@ input[type=checkbox]:checked {
                 }
                 // Handle to Print Data
                 $(document).on('click', '#__btnPrint', function() {
-                    const printDataDeliveryURL = '{{ route('print-data-delivery_item') }}';
+                    const printDataDeliveryURL = '{{ route('print-data-delivery') }}';
                     var ids = rows_selected.join(",");
                     $.ajax({
                         type: 'GET',
@@ -723,11 +699,8 @@ input[type=checkbox]:checked {
 
             });
         </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.all.min.js" integrity="sha512-LXVbtSLdKM9Rpog8WtfAbD3Wks1NSDE7tMwOW3XbQTPQnaTrpIot0rzzekOslA1DVbXSVzS7c/lWZHRGkn3Xpg==" crossorigin="anonymous"></script>
-
+    
         <script>
-
-            
         // When the user clicks on <span> (x), close the modal
             $(document).on('click', '.closing', function() {
             $('#customModal').attr('style','display:none');
@@ -807,6 +780,4 @@ input[type=checkbox]:checked {
         }
     }
 </style>
-@include('sweetalert::alert')
-
-  @endsection
+@endsection

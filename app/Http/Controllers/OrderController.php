@@ -14,6 +14,7 @@ use App\Models\Phone;
 use App\Models\Address;
 use App\Models\User;
 use App\Models\Log;
+use Redirect;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExport;
@@ -63,6 +64,7 @@ class OrderController extends Controller
         $log->staff=Auth::user()->name;
         $log->value=Auth::user()->name.' '.$order->track.' дугаартай захиалаг үүсгэлээ';
         $log->save();
+
         return redirect('/order/list')->with('message','Амжилттай хадгалагдлаа');
 
     }
@@ -72,8 +74,18 @@ class OrderController extends Controller
         return view('admin.order.list');
     }
 
+    public function report(){
+       
+        return view('admin.order.report');
+    }
+
     public function order($name){
-        $list=Order::where('driver',$name)->where('status',2)->get();
+        $list=Order::orderBy('id','DESC')->where('driver',$name)->where('status',2)->get();
+        return response()->json(['data'=>$list,'success'=>true]);
+    }
+
+    public function totalfororder($name){
+        $list=Order::where('shop',$name)->count();
         return response()->json(['data'=>$list,'success'=>true]);
     }
 
@@ -154,78 +166,6 @@ class OrderController extends Controller
         $log->value=$order->shop.' '.$order->track.' дугаартай захиалга цуцалсан төлөвт орууллаа';
         $log->save();
 
-        // if($request->status=="Цуцалсан"){
-        //     $ssq='Таны захиалга цуцлагдлаа';
-        // } else {
-        //     $ssq='Таны захиалга '.$black->note.' шалтгаанаар барааг авалгүй буцлаа';
-        // } 
-        // $SERVER_API_KEY = 'AAAARg9HwNY:APA91bGKk4ebfKj1Kpq4cIG0TDpVCqfdrK1bdbZZVLZcBVOTiV_oyJC31EDDFYXZNfPIBdCC6KD32VcpT-CCkBEom0OXwWtUniURy-FGAhHq9jvx-F0zqM8TnLBlSHBmBBSkvpKu0nvI';
-
-        // $tk=Token::where('userid',$black->organization)->latest()->first();
-        // if($tk){
-        //     $tkn=$tk->token;
-        //     $token_1 = $tkn;
-        
-        //     $data = [
-        
-        //         "registration_ids" => [
-        //             $token_1
-        //                         ],
-        
-        //         "notification" => [
-        
-        //             "title" => 'Захиалга',
-        
-        //             "body" => $ssq,
-        
-        //             "sound"=> "default" // required for sound on ios
-        
-        //         ],
-        
-        //     ];
-        
-        //     $dataString = json_encode($data);
-        
-        //     $headers = [
-        
-        //         'Authorization: key=' . $SERVER_API_KEY,
-        
-        //         'Content-Type: application/json',
-        
-        //     ];
-        
-        //     $ch = curl_init();
-        
-        //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        
-        //     curl_setopt($ch, CURLOPT_POST, true);
-        
-        //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        
-        //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        
-        //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
-        //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-        
-        //     $response = curl_exec($ch);
-        // }
-
-
-        // $phone=$black->phone;
-        // $msg = "Tanii%20baraag%20".str_replace(' ','%20',$black->note)."%20shaltgaanaar%20baraag%20avalgui%20butslaa.%20Buuhia%20Elch%20Hurgeltiin%20Uilchilgee.";
-        // $headers = array(
-        //     "Accept:  application/json",
-        //     "Content-Type: application/json",
-        // );
-        // $chsms = curl_init();
-        // curl_setopt($chsms, CURLOPT_URL, "https://ebuuhia.mn/sendsms.php?phone=".$phone."&msg=".$msg);
-        // // SSL important
-        // curl_setopt($chsms, CURLOPT_SSL_VERIFYPEER, FALSE);
-        // curl_setopt($chsms, CURLOPT_RETURNTRANSFER, 1);
-        // curl_setopt($chsms, CURLOPT_HTTPHEADER, $headers);
-        // $output = curl_exec($chsms);
-        // curl_close($chsms);
             return response()->json([
             'success' => true,
             'message' => 'Амжилттай',
@@ -358,66 +298,6 @@ class OrderController extends Controller
             $data['driver'] = 1;
             $data['message'] = "Success";
 
-            // for($i=0; $i<count($array_ids);$i++){
-            //     $dddd=Delivery::where('id','=',$array_ids[$i])->first();
-               
-                
-            //     $arr_tracking[] = $dddd['organization'];
-
-            //     $SERVER_API_KEY = 'AAAA2aRXNbE:APA91bFEfJsbgOnLV7Y3VWKRNhyR7TX8hrXjO6YxKbp5CDBqFJDhvYddPfRUx38-0mi9UMPO5uoasAmesn2HfLIPtd5kky34WbsDXzDwG3UR7JSVlUy5NiWJKKpCCoACPkazcpkGeQS6';
-
-            //     $tk=Token::where('userid',$request->driverselected)->latest()->first();
-            //     if($tk){
-            //     $tkn=$tk->token;
-            //     $token_1 = $tkn;
-            //     $ssq='Танд '.$dddd["organization"].' дэлгүүрээс захиалга ирлээ';
-            //     $data = [
-            
-            //         "registration_ids" => [
-            //             $token_1
-            //         ],
-            
-            //         "notification" => [
-            
-            //             "title" => 'Захиалга',
-            
-            //             "body" => $ssq,
-            
-            //             "sound"=> "default" // required for sound on ios
-            
-            //         ],
-            
-            //     ];
-            
-            //     $dataString = json_encode($data);
-            
-            //     $headers = [
-            
-            //         'Authorization: key=' . $SERVER_API_KEY,
-            
-            //         'Content-Type: application/json',
-            
-            //     ];
-            
-            //     $ch = curl_init();
-            
-            //     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            
-            //     curl_setopt($ch, CURLOPT_POST, true);
-            
-            //     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            
-            //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            
-            //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            
-            //     curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-            
-            //     $response = curl_exec($ch);
-            // }
-            
-               
-            // }   
          
         Alert::success('Захиалга', 'Жолооч солигдлоо');
 
@@ -432,6 +312,19 @@ class OrderController extends Controller
         return json_encode($data);
     }
 
+    public function delete($id){
+        $user = Order::find($id);
+        $user->delete();
+
+        $log = new Log();
+        $log -> value = Auth::user()->name.', нь '.$user->track.' захиалга устгалаа.';
+        $log -> phone = '';
+        $log->staff=Auth::user()->name;
+        $log -> save();
+        Alert::success('Бүс', 'Амжилттай устгагдлаа');
+
+        return Redirect::back();
+    }
 
     public function change_delete_on_order(Request $request){
 
@@ -481,7 +374,6 @@ class OrderController extends Controller
             $start_date = $request->get('start_date',0);
             $late = $request->get('late',0);
             $customer = $request->get('customer',0);
-
             $end_date = $request->get('end_date',0);
             $driverselected = $request->get('driver',0);
             $except_status = $request->get('except_status',0);
@@ -619,10 +511,9 @@ class OrderController extends Controller
                                     if(\Auth::user()->hasPermissionTo('захиалга_устгах'))
                                     {
                                         $actions = '
-                                    <div class="flex justify-center items-center">
-                                        
-                                        <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                    <div class="btn btn-danger">
+
+                                        <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/order/delete/'.$row->id).'" style="color:white;">
                                         Устгах</a>
                                     </div>
                                     ';
