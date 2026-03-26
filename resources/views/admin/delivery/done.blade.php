@@ -885,6 +885,7 @@
                 var customer = $('#filterByCustomer').val();
 
                 var status = $('#filterByStatus').val();
+                var driver = $('#filterByDriver').val();
                 var customer = $(this).val();
                 var region = $('#filterByBus').val();
                 var start_date = $('#start_date').val();
@@ -931,7 +932,7 @@
             $('#filterByDateRange').click(function() {
                 var customer = $('#filterByCustomer').val();
                 var status = $('#filterByStatus').val();
-                var driver = $(this).val();
+                var driver = $('#filterByDriver').val();
                 var region = $('#filterByBus').val();
                 var start_date = $('#start_date').val();
                 var end_date = $('#end_date').val();
