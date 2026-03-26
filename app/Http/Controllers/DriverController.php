@@ -1448,9 +1448,8 @@ public function exportDriverExcel(Request $request)
             if ($endDate) {
                 $query->whereDate('deliveries.created_at', '<=', $endDate);
             }
-            if ($status) {
-                $query->where('deliveries.status', $status);
-            }
+            // Drawer is for "Дууссан хүргэлт", so always use completed status only
+            $query->where('deliveries.status', 3);
             if ($merchantId) {
                 $query->where('deliveries.merchant_id', $merchantId);
             }

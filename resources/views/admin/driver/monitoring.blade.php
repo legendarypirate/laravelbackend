@@ -167,7 +167,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-6">
-                        <div class="small-box bg-info stats-card completed">
+                        <div class="small-box bg-info stats-card completed" id="statCompletedDeliveriesCard">
                             <div class="inner">
                                 <h3 id="statCompletedDeliveries">0</h3>
                                 <p>Дууссан хүргэлт</p>
@@ -314,7 +314,7 @@
                 <div class="drawer-overlay" id="shopBreakdownOverlay"></div>
                 <aside id="shopBreakdownDrawer" class="right-drawer" aria-hidden="true">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="mb-0"><i class="fas fa-store"></i> Дэлгүүрээрх нийт хүргэлт</h5>
+                        <h5 class="mb-0"><i class="fas fa-store"></i> Дэлгүүрээрх дууссан хүргэлт</h5>
                         <button type="button" class="btn btn-sm btn-secondary" id="closeShopBreakdownDrawer">Хаах</button>
                     </div>
                     <div class="text-muted mb-3" id="shopBreakdownMeta"></div>
@@ -385,8 +385,8 @@
                 loadDriverData();
             });
 
-            // Click on "Нийт хүргэлт" to open shop breakdown drawer
-            $('#statTotalDeliveriesCard').on('click', function() {
+            // Click on "Дууссан хүргэлт" to open shop breakdown drawer
+            $('#statCompletedDeliveriesCard').on('click', function() {
                 if (!selectedDriverId && !selectedDriverName) return;
                 openShopBreakdownDrawer();
             });
