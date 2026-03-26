@@ -276,7 +276,7 @@ input[type=checkbox]:checked {
                                 </div>
                                 <div class="modal-body">
                                     <select class="form-control inputStatus4">
-                                    <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
+                                    <?php $bus=DB::table('users')->where('role','driver')->where('active',1)->get(); ?>
                                         @foreach($bus as $region)
                                         <option value="{{$region->name}}">{{$region->name}}</option>
                                         @endforeach

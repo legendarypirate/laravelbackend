@@ -61,7 +61,7 @@
                     <label for="status">Жолооч:</label>
                     <select id="filterByDriver" class="form-control inputStatus9">
                         <option value="">Бүгд</option>
-                        <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
+                        <?php $bus=DB::table('users')->where('role','driver')->where('active',1)->get(); ?>
                                         @foreach($bus as $region)
                                         <option value="{{$region->name}}">{{$region->name}}</option>
                                         @endforeach

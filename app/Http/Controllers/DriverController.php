@@ -725,6 +725,7 @@ public function exportDriverExcel(Request $request)
                 $driverAddress = DB::table('users')
                     ->join('addresses as a', 'a.userid', '=', 'users.id')
                     ->where('role', 'driver')
+                    ->where('active', 1)
                     ->select(
                         'users.id as id',
                         'users.name as driver',
@@ -817,6 +818,7 @@ public function exportDriverExcel(Request $request)
                 $driverAddress = DB::table('users')
                     ->join('addresses as a', 'a.userid', '=', 'users.id')
                     ->where('role', 'driver')
+                    ->where('active', 1)
                     ->select(
                         'users.id as id',
                         'users.name as driver',
@@ -985,6 +987,7 @@ public function exportDriverExcel(Request $request)
 
             $driver = User::where('name', $request->name)
                 ->where('role', 'driver')
+                ->where('active', 1)
                 ->first();
 
             if (!$driver) {

@@ -240,7 +240,10 @@
                             <select class="form-control" id="add_driver" name="driver_id">
                                 <option value="">Жолооч сонгох (заавал биш)</option>
                                 @php
-                                    $drivers = DB::table('users')->where('role', 'driver')->get();
+                                    $drivers = DB::table('users')
+                                        ->where('role', 'driver')
+                                        ->where('active', 1)
+                                        ->get();
                                 @endphp
                                 @foreach($drivers as $driver)
                                     <option value="{{ $driver->id }}">{{ $driver->name }}</option>
@@ -284,7 +287,10 @@
                             <select class="form-control" id="decrease_driver" name="driver_id">
                                 <option value="">Жолооч сонгох (заавал биш)</option>
                                 @php
-                                    $drivers = DB::table('users')->where('role', 'driver')->get();
+                                    $drivers = DB::table('users')
+                                        ->where('role', 'driver')
+                                        ->where('active', 1)
+                                        ->get();
                                 @endphp
                                 @foreach($drivers as $driver)
                                     <option value="{{ $driver->id }}">{{ $driver->name }}</option>
@@ -348,7 +354,10 @@
                                     <select id="historyDriverFilter" class="form-control form-control-sm">
                                         <option value="">Бүх жолооч</option>
                                         @php
-                                            $drivers = DB::table('users')->where('role', 'driver')->get();
+                                            $drivers = DB::table('users')
+                                                ->where('role', 'driver')
+                                                ->where('active', 1)
+                                                ->get();
                                         @endphp
                                         @foreach($drivers as $driver)
                                             <option value="{{ $driver->id }}">{{ $driver->name }}</option>

@@ -258,6 +258,7 @@
                                     <select id="filterByDriver" class="form-control inputStatus9">
                                         <?php $shop = DB::table('users')
                                             ->where('role', 'driver')
+                                            ->where('active', 1)
                                             ->get(); ?>
                                         <option value="">Бүгд</option>
                                         @foreach ($shop as $shops)
@@ -436,6 +437,7 @@
                                         <select class="form-control inputStatus4">
                                             <?php $bus = DB::table('users')
                                                 ->where('role', 'driver')
+                                                ->where('active', 1)
                                                 ->get(); ?>
                                             @foreach ($bus as $region)
                                                 <option value="{{ $region->name }}">{{ $region->name }}</option>
