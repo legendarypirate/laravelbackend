@@ -6,7 +6,8 @@ use Carbon\Carbon;
 use App\Models\Marks;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-
+use App\Models\Merchant;
+use App\Models\Setting;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -53,96 +54,174 @@ class RequestImportExcel implements ToCollection, WithStartRow,WithMultipleSheet
     
     public function collection(Collection $rows)
     {
+    
 
-        // user validation
+       
         foreach ($rows as $key=>$row) {
-            $user = DB::table('users')
-            ->where('name', '=', $row[0])
-            ->get();
-            
-            
-
-            if(($key >= 1 && empty($user[0]))){
-                return back()->with('error', 'User  not valid');
-            }
-        }
-        foreach ($rows as $key=>$row) {
-            $missing_column = array();
-            if( $key == 0 ){
-              
-                
-                if(trim($row[0]) != 'Хүлээн авагчийн нэр'){
-                    $missing_column[] = 'Хүлээн авагчийн нэр баганыг оруулна уу';
-                }
-                if(trim($row[1]) != 'Утасны дугаар'){
-                    $missing_column[] = 'Утасны дугаар баганыг оруулна уу';
-                }
-
-                if(trim($row[11]) != 'Дэлгэрэнгүй хаяг'){
-                    $missing_column[] = 'Дэлгэрэнгүй хаяг баганыг оруулна уу';
-                }
-
-                if(trim($row[12]) != 'Өртөг'){
-                    $missing_column[] = 'Өртөг баганыг оруулна уу';
-                }
-
-                if(trim($row[13]) != 'Баглаа боодлын тоо'){
-                    $missing_column[] = 'Баглаа боодлын тоо баганыг оруулна уу';
-                }
-
-                if(trim($row[14]) != 'Овор'){
-                    $missing_column[] = 'Овор баганыг оруулна уу';
-                }
-
-                if(trim($row[15]) != 'Жин'){
-                    $missing_column[] = 'Жин баганыг оруулна уу';
-                }
-
-                if(trim($row[16]) != 'Хүргэлтийн төрөл'){
-                    $missing_column[] = 'Хүргэлтийн төрөл баганыг оруулна уу';
-                }
-
-                if(trim($row[17]) != 'Нэмэлт тайлбар'){
-                    $missing_column[] = 'Нэмэлт тайлбар баганыг оруулна уу';
-                }
-                if(!empty($missing_column)){
-                    $errors = implode("<br> ",$missing_column);
-                    return back()->with('error', $errors);
-                }
-
-            }
+           
 
             if($key>=1){
                
                 if(Auth::user()->role!='Customer'){
                     $data=$row[0];
+                    
                 }
                 else {
                     $data=Auth::user()->name;
                 }
-                
+             
             
-                $data_array = [
-                    'shop'=>$data,
-                    'phone'=> $row[1],
-                    'address'=> $row[2],
-                    'price'=> $row[3],
-                    'received'=> $row[4],
-                    'number'=> $row[5],
-                    'size'=> $row[6],
-                    'mass'=> $row[7],
-                    'type'=> $row[8],
-                    'comm'=> $row[9],
-                    'region'=> $row[10],
-                    'bgood'=> $row[11],
-                    'deliveryprice'=> 5000,
+                $merchant=Merchant::where('merchantName',$row[2])->where('merchantPhone1',$row[3])->where('merchantAddress', $row[5])->first();
+               
+                if(isset($merchant->id)){
+                $number = (int) preg_replace("/[^0-9]/", "", $row[7]);
+                $price = (int) preg_replace("/[^0-9]/", "", $row[13]);
+
+
+                if (strcasecmp($row[0], 'Энгийн') === 0) {
+                    $status_id = 1;
+           
+                        if(isset(Auth::user()->engiin)){
+                           $deliveryprice = Auth::user()->engiin;
+                        }else{
+                           $defaultPrice = Setting::where('type', 1)->first();
+                           $deliveryprice = $defaultPrice->price;
+                        } 
+            
+
+                } else if (strcasecmp($row[0], 'Цагтай') === 0) {
+                    $status_id = 2;
+                    if(isset(Auth::user()->tsagtai)){
+                    $deliveryprice = Auth::user()->tsagtai;
+                        }else{
+                        $defaultPrice = Setting::where('type', 2)->first();
+                            $deliveryprice = $defaultPrice->price;
+                        } 
+                }else if (strcasecmp($row[0], 'Яаралтай') === 0) {
+                    $status_id = 3;
+                     if(isset(Auth::user()->yaraltai)){
+                    $deliveryprice = Auth::user()->yaraltai;
+                }else{
+                    $defaultPrice = Setting::where('type', 3)->first();
+                    $deliveryprice = $defaultPrice->price;
+                } 
+                }else if (strcasecmp($row[0], 'Онц яаралтай') === 0) {
+                    $status_id = 4;
+                    if(isset(Auth::user()->onts_yaraltai)){
+                    $deliveryprice = Auth::user()->onts_yaraltai;
+                }else{
+                   $defaultPrice = Setting::where('type', 4)->first();
+                    $deliveryprice = $defaultPrice->price;
+                } 
+                }else{
+                      $status_id = 1;
+                       if(isset(Auth::user()->engiin)){
+                           $deliveryprice = Auth::user()->engiin;
+                        }else{
+                           $defaultPrice = Setting::where('type', 1)->first();
+                           $deliveryprice = $defaultPrice->price;
+                        } 
+                }
+                    $id = $merchant->id;
+                    $data_array = [
+                    'track' => 'CH'.rand(100000,999999).Auth::user()->id,
+                    'status'=> 1,
+                    'shop'=> Auth::user()->name,
                     'created_at' => Carbon::now(),
-
+                    'type'=>$status_id,
+                    'order_code'=>$row[1],
+                    'merchant_id'=> $id,
+                    'parcel_info'=> $row[6],
+                    'number'=> $number,
+                    'receivername'=> $row[8],
+                    'phone'=> $row[9],
+                    'phone2'=> $row[10],
+                    'address'=> $row[11],
+                    'comment'=>$row[12],
+                    'price'=>$price,
+                    'deliveryprice'=>$deliveryprice,
                 ];
-                DB::table('deliveries')->insert($data_array);
+                }else{
+                   
+                $merchantData = [
+                    'user_id' => Auth::user()->id,
+                    'merchantName' => $row[2],
+                    'merchantAddress' => $row[5],
+                    'merchantPhone1' => $row[3],
+                    'merchantPhone2' => $row[4],
+                    'merchantWhat3Words' => '',
+                ];
+                $id = DB::table('merchant')->insertGetId($merchantData);
+                 $number = (int) preg_replace("/[^0-9]/", "", $row[7]);
+                $price = (int) preg_replace("/[^0-9]/", "", $row[13]);
+                if (strcasecmp($row[0], 'Энгийн') === 0) {
+                    $status_id = 1;
+           
+                        if(isset(Auth::user()->engiin)){
+                           $deliveryprice = Auth::user()->engiin;
+                        }else{
+                           $defaultPrice = Setting::where('type', 1)->first();
+                           $deliveryprice = $defaultPrice->price;
+                        } 
             
 
-                
+                } else if (strcasecmp($row[0], 'Цагтай') === 0) {
+                    $status_id = 2;
+                    if(isset(Auth::user()->tsagtai)){
+                    $deliveryprice = Auth::user()->tsagtai;
+                        }else{
+                        $defaultPrice = Setting::where('type', 2)->first();
+                            $deliveryprice = $defaultPrice->price;
+                        } 
+                }else if (strcasecmp($row[0], 'Яаралтай') === 0) {
+                    $status_id = 3;
+                     if(isset(Auth::user()->yaraltai)){
+                    $deliveryprice = Auth::user()->yaraltai;
+                }else{
+                    $defaultPrice = Setting::where('type', 3)->first();
+                    $deliveryprice = $defaultPrice->price;
+                } 
+                }else if (strcasecmp($row[0], 'Онц яаралтай') === 0) {
+                    $status_id = 4;
+                    if(isset(Auth::user()->onts_yaraltai)){
+                    $deliveryprice = Auth::user()->onts_yaraltai;
+                }else{
+                   $defaultPrice = Setting::where('type', 4)->first();
+                    $deliveryprice = $defaultPrice->price;
+                } 
+                }else{
+                      $status_id = 1;
+                       if(isset(Auth::user()->engiin)){
+                           $deliveryprice = Auth::user()->engiin;
+                        }else{
+                           $defaultPrice = Setting::where('type', 1)->first();
+                           $deliveryprice = $defaultPrice->price;
+                        } 
+                }
+
+                $data_array = [
+                    'track' => 'CH'.rand(100000,999999).Auth::user()->id,
+                    'status'=> 1,
+                    'shop'=> Auth::user()->name,
+                    'created_at' => Carbon::now(),
+                    'type'=>$status_id,
+                    'order_code'=>$row[1],
+                    'merchant_id'=> $id,
+                    'parcel_info'=> $row[6],
+                    'number'=> $number,
+                    'receivername'=> $row[8],
+                    'phone'=> $row[9],
+                    'phone2'=> $row[10],
+                    'address'=> $row[11],
+                    'comment'=>$row[12],
+                    'price'=>$price,
+                    'deliveryprice'=>$deliveryprice,
+                ];
+                }
+               
+                //dd($data_array);
+                DB::table('deliveries')->insert($data_array);
+                  
             }
             
         }

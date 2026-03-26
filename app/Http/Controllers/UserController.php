@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage; // Add this line
 
 use Illuminate\Http\Request;
 use App\Models\Delivery;
@@ -17,7 +20,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-   
+
 
     public function login(Request $request)
     {
@@ -27,29 +30,45 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+
             $user = Auth::user();
+
+            // Save FCM token if provided and user is admin
+            if ($request->has('fcm_token') && $user->role == 'admin') {
+                $user->fcm_token = $request->fcm_token;
+                $user->save();
+            }
+
             $token = $user->createToken('API Token')->accessToken;
-            return response()->json(['token' => $token,'data'=>$user,'success'=>true]);
+            return response()->json(['token' => $token, 'data' => $user, 'success' => true]);
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
-    public function logincust()
+    public function logincust(Request $request)
     {
-        if (Auth::attempt(['name' => request('name'), 'password' => request('password'),'role'=>'Customer'])) {
+        if (Auth::attempt(['name' => request('name'), 'password' => request('password'), 'role' => 'Customer'])) {
             $user = Auth::user();
-            $token = $user->createToken('API Token')->accessToken;
-           //After successfull authentication, notice how I return json parameters
-           return response()->json(['token' => $token,'data'=>$user,'success'=>true]);
-        } else {
-       //if authentication is unsuccessfull, notice how I return json parameters
-          return response()->json([
-            'success' => false,
-            'message' => 'Invalid username or Password',
-        ], 401);
-        }
 
+            // Update location if provided
+            if ($request->has('latitude') && $request->has('longitude')) {
+                $user->latitude = $request->latitude;
+                $user->longitude = $request->longitude;
+                $user->location_updated_at = now();
+                $user->save();
+            }
+
+            $token = $user->createToken('API Token')->accessToken;
+            //After successfull authentication, notice how I return json parameters
+            return response()->json(['token' => $token, 'data' => $user, 'success' => true]);
+        } else {
+            //if authentication is unsuccessfull, notice how I return json parameters
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid username or Password',
+            ], 401);
+        }
     }
     /**
      * Show the application dashboard.
@@ -61,120 +80,340 @@ class UserController extends Controller
         return view('admin.user.index');
     }
 
-    public function create(Request $request){ 
+    // Add this method to your UserController
+public function updateStamp(Request $request)
+{
+    $request->validate([
+        'stamp' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $user = Auth::user();
+    
+    if ($request->hasFile('stamp')) {
+        // Delete old stamp if exists
+        if ($user->stamp) {
+            Storage::delete($user->stamp);
+        }
+        
+        // Store new stamp
+        $path = $request->file('stamp')->store('stamps', 'public');
+        $user->stamp = $path;
+        $user->save();
+        
+        return redirect()->back()->with('success', 'Тамга амжилттай шинэчлэгдлээ.');
+    }
+    
+    return redirect()->back()->with('error', 'Тамга шинэчлэхэд алдаа гарлаа.');
+}
+    public function create(Request $request)
+    {
         $cookie_data = stripslashes(Cookie::get('phone_cart'));
         $phone_data = json_decode($cookie_data, true, 512, JSON_UNESCAPED_UNICODE);
         $address_data = stripslashes(Cookie::get('address_cart'));
         $address = json_decode($address_data, true, 512, JSON_UNESCAPED_UNICODE);
         $user = new User();
         $user->name = $request->name;
-        $user->password=bcrypt($request->password);
+        $user->password = bcrypt($request->password);
         $user->role = $request->role;
-        if($request->role=='driver'){
-            $user->type=$request->type;
+        if ($request->role == 'driver') {
+            $user->type = $request->type;
         }
         $user->save();
-        
-        $check=DB::table('model_has_roles')->where('model_id',$user->id)->count();
-        $role_id=DB::table('roles')->where('name',$request->role)->first()->id;
-        if($check==0) {
-            $datainfo=[
-                'role_id'=>$role_id,
-                'model_type'=>'App\Models\User',
-                'model_id'=>$user->id
+
+        $check = DB::table('model_has_roles')->where('model_id', $user->id)->count();
+        $role_id = DB::table('roles')->where('name', $request->role)->first()->id;
+        if ($check == 0) {
+            $datainfo = [
+                'role_id' => $role_id,
+                'model_type' => 'App\Models\User',
+                'model_id' => $user->id
             ];
             DB::table('model_has_roles')->insert($datainfo);
         }
 
         $log = new Log();
-        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч үүсгэлээ.';
-        $log -> phone = '';
-        $log->staff=Auth::user()->name;
-        $log -> save();
+        $log->value = Auth::user()->name . ', нь ' . $user->name . ' хэрэглэгч үүсгэлээ.';
+        $log->phone = '';
+        $log->staff = Auth::user()->name;
+        $log->save();
 
-        if($phone_data){
-            foreach($phone_data as $cdata){
+        if ($phone_data) {
+            foreach ($phone_data as $cdata) {
                 $order = new Phone();
                 $order->userid = $user->id;
                 $order->phone = urldecode($cdata['item_id']);
-                $order -> save();  
+                $order->save();
             }
         }
-        if($address){
-            foreach($address as $cdata){
+        if ($address) {
+            foreach ($address as $cdata) {
                 $order = new Address();
                 $order->userid = $user->id;
                 $order->address = urldecode($cdata['item_id']);
-                $order -> save();  
+                $order->save();
             }
         }
-        return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
-
+        return redirect('/user/list')->with('message', 'Амжилттай хадгалагдлаа');
     }
 
-    public function list(){
-        $ware=User::all();
-        return view('admin.user.list',compact('ware'));
+    public function customerCreate(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->save();
+
+        $check = DB::table('model_has_roles')->where('model_id', $user->id)->count();
+        $role_id = DB::table('roles')->where('name', $request->role)->first()->id;
+        if ($check == 0) {
+            $datainfo = [
+                'role_id' => $role_id,
+                'model_type' => 'App\Models\User',
+                'model_id' => $user->id
+            ];
+            DB::table('model_has_roles')->insert($datainfo);
+        }
+
+        $log = new Log();
+        $log->value = $user->name . ' нэртэй' . $user->id . ' id-tai хэрэглэгч бүртгүүллээ.';
+        $log->phone = $request->phone;
+        // $log->staff=Auth::user()->name;
+        $log->save();
+
+        if ($user->id) {
+            $order = new Phone();
+            $order->userid = $user->id;
+            $order->phone = $request->phone;
+            $order->save();
+        }
+        return redirect('/')->with('message', 'Амжилттай бүртгэгдлээ');
     }
 
-    public function delete($id){
+     public function customerCreateApi(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = 'customer';
+        $user->save();
+
+        $check = DB::table('model_has_roles')->where('model_id', $user->id)->count();
+        $role_id = DB::table('roles')->where('name', 'customer')->first()->id;
+        if ($check == 0) {
+            $datainfo = [
+                'role_id' => $role_id,
+                'model_type' => 'App\Models\User',
+                'model_id' => $user->id
+            ];
+            DB::table('model_has_roles')->insert($datainfo);
+        }
+
+        $log = new Log();
+        $log->value = $user->name . ' нэртэй' . $user->id . ' id-tai хэрэглэгч бүртгүүллээ.';
+        $log->phone = $request->phone;
+        // $log->staff=Auth::user()->name;
+        $log->save();
+
+        if ($user->id) {
+            $order = new Phone();
+            $order->userid = $user->id;
+            $order->phone = $request->phone;
+            $order->save();
+        }
+         return response()->json(['data' => 'Амжилттай бүртгэгдлээ', 'success' => true]);
+    }
+     public function driverCreateApi(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->role = 'driver';
+        $user->save();
+
+        $check = DB::table('model_has_roles')->where('model_id', $user->id)->count();
+        $role_id = DB::table('roles')->where('name', 'driver')->first()->id;
+      
+        $log = new Log();
+        $log->value = $user->name . ' нэртэй' . $user->id . ' id-tai хэрэглэгч бүртгүүллээ.';
+        $log->phone = $request->phone;
+        // $log->staff=Auth::user()->name;
+        $log->save();
+
+        if ($user->id) {
+            $order = new Phone();
+            $order->userid = $user->id;
+            $order->phone = $request->phone;
+            $order->save();
+        }
+         return response()->json(['data' => 'Жолооч амжилттай бүртгэгдлээ', 'success' => true]);
+    }
+
+   public function list()
+{
+    $users = User::with('phone')
+                 ->orderBy('active', 'desc')  // active = 1 will be above
+                 ->get();
+
+    return view('admin.user.list', compact('users'));
+}
+
+
+    public function delete($id)
+    {
         $user = User::find($id);
         $user->delete();
 
         $log = new Log();
-        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч устгалаа.';
-        $log -> phone = '';
-        $log -> staff=Auth::user()->name;
-        $log -> save();
+        $log->value = Auth::user()->name . ', нь ' . $user->name . ' хэрэглэгч устгалаа.';
+        $log->phone = '';
+        $log->staff = Auth::user()->name;
+        $log->save();
 
         Alert::success('Хэрэглэгч', 'Амжилттай устгагдлаа');
 
-        return redirect('/user/list')->with('message','deleted');
+        return redirect('/user/list')->with('message', 'deleted');
     }
 
-    public function edit($id){
-
+    public function edit($id)
+    {
         $userEdit = User::where('id', $id)->first();
-        return view('admin.user.edit', ['user'=>$userEdit]);
-
+        return view('admin.user.edit', ['user' => $userEdit]);
     }
 
-    public function update(Request $request){ 
+
+
+    public function updateimage(Request $request)
+    {
+        $breadPic = User::where('id', $request->breadId)->first();
+        if ($picInfo = $request->file('image')) {
+            // if(file_exists($breadPic['image'])){
+            //     unlink($breadPic['image']);
+            // }
+            $picName = $request->breadId . $picInfo->getClientOriginalName();
+            $folder = "userImage/";
+            // $picUrl=$folder.$picName;
+            //   $picInfo->move(public_path('userImage',$picName));
+            // $picInfo ->storeAs('public/userImage', $picUrl);
+            $picUrl = $request->file('image')->store('userImage', 'public');
+            // $picInfo->storeAs($folder, $picName, 'public'); 
+            //  dd($picInfo);
+        } else {
+            $picUrl = $breadPic['image'];
+        }
+
+        $bread = User::find($request->breadId);
+        $bread->image = $picUrl;
+        $bread->save();
+
+
+
+        return redirect('/profile')->with('message', 'updated');
+    }
+
+ public function toggleStatus(Request $request, $id)
+{
+    try {
+        $user = User::findOrFail($id);
+        
+        // Check if user has permission to update
+        if (auth()->user()->role != 'admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Таны эрх хүрэхгүй байна'
+            ]);
+        }
+        
+        // Update status
+        $user->active = $request->active;
+        $user->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Хэрэглэгчийн статус амжилттай шинэчлэгдлээ'
+        ]);
+        
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Алдаа гарлаа: ' . $e->getMessage()
+        ]);
+    }
+}
+
+    public function updateinfo(Request $request)
+    {
+
+        $user = User::find(Auth::user()->id);
+        $user->register = $request->register;
+        $user->instagram = $request->instagram;
+        $user->facebook = $request->facebook;
+        $user->about = $request->about;
+        $user->bank = $request->bank;
+        $user->account = $request->account;
+        $user->what3words = $request->what3words;
+
+        $user->save();
+
+        return redirect('/profile')->with('message', 'updated');
+    }
+
+    public function update(Request $request)
+    {
         $cookie_data = stripslashes(Cookie::get('phone_cart'));
         $phone_data = json_decode($cookie_data, true, 512, JSON_UNESCAPED_UNICODE);
         $address_data = stripslashes(Cookie::get('address_cart'));
         $address = json_decode($address_data, true, 512, JSON_UNESCAPED_UNICODE);
-        
-        $user= User::find($request->userId);
-        if($request->password){
-            $user->password=bcrypt($request->password);
+
+        $user = User::find($request->userId);
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
         }
+        if ($request->engiin) {
+            $user->engiin = $request->engiin;
+        }
+        if ($request->tsagtai) {
+            $user->tsagtai = $request->tsagtai;
+        }
+        if ($request->yaraltai) {
+            $user->yaraltai = $request->yaraltai;
+        }
+        if ($request->ontsYaraltai) {
+            $user->onts_yaraltai = $request->ontsYaraltai;
+        }
+
+        $user->region = $request->region;
         $user->save();
 
         $log = new Log();
-        $log -> value = Auth::user()->name.', нь '.$user->name.' хэрэглэгч заслаа.';
-        $log -> phone = '';
-        $log->staff=Auth::user()->name;
-        $log -> save();
+        $log->value = Auth::user()->name . ', нь ' . $user->name . ' хэрэглэгч заслаа.';
+        $log->phone = '';
+        $log->staff = Auth::user()->name;
+        $log->save();
 
-        if($phone_data){
-            foreach($phone_data as $cdata){
+        if ($phone_data) {
+            foreach ($phone_data as $cdata) {
                 $order = new Phone();
                 $order->userid = $user->id;
                 $order->phone = urldecode($cdata['item_id']);
-                $order -> save();  
+                $order->save();
             }
         }
-        if($address){
-            foreach($address as $cdata){
+        if ($address) {
+            foreach ($address as $cdata) {
                 $order = new Address();
                 $order->userid = $user->id;
                 $order->address = urldecode($cdata['item_id']);
-                $order -> save();  
+                $order->save();
             }
         }
-        return redirect('/user/list')->with('message','Амжилттай хадгалагдлаа');
 
+
+
+        return redirect('/user/list')->with('message', 'Амжилттай хадгалагдлаа');
     }
 
     public function clearcart()
@@ -184,84 +423,76 @@ class UserController extends Controller
         Cookie::queue(Cookie::forget('address_cart'));
         return response()->json(['status' => 'Your Cart is Cleared']);
     }
-    
+
     public function addaddresscart(Request $request)
     {
         $prod_id = $request->input('product_id');
-     
+
         $quantity = $request->input('quantity');
         $product_name = $request->input('product_name');
 
-        if(Cookie::get('address_cart'))
-        {
+        if (Cookie::get('address_cart')) {
             $cookie_data1 = stripslashes(Cookie::get('address_cart'));
             $cart_data1 = json_decode($cookie_data1, true);
-        }
-        else
-        {
+        } else {
             $cart_data1 = array();
         }
 
-    
+
         $item_id_list = array_column($cart_data1, 'item_id');
         $prod_id_is_there = $prod_id;
 
-        if(in_array($prod_id_is_there, $item_id_list))
-        {
-            foreach($cart_data1 as $keys => $values)
-            {
-                if($cart_data1[$keys]["item_id"] == $prod_id)
-                {
+        if (in_array($prod_id_is_there, $item_id_list)) {
+            foreach ($cart_data1 as $keys => $values) {
+                if ($cart_data1[$keys]["item_id"] == $prod_id) {
                     $cart_data1[$keys]["item_quantity"] = $request->input('quantity');
                     $cart_data1[$keys]["item_name"] = urldecode($request->input('product_name'));
                     $item_data = json_encode($cart_data1);
                     $minutes = 60;
                     // Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
-                    return response()->json(['status'=>'"'.$cart_data1[$keys]["item_name"].'" Уг бүтээгдэхүүн сагсанд байна']);
+                    return response()->json(['status' => '"' . $cart_data1[$keys]["item_name"] . '" Уг бүтээгдэхүүн сагсанд байна']);
                 }
             }
-        }
-        else
-        {
-          
+        } else {
+
             $address = $request->input('address');
-          
-           
-                $item_array = array(
-                    'item_id' => urlencode($address),
-                  
-                
-                );
-                $cart_data1[] = $item_array;
-              
-                $item_data = json_encode($cart_data1);
-                $minutes = 60;
-                Cookie::queue(Cookie::make('address_cart', $item_data, $minutes));
-                return response()->json(['status'=>'"'.$address.'" сагсанд нэмэгдлээ']);
-           
+
+
+            $item_array = array(
+                'item_id' => urlencode($address),
+
+
+            );
+            $cart_data1[] = $item_array;
+
+            $item_data = json_encode($cart_data1);
+            $minutes = 60;
+            Cookie::queue(Cookie::make('address_cart', $item_data, $minutes));
+            return response()->json(['status' => '"' . $address . '" сагсанд нэмэгдлээ']);
         }
     }
 
 
-    public function cartDetailsAjaxAdd(){
-        
-        if(Cookie::get('address_cart')){
+    public function cartDetailsAjaxAdd()
+    {
+
+        if (Cookie::get('address_cart')) {
             $cookie_data = stripslashes(Cookie::get('address_cart'));
-         $cart_data = json_decode($cookie_data, true);
-           $total=0;
-        $html ='<div class="col-md-7 ms-auto">
+            $cart_data = json_decode($cookie_data, true);
+            $total = 0;
+            $html = '<div class="col-md-7 ms-auto">
             <div class="cart-page-header"><h6 class="cart-page-header-title">Хаягийн жагсаалт</h6></div>
             <div class="d-flex flex-column gap-3">';
-            
-                foreach ($cart_data as $data){
-                    $html .='<label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
+
+            foreach ($cart_data as $data) {
+                $html .= '<label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
                         <!-- <input class="order-card__input" type="checkbox" checked /> -->
                         <div class="order-card__body">
                     
                             <div class="product-row">
                         
                                 <div class="product-row__content">
-                                    <h6 class="product-row__content-title"><div style="width:200px;">'.urldecode($data['item_id']).'</div>  </h6>
+                                    <h6 class="product-row__content-title"><div style="width:200px;">' . urldecode($data['item_id']) . '</div>  </h6>
                                     <div class="product-row__content-author">
                                     </div>
                                 </div>
@@ -269,17 +500,17 @@ class UserController extends Controller
                             </div>
                         </div>
                     </label>';
-                }
-                $html .='</div>
+            }
+            $html .= '</div>
         </div>
         <div class="col-md-3 me-auto">
         <div class="cart-page__purchase">
             <div class="cart-page__purchase-lists">';
-                foreach ($cart_data as $data):
-                    $html .='<div class="cart-page__purchase-lists-item">
+            foreach ($cart_data as $data) :
+                $html .= '<div class="cart-page__purchase-lists-item">
                 </div>';
-                endforeach;
-            $html .='</div>
+            endforeach;
+            $html .= '</div>
             <div class="cart-page__purchase-total">
                 <div class="cart-page__purchase-total-item">
                 
@@ -287,12 +518,12 @@ class UserController extends Controller
             </div>
         </div>
         </div>';
-        }else {
-            $html .='<div class="row">
+        } else {
+            $html .= '<div class="row">
         </div>';
         }
         return $html;
-}
+    }
 
     public function loadOrderDataTable(Request $request)
     {
@@ -300,55 +531,55 @@ class UserController extends Controller
             $user_id = Auth::user()->id;
             $role = Auth::user()->role;
             $ids = $request->get('ids', array());
-            $status = $request->get('status',0);
-            $region = $request->get('region',0);
-            $phone = $request->get('phone',0);
-            $address = $request->get('address',0);
-            $note = $request->get('note',0);
-            $tuluv = $request->get('tuluv',0);
-            $start_date = $request->get('start_date',0);
-            $late = $request->get('late',0);
-            $customer = $request->get('customer',0);
+            $status = $request->get('status', 0);
+            $region = $request->get('region', 0);
+            $phone = $request->get('phone', 0);
+            $address = $request->get('address', 0);
+            $note = $request->get('note', 0);
+            $tuluv = $request->get('tuluv', 0);
+            $start_date = $request->get('start_date', 0);
+            $late = $request->get('late', 0);
+            $customer = $request->get('customer', 0);
 
-            $end_date = $request->get('end_date',0);
-            $driverselected = $request->get('driver',0);
-            $except_status = $request->get('except_status',0);
-            $except_stat = $request->get('except_stat',0);
+            $end_date = $request->get('end_date', 0);
+            $driverselected = $request->get('driver', 0);
+            $except_status = $request->get('except_status', 0);
+            $except_stat = $request->get('except_stat', 0);
 
             $offset = $request->get('start', 0);
             $limit = $request->get('length', 10);
-            if ($limit < 1 OR $limit > 500) {
+            if ($limit < 1 or $limit > 500) {
                 $limit = 500;
             }
 
             $search = isset($request->get('search')['value'])
-                    ? $request->get('search')['value']
-                    : null;
+                ? $request->get('search')['value']
+                : null;
 
             $orderColumnList = [
                 'id',
-                 'organization',
-                 'phone',
-                 'address',
-                 'created_at',
-                 'status',
-                 'region',
-                 'note',
+                'organization',
+                'phone',
+                'address',
+                'created_at',
+                'status',
+                'region',
+                'note',
 
-                 'driverselected',
-                 'actions'
+                'driverselected',
+                'actions'
             ];
 
             $orderColumnIndex = isset($request->get('order')[0]['column'])
-                                ? $request->get('order')[0]['column']
-                                : 0;
+                ? $request->get('order')[0]['column']
+                : 0;
             $orderColumnDir = isset($request->get('order')[0]['dir'])
-                                ? $request->get('order')[0]['dir']
-                                : 'asc';
+                ? $request->get('order')[0]['dir']
+                : 'asc';
 
             $orderColumn = isset($orderColumnList[$orderColumnIndex])
-                            ? $orderColumnList[$orderColumnIndex]
-                            : 'product_name';
+                ? $orderColumnList[$orderColumnIndex]
+                : 'product_name';
 
             $Params = [
                 'user_id' => $user_id,
@@ -368,119 +599,114 @@ class UserController extends Controller
                 'late' => $late,
                 'customer' => $customer,
 
-            'phone' => $phone,
-            'address' => $address,
+                'phone' => $phone,
+                'address' => $address,
                 'driverselected' => $driverselected,
                 'except_status' => $except_status,
                 'except_stat' => $except_stat,
 
             ];
 
-          
+
             $data = Order::GetExcelData($Params);
-           
+
             $dataCount = Order::GetExcelDataCount($Params);
             $table = Datatables::of($data)
-                        ->addColumn('checkbox', function ($row) {
-                            return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="'.$row->id.'" value="'.$row->id.'">';
-                        })
-                        ->addColumn('id', function ($row) {
-                            return $row->id;
-                        })
+                ->addColumn('checkbox', function ($row) {
+                    return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->id . '" value="' . $row->id . '">';
+                })
+                ->addColumn('id', function ($row) {
+                    return $row->id;
+                })
 
-                        
-                        ->addColumn('shop', function ($row) {
-                            return $row->shop;
-                        })
-                        ->addColumn('phone', function ($row) {
-                            return $row->phone;
-                        })
-                      
-                        ->addColumn('address', function ($row) {
-                            return $row->address;
-                        })
-                        ->addColumn('comment', function ($row) {
-                            return  '
+
+                ->addColumn('shop', function ($row) {
+                    return $row->shop;
+                })
+                ->addColumn('phone', function ($row) {
+                    return $row->phone;
+                })
+
+                ->addColumn('address', function ($row) {
+                    return $row->address;
+                })
+                ->addColumn('comment', function ($row) {
+                    return  '
                              
-                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
-                            <input type="hidden" value="'.$row->id.'" name="realid">
+                            <input class="font-medium whitespace-nowrap input" id="note_' . $row->id . '"  style="width:80px;"  value="' . $row->comment . '" name="note"/>
+                            <input type="hidden" value="' . $row->id . '" name="realid">
                             
-                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
+                            <button data-id="' . $row->id . '" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
                             <a class="font-medium whitespace-nowrap"></a>
                        ';
-                        })
-                        ->addColumn('created_at', function ($row) {
-                            return $row->created_at;
-                        })
-                        ->addColumn('status', function ($row) {
-                            if($row->status==1){
-                                return 'Бүртгэгдсэн';
-                            }elseif($row->status==2){
-                                return 'Жолоочид хуваарилсан';
-                            }elseif($row->status==6) {
-                                return 'Хүлээгдэж буй';
-                            } elseif($row->status==3) {
-                                return 'Жолооч хүлээн авсан';
-                            }elseif($row->status==4) {
-                                return 'Дууссан';
-                            }
-                                                  
-                        })
+                })
+                ->addColumn('created_at', function ($row) {
+                    return $row->created_at;
+                })
+                ->addColumn('status', function ($row) {
+                    if ($row->status == 1) {
+                        return 'Бүртгэгдсэн';
+                    } elseif ($row->status == 2) {
+                        return 'Жолоочид хуваарилсан';
+                    } elseif ($row->status == 6) {
+                        return 'Хүлээгдэж буй';
+                    } elseif ($row->status == 3) {
+                        return 'Жолооч хүлээн авсан';
+                    } elseif ($row->status == 4) {
+                        return 'Дууссан';
+                    }
+                })
 
-                        ->addColumn('region', function ($row) {
-                            if(Auth::user()->role=='Customer'){
-                                return '';
-                            } else {
-                                return $row->region;
-                            }
-                        })
-                        
-                        ->addColumn('driver', function ($row) {
-                                       if(Auth::user()->role=='Customer'){
-                                           return '';
-                                       } else {
-                                           return $row->driver;
-                                       }
-                                      
-                                   })
-                        ->addColumn('actions', function ($row) {
-                                    if(Auth::user()->role=='Customer')
-                                                                {
-                                                                    $actions = '
+                ->addColumn('region', function ($row) {
+                    if (Auth::user()->role == 'Customer') {
+                        return '';
+                    } else {
+                        return $row->region;
+                    }
+                })
+
+                ->addColumn('driver', function ($row) {
+                    if (Auth::user()->role == 'Customer') {
+                        return '';
+                    } else {
+                        return $row->driver;
+                    }
+                })
+                ->addColumn('actions', function ($row) {
+                    if (Auth::user()->role == 'Customer') {
+                        $actions = '
                                                                 <div class="flex justify-center items-center">
                                                                     
-                                                                    <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
+                                                                    <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="' . url('/deliveries/delete/' . $row->id) . '">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                                     Устгах</a>
                                                                 </div>
                                                                 ';
-                                                                } elseif(Auth::user()->role=='operator'){
-                                                                    $actions = '
+                    } elseif (Auth::user()->role == 'operator') {
+                        $actions = '
                                                                     <div class="flex justify-center items-center">
-                                                                        <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
+                                                                        <a class="flex items-center text-theme-9" href="' . url('/deliveries/detail/' . $row->id) . '">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                                                                         Дэлгэрэнгүй  </a>
                                                                         </div>';
-                                                                }
-                                                                
-                                                                else {
-                                                                    $actions = '
+                    } else {
+                        $actions = '
                                                                     <div class="flex justify-center items-center">
-                                                                        <a class="flex items-center text-theme-9" href="'.url('/deliveries/detail/'.$row->id).'">
+                                                                        <a class="flex items-center text-theme-9" href="' . url('/deliveries/detail/' . $row->id) . '">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize-2 w-4 h-4 mr-1"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                                                                         Дэлгэрэнгүй  </a>
-                                                                        <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="'.url('/deliveries/delete/'.$row->id).'">
+                                                                        <a class="flex items-center text-theme-6" onclick="return confirm("Are you sure?")" href="' . url('/deliveries/delete/' . $row->id) . '">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 w-4 h-4 mr-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                                         Устгах</a>
                                                                     </div>';
-                                                                }
-                                                                return $actions;
-                        })
-                       
-                        ->rawColumns(['checkbox','actions','comment'])
-                        ->skipPaging()
-                        ->setTotalRecords($dataCount)
-                        ->make(true);
+                    }
+                    return $actions;
+                })
+
+                ->rawColumns(['checkbox', 'actions', 'comment'])
+                ->skipPaging()
+                ->setTotalRecords($dataCount)
+                ->make(true);
 
             return $table;
         }
@@ -488,76 +714,69 @@ class UserController extends Controller
     public function addphonecart(Request $request)
     {
         $prod_id = $request->input('product_id');
-     
+
         $quantity = $request->input('quantity');
         $product_name = $request->input('product_name');
 
-        if(Cookie::get('phone_cart'))
-        {
+        if (Cookie::get('phone_cart')) {
             $cookie_data = stripslashes(Cookie::get('phone_cart'));
             $cart_data = json_decode($cookie_data, true);
-        }
-        else
-        {
+        } else {
             $cart_data = array();
         }
         $item_id_list = array_column($cart_data, 'item_id');
         $prod_id_is_there = $prod_id;
 
-        if(in_array($prod_id_is_there, $item_id_list))
-        {
-            foreach($cart_data as $keys => $values)
-            {
-                if($cart_data[$keys]["item_id"] == $prod_id)
-                {
+        if (in_array($prod_id_is_there, $item_id_list)) {
+            foreach ($cart_data as $keys => $values) {
+                if ($cart_data[$keys]["item_id"] == $prod_id) {
                     $cart_data[$keys]["item_quantity"] = $request->input('quantity');
                     $cart_data[$keys]["item_name"] = urldecode($request->input('product_name'));
                     $item_data = json_encode($cart_data);
                     $minutes = 60;
                     // Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
-                    return response()->json(['status'=>'"'.$cart_data[$keys]["item_name"].'" Уг бүтээгдэхүүн сагсанд байна']);
+                    return response()->json(['status' => '"' . $cart_data[$keys]["item_name"] . '" Уг бүтээгдэхүүн сагсанд байна']);
                 }
             }
-        }
-        else
-        {
+        } else {
             $phone = $request->input('phone');
-                $item_array = array(
-                    'item_id' => $phone,
-                );
-                $cart_data[] = $item_array;
-              
-                $item_data = json_encode($cart_data);
-                $minutes = 60;
-                Cookie::queue(Cookie::make('phone_cart', $item_data, $minutes));
-                return response()->json(['status'=>'"'.$phone.'" сагсанд нэмэгдлээ']);
+            $item_array = array(
+                'item_id' => $phone,
+            );
+            $cart_data[] = $item_array;
+
+            $item_data = json_encode($cart_data);
+            $minutes = 60;
+            Cookie::queue(Cookie::make('phone_cart', $item_data, $minutes));
+            return response()->json(['status' => '"' . $phone . '" сагсанд нэмэгдлээ']);
         }
     }
 
-    public function cartDetailsAjax(){
-        
-        if(Cookie::get('phone_cart')){
+    public function cartDetailsAjax()
+    {
+
+        if (Cookie::get('phone_cart')) {
             $cookie_data = stripslashes(Cookie::get('phone_cart'));
-         $cart_data = json_decode($cookie_data, true);
-           $total=0;
-        $html ='
+            $cart_data = json_decode($cookie_data, true);
+            $total = 0;
+            $html = '
         <div class="row" id="cart_details">
     
         <div class="col-md-7 ms-auto">
             <div class="cart-page-header"><h6 class="cart-page-header-title">Утасны жагсаалт</h6></div>
             <div class="d-flex flex-column gap-3">';
-            
-                foreach ($cart_data as $data){
-                    $html .='            <div class="row" id="cart_details">
+
+            foreach ($cart_data as $data) {
+                $html .= '            <div class="row" id="cart_details">
                     <label class="order-card col-12 cartpage" data-cart-item-id="123" data-product-id="12">
                         <!-- <input class="order-card__input" type="checkbox" checked /> -->
                         <div class="order-card__body">
                     
-                            <input type="hidden" class="product_id" value="'. $data['item_id'] .'" >
+                            <input type="hidden" class="product_id" value="' . $data['item_id'] . '" >
                             <div class="product-row">
                         
                                 <div class="product-row__content">
-                                    <div class="product-row__content-title"><div style="width:200px;">'.urldecode($data['item_id']).'</div>  </div>
+                                    <div class="product-row__content-title"><div style="width:200px;">' . urldecode($data['item_id']) . '</div>  </div>
                                     <div class="product-row__content-author">
                                     </div>
                                 </div>
@@ -601,8 +820,8 @@ class UserController extends Controller
     
                 </script>
                     ';
-                }
-                $html .='</div>
+            }
+            $html .= '</div>
         </div>
     
     
@@ -610,14 +829,14 @@ class UserController extends Controller
       
         <div class="cart-page__purchase">
             <div class="cart-page__purchase-lists">';
-                foreach ($cart_data as $data):
-                    $html .='<div class="cart-page__purchase-lists-item">
+            foreach ($cart_data as $data) :
+                $html .= '<div class="cart-page__purchase-lists-item">
                 
                 </div>';
-               
-                endforeach;
-            
-            $html .='</div>
+
+            endforeach;
+
+            $html .= '</div>
             <div class="cart-page__purchase-total">
                 <div class="cart-page__purchase-total-item">
                 
@@ -626,12 +845,70 @@ class UserController extends Controller
             
         </div>
         </div>';
-        }else {
-            $html .='<div class="row">
+        } else {
+            $html .= '<div class="row">
           
         </div>';
         }
         return $html;
-    }   
-      
+    }
+
+    // Update customer location from mobile app
+    public function updateCustomerLocation(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $customer = User::where('name', $request->name)
+            ->where('role', 'Customer')
+            ->first();
+
+        if (!$customer) {
+            return response()->json(['message' => 'Customer not found', 'success' => false], 404);
+        }
+
+        // Update customer location
+        DB::table('users')
+            ->where('id', $customer->id)
+            ->update([
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'location_updated_at' => now(),
+            ]);
+
+        return response()->json([
+            'message' => 'Location updated successfully',
+            'success' => true
+        ]);
+    }
+
+    // Get all customer locations for real-time tracking
+    public function getCustomerLocations(Request $request)
+    {
+        $customers = User::with('phone')
+            ->where('role', 'Customer')
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->select('id', 'name', 'latitude', 'longitude', 'location_updated_at')
+            ->get();
+
+        $locations = $customers->map(function ($customer) {
+            return [
+                'id' => $customer->id,
+                'name' => $customer->name,
+                'phone' => $customer->phone ? $customer->phone->phone : null,
+                'latitude' => (float) $customer->latitude,
+                'longitude' => (float) $customer->longitude,
+                'updated_at' => $customer->location_updated_at ? $customer->location_updated_at->toDateTimeString() : null,
+            ];
+        });
+
+        return response()->json([
+            'data' => $locations,
+            'success' => true
+        ]);
+    }
 }

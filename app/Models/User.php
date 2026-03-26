@@ -6,14 +6,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
+use App\Models\Delivery;
+use App\Models\Address;
+use App\Models\Phone;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\Loggable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, Loggable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +27,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'latitude',
+        'longitude',
+        'location_updated_at',
+        'fcm_token',
     ];
 
     public function roles(): BelongsToMany
@@ -60,4 +67,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
+       public function address()
+    {
+        return $this->hasOne(Address::class, 'userid');
+    }
+
+    // Relationship with Phone
+    public function phone()
+    {
+        return $this->hasOne(Phone::class,'userid');
+    }
 }

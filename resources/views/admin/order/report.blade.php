@@ -104,8 +104,8 @@ input[type=checkbox]:checked {
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Хэвлэх</a></button>
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Экселээр гаргах</a></button>
          <div class="row">
          <div class="form-group myform">
                     <label for="status">Төлөв:</label>
@@ -115,7 +115,7 @@ input[type=checkbox]:checked {
                         <option value="2">Жолоочид хуваарилсан</option>
                     </select>
                 </div>
-
+                @if(auth()->user()->role!='customer')
                 <div class="form-group myform">
                     <label for="status">Бүс:</label>
                     <select id="filterByBus" class="form-control inputStatus9">
@@ -140,6 +140,7 @@ input[type=checkbox]:checked {
                         <option value="&quot; энхрий онлайн шоп&quot;">&quot; энхрий онлайн шоп&quot;</option>
                     </select>
                 </div>
+                @endif
                 <div class="form-group myform">
                     <label>Эхлэх:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
@@ -159,7 +160,7 @@ input[type=checkbox]:checked {
                 </div>
                 <div class="form-group myform" style="margin-top:32px;">
 
-                    <button type="button" id="filterByDateRange" class="btn btn-info"> <a href="#" style="color:white;">Filter</a></button> 
+                    <button type="button" id="filterByDateRange" class="btn btn-info"> <a href="#" style="color:white;">Шүүх</a></button> 
                 </div>
             </div>
            
@@ -201,11 +202,13 @@ input[type=checkbox]:checked {
               <!-- /.card-body -->
 
     <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
+         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>      
+         @if(auth()->user()->role!='customer')                                                          
          <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
          <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         @endif
     </div> 
  
 </div>

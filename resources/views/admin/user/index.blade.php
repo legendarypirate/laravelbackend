@@ -169,7 +169,7 @@
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="role">
                       <?php $role=DB::table('roles')->get(); ?>
                         @foreach($role as $roles)
-                        <option value="{{$roles->id}}">{{$roles->name}}</option>
+                        <option value="{{$roles->name}}">{{$roles->name}}</option>
                         @endforeach
                         </select>
                   </div>

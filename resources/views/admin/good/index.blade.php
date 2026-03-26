@@ -31,8 +31,9 @@
               <!-- form start -->
               {!! Form::open(['url' => 'good/create', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
+                @if(auth()->user()->role!='customer')
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Дэлгүүр</label>
+                    <label for="exampleInputEmail1">Дэлгүүр / Агуулах</label>
                     <select class="custom-select rounded-0" name="shop">
                         <?php $user=DB::table('users')->where('role','=','customer')->get(); ?>
                         @foreach($user as $users)
@@ -40,7 +41,13 @@
                         @endforeach
                         </select>
                   </div>
-                 
+                 @else
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">Дэлгүүрийн нэр</label>
+                    <input type="text"  class="form-control" value="{{auth()->user()->name}}" name="shop" disabled>
+                  </div>
+
+                 @endif
                   <div class="form-group">
                     <label for="exampleInputEmail1">Барааны нэр</label>
                     <input type="text" name="goodname" class="form-control"  placeholder="good">

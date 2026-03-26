@@ -21,51 +21,55 @@
 
     <!-- Main content -->
                             <section class="content">
-                                        <form type="get" action="{{url('look')}}">
-                                            <i data-feather="search" class="w-4 h-4 z-10 absolute my-auto inset-y-0 ml-3 left-0"></i>
-                                            <input type="text" name="query" class="form-control" required style="width:200px;"><br>
-                                            <button type="Submit"  class="btn btn-primary shadow-md mr-2 ">Хайх</button>
-                                        <form>
-                                            
       <div class="container-fluid">
       <br>
         <!-- /.row -->
         <div class="row">
-
-
-<div class="card-body table-responsive p-0">
-<table class="table table-head-fixed text-nowrap">
-<thead>
-<tr>
-<th>ID</th>
-<th>Утга</th>
-<th>Утас</th>
-<th>Цаг</th>
-
-</tr>
-</thead>
-<tbody>
-
-@foreach($log as $logs)
-<tr>
-<td>{{$logs->id}}</td>
-<td>{{$logs->value}}</td>
-<td>{{$logs->phone}}</td>
-<td>{{$logs->created_at}}</td>
-
-</tr>
-@endforeach
-
-</tbody>
-</table>
-</div>
-
-</div>
-
-</div>
-</div>
-        <!-- /.row -->
-      
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <form method="get" action="{{url('/log/list')}}" class="form-inline">
+                            <div class="form-group mr-2">
+                                <input type="text" name="search" class="form-control" placeholder="Хайх..." value="{{ request('search') }}" style="width:300px;">
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Хайх</button>
+                            @if(request('search'))
+                                <a href="{{url('/log/list')}}" class="btn btn-secondary">Цэвэрлэх</a>
+                            @endif
+                        </form>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Утга</th>
+                                    <th>Утас</th>
+                                    <th>Цаг</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($log as $logs)
+                                <tr>
+                                    <td>{{$logs->id}}</td>
+                                    <td>{{$logs->value}}</td>
+                                    <td>{{$logs->phone}}</td>
+                                    <td>{{$logs->created_at}}</td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">Мэдээлэл олдсонгүй</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer clearfix">
+                        {{ $log->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
@@ -441,6 +445,13 @@ display: none;
             padding:0px;
             -webkit-print-color-adjust:exact;
         }
+    }
+
+    /* Make pagination SVG icons smaller */
+    .card-footer svg,
+    nav[role="navigation"] svg {
+        width: 12px !important;
+        height: 12px !important;
     }
 </style>
 

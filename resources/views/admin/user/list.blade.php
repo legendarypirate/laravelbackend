@@ -7,12 +7,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Нэр</h1>
+            <h1>Хэрэглэгчийн удирдлага</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Бүс</li>
+              <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Нүүр</a></li>
+              <li class="breadcrumb-item active">Хэрэглэгчид</li>
             </ol>
           </div>
         </div>
@@ -22,510 +22,237 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-       
-        <!-- /.row -->
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
         <div class="row">
-
-
-<div class="card-body table-responsive p-0" style="">
-<table class="table table-head-fixed text-nowrap">
-<thead>
-<tr>
-<th>ID</th>
-<th>Нэр</th>
-<th>Role</th>
-<th>Огноо</th>
-<th>Үйлдэл</th>
-
-
-</tr>
-</thead>
-<tbody>
-
-@foreach($ware as $wares)
-<tr>
-<td>{{$wares->id}}</td>
-<td>{{$wares->name}}</td>
-<td>{{$wares->role}}</td>
-<td>{{$wares->created_at}}</td>
-
-<td>
-<button type="submit" class="btn btn-info"><a href="{{url('/user/edit/'.$wares->id)}}" style="color:white;">Засах</a></button>
-<button type="submit" class="btn btn-danger"><a href="{{url('/user/delete/'.$wares->id)}}" onclick="return confirm('Are you sure you want to delete this item?');"  style="color:white;">Устгах</a></button>
-</td>
-
-</tr>
-@endforeach
-
-</tbody>
-</table>
-</div>
-
-</div>
-
-</div>
-</div>
-        <!-- /.row -->
-      
-        <!-- /.row -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Хэрэглэгчийн жагсаалт</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Нэр</th>
+                                        <th>Имэйл</th>
+                                        <th>Роль</th>
+                                        <th>Идэвхтэй</th>
+                                        <th>Бүртгэсэн огноо</th>
+                                        <th>Үйлдэл</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $user)
+                                    <tr class="{{ $user->active == 0 ? 'text-muted bg-light' : '' }}">
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            <span class="badge badge-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'manager' ? 'warning' : 'info') }}">
+                                                {{ $user->role }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox"
+                                                       class="custom-control-input toggle-status"
+                                                       id="switch{{ $user->id }}"
+                                                       data-id="{{ $user->id }}"
+                                                       {{ $user->active == 1 ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="switch{{ $user->id }}"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{ $user->created_at->format('Y-m-d H:i') }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                               
+                                              
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer clearfix">
+                        <div class="float-right">
+                            {{-- Хэрэв pagination ашиглавал --}}
+                            {{-- {{ $users->links() }} --}}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-  </div>
-  <script type="text/javascript">
-   var rows_selected = [];
-    function toggle(source) {
-       
-      checkboxes = document.getElementsByName('foo');
-      for(var i=0, n=checkboxes.length;i<n;i++) {
-        checkboxes[i].checked = source.checked;
+</div>
+<script>
+$(document).ready(function() {
+    // Toggle status switch
+    $('.toggle-status').change(function() {
+        var userId = $(this).data('id');
+        var isActive = $(this).is(':checked') ? 1 : 0;
+        var $row = $(this).closest('tr');
+        var $switch = $(this); // Store reference to the switch
         
-      }
-
-      checkboxes.forEach((input) => {
-                if (input.checked) {
-                    rows_selected.push(input.value);
-                }else{
-                         rows_selected.length = 0;
-                }
-            });
-
-    }
-
-    $('input[name="foo"]').click(function() {
-    document.getElementById("result").textContent = "Total Number of Items Selected = " + document.querySelectorAll('input[name="foo"]:checked').length;
-
-});
-    </script>
-
-
-            <script type="text/javascript">
-                var $j = jQuery.noConflict();
-                $(document).ready(function($j){
-                const deliveryTableUrl = '{{ route('datatable-order') }}';
+        console.log('Toggling user ID:', userId, 'to status:', isActive);
+        
+        // AJAX request to update status
+        $.ajax({
+            url: "{{ url('user/toggle-status') }}/" + userId + "",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                active: isActive
+            },
+            dataType: 'json',
+            beforeSend: function() {
+                // Show loading indicator
+                $row.addClass('processing');
+                $switch.prop('disabled', true);
+            },
+            success: function(response) {
+                console.log('Response:', response);
                 
-                const loadDeliveryDataTable = (status,bus,driver,customer,except_status,except_stat) => {
-                  var table =  $j('#datatable').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        bDestroy: true,
-                        ajax: {
-                            type: 'GET',
-                            url: deliveryTableUrl,
-                            data: {
-                                status: status,
-                                region: bus,
-                                driver: driver,
-                                customer: customer,
-                                except_status : except_status,
-                                except_stat : except_stat
-
-                            },
-                            dataSrc: function ( json ) {
-    
-                            //console.log(json);
-    
-                             return json.data;
-                            }
-                        },
-    
-    
-                        columns: [
-                            {
-                                name: 'checkbox',
-                                data: 'checkbox',
-                            },
-                            {
-                                name: 'created_at',
-                                data: 'created_at'
-                            },
-                            {
-                                name: 'shop',
-                                data: 'shop'
-                            },
-                            {
-                                name: 'phone',
-                                data: 'phone'
-                            },
-                            {
-                                name: 'address',
-                                data: 'address'
-                            },
-                           
-                            {
-                                name: 'status',
-                                data: 'status'
-                            },
-                            {
-                                name: 'region',
-                                data: 'region'
-                            },
-                            {
-                                name: 'driver',
-                                data: 'driver'
-                            },
-                            {
-                                name: 'comment',
-                                data: 'comment'
-                            },
-                            {
-                                name: 'actions',
-                                data: 'actions'
-                            }
-                            
-                        ],
-                        columnDefs: [
-                            {
-                                'targets': 0,
-                                'searchable':false,
-                                'orderable':false,
-                                'width':'1%',
-                                'className': 'dt-body-center',
-                                
-                            },
-                            {
-                                targets: [7],
-                                orderable: false
-                            },
-                            {
-                                targets: [1],
-                                className: 'text-center'
-                            }
-                        ],
-                        paginationType: 'numbers',
-                        "language": {
-    "search": "Хайх:"
-  },
-                        lengthMenu: [1000, 2000, 3000, 4000], 
-                    });
-                    // setInterval(function(){  table.ajax.reload();  },30000);
-
-                    //selectedIds.forEach(function(selectedId) {
-                   // alert(selectedId);
-                    //}
-    
-                }
-                let except_status = 3;
-                let except_stat = 4;
-
-                let status = $('#filterByStatus').val();
-                let bus = $('#filterByBus').val();
-                let driver = $('#filterByDriver').val();
-                let customer = $('#filterByCustomer').val();
-
-                loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-    
-
-                
-                $('#filterByStatus').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $(this).val();
-                    var bus = $('#filterByBus').val();
-                    var driver = $('#filterByDriver').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-                });
-
-
-
-                
-                $('#filterByBus').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
-                    var driver = $('#filterByDriver').val();
-                    var bus = $(this).val();
-                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-                });
-
-                $('#filterByDriver').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
-                    var driver = $(this).val();
-                    var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-                });
-
-                $('#filterByCustomer').change(function () {
-                   // $('.dataTables_wrapper').html('');
-                    var status = $('#filterByStatus').val();
-                    var customer = $(this).val();
-                    var bus = $('#filterByBus').val();
-                    loadDeliveryDataTable(status,bus,driver,customer,except_status,except_stat);
-                });
-               
-                var selected_status = 1;
-                var selected_bus = 1;
-                var selected_driver = 1;
-                $(document).on('click', '#btnStatusModal', function() {
-                    $('#statusModal').attr('style','display:block');
-                });
-
-                $(document).on('click', '#btnBusModal', function() {
-                    $('#busModal').attr('style','display:block');
-                });
-
-                window.updateCount = function() {
-    var x = $(".checkbox:checked").length;
-    document.getElementById("y").innerHTML ='Нйит '+ x+' мөр сонгосон байна';
-};
-
-
-                $(document).on('click', '#btnDriveModal', function() {
-                    $('#driveModal').attr('style','display:block');
-                });
-    
-                $(document).on('click', '#btnDeleteModal', function() {
-                    console.log("btnDeleteModal");
-                    $('#deleteModal').attr('style','display:block');
-                });
-
-                $('.btn_change_status').click(function () {
-                    console.log("btn_change_status click");
-                    console.log(rows_selected);
-                    const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_status = $('.inputStatus1').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeStatusUrl,
-                        data: {
-                            ids : ids,
-                            status : selected_status
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
-
-               
-                $('.btn_change_bus').click(function () {
-                    console.log("btn_change_bus click");
-                    console.log(rows_selected);
-                    const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_bus = $('.inputStatus3').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeBusUrl,
-                        data: {
-                            ids : ids,
-                            region : selected_bus
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
-
-
-                $('.btn_change_drive').click(function () {
-                    console.log("btn_change_drive click");
-                    console.log(rows_selected);
-                    const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
-                    var ids = rows_selected.join(",");
-                    selected_driver = $('.inputStatus4').val();
-    
-                    $.ajax({
-                        type: 'GET',
-                        url: changeDriverUrl,
-                        data: {
-                            ids : ids,
-                            driverselected : selected_driver
-                        },
-                        beforeSend: function() {
-                            console.log("Loading");
-                        }
-                    }).done(function(result) {
-                        $('#customModal').attr('style','display:none');
-                        window.location.reload();
-                    });
-                });
-
-
-           
-               
-                $(document).on('click', 'input[type="checkbox"]', function() {
-                    // Get row ID
-                    var rowId = $(this).attr('data-id');
-                    // Determine whether row ID is in the list of selected row IDs
-                    var index = $.inArray(rowId, rows_selected);
-
-                    // If checkbox is checked and row ID is not in list of selected row IDs
-                    if(this.checked && index === -1){
-                    rows_selected.push(rowId);
-
-                    // Otherwise, if checkbox is not checked and row ID is in list of selected row IDs
-                    } else if (!this.checked && index !== -1){
-                    rows_selected.splice(index, 1);
+                if (response.success) {
+                    // Update row appearance based on status
+                    if (isActive == 1) {
+                        $row.removeClass('text-muted bg-light');
+                    } else {
+                        $row.addClass('text-muted bg-light');
                     }
-                    //console.log(rows_selected);
-                    //$("#selectedIds").val(rows_selected);
-                });
-    
-                // Handle to Export as a excel file
-                $(document).on('click', '#__btnExcelExport', function() {
-    
-                    $('#customModal').attr('style','display:block');
-    
-                    const excelExportUrl = '{{ route('excel-export-delivery') }}';
-                    var ids = rows_selected.join(",");
-                    var status = $('#filterByStatus').val();
-                    $.ajax({
-                           type: 'GET',
-                            url: excelExportUrl,
-                            data: {
-                                excel: 1,
-                                ids : ids,
-                                status : status
-                            },
-                        beforeSend: function() {
-                            $('#excel-wrapper').html('Excel File is processing. Please wait a bit...');
-                            $('.modal-excel').removeClass('modal-hide');
-                        }
-                    }).done(function(result) {
-                       // console.log(result);
-                        let downloadLink = 'Success. <a href="'+result+'" download >Download Now</a>';
-                        $('#excel-wrapper').html(downloadLink);
-                        //reinitialize array
-                        rows_selected = [];
-                    });
-                });
-
-
-                function printData(divID) {
-                    //Get the HTML of div
-                    var divElements = document.getElementById(divID).innerHTML;
-                    //Get the HTML of whole page
-                    var oldPage = document.body.innerHTML;
-                    //Reset the page's HTML with div's HTML only
-                    document.body.innerHTML =
-                    "<html><head><title></title></head><body>" +
-                    divElements + "</body>";
-                    //Print Page
-                    window.print();
-                    //Restore orignal HTML
-                    document.body.innerHTML = oldPage;
                     
+                    // Show success message
+                    showToast('Амжилттай', response.message, 'success');
+                } else {
+                    // Revert checkbox if failed
+                    $switch.prop('checked', !isActive);
+                    showToast('Алдаа', response.message, 'error');
                 }
-                // Handle to Print Data
-                $(document).on('click', '#__btnPrint', function() {
-                    const printDataDeliveryURL = '{{ route('print-data-delivery') }}';
-                    var ids = rows_selected.join(",");
-                    $.ajax({
-                        type: 'GET',
-                            url: printDataDeliveryURL,
-                            data: {
-                                print: 1,
-                                ids : ids,
-                            },
-                        beforeSend: function() {
-            
-                        }
-                    }).done(function(result) {
-                    // console.log(result);
-                        $("#print_wrapper").html(result);
-                        printData("print_wrapper");
-                        $("#print_wrapper").html('');
-                        rows_selected.length = 0;
-                        //return false;
-                        
-                    });
-                });
-
-            });
-        </script>
-    
-        <script>
-        // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.close', function() {
-            $('#customModal').attr('style','display:none');
-            $('#statusModal').attr('style','display:none');
-            $('#driveModal').attr('style','display:none');
-        $('#busModal').attr('style','display:none');
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+                console.log('XHR:', xhr);
+                
+                // Revert checkbox on error
+                $switch.prop('checked', !isActive);
+                showToast('Алдаа', 'Серверийн алдаа гарлаа: ' + error, 'error');
+            },
+            complete: function() {
+                $row.removeClass('processing');
+                $switch.prop('disabled', false);
+            }
         });
+    });
 
-    
-        $(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#customModal').hide();
-  }
+    // Toast notification function
+    function showToast(title, message, type) {
+        // Create toast container if it doesn't exist
+        if ($('.toast-container').length === 0) {
+            $('body').append('<div class="toast-container"></div>');
+        }
+        
+        const toastId = 'toast-' + Date.now();
+        const toast = $(`
+            <div class="toast" id="${toastId}" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-header ${type === 'success' ? 'bg-success' : 'bg-danger'} text-white">
+                    <strong class="mr-auto">${title}</strong>
+                    <small>саяхан</small>
+                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            </div>
+        `);
+        
+        $('.toast-container').append(toast);
+        
+        // Initialize and show toast
+        toast.toast({
+            animation: true,
+            autohide: true,
+            delay: 5000
+        }).toast('show');
+        
+        // Remove toast after hidden
+        toast.on('hidden.bs.toast', function() {
+            $(this).remove();
+        });
+    }
 });
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#statusModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#deleteModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 13) {
-    $('#dri').submit();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#driveModal').hide();
-  }
-});
-$(document).keydown(function(event) {
-  if (event.keyCode == 27) {
-    $('#busModal').hide();
-  }
-});
-
-        </script>
-
-
-
+</script>
 
 <style>
-.dataTables_wrapper .dt-buttons {
-position: absolute;
-margin: 10px
-}
-
-div.dtsp-panesContainer:after {
-content: '';
-display: table;
-clear: both;
-}
-.dtsp-title {
-display: none;
-}
-
-#print_wrapper .table th {
-    padding: 0.75rem 1.25rem;
-    border: 1px solid;
-    font-weight: 700;
+    .text-muted.bg-light {
+        opacity: 0.7;
     }
-    #print_wrapper .table td{
-    padding: 0.75rem 1.25rem;
-    border: 1px solid;
+    
+    .processing {
+        position: relative;
+        pointer-events: none;
     }
-
-    @media print{
-        .table thead tr td,.table tbody tr td{
-            border-width: 1px;
-            border-style: solid;
-            border-color: black;
-            font-size: 10px;
-            background-color: red;
-            padding:0px;
-            -webkit-print-color-adjust:exact;
-        }
+    
+    .processing:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.7);
+        z-index: 1;
+    }
+    
+    /* Toast container */
+    .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1050;
+        min-width: 300px;
+    }
+    
+    /* Custom switch colors */
+    .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: #28a745;
+        background-color: #28a745;
+    }
+    
+    .custom-switch .custom-control-input:focus ~ .custom-control-label::before {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
     }
 </style>
-@include('sweetalert::alert')
 
-  @endsection
+<div class="toast-container"></div>
+@endsection
+
+@push('scripts')
+
+@endpush

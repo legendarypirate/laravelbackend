@@ -15,11 +15,13 @@ return new class() extends Migration
     {
         $schema = Schema::connection($this->getConnection());
 
-        $schema->create('oauth_personal_access_clients', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->uuid('client_id');
-            $table->timestamps();
-        });
+        if (!$schema->hasTable('oauth_personal_access_clients')) {
+            $schema->create('oauth_personal_access_clients', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->uuid('client_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

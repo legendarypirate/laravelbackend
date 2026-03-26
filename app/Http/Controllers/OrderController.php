@@ -55,6 +55,8 @@ class OrderController extends Controller
         $order->phone = $phone;
         $order->address =  $request-> address;
         $order->comment = $request-> comment;
+        $order->type = $request-> type;
+
         $order->track = rand(1000,9999).'S'.Auth::user()->id;
         $order->status = 1;
         $order->save();
@@ -391,7 +393,7 @@ class OrderController extends Controller
 
             $orderColumnList = [
                 'id',
-                 'organization',
+                 'shop',
                  'phone',
                  'address',
                  'created_at',
@@ -461,17 +463,28 @@ class OrderController extends Controller
                         })
                       
                         ->addColumn('address', function ($row) {
-                            return $row->address;
+                            return '<div class="address" style="width:100px !important;">'.$row->address.'</div>';
                         })
                         ->addColumn('comment', function ($row) {
-                            return  '
-                             
-                            <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
-                            <input type="hidden" value="'.$row->id.'" name="realid">
-                            
-                            <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
-                            <a class="font-medium whitespace-nowrap"></a>
-                       ';
+                                    
+                                    $admincolumn = '
+                                     
+                                    <input class="font-medium whitespace-nowrap input" id="note_'.$row->id.'"  style="width:80px;"  value="'.$row->comment.'" name="note"/>
+                                    <input type="hidden" value="'.$row->id.'" name="realid">
+                                    
+                                    <button data-id="'.$row->id.'" class="font-medium whitespace-nowrap button_edit_note" >  Засах </button>
+                                    <a class="font-medium whitespace-nowrap"></a>
+                               ';
+                                    
+                                    $custcolumn=$row->comment;
+                                    
+                            if(Auth::user()->role=='customer'){
+                                return $custcolumn;
+                            } else {
+                                    return $admincolumn;
+
+                            }
+                           
                         })
                         ->addColumn('created_at', function ($row) {
                             return $row->created_at;
@@ -522,7 +535,7 @@ class OrderController extends Controller
                                   
                         })
                        
-                        ->rawColumns(['checkbox','actions','comment'])
+                        ->rawColumns(['checkbox','actions','comment','address'])
                         ->skipPaging()
                         ->setTotalRecords($dataCount)
                         ->make(true);

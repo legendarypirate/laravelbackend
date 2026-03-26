@@ -34,9 +34,16 @@ class GoodController extends Controller
     }
 
 
-    public function create(Request $request){ 
+    public function create(Request $request){
+        
         $order = new Good();
-        $order->shop = $request->shop;
+        if(Auth::user()->role=='customer'){
+            $order->user_id = Auth::user()->id;
+            $order->shop = Auth::user()->name;
+        } else {
+            $order->user_id = Auth::user()->id;
+            $order->shop = $request->shop;
+        }
         $order->ware = $request-> ware;
         $order->goodname = $request->goodname;
         $order->price = $request-> price;
@@ -44,14 +51,19 @@ class GoodController extends Controller
         Alert::success('Бараа', 'Үүслээ');
  
         $lastId=$order->id;
- 
+
         $pictureInfo=$request->file('image');
 
         if($request->file('image')){
             $picName = $lastId.$pictureInfo->getClientOriginalName();
             $folder="goodImage/";
-            $pictureInfo->move($folder,$picName);
-            $picUrl=$folder.$picName;
+         //   $pictureInfo->move($folder,$picName);
+        
+          $picUrl =  $request->file('image')->store('goodImage', 'public');
+         
+        
+
+          //  $picUrl=$folder.$picName;
             $newsPic = Good::find($lastId);
             $newsPic->image = $picUrl;
             $newsPic-> save(); 
@@ -95,7 +107,11 @@ class GoodController extends Controller
     }
 
     public function list(){
-        $good=Good::all();
+        if(Auth::user()->role!='customer'){
+            $good=Good::all();
+        } else {
+            $good=Good::where('user_id',Auth::user()->id)->get();
+        }
         return view('admin.good.list',compact('good'));
     }
 

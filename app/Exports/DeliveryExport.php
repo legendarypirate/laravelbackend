@@ -2,67 +2,53 @@
 
 namespace App\Exports;
 
-use App\Models\Delivery;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class DeliveryExport implements FromArray, WithHeadings,WithTitle
+class DeliveryExport implements FromArray, WithHeadings, WithTitle
 {
-    
     protected $data;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->data = $data;
-        $this->sheetNames = [];
     }
 
-    public function array():array
+    public function array(): array
     {
         return $this->data;
     }
-    
 
     public function headings(): array
     {
         return [
-            'Дугаар',
-            'Нэр',
-            'Утас',
-            'Хаяг',
-            'Үүссэн огноо',
-            'Төлөв',
+            'Track ID',
+            'Огноо',
+            'Хүргэсэн огноо',
+        'Жолооч тэмдэглэл',
+
+            'Төрөл',
+            'Харилцагч',
+            'z-код',
+            'Мерчант нэр',
+            'Утас 1, Утас 2',
+            'Илгээгчийн хаяг[дэлгэрэнгүй]',
+            'Барааны мэдээлэл',
+            'Тоо ширхэг',
+            'Хүлээн авагчийн нэр',
+            'Утас 1, Утас 2',
+            'Хүлээн авагчийн хаяг',
+            'Нэмэлт тайлбар(ирэхээсээ өмнө залгах г.м)',
+            'Барааны тооцоо',
+            'Баталгаажилт',
             'Жолооч',
-            'Tracking',
-            'Хот',
-            'Дүүрэг',
-            'Хороо',
-            'Хотхон',
-            'Байр',
-            'Орц',
-            'Орны код',
-            'Давхар',
-            'Тоот',
-            'Өртөг',
-            'авсан Дүн',
-            'Хүргэлтийн үнэ',
-
-            'Тайлбар',
-            'Тайлбар1',
-            'Тайлбар2',
-            'Шинэчилсэн огноо',
-
-            'Бараа'
-
-
+            'Төлөв',
         ];
     }
 
-   
-
     public function title(): string
     {
-        return 'req.xlsx';
+        return 'Delivery Export';
     }
 }

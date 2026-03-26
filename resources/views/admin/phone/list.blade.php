@@ -45,7 +45,7 @@
 <?php $user=DB::table('users')->where('id',$phones->userid)->first();
 ?>
 <td>{{$phones->id}}</td>
-<td>{{$user->name}}</td>
+<td>{{$phones->name}}</td>
 <td>{{$phones->phone}}</td>
 <td>Устгах</td>
 

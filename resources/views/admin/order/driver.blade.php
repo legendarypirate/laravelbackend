@@ -88,8 +88,7 @@ input[type=checkbox]:checked {
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+
             </ol>
           </div>
         </div>
@@ -105,8 +104,8 @@ input[type=checkbox]:checked {
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Хэвлэх</a></button>
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Экселээр гаргах</a></button> 
          <div class="row">
          <div class="form-group myform">
                     <label for="status">Төлөв:</label>
@@ -181,11 +180,13 @@ input[type=checkbox]:checked {
               <!-- /.card-body -->
 
     <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
+         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>
+         @if(auth()->user()->role!='customer')                                                           
          <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
          <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         @endif
     </div> 
        
 </div>

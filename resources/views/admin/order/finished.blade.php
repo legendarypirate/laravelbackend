@@ -90,8 +90,7 @@ input[type=checkbox]:checked {
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+              
             </ol>
           </div>
         </div>
@@ -183,11 +182,13 @@ input[type=checkbox]:checked {
               <!-- /.card-body -->
 
     <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
+         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button> 
+         @if(auth()->user()->role!='customer')                                                               
          <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
          <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         @endif
     </div> 
 
 </div>

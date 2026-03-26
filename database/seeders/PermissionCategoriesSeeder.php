@@ -1,4 +1,7 @@
 <?php
+
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
@@ -22,6 +25,15 @@ class PermissionCategoriesSeeder extends Seeder
             ['name'=>'consumer','guard_name'=>'web'],
             ['name'=>'user','guard_name'=>'web'],
             ['name'=>'role','guard_name'=>'web'],
+            ['name'=>'invoice','guard_name'=>'web'],
+            ['name'=>'feedback','guard_name'=>'web'],
+            ['name'=>'banner','guard_name'=>'web'],
+            ['name'=>'setting','guard_name'=>'web'],
+            ['name'=>'report','guard_name'=>'web'],
+            ['name'=>'driver','guard_name'=>'web'],
+            ['name'=>'item','guard_name'=>'web'],
+            ['name'=>'notification','guard_name'=>'web'],
+            ['name'=>'ware','guard_name'=>'web'],
         ];
 
         \App\Models\PermissionCategory::insert($data);

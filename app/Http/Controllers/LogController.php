@@ -27,9 +27,23 @@ class LogController extends Controller
    
    
 
-    public function list(){
+    public function list(Request $request){
         
-        $log=Log::orderBy('id','desc')->get();
+        $query = Log::orderBy('id','desc');
+        
+        // Search functionality
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('value', 'like', '%' . $search . '%')
+                  ->orWhere('phone', 'like', '%' . $search . '%')
+                  ->orWhere('staff', 'like', '%' . $search . '%');
+            });
+        }
+        
+        // Paginate with 200 items per page
+        $log = $query->paginate(200)->withQueryString();
+        
         return view('admin.log.list',compact('log'));
     }
 

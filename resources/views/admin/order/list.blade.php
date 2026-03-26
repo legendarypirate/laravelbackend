@@ -24,7 +24,7 @@
       background-color: rgb(0,0,0); /* Fallback color */
       background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
-    
+  
     /* Modal Content */
     .modal-content {
       background-color: #fefefe;
@@ -86,10 +86,7 @@ input[type=checkbox]:checked {
             <h1>Захиалга</h1>
           </div>
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
-            </ol>
+          
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -104,8 +101,8 @@ input[type=checkbox]:checked {
         <div class="row">
           <div class="col-12">
           <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ захиалга үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
+          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Хэвлэх</a></button>
+          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Экселээр гаргах</a></button> 
          <div class="row">
          <div class="form-group myform">
                     <label for="status">Төлөв:</label>
@@ -115,6 +112,7 @@ input[type=checkbox]:checked {
                         <option value="2">Жолоочид хуваарилсан</option>
                     </select>
                 </div>
+@if(auth()->user()->role!='customer')
 
                 <div class="form-group myform">
                     <label for="status">Бүс:</label>
@@ -140,6 +138,7 @@ input[type=checkbox]:checked {
                         <option value="&quot; энхрий онлайн шоп&quot;">&quot; энхрий онлайн шоп&quot;</option>
                     </select>
                 </div>
+@endif
             </div>
            
             <div class="card">
@@ -171,7 +170,7 @@ input[type=checkbox]:checked {
                         @endif
                         <th class="text-center whitespace-nowrap">Тайлбар</th>
 
-                        <th class="text-center whitespace-nowrap">Үйлдэл</th>
+                        <th class="text-center whitespace-nowrap">Төрөл</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -180,11 +179,13 @@ input[type=checkbox]:checked {
               <!-- /.card-body -->
 
     <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
+         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button> 
+         @if(auth()->user()->role!='customer')                                                               
          <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
          <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
          <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
          <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         @endif
     </div> 
  
 </div>
@@ -382,9 +383,10 @@ input[type=checkbox]:checked {
                                 name: 'comment',
                                 data: 'comment'
                             },
+                         
                             {
-                                name: 'actions',
-                                data: 'actions'
+                                name: 'type',
+                                data: 'type'
                             }
                             
                         ],

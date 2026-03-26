@@ -8,7 +8,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\Log;
 
 use Illuminate\Http\Request;
-use App\Models\Region;
+use App\Models\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class NotificationController extends Controller
@@ -35,16 +35,17 @@ class NotificationController extends Controller
 
     public function send(Request $request){ 
         
-        $region = new Region();
-        $region->name = $request->name;
+        $region = new Notification();
+        $region->type = $request->type;
+        $region->title = $request->title;
+        $region->description = $request->description;
+        $region->sent_by_id = Auth::user()->id;
+        $region->sent_by_image = Auth::user()->image;
+
         $region->save();
 
-        $log = new Log();
-        $log -> value = Auth::user()->name.', нь '.$request->name.' бүс үүсгэлээ.';
-        $log -> phone = '';
-        $log->staff=Auth::user()->name;
-        $log -> save();
-        return redirect('/region/list')->with('message','Амжилттай хадгалагдлаа');
+     
+        return redirect('/notification/index')->with('message','Амжилттай хадгалагдлаа');
 
     }
 

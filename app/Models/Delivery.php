@@ -5,191 +5,236 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Delivery;
+use App\Models\Merchant;
+use App\Models\User;
+use App\Traits\Loggable;
 
 class Delivery extends Model
 {
+    use Loggable;
+
     /**
      * Query for `Delivery` data
      *
      * @return mixed
      */
-    public static function GetExcelData($Params=null)
+
+    protected $table = 'deliveries';
+
+    public function merchant()
+    {
+        return $this->belongsTo(Merchant::class);
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public static function GetExcelData($Params = null)
     {
         $deliveryTable = (new Delivery())->getTable();
         $offset = isset($Params['offset']) ? $Params['offset'] : 0;
-        $limit = isset($Params['limit']) ? $Params['limit'] : 1000;
-        $status1=NULL;
-        $status10=NULL;
-        $status100=NULL;
+        $limit = isset($Params['limit']) ? $Params['limit'] : 3500;
+        
         $idsFilter = NULL;
-        $tuluvFilter=NULL;
+        $tuluvFilter = NULL;
         $regionFilter = NULL;
         $driverFilter = NULL;
         $limitFilter = NULL;
-        $status2 = NULL;
-        $status6 = NULL;
-        $status3 = NULL;
-        $status4 = NULL;
-        $statusFilter=NULL;
-        $status5 = NULL;
-        $not1 = NULL;
-        $not100 = NULL;
-        $not2 = NULL;
-        $not6 = NULL;
-        $not3 = NULL;
-        $not4 = NULL;
-        $not5 = NULL;
+        $statusFilter = NULL;
+        $notFilter = NULL;
         $verified = NULL;
+        $district = NULL;
         $custFilter = NULL;
+        $estimated = NULL;
         $joinUsersTable = NULL;
+        $joinMerchantTable = NULL;
         $roleFilter = NULL;
         $date_filter = NULL;
         $late = NULL;
+        $merchant = NULL;
+        $type = NULL;
 
+        // FIX: IDs filter - properly handle array
         if (!empty($Params['ids'])) {
-            $idsFilter = "AND deliveries.id in ({$Params['ids']})";
+            if (is_array($Params['ids'])) {
+                // Convert array to comma-separated string
+                $idsString = implode(',', $Params['ids']);
+                $idsFilter = "AND deliveries.id in ({$idsString})";
+                
+                // When specific IDs are provided, IGNORE all other filters
+                $statusFilter = NULL;
+                $notFilter = NULL;
+                $tuluvFilter = NULL;
+                $regionFilter = NULL;
+                $driverFilter = NULL;
+                $verified = NULL;
+                $district = NULL;
+                $custFilter = NULL;
+                $estimated = NULL;
+                $date_filter = NULL;
+                $merchant = NULL;
+                $type = NULL;
+            } else {
+                // It's already a string
+                $idsFilter = "AND deliveries.id in ({$Params['ids']})";
+                
+                // When specific IDs are provided, IGNORE all other filters
+                $statusFilter = NULL;
+                $notFilter = NULL;
+                $tuluvFilter = NULL;
+                $regionFilter = NULL;
+                $driverFilter = NULL;
+                $verified = NULL;
+                $district = NULL;
+                $custFilter = NULL;
+                $estimated = NULL;
+                $date_filter = NULL;
+                $merchant = NULL;
+                $type = NULL;
+            }
         }
 
-        if (!empty($Params['status'])) {
-            $statusFilter = "AND `status`= {$Params['status']}";
+        // Only apply other filters if no specific IDs are provided
+        if (empty($Params['ids'])) {
+            // Build status filter
+            $statusConditions = [];
+
+            // Check if we have individual status parameters
+            $statusParams = [
+                'status_1', 'status_2', 'status_3', 'status_4',
+                'status_5', 'status_6', 'status_10', 'status_100'
+            ];
+
+            foreach ($statusParams as $param) {
+                if (!empty($Params[$param])) {
+                    $statusConditions[] = $Params[$param];
+                }
+            }
+
+            // Apply status filter
+            if (!empty($Params['status'])) {
+                // Use single status filter
+                $statusFilter = "AND `status` = {$Params['status']}";
+            } elseif (!empty($statusConditions)) {
+                // Use multiple status filter
+                $statusList = implode(',', array_unique($statusConditions));
+                $statusFilter = "AND `status` IN ({$statusList})";
+            }
+
+            // Build NOT filter
+            $notConditions = [];
+
+            $notParams = [
+                'not_1', 'not_2', 'not_3', 'not_4',
+                'not_5', 'not_6', 'not_10', 'not_100'
+            ];
+
+            foreach ($notParams as $param) {
+                if (!empty($Params[$param])) {
+                    $notConditions[] = $Params[$param];
+                }
+            }
+
+            if (!empty($notConditions)) {
+                $notList = implode(',', array_unique($notConditions));
+                $notFilter = "AND status NOT IN ({$notList})";
+            }
+
+            // Other filters (only apply when no specific IDs)
+            if (!empty($Params['estimated'])) {
+                $estimated = "AND deliveries.estimated = '{$Params['estimated']}'";
+            }
+            
+            if (!empty($Params['customer'])) {
+                $custFilter = "AND shop= '{$Params['customer']}'";
+            }
+
+            if (!empty($Params['verified'])) {
+                $verified = "AND verified in('{$Params['verified']}')";
+            }
+            
+            if (!empty($Params['district'])) {
+                $district = "AND district in('{$Params['district']}')";
+            }
+
+            if (!empty($Params['region'])) {
+                $regionFilter = "AND region= '{$Params['region']}'";
+            }
+
+            if (!empty($Params['driverselected'])) {
+                $driverFilter = "AND driver= '{$Params['driverselected']}'";
+            }
+
+            // Date filters
+            if (!empty($Params['start_date']) && empty($Params['end_date'])) {
+                $date_filter = "AND DATE(deliveries.created_at) = '{$Params['start_date']}'";
+            }
+
+            if (!empty($Params['start_date']) && !empty($Params['end_date'])) {
+                $date_filter = "AND (DATE(deliveries.created_at) BETWEEN '{$Params['start_date']}' AND '{$Params['end_date']}')";
+            }
+
+            if (!empty($Params['merchant_id'])) {
+                $merchant = "AND deliveries.merchant_id = {$Params['merchant_id']}";
+            }
+
+            if (!empty($Params['type'])) {
+                $type = "AND deliveries.type = {$Params['type']}";
+            }
         }
 
-        if (!empty($Params['customer'])) {
-            $custFilter = "AND shop= '{$Params['customer']}'";
-        }
-        if (!empty($Params['status_10'])) {
-            $status10 = "AND status in('{$Params['status_10']}')";
-        }
-
-        if (!empty($Params['not_1'])) {
-            $not1 = "AND status not in('{$Params['not_1']}')";
-        }
-
-        if (!empty($Params['not_3'])) {
-            $not3 = "AND status not in('{$Params['not_3']}')";
-        }
-
-        if (!empty($Params['not_2'])) {
-            $not2 = "AND status not in('{$Params['not_2']}')";
-        }
-        if (!empty($Params['not_6'])) {
-            $not6 = "AND status not in('{$Params['not_6']}')";
-        }
-
-        if (!empty($Params['not_5'])) {
-            $not5 = "AND status not in('{$Params['not_5']}')";
-        }
-
-        if (!empty($Params['not_4'])) {
-            $not4 = "AND status not in('{$Params['not_4']}')";
-        }
-
-        if (!empty($Params['not_100'])) {
-            $not100 = "AND status not in('{$Params['not_100']}')";
-        }
-
-        if (!empty($Params['verified'])) {
-            $verified = "AND verified in('{$Params['verified']}')";
-        }
-
-        if (!empty($Params['status_3'])) {
-            $status3 = "AND status in('{$Params['status_3']}')";
-        }
-        if (!empty($Params['status_4'])) {
-            $status4 = "OR status in('{$Params['status_4']}')";
-        }
-        if (!empty($Params['status_5'])) {
-            $status5 = "OR status in('{$Params['status_5']}')";
-        }
-
-        if (!empty($Params['status_100'])) {
-            $status100 = "AND status in('{$Params['status_100']}')";
-        }
-
-        if (!empty($Params['status_2'])) {
-            $status2 = "AND status in ('{$Params['status_2']}')";
-        }
-        if (!empty($Params['status_6'])) {
-            $status6 = "OR status in ('{$Params['status_6']}')";
-        }
+        // Role-based joins and filters (always apply)
+        $role = strtolower($Params['role'] ?? '');
         
-        if (!empty($Params['status_1'])) {
-            $status1 = "AND status in('{$Params['status_1']}')";
-        }
-        if (!empty($Params['region'])) {
-            $regionFilter = "AND region= '{$Params['region']}'";
-        }
-        
-
-        if (!empty($Params['driverselected'])) {
-            $driverFilter = "AND driver= '{$Params['driverselected']}'";
-        }
-
-        if ($Params['role']=='Customer') {
-            $joinUsersTable = "LEFT JOIN users on users.name = deliveries.shop";
-            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='Customer'";
-        }
-        
-        if (!empty($Params['start_date']) && empty($Params['end_date'])) {
-            $date_filter = "AND (DATE(deliveries.created_at) BETWEEN '{$Params['start_date']}' AND '{$Params['start_date']}')";
+        if ($role == 'customer') {
+            $joinUsersTable = "INNER JOIN users on users.name = deliveries.shop";
+            $joinMerchantTable = "INNER JOIN merchant ON merchant.id = deliveries.merchant_id";
+            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='customer'";
+        } elseif ($role == 'admin' || $role == 'manager') {
+            $joinMerchantTable = "LEFT JOIN merchant ON merchant.id = deliveries.merchant_id";
+        } else {
+            // Default: join merchant table for other roles to avoid SQL errors when selecting merchant columns
+            $joinMerchantTable = "LEFT JOIN merchant ON merchant.id = deliveries.merchant_id";
         }
 
-        if (!empty($Params['start_date']) && !empty($Params['end_date'])) {
-            $date_filter = "AND (DATE(deliveries.created_at) BETWEEN '{$Params['start_date']}' AND '{$Params['end_date']}')";
-        }
-        // if ($Params['late']) {
-
-        //     $late = "AND (DATE(deliveries.created_at) >= NOW() - INTERVAL 2 DAY )";
-
-        // }
         $orderByFilter = "ORDER BY deliveries.id DESC ";
 
         if ($limit > 0) {
             $limitFilter = "LIMIT {$limit} OFFSET {$offset}";
         }
 
-      
-        return DB::select(DB::raw("SELECT $deliveryTable.* 
+        return DB::select(DB::raw("SELECT $deliveryTable.* ,merchant.merchantName AS merchantName,merchant.merchantPhone1 AS merchantPhone1,merchant.merchantPhone2 AS merchantPhone2,merchant.merchantAddress AS merchantAddress
                         FROM
                             $deliveryTable
                             {$joinUsersTable}
+                            {$joinMerchantTable}
                         WHERE 1 = 1
                         {$idsFilter}
                         {$tuluvFilter}
-                        {$status1}
-                        {$status10}
-                        {$status100}
-                        {$status2}
-                        {$status6}
-                        {$status3}
-                        {$status4}
-                        {$status5}
-                        {$not1}
-                        {$not3}
-                        {$not4}
-                        {$not5}
-                        {$not2}
-                        {$not6}
-                        {$not100}
+                        {$estimated}
+                        {$district}
+                        {$statusFilter}
+                        {$notFilter}
                         {$verified}
                         {$regionFilter}
                         {$custFilter}
-                        {$statusFilter}
                         {$driverFilter}
                         {$roleFilter}
                         {$date_filter}
+                        {$merchant}
+                        {$type}
                         {$orderByFilter}
                         {$limitFilter}
                 "));
-                
     }
-    
     /**
      * Query for `Delivery` data Count
      *
      * @return mixed
      */
-    public static function GetExcelDataCount($Params=null)
+    public static function GetExcelDataCount($Params = null)
     {
         $deliveryTable = (new Delivery())->getTable();
         $offset = isset($Params['offset']) ? $Params['offset'] : 0;
@@ -197,6 +242,7 @@ class Delivery extends Model
 
         $idsFilter = NULL;
         $statusFilter = NULL;
+        $notFilter = NULL;
         $tuluvFilter = NULL;
         $exceptStatFilter = NULL;
         $custFilter = NULL;
@@ -205,109 +251,92 @@ class Delivery extends Model
         $limitFilter = NULL;
         $exceptStatusFilter = NULL;
         $joinUsersTable = NULL;
+        $joinMerchantTable = NULL;
         $roleFilter = NULL;
         $date_filter = NULL;
         $late = NULL;
-        $not1 = NULL;
-        $not3 = NULL;
-        $not4 = NULL;
-        $not6 = NULL;
-        $not2 = NULL;
-        $not5 = NULL;
-        $not100 = NULL;
         $verified = NULL;
-        $status10=NULL;
-        $status1=NULL;
-        $status100=NULL;
-        $status2 = NULL;
-        $status6 = NULL;
-        $status3= NULL;
-        $status4 = NULL;
-        $status5 = NULL;
+        $estimated = NULL;
+        $merchant = NULL;
+        $type = NULL;
 
+        // IDs filter
         if (!empty($Params['ids'])) {
             $idsFilter = "AND deliveries.id in ({$Params['ids']})";
         }
 
+        // Build status filter (same logic as GetExcelData)
+        $statusConditions = [];
+
+        $statusParams = [
+            'status_1', 'status_2', 'status_3', 'status_4', 
+            'status_5', 'status_6', 'status_10', 'status_100'
+        ];
+
+        foreach ($statusParams as $param) {
+            if (!empty($Params[$param])) {
+                $statusConditions[] = $Params[$param];
+            }
+        }
+
+        // Apply status filter
         if (!empty($Params['status'])) {
-            $statusFilter = "AND `status`= {$Params['status']}";
+            $statusFilter = "AND `status` = {$Params['status']}";
+        } elseif (!empty($statusConditions)) {
+            $statusList = implode(',', array_unique($statusConditions));
+            $statusFilter = "AND `status` IN ({$statusList})";
+        }
+
+        // Build NOT filter
+        $notConditions = [];
+
+        $notParams = [
+            'not_1', 'not_2', 'not_3', 'not_4', 
+            'not_5', 'not_6', 'not_10', 'not_100'
+        ];
+
+        foreach ($notParams as $param) {
+            if (!empty($Params[$param])) {
+                $notConditions[] = $Params[$param];
+            }
+        }
+
+        if (!empty($notConditions)) {
+            $notList = implode(',', array_unique($notConditions));
+            $notFilter = "AND status NOT IN ({$notList})";
+        }
+
+        // Other filters
+        if (!empty($Params['estimated'])) {
+            $estimated = "AND deliveries.estimated = '{$Params['estimated']}'";
         }
 
         if (!empty($Params['tuluv'])) {
             $tuluvFilter = "AND `status`= {$Params['tuluv']}";
         }
 
-        if (!empty($Params['status_10'])) {
-            $status10 = "AND status in('{$Params['status_10']}')";
-        }
-
-        if (!empty($Params['status_3'])) {
-            $status3 = "AND status in ('{$Params['status_3']}')";
-        }
-
-        if (!empty($Params['not_3'])) {
-            $not3 = "AND status not in('{$Params['not_3']}')";
-        }
-
-        if (!empty($Params['not_2'])) {
-            $not2 = "AND status not in('{$Params['not_2']}')";
-        }
-        if (!empty($Params['not_6'])) {
-            $not6 = "AND status not in('{$Params['not_6']}')";
-        }
-
-        if (!empty($Params['not_5'])) {
-            $not5 = "AND status not in('{$Params['not_5']}')";
-        }
-
-        if (!empty($Params['not_4'])) {
-            $not4 = "AND status not in('{$Params['not_4']}')";
-        }
-
-        if (!empty($Params['status_4'])) {
-            $status4 = "OR status in ('{$Params['status_4']}')";
-        }
-        if (!empty($Params['status_5'])) {
-            $status5 = "OR status in ('{$Params['status_5']}')";
-        }
-
-        if (!empty($Params['status_100'])) {
-            $status100 = "AND status in('{$Params['status_100']}')";
-        }
-
         if (!empty($Params['customer'])) {
             $custFilter = "AND shop= '{$Params['customer']}'";
-        }
-
-        if (!empty($Params['status_2'])) {
-            $status2 = "AND status in ('{$Params['status_2']}')";
-        }
-        if (!empty($Params['status_6'])) {
-            $status6 = "AND status in ('{$Params['status_6']}')";
-        }   
-
-        if (!empty($Params['not_1'])) {
-            $not1 = "AND status not in('{$Params['not_1']}')";
-        }
-
-        if (!empty($Params['not_100'])) {
-            $not100 = "AND status not in('{$Params['not_100']}')";
         }
 
         if (!empty($Params['verified'])) {
             $verified = "AND verified in('{$Params['verified']}')";
         }
 
-         if (!empty($Params['customer'])) {
-            $custFilter = "AND shop= '{$Params['customer']}'";
-        }
-   
         if (!empty($Params['region'])) {
             $regionFilter = "AND region= '{$Params['region']}'";
         }
-   
+
         if (!empty($Params['driverselected'])) {
             $driverFilter = "AND driver= '{$Params['driverselected']}'";
+        }
+
+        if (!empty($Params['merchant_id'])) {
+            $merchant = "AND deliveries.merchant_id = {$Params['merchant_id']}";
+        }
+
+        if (!empty($Params['type'])) {
+            $type = "AND deliveries.type = {$Params['type']}";
         }
 
         if (!empty($Params['except_status'])) {
@@ -317,56 +346,81 @@ class Delivery extends Model
         if (!empty($Params['except_stat'])) {
             $exceptStatFilter = "AND status not in('{$Params['except_stat']}')";
         }
-        if ($Params['role']=='Customer') {
-            $joinUsersTable = "LEFT JOIN users on users.name = deliveries.shop";
-            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='Customer'";
-        }
 
+        // Role-based joins and filters
+        $role = strtolower($Params['role'] ?? '');
+        
+        if ($role == 'customer') {
+            $joinUsersTable = "INNER JOIN users on users.name = deliveries.shop";
+            $joinMerchantTable = "INNER JOIN merchant ON merchant.id = deliveries.merchant_id";
+            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='customer'";
+        } elseif ($role == 'admin' || $role == 'manager') {
+            $joinMerchantTable = "LEFT JOIN merchant ON merchant.id = deliveries.merchant_id";
+        } else {
+            // Default: join merchant table for other roles to avoid SQL errors when selecting merchant columns
+            $joinMerchantTable = "LEFT JOIN merchant ON merchant.id = deliveries.merchant_id";
+        } 
+
+        // Date filters
         if (!empty($Params['start_date']) && empty($Params['end_date'])) {
-            $date_filter = "AND (DATE(deliveries.created_at) BETWEEN '{$Params['start_date']}' AND '{$Params['start_date']}')";
+            $date_filter = "AND DATE(deliveries.created_at) = '{$Params['start_date']}'";
         }
-        if ($Params['late']!=4) {
 
-            $late = "AND (DATE(deliveries.created_at) >= NOW() - INTERVAL 2 DAY )";
-        }
         if (!empty($Params['start_date']) && !empty($Params['end_date'])) {
             $date_filter = "AND (DATE(deliveries.created_at) BETWEEN '{$Params['start_date']}' AND '{$Params['end_date']}')";
         }
-            
+
         $resultQuery = DB::select(DB::raw("SELECT COUNT(*) AS total
                     FROM
-                        $deliveryTable
+                         $deliveryTable
                         {$joinUsersTable}
+                        {$joinMerchantTable}
                     WHERE 1 = 1
                     {$idsFilter}
                     {$statusFilter}
+                    {$notFilter}
+                    {$estimated}
                     {$tuluvFilter}
                     {$regionFilter}
                     {$custFilter}
                     {$driverFilter}
-                    {$status1}
-                    {$status10}
-                    {$status100}
-                    {$status2}
-                    {$status6}
-                    {$status3}
-                    {$status4}
-                    {$status5}
-                    {$not3}
-                    {$not4}
-                    {$not2}
-                    {$not6}
-                    {$not5}
-                    {$not1}
-                    {$not100}
                     {$verified}
                     {$exceptStatusFilter}
                     {$exceptStatFilter}
                     {$roleFilter}
                     {$date_filter}
                     {$late}
-
+                    {$merchant}
+                    {$type}
                 "));
+
         return $resultQuery[0]->total ?? 0;
+    }
+
+    public static function GetQRData($Params = null)
+    {
+        $reqTable = (new Delivery())->getTable();
+
+        $idsFilter = NULL;
+        $joinUsersTable = NULL;
+        $joinMerchantTable = NULL;
+        $roleFilter = NULL;
+
+        if (!empty($Params['ids'])) {
+            $idsFilter = "AND deliveries.id in ({$Params['ids']})";
+        }
+
+        $orderByFilter = "ORDER BY deliveries.id DESC ";
+        $joinMerchantTable = "INNER JOIN merchant ON merchant.id = deliveries.merchant_id";
+        
+        return DB::select(DB::raw("SELECT $reqTable.*,merchant.merchantName AS merchantName
+                    FROM
+                        $reqTable
+                        {$joinUsersTable}
+                        {$joinMerchantTable}
+                    WHERE 1 = 1
+                    {$idsFilter}
+                    {$orderByFilter}
+                "));
     }
 }

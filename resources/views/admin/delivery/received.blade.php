@@ -88,12 +88,11 @@ input[type=checkbox]:checked {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Хүргэлт</h1>
+            <h1>Хүлээн авсан хүргэлт</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
+         
             </ol>
           </div>
         </div>
@@ -108,13 +107,19 @@ input[type=checkbox]:checked {
         <!-- /.row -->
         <div class="row">
           <div class="col-12">
-          <button type="button" class="btn btn-info"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button> 
-          <button type="button" id="__btnPrint" class="btn btn-info"> <a href="#" style="color:white;">Print</a></button> 
-          <button type="button" id="__btnExcelExport" class="btn btn-info"> <a href="#" style="color:white;">Export</a></button> 
-          <button type="button" id="__btnImportExcel" class="btn btn-info"> <a href="#" style="color:white;">Excel Import</a></button> 
+<button type="button" class="btn btn-info" style="background-color:#f4511e
+;"> <a href="index" style="color:white;">Шинэ хүргэлт үүсгэх</a></button>
+<button type="button" id="__btnPrint" class="btn btn-info" style="background-color:#032EF1
+;"> <a href="#" style="color:white;">Хэвлэх</a></button>
+<button type="button" id="__btnExcelExport" class="btn btn-info" style="background-color:#032EF1
+;"> <a href="#" style="color:white;">Эксэлээр гаргаж авах</a></button>
+<button type="button" id="__btnImportExcel" class="btn btn-info" style="background-color:#032EF1
+;"> <a href="#" style="color:white;">Экселээс оруулах</a></button>
+<button type="button" id="__btnImportExcel" class="btn btn-info" style="background-color:#032EF1
+;"> <a href="#" style="color:white;">Загвар татаж авах</a></button>
          <div class="row">
        
-
+@if(auth()->user()->role!='customer')
                 <div class="form-group myform">
                     <label for="status">Бүс:</label>
                     <select id="filterByBus" class="form-control inputStatus9">
@@ -125,7 +130,7 @@ input[type=checkbox]:checked {
                         @endforeach                      
                     </select>
                 </div>
-              
+                
                 <div class="form-group myform">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
@@ -136,7 +141,7 @@ input[type=checkbox]:checked {
                         @endforeach    
                     </select>
                 </div>
-
+@endif
                 <div class="form-group myform">
                     <label>Эхлэх:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
@@ -197,12 +202,20 @@ input[type=checkbox]:checked {
               <!-- /.card-body -->
 
     <div style="position:fixed;bottom:20px;">
-         <button class="btn btn-primary shadow-md mr-2"><span id="y">0 </span> </button>                                                              
-         <button type="button" class="btn btn-default"  id="btnStatusModal">Төлөв солих</button> 
-         <button type="button" class="btn btn-default" id="btnBusModal">Бүс солих</button>      
-         <button type="button" class="btn btn-default" id="btnDriverModal">Жолооч солих</button>
-         <button type="button" class="btn btn-default" id="btnVerifyModal">Баталгаажуулах</button>
-         <button type="button" class="btn btn-default" id="btnDeleteModal">Устгах</button>
+         <button class="btn btn-primary shadow-md mr-2" style="background-color:#7B22FC
+;color:white;"><span id="y">0 </span> </button>
+         @if(auth()->user()->role!='customer')                                                               
+         <button type="button" class="btn btn-default"  id="btnStatusModal" style="background-color:#7B22FC
+;color:white;">Төлөв солих</button>
+         <button type="button" class="btn btn-default" id="btnBusModal" style="background-color:#7B22FC
+;color:white;">Бүс солих</button>
+         <button type="button" class="btn btn-default" id="btnDriverModal" style="background-color:#7B22FC
+;color:white;">Жолооч солих</button>
+         <button type="button" class="btn btn-default" id="btnVerifyModal" style="background-color:#7B22FC
+;color:white;">Баталгаажуулах</button>
+         <button type="button" class="btn btn-default" id="btnDeleteModal" style="background-color:#7B22FC
+;color:white;">Устгах</button>
+         @endif
     </div> 
 
 </div>
@@ -211,7 +224,7 @@ input[type=checkbox]:checked {
     
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <span class="closing">&times;</span>
           <div id="excel-wrapper">......</div>
         </div>
     </div>
@@ -803,13 +816,14 @@ input[type=checkbox]:checked {
 
             
         // When the user clicks on <span> (x), close the modal
-            $(document).on('click', '.closing', function() {
+        $(document).on('click', '.closing', function() {
             $('#customModal').attr('style','display:none');
             $('#statusModal').attr('style','display:none');
             $('#driverModal').attr('style','display:none');
             $('#deleteModal').attr('style','display:none');
             $('#importModal').attr('style','display:none');
-        $('#busModal').attr('style','display:none');
+            $('#busModal').attr('style','display:none');
+            $('#verifyModal').attr('style','display:none');
         });
 
     

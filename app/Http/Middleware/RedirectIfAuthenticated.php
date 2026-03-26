@@ -21,7 +21,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::guard($guard)->user();
+                
+                // Check if user has dashboard permission
+                if ($user && $user->checkPermissionTo('хянах_самбар')) {
+                    return redirect(RouteServiceProvider::HOME);
+                } else {
+                    // Redirect to delivery/new if user doesn't have dashboard permission
+                    return redirect('/delivery/new');
+                }
             }
         }
 

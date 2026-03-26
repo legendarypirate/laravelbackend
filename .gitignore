@@ -1,0 +1,17 @@
+# Ignore vendor
+/vendor/
+
+# Ignore everything in public
+/public/*
+
+# But allow these files
+!public/index.php
+!public/.htaccess
+
+# Laravel defaults (recommended)
+.env
+/node_modules/
+storage/*.key
+storage/app/*
+storage/framework/*
+storage/logs/*

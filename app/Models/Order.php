@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Traits\Loggable;
 
 class Order extends Model
 {
+    use Loggable;
     /**
      * Query for `Delivery` data
      *
@@ -53,7 +55,7 @@ class Order extends Model
 
 
         if (!empty($Params['customer'])) {
-            $custFilter = "AND organization= '{$Params['customer']}'";
+            $custFilter = "AND shop= '{$Params['customer']}'";
         }
 
         if (!empty($Params['region'])) {
@@ -64,9 +66,9 @@ class Order extends Model
             $driverFilter = "AND driverselected= '{$Params['driverselected']}'";
         }
 
-        if ($Params['role']=='Customer') {
+        if ($Params['role']=='customer') {
             $joinUsersTable = "LEFT JOIN users on users.name = orders.shop";
-            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='Customer'";
+            $roleFilter = "AND users.id={$Params['user_id']} AND users.role='customer'";
         }
         
         if (!empty($Params['start_date']) && empty($Params['end_date'])) {
@@ -176,9 +178,9 @@ class Order extends Model
             if (!empty($Params['except_stat'])) {
                 $exceptStatFilter = "AND status not in('{$Params['except_stat']}')";
             }
-            if ($Params['role']=='Customer') {
-                $joinUsersTable = "LEFT JOIN users on users.name = orders.organization";
-                $roleFilter = "AND users.id={$Params['user_id']} AND users.role='Customer'";
+            if ($Params['role']=='customer') {
+                $joinUsersTable = "LEFT JOIN users on users.name = orders.shop";
+                $roleFilter = "AND users.id={$Params['user_id']} AND users.role='customer'";
             }
 
             if (!empty($Params['start_date']) && empty($Params['end_date'])) {

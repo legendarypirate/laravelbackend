@@ -31,9 +31,20 @@
               <!-- form start -->
               {!! Form::open(['url' => 'notification/send', 'method'=>'post', 'role'=>'form', 'files' => true, 'enctype'=>'multipart/form-data' ]) !!}
                 <div class="card-body">
+                    <div class="form-group">
+                          <label for="exampleSelectRounded0">Төрөл <code></code></label>
+                          <select class="custom-select rounded-0" id="exampleSelectRounded0" name="type">
+                          <option value="1">Жолооч</option>
+                          <option value="2">Дэлгүүр</option>
+                          </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Гарчиг</label>
+                      <input type="text" name="title" class="form-control"  placeholder="Гарчиг">
+                    </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Агуулга</label>
-                    <input type="text" name="name" class="form-control"  placeholder="Агуулга">
+                    <input type="text" name="description" class="form-control"  placeholder="Агуулга">
                   </div>
                 </div>
                 <!-- /.card-body -->

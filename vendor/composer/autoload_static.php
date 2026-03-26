@@ -13,22 +13,23 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '265b4faa2b3a9766332744949e83bf97' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections/helpers.php',
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
@@ -37,44 +38,44 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '6b34c85f7b1ad6faa15aa12109e030f2' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/functions.php',
+        '0c3c22e27afa83be19b4c938f4c6e9ea' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Helpers/functions.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
         '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' => 
+        'v' =>
         array (
             'voku\\' => 5,
         ),
-        'p' => 
+        'p' =>
         array (
             'phpseclib3\\' => 11,
         ),
-        'Z' => 
+        'Z' =>
         array (
             'ZipStream\\' => 10,
         ),
-        'Y' => 
+        'Y' =>
         array (
             'Yajra\\DataTables\\' => 17,
         ),
-        'W' => 
+        'W' =>
         array (
             'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
         ),
-        'T' => 
+        'T' =>
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
@@ -103,15 +104,23 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'Svg\\' => 4,
+            'Spatie\\TemporaryDirectory\\' => 26,
+            'Spatie\\SignalAwareCommand\\' => 26,
             'Spatie\\Permission\\' => 18,
+            'Spatie\\LaravelPackageTools\\' => 27,
+            'Spatie\\DbDumper\\' => 16,
+            'Spatie\\Backup\\' => 14,
+            'SimpleSoftwareIO\\QrCode\\' => 24,
+            'Sabberworm\\CSS\\' => 15,
         ),
-        'R' => 
+        'R' =>
         array (
             'RealRashid\\SweetAlert\\' => 22,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
@@ -126,23 +135,24 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'ParagonIE\\ConstantTime\\' => 23,
         ),
-        'O' => 
+        'O' =>
         array (
             'Opis\\Closure\\' => 13,
         ),
-        'N' => 
+        'N' =>
         array (
             'Nyholm\\Psr7\\' => 12,
             'NunoMaduro\\Collision\\' => 21,
         ),
-        'M' => 
+        'M' =>
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
             'Matrix\\' => 7,
+            'Masterminds\\' => 12,
             'Maatwebsite\\Excel\\' => 18,
         ),
-        'L' => 
+        'L' =>
         array (
             'League\\Uri\\' => 11,
             'League\\OAuth2\\Server\\' => 21,
@@ -161,35 +171,37 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
             'Laravel\\Passport\\Database\\Factories\\' => 36,
             'Laravel\\Passport\\' => 17,
         ),
-        'I' => 
+        'I' =>
         array (
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Foundation\\Auth\\' => 27,
             'Illuminate\\' => 11,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
         ),
-        'F' => 
+        'F' =>
         array (
             'Fruitcake\\Cors\\' => 15,
+            'FontLib\\' => 8,
             'Firebase\\JWT\\' => 13,
             'Faker\\' => 6,
             'Facade\\Ignition\\' => 16,
             'Facade\\IgnitionContracts\\' => 25,
             'Facade\\FlareClient\\' => 19,
         ),
-        'E' => 
+        'E' =>
         array (
             'Egulias\\EmailValidator\\' => 23,
         ),
-        'D' => 
+        'D' =>
         array (
             'Dotenv\\' => 7,
+            'Dompdf\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
@@ -198,8 +210,9 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
             'DeepCopy\\' => 9,
             'Database\\Seeders\\' => 17,
             'Database\\Factories\\' => 19,
+            'DASPRiD\\Enum\\' => 13,
         ),
-        'C' => 
+        'C' =>
         array (
             'Cron\\' => 5,
             'Composer\\Semver\\' => 16,
@@ -207,11 +220,13 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
             'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
-        'B' => 
+        'B' =>
         array (
             'Brick\\Math\\' => 11,
+            'Barryvdh\\DomPDF\\' => 16,
+            'BaconQrCode\\' => 12,
         ),
-        'A' => 
+        'A' =>
         array (
             'Asm89\\Stack\\' => 12,
             'App\\' => 4,
@@ -219,435 +234,491 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\' => 
+        'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'phpseclib3\\' => 
+        'phpseclib3\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
         ),
-        'ZipStream\\' => 
+        'ZipStream\\' =>
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Yajra\\DataTables\\' => 
+        'Yajra\\DataTables\\' =>
         array (
             0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Webmozart\\Assert\\' => 
+        'Webmozart\\Assert\\' =>
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'TijsVerkoyen\\CssToInlineStyles\\' => 
+        'TijsVerkoyen\\CssToInlineStyles\\' =>
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
-        'Tests\\' => 
+        'Tests\\' =>
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Php73\\' => 
+        'Symfony\\Polyfill\\Php73\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
         ),
-        'Symfony\\Polyfill\\Php72\\' => 
+        'Symfony\\Polyfill\\Php72\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Polyfill\\Iconv\\' => 
+        'Symfony\\Polyfill\\Iconv\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Contracts\\Translation\\' => 
+        'Symfony\\Contracts\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
-        'Symfony\\Contracts\\Service\\' => 
+        'Symfony\\Contracts\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'Symfony\\Contracts\\EventDispatcher\\' => 
+        'Symfony\\Contracts\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Yaml\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
-        'Symfony\\Component\\VarDumper\\' => 
+        'Symfony\\Component\\VarDumper\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
-        'Symfony\\Component\\Translation\\' => 
+        'Symfony\\Component\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Symfony\\Component\\String\\' => 
+        'Symfony\\Component\\String\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
         ),
-        'Symfony\\Component\\Routing\\' => 
+        'Symfony\\Component\\Routing\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Symfony\\Component\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
         ),
-        'Symfony\\Component\\Mime\\' => 
+        'Symfony\\Component\\Mime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
-        'Symfony\\Component\\HttpKernel\\' => 
+        'Symfony\\Component\\HttpKernel\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-kernel',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Component\\HttpFoundation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Symfony\\Component\\EventDispatcher\\' => 
+        'Symfony\\Component\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
-        'Symfony\\Component\\ErrorHandler\\' => 
+        'Symfony\\Component\\ErrorHandler\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/error-handler',
         ),
-        'Symfony\\Component\\CssSelector\\' => 
+        'Symfony\\Component\\CssSelector\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
         ),
-        'Symfony\\Component\\Console\\' => 
+        'Symfony\\Component\\Console\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Symfony\\Bridge\\PsrHttpMessage\\' => 
+        'Symfony\\Bridge\\PsrHttpMessage\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
-        'Spatie\\Permission\\' => 
+        'Svg\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Spatie\\TemporaryDirectory\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
+        ),
+        'Spatie\\SignalAwareCommand\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src',
+        ),
+        'Spatie\\Permission\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
         ),
-        'RealRashid\\SweetAlert\\' => 
+        'Spatie\\LaravelPackageTools\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-package-tools/src',
+        ),
+        'Spatie\\DbDumper\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/db-dumper/src',
+        ),
+        'Spatie\\Backup\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-backup/src',
+        ),
+        'SimpleSoftwareIO\\QrCode\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src',
+        ),
+        'Sabberworm\\CSS\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
+        'RealRashid\\SweetAlert\\' =>
         array (
             0 => __DIR__ . '/..' . '/realrashid/sweet-alert/src',
         ),
-        'Ramsey\\Uuid\\' => 
+        'Ramsey\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' => 
+        'Ramsey\\Collection\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psy\\' => 
+        'Psy\\' =>
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
         ),
-        'Psr\\SimpleCache\\' => 
+        'Psr\\SimpleCache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\EventDispatcher\\' => 
+        'Psr\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Clock\\' => 
+        'Psr\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
-        'PhpParser\\' => 
+        'PhpParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'PhpOption\\' => 
+        'PhpOption\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'PhpOffice\\PhpSpreadsheet\\' => 
+        'PhpOffice\\PhpSpreadsheet\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'ParagonIE\\ConstantTime\\' => 
+        'ParagonIE\\ConstantTime\\' =>
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
-        'Opis\\Closure\\' => 
+        'Opis\\Closure\\' =>
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
         ),
-        'Nyholm\\Psr7\\' => 
+        'Nyholm\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7/src',
         ),
-        'NunoMaduro\\Collision\\' => 
+        'NunoMaduro\\Collision\\' =>
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
         ),
-        'Monolog\\' => 
+        'Monolog\\' =>
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Mockery\\' => 
+        'Mockery\\' =>
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
-        'Matrix\\' => 
+        'Matrix\\' =>
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
-        'Maatwebsite\\Excel\\' => 
+        'Masterminds\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'Maatwebsite\\Excel\\' =>
         array (
             0 => __DIR__ . '/..' . '/maatwebsite/excel/src',
         ),
-        'League\\Uri\\' => 
+        'League\\Uri\\' =>
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
-            1 => __DIR__ . '/..' . '/league/uri/src',
+            0 => __DIR__ . '/..' . '/league/uri/src',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
         ),
-        'League\\OAuth2\\Server\\' => 
+        'League\\OAuth2\\Server\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/oauth2-server/src',
         ),
-        'League\\MimeTypeDetection\\' => 
+        'League\\MimeTypeDetection\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
         ),
-        'League\\Flysystem\\' => 
+        'League\\Flysystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
-        'League\\Event\\' => 
+        'League\\Event\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/event/src',
         ),
-        'League\\Config\\' => 
+        'League\\Config\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/config/src',
         ),
-        'League\\CommonMark\\' => 
+        'League\\CommonMark\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Lcobucci\\JWT\\' => 
+        'Lcobucci\\JWT\\' =>
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
-        'Lcobucci\\Clock\\' => 
+        'Lcobucci\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/lcobucci/clock/src',
         ),
-        'Laravel\\Ui\\' => 
+        'Laravel\\Ui\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/ui/src',
         ),
-        'Laravel\\Tinker\\' => 
+        'Laravel\\Tinker\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
-        'Laravel\\SerializableClosure\\' => 
+        'Laravel\\SerializableClosure\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Laravel\\Sanctum\\' => 
+        'Laravel\\Sanctum\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/sanctum/src',
         ),
-        'Laravel\\Sail\\' => 
+        'Laravel\\Sail\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
-        'Laravel\\Passport\\Database\\Factories\\' => 
+        'Laravel\\Passport\\Database\\Factories\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/passport/database/factories',
         ),
-        'Laravel\\Passport\\' => 
+        'Laravel\\Passport\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/passport/src',
         ),
-        'Illuminate\\Support\\' => 
+        'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
             1 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections',
         ),
-        'Illuminate\\Foundation\\Auth\\' => 
+        'Illuminate\\Foundation\\Auth\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/ui/auth-backend',
         ),
-        'Illuminate\\' => 
+        'Illuminate\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'GrahamCampbell\\ResultType\\' => 
+        'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
-        'Fruitcake\\Cors\\' => 
+        'Fruitcake\\Cors\\' =>
         array (
             0 => __DIR__ . '/..' . '/fruitcake/laravel-cors/src',
         ),
-        'Firebase\\JWT\\' => 
+        'FontLib\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'Firebase\\JWT\\' =>
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Faker\\' => 
+        'Faker\\' =>
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Facade\\Ignition\\' => 
+        'Facade\\Ignition\\' =>
         array (
             0 => __DIR__ . '/..' . '/facade/ignition/src',
         ),
-        'Facade\\IgnitionContracts\\' => 
+        'Facade\\IgnitionContracts\\' =>
         array (
             0 => __DIR__ . '/..' . '/facade/ignition-contracts/src',
         ),
-        'Facade\\FlareClient\\' => 
+        'Facade\\FlareClient\\' =>
         array (
             0 => __DIR__ . '/..' . '/facade/flare-client-php/src',
         ),
-        'Egulias\\EmailValidator\\' => 
+        'Egulias\\EmailValidator\\' =>
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
         ),
-        'Dotenv\\' => 
+        'Dotenv\\' =>
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'Doctrine\\Instantiator\\' => 
+        'Dompdf\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'Doctrine\\Instantiator\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
-        'Doctrine\\Inflector\\' => 
+        'Doctrine\\Inflector\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Doctrine\\Common\\Lexer\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
         ),
-        'Dflydev\\DotAccessData\\' => 
+        'Dflydev\\DotAccessData\\' =>
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
-        'Defuse\\Crypto\\' => 
+        'Defuse\\Crypto\\' =>
         array (
             0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
         ),
-        'DeepCopy\\' => 
+        'DeepCopy\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Database\\Seeders\\' => 
+        'Database\\Seeders\\' =>
         array (
             0 => __DIR__ . '/../..' . '/database/seeders',
         ),
-        'Database\\Factories\\' => 
+        'Database\\Factories\\' =>
         array (
             0 => __DIR__ . '/../..' . '/database/factories',
         ),
-        'Cron\\' => 
+        'DASPRiD\\Enum\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
+        'Cron\\' =>
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
-        'Composer\\Semver\\' => 
+        'Composer\\Semver\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
-        'Complex\\' => 
+        'Complex\\' =>
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
-        'Collective\\Html\\' => 
+        'Collective\\Html\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravelcollective/html/src',
         ),
-        'Carbon\\' => 
+        'Carbon\\' =>
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'Brick\\Math\\' => 
+        'Brick\\Math\\' =>
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'Asm89\\Stack\\' => 
+        'Barryvdh\\DomPDF\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
+        ),
+        'BaconQrCode\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+        ),
+        'Asm89\\Stack\\' =>
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'H' => 
+        'H' =>
         array (
-            'HTMLPurifier' => 
+            'HTMLPurifier' =>
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
@@ -658,6 +729,7 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Exports\\DeliveryExport' => __DIR__ . '/../..' . '/app/Exports/DeliveryExport.php',
+        'App\\Exports\\DeliveryReportExport' => __DIR__ . '/../..' . '/app/Exports/DeliveryReportExport.php',
         'App\\Exports\\OrderExport' => __DIR__ . '/../..' . '/app/Exports/OrderExport.php',
         'App\\Http\\Controllers\\AddressController' => __DIR__ . '/../..' . '/app/Http/Controllers/AddressController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -666,21 +738,31 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\BannerController' => __DIR__ . '/../..' . '/app/Http/Controllers/BannerController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DeliveryController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeliveryController.php',
+        'App\\Http\\Controllers\\DeliveryDownloadController' => __DIR__ . '/../..' . '/app/Http/Controllers/DeliveryDownloadController.php',
+        'App\\Http\\Controllers\\DriverController' => __DIR__ . '/../..' . '/app/Http/Controllers/DriverController.php',
+        'App\\Http\\Controllers\\FeedbackController' => __DIR__ . '/../..' . '/app/Http/Controllers/FeedbackController.php',
         'App\\Http\\Controllers\\GoodController' => __DIR__ . '/../..' . '/app/Http/Controllers/GoodController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\InvoiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvoiceController.php',
+        'App\\Http\\Controllers\\InvoiceProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvoiceProfileController.php',
+        'App\\Http\\Controllers\\ItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/ItemController.php',
         'App\\Http\\Controllers\\LogController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogController.php',
+        'App\\Http\\Controllers\\NotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotificationController.php',
         'App\\Http\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/OrderController.php',
         'App\\Http\\Controllers\\PhoneController' => __DIR__ . '/../..' . '/app/Http/Controllers/PhoneController.php',
         'App\\Http\\Controllers\\RegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegionController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
+        'App\\Http\\Controllers\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/SettingController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\WareController' => __DIR__ . '/../..' . '/app/Http/Controllers/WareController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\HttpsProtocol' => __DIR__ . '/../..' . '/app/Http/Middleware/HttpsProtocol.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
@@ -690,15 +772,28 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Imports\\RequestImportExcel' => __DIR__ . '/../..' . '/app/Imports/RequestImportExcel.php',
         'App\\Models\\Address' => __DIR__ . '/../..' . '/app/Models/Address.php',
+        'App\\Models\\Banner' => __DIR__ . '/../..' . '/app/Models/Banner.php',
+        'App\\Models\\City' => __DIR__ . '/../..' . '/app/Models/City.php',
         'App\\Models\\Delivery' => __DIR__ . '/../..' . '/app/Models/Delivery.php',
+        'App\\Models\\DeliveryDownload' => __DIR__ . '/../..' . '/app/Models/DeliveryDownload.php',
+        'App\\Models\\Driver' => __DIR__ . '/../..' . '/app/Models/Driver.php',
+        'App\\Models\\Feedback' => __DIR__ . '/../..' . '/app/Models/Feedback.php',
         'App\\Models\\General' => __DIR__ . '/../..' . '/app/Models/General.php',
         'App\\Models\\Good' => __DIR__ . '/../..' . '/app/Models/Good.php',
+        'App\\Models\\History' => __DIR__ . '/../..' . '/app/Models/History.php',
+        'App\\Models\\Invoice' => __DIR__ . '/../..' . '/app/Models/Invoice.php',
+        'App\\Models\\InvoiceProfile' => __DIR__ . '/../..' . '/app/Models/InvoiceProfile.php',
+        'App\\Models\\InvoiceProfileBank' => __DIR__ . '/../..' . '/app/Models/InvoiceProfileBank.php',
+        'App\\Models\\Item' => __DIR__ . '/../..' . '/app/Models/Item.php',
         'App\\Models\\Log' => __DIR__ . '/../..' . '/app/Models/Log.php',
+        'App\\Models\\Merchant' => __DIR__ . '/../..' . '/app/Models/Merchant.php',
+        'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\PermissionCategory' => __DIR__ . '/../..' . '/app/Models/PermissionCategory.php',
         'App\\Models\\Phone' => __DIR__ . '/../..' . '/app/Models/Phone.php',
         'App\\Models\\Region' => __DIR__ . '/../..' . '/app/Models/Region.php',
+        'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Ware' => __DIR__ . '/../..' . '/app/Models/Ware.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
@@ -709,6 +804,69 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'BaconQrCode\\Common\\BitArray' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitArray.php',
+        'BaconQrCode\\Common\\BitMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitMatrix.php',
+        'BaconQrCode\\Common\\BitUtils' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/BitUtils.php',
+        'BaconQrCode\\Common\\CharacterSetEci' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/CharacterSetEci.php',
+        'BaconQrCode\\Common\\EcBlock' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/EcBlock.php',
+        'BaconQrCode\\Common\\EcBlocks' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/EcBlocks.php',
+        'BaconQrCode\\Common\\ErrorCorrectionLevel' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/ErrorCorrectionLevel.php',
+        'BaconQrCode\\Common\\FormatInformation' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/FormatInformation.php',
+        'BaconQrCode\\Common\\Mode' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/Mode.php',
+        'BaconQrCode\\Common\\ReedSolomonCodec' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/ReedSolomonCodec.php',
+        'BaconQrCode\\Common\\Version' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Common/Version.php',
+        'BaconQrCode\\Encoder\\BlockPair' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/BlockPair.php',
+        'BaconQrCode\\Encoder\\ByteMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/ByteMatrix.php',
+        'BaconQrCode\\Encoder\\Encoder' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/Encoder.php',
+        'BaconQrCode\\Encoder\\MaskUtil' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/MaskUtil.php',
+        'BaconQrCode\\Encoder\\MatrixUtil' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/MatrixUtil.php',
+        'BaconQrCode\\Encoder\\QrCode' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Encoder/QrCode.php',
+        'BaconQrCode\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/ExceptionInterface.php',
+        'BaconQrCode\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/InvalidArgumentException.php',
+        'BaconQrCode\\Exception\\OutOfBoundsException' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/OutOfBoundsException.php',
+        'BaconQrCode\\Exception\\RuntimeException' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/RuntimeException.php',
+        'BaconQrCode\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/UnexpectedValueException.php',
+        'BaconQrCode\\Exception\\WriterException' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Exception/WriterException.php',
+        'BaconQrCode\\Renderer\\Color\\Alpha' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Color/Alpha.php',
+        'BaconQrCode\\Renderer\\Color\\Cmyk' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Color/Cmyk.php',
+        'BaconQrCode\\Renderer\\Color\\ColorInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Color/ColorInterface.php',
+        'BaconQrCode\\Renderer\\Color\\Gray' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Color/Gray.php',
+        'BaconQrCode\\Renderer\\Color\\Rgb' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Color/Rgb.php',
+        'BaconQrCode\\Renderer\\Eye\\CompositeEye' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Eye/CompositeEye.php',
+        'BaconQrCode\\Renderer\\Eye\\EyeInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Eye/EyeInterface.php',
+        'BaconQrCode\\Renderer\\Eye\\ModuleEye' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Eye/ModuleEye.php',
+        'BaconQrCode\\Renderer\\Eye\\SimpleCircleEye' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Eye/SimpleCircleEye.php',
+        'BaconQrCode\\Renderer\\Eye\\SquareEye' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Eye/SquareEye.php',
+        'BaconQrCode\\Renderer\\ImageRenderer' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/ImageRenderer.php',
+        'BaconQrCode\\Renderer\\Image\\EpsImageBackEnd' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Image/EpsImageBackEnd.php',
+        'BaconQrCode\\Renderer\\Image\\ImageBackEndInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Image/ImageBackEndInterface.php',
+        'BaconQrCode\\Renderer\\Image\\ImagickImageBackEnd' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Image/ImagickImageBackEnd.php',
+        'BaconQrCode\\Renderer\\Image\\SvgImageBackEnd' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Image/SvgImageBackEnd.php',
+        'BaconQrCode\\Renderer\\Image\\TransformationMatrix' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Image/TransformationMatrix.php',
+        'BaconQrCode\\Renderer\\Module\\DotsModule' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/DotsModule.php',
+        'BaconQrCode\\Renderer\\Module\\EdgeIterator\\Edge' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/EdgeIterator/Edge.php',
+        'BaconQrCode\\Renderer\\Module\\EdgeIterator\\EdgeIterator' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/EdgeIterator/EdgeIterator.php',
+        'BaconQrCode\\Renderer\\Module\\ModuleInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/ModuleInterface.php',
+        'BaconQrCode\\Renderer\\Module\\RoundnessModule' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/RoundnessModule.php',
+        'BaconQrCode\\Renderer\\Module\\SquareModule' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Module/SquareModule.php',
+        'BaconQrCode\\Renderer\\Path\\Close' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/Close.php',
+        'BaconQrCode\\Renderer\\Path\\Curve' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/Curve.php',
+        'BaconQrCode\\Renderer\\Path\\EllipticArc' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/EllipticArc.php',
+        'BaconQrCode\\Renderer\\Path\\Line' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/Line.php',
+        'BaconQrCode\\Renderer\\Path\\Move' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/Move.php',
+        'BaconQrCode\\Renderer\\Path\\OperationInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/OperationInterface.php',
+        'BaconQrCode\\Renderer\\Path\\Path' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/Path/Path.php',
+        'BaconQrCode\\Renderer\\PlainTextRenderer' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/PlainTextRenderer.php',
+        'BaconQrCode\\Renderer\\RendererInterface' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererInterface.php',
+        'BaconQrCode\\Renderer\\RendererStyle\\EyeFill' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererStyle/EyeFill.php',
+        'BaconQrCode\\Renderer\\RendererStyle\\Fill' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererStyle/Fill.php',
+        'BaconQrCode\\Renderer\\RendererStyle\\Gradient' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererStyle/Gradient.php',
+        'BaconQrCode\\Renderer\\RendererStyle\\GradientType' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererStyle/GradientType.php',
+        'BaconQrCode\\Renderer\\RendererStyle\\RendererStyle' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Renderer/RendererStyle/RendererStyle.php',
+        'BaconQrCode\\Writer' => __DIR__ . '/..' . '/bacon/bacon-qr-code/src/Writer.php',
+        'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
+        'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
+        'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',
@@ -807,6 +965,652 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Carbon\\TranslatorImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/TranslatorImmutable.php',
         'Carbon\\TranslatorStrongTypeInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/TranslatorStrongTypeInterface.php',
+        'Cloudinary\\Api\\Admin\\AdminApi' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/AdminApi.php',
+        'Cloudinary\\Api\\Admin\\AnalysisTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/AnalysisTrait.php',
+        'Cloudinary\\Api\\Admin\\ApiEndPoint' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/ApiEndPoint.php',
+        'Cloudinary\\Api\\Admin\\AssetsTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/AssetsTrait.php',
+        'Cloudinary\\Api\\Admin\\FoldersTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/FoldersTrait.php',
+        'Cloudinary\\Api\\Admin\\MetadataFieldsTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/MetadataFieldsTrait.php',
+        'Cloudinary\\Api\\Admin\\MiscTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/MiscTrait.php',
+        'Cloudinary\\Api\\Admin\\StreamingProfilesTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/StreamingProfilesTrait.php',
+        'Cloudinary\\Api\\Admin\\TransformationsTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/TransformationsTrait.php',
+        'Cloudinary\\Api\\Admin\\UploadMappingsTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/UploadMappingsTrait.php',
+        'Cloudinary\\Api\\Admin\\UploadPresetsTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Admin/UploadPresetsTrait.php',
+        'Cloudinary\\Api\\ApiClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/ApiClient.php',
+        'Cloudinary\\Api\\ApiResponse' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/ApiResponse.php',
+        'Cloudinary\\Api\\ApiUtils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Utils/ApiUtils.php',
+        'Cloudinary\\Api\\BaseApiClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/BaseApiClient.php',
+        'Cloudinary\\Api\\Exception\\AlreadyExists' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/AlreadyExists.php',
+        'Cloudinary\\Api\\Exception\\ApiError' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/ApiError.php',
+        'Cloudinary\\Api\\Exception\\AuthorizationRequired' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/AuthorizationRequired.php',
+        'Cloudinary\\Api\\Exception\\BadRequest' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/BadRequest.php',
+        'Cloudinary\\Api\\Exception\\GeneralError' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/GeneralError.php',
+        'Cloudinary\\Api\\Exception\\NotAllowed' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/NotAllowed.php',
+        'Cloudinary\\Api\\Exception\\NotFound' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/NotFound.php',
+        'Cloudinary\\Api\\Exception\\RateLimited' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Exception/RateLimited.php',
+        'Cloudinary\\Api\\HttpMethod' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Utils/HttpMethod.php',
+        'Cloudinary\\Api\\HttpStatusCode' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Utils/HttpStatusCode.php',
+        'Cloudinary\\Api\\Metadata\\DateMetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/DateMetadataField.php',
+        'Cloudinary\\Api\\Metadata\\EnumMetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/EnumMetadataField.php',
+        'Cloudinary\\Api\\Metadata\\IntMetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/IntMetadataField.php',
+        'Cloudinary\\Api\\Metadata\\Metadata' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Metadata.php',
+        'Cloudinary\\Api\\Metadata\\MetadataDataEntry' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/MetadataDataEntry.php',
+        'Cloudinary\\Api\\Metadata\\MetadataDataSource' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/MetadataDataSource.php',
+        'Cloudinary\\Api\\Metadata\\MetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/MetadataField.php',
+        'Cloudinary\\Api\\Metadata\\MetadataFieldList' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/MetadataFieldList.php',
+        'Cloudinary\\Api\\Metadata\\MetadataFieldType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/MetadataFieldType.php',
+        'Cloudinary\\Api\\Metadata\\SetMetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/SetMetadataField.php',
+        'Cloudinary\\Api\\Metadata\\StringMetadataField' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/StringMetadataField.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\AndValidator' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/AndValidator.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\ComparisonRule' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/ComparisonRule.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\DateGreaterThan' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/DateGreaterThan.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\DateLessThan' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/DateLessThan.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\IntGreaterThan' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/IntGreaterThan.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\IntLessThan' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/IntLessThan.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\MetadataValidation' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/MetadataValidation.php',
+        'Cloudinary\\Api\\Metadata\\Validators\\StringLength' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Metadata/Validators/StringLength.php',
+        'Cloudinary\\Api\\Provisioning\\AccountApi' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Provisioning/AccountApi.php',
+        'Cloudinary\\Api\\Provisioning\\AccountApiClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Provisioning/AccountApiClient.php',
+        'Cloudinary\\Api\\Provisioning\\AccountEndPoint' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Provisioning/AccountEndPoint.php',
+        'Cloudinary\\Api\\Provisioning\\UserRole' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Provisioning/UserRole.php',
+        'Cloudinary\\Api\\Search\\SearchApi' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Search/SearchApi.php',
+        'Cloudinary\\Api\\Search\\SearchFoldersApi' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Search/SearchFoldersApi.php',
+        'Cloudinary\\Api\\Search\\SearchQueryInterface' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Search/SearchQueryInterface.php',
+        'Cloudinary\\Api\\Search\\SearchQueryTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Search/SearchQueryTrait.php',
+        'Cloudinary\\Api\\UploadApiClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/UploadApiClient.php',
+        'Cloudinary\\Api\\Upload\\ArchiveTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/ArchiveTrait.php',
+        'Cloudinary\\Api\\Upload\\ContextCommand' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/ContextCommand.php',
+        'Cloudinary\\Api\\Upload\\ContextTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/ContextTrait.php',
+        'Cloudinary\\Api\\Upload\\CreativeTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/CreativeTrait.php',
+        'Cloudinary\\Api\\Upload\\EditTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/EditTrait.php',
+        'Cloudinary\\Api\\Upload\\TagCommand' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/TagCommand.php',
+        'Cloudinary\\Api\\Upload\\TagTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/TagTrait.php',
+        'Cloudinary\\Api\\Upload\\UploadApi' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/UploadApi.php',
+        'Cloudinary\\Api\\Upload\\UploadEndPoint' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/UploadEndPoint.php',
+        'Cloudinary\\Api\\Upload\\UploadTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Api/Upload/UploadTrait.php',
+        'Cloudinary\\ArrayUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Utils/ArrayUtils.php',
+        'Cloudinary\\Asset\\AccessControl\\AccessControlRule' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AccessControl/AccessControlRule.php',
+        'Cloudinary\\Asset\\AccessControl\\AccessType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AccessControl/AccessType.php',
+        'Cloudinary\\Asset\\Analytics' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Analytics/Analytics.php',
+        'Cloudinary\\Asset\\AssetDescriptor' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Descriptor/AssetDescriptor.php',
+        'Cloudinary\\Asset\\AssetDescriptorTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Descriptor/AssetDescriptorTrait.php',
+        'Cloudinary\\Asset\\AssetFinalizerTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AssetFinalizerTrait.php',
+        'Cloudinary\\Asset\\AssetInterface' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AssetInterface.php',
+        'Cloudinary\\Asset\\AssetQualifiers' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AssetQualifiers.php',
+        'Cloudinary\\Asset\\AssetTransformation' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Descriptor/AssetTransformation.php',
+        'Cloudinary\\Asset\\AssetType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Descriptor/AssetType.php',
+        'Cloudinary\\Asset\\AuthToken' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/AuthToken.php',
+        'Cloudinary\\Asset\\BaseAsset' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/BaseAsset.php',
+        'Cloudinary\\Asset\\BaseMediaAsset' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/BaseMediaAsset.php',
+        'Cloudinary\\Asset\\DeliveryType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Descriptor/DeliveryType.php',
+        'Cloudinary\\Asset\\DeliveryTypeTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/DeliveryTypeTrait.php',
+        'Cloudinary\\Asset\\File' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/File.php',
+        'Cloudinary\\Asset\\Image' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Image.php',
+        'Cloudinary\\Asset\\Media' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Media.php',
+        'Cloudinary\\Asset\\MediaAssetFinalizerTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/MediaAssetFinalizerTrait.php',
+        'Cloudinary\\Asset\\ModerationStatus' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Moderation/ModerationStatus.php',
+        'Cloudinary\\Asset\\ModerationType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Moderation/ModerationType.php',
+        'Cloudinary\\Asset\\SearchAsset' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/SearchAsset.php',
+        'Cloudinary\\Asset\\SearchAssetTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/SearchAssetTrait.php',
+        'Cloudinary\\Asset\\Video' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Asset/Video.php',
+        'Cloudinary\\ClassUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Utils/ClassUtils.php',
+        'Cloudinary\\Cloudinary' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Cloudinary.php',
+        'Cloudinary\\Configuration\\ApiConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/ApiConfig.php',
+        'Cloudinary\\Configuration\\AssetConfigTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/AssetConfigTrait.php',
+        'Cloudinary\\Configuration\\AuthTokenConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/AuthTokenConfig.php',
+        'Cloudinary\\Configuration\\BaseConfigSection' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/BaseConfigSection.php',
+        'Cloudinary\\Configuration\\CloudConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/CloudConfig.php',
+        'Cloudinary\\Configuration\\CloudConfigTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/CloudConfigTrait.php',
+        'Cloudinary\\Configuration\\ConfigUtils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/ConfigUtils.php',
+        'Cloudinary\\Configuration\\ConfigurableInterface' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/ConfigurableInterface.php',
+        'Cloudinary\\Configuration\\Configuration' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/Configuration.php',
+        'Cloudinary\\Configuration\\LoggingConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/LoggingConfig.php',
+        'Cloudinary\\Configuration\\Provisioning\\ProvisioningAccountConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/Provisioning/ProvisioningAccountConfig.php',
+        'Cloudinary\\Configuration\\Provisioning\\ProvisioningConfigUtils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/Provisioning/ProvisioningConfigUtils.php',
+        'Cloudinary\\Configuration\\Provisioning\\ProvisioningConfiguration' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/Provisioning/ProvisioningConfiguration.php',
+        'Cloudinary\\Configuration\\ResponsiveBreakpointsConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/ResponsiveBreakpointsConfig.php',
+        'Cloudinary\\Configuration\\TagConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/TagConfig.php',
+        'Cloudinary\\Configuration\\TagConfigTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/TagConfigTrait.php',
+        'Cloudinary\\Configuration\\UrlConfig' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/UrlConfig.php',
+        'Cloudinary\\Configuration\\UrlConfigTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Configuration/UrlConfigTrait.php',
+        'Cloudinary\\Exception\\ConfigurationException' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Exception/ConfigurationException.php',
+        'Cloudinary\\Exception\\Error' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Exception/Error.php',
+        'Cloudinary\\FileUtils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/FileUtils.php',
+        'Cloudinary\\HttpClient' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/HttpClient/HttpClient.php',
+        'Cloudinary\\JsonUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Utils/JsonUtils.php',
+        'Cloudinary\\Log\\Logger' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/Logger.php',
+        'Cloudinary\\Log\\LoggerDecorator' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggerDecorator.php',
+        'Cloudinary\\Log\\LoggerDecoratorTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggerDecorator.php',
+        'Cloudinary\\Log\\LoggerDecoratorV1Trait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggerDecoratorV1Trait.php',
+        'Cloudinary\\Log\\LoggerDecoratorV3Trait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggerDecoratorV3Trait.php',
+        'Cloudinary\\Log\\LoggerTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggerTrait.php',
+        'Cloudinary\\Log\\LoggersList' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Log/LoggersList.php',
+        'Cloudinary\\StringUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Utils/StringUtils.php',
+        'Cloudinary\\Tag\\AudioSourceType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/AudioSourceType.php',
+        'Cloudinary\\Tag\\BaseConfigurableApiTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/BaseConfigurableApiTag.php',
+        'Cloudinary\\Tag\\BaseImageTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/BaseImageTag.php',
+        'Cloudinary\\Tag\\BaseTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/BaseTag.php',
+        'Cloudinary\\Tag\\ClientHintsMetaTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/ClientHintsMetaTag.php',
+        'Cloudinary\\Tag\\FormInputTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/FormInputTag.php',
+        'Cloudinary\\Tag\\FormTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/FormTag.php',
+        'Cloudinary\\Tag\\ImageTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/ImageTag.php',
+        'Cloudinary\\Tag\\ImageTagDeliveryTypeTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/ImageTagDeliveryTypeTrait.php',
+        'Cloudinary\\Tag\\JsConfigTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/JsConfigTag.php',
+        'Cloudinary\\Tag\\Media' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/Media.php',
+        'Cloudinary\\Tag\\PictureSourceTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/PictureSourceTag.php',
+        'Cloudinary\\Tag\\PictureTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/PictureTag.php',
+        'Cloudinary\\Tag\\Sizes' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/Sizes.php',
+        'Cloudinary\\Tag\\SourceType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/SourceType.php',
+        'Cloudinary\\Tag\\SpriteTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/SpriteTag.php',
+        'Cloudinary\\Tag\\SrcSet' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/SrcSet.php',
+        'Cloudinary\\Tag\\Tag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Tag.php',
+        'Cloudinary\\Tag\\TagBuilder' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/TagBuilder.php',
+        'Cloudinary\\Tag\\TagUtils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/TagUtils.php',
+        'Cloudinary\\Tag\\UploadTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/UploadTag.php',
+        'Cloudinary\\Tag\\VideoSourceTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/VideoSourceTag.php',
+        'Cloudinary\\Tag\\VideoSourceType' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/Attribute/VideoSourceType.php',
+        'Cloudinary\\Tag\\VideoTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/VideoTag.php',
+        'Cloudinary\\Tag\\VideoTagDeliveryTypeTrait' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/VideoTagDeliveryTypeTrait.php',
+        'Cloudinary\\Tag\\VideoThumbnailTag' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Tag/VideoThumbnailTag.php',
+        'Cloudinary\\TransformationUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Utils/TransformationUtils.php',
+        'Cloudinary\\Transformation\\AbsolutePosition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/AbsolutePosition.php',
+        'Cloudinary\\Transformation\\AbsolutePositionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/AbsolutePositionTrait.php',
+        'Cloudinary\\Transformation\\Accelerate' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/Accelerate.php',
+        'Cloudinary\\Transformation\\AccessoryObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/AccessoryObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\AccessoryObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/AccessoryObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\Action' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Action.php',
+        'Cloudinary\\Transformation\\AddonEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/AddonEffectTrait.php',
+        'Cloudinary\\Transformation\\Adjust' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/Adjust.php',
+        'Cloudinary\\Transformation\\AdjustmentInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/AdjustmentInterface.php',
+        'Cloudinary\\Transformation\\Angle' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/Angle.php',
+        'Cloudinary\\Transformation\\AngleQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/AngleQualifierTrait.php',
+        'Cloudinary\\Transformation\\AnimalObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/AnimalObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\AnimalObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/AnimalObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\Animated' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Animated/Animated.php',
+        'Cloudinary\\Transformation\\AnimatedEdit' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Animated/AnimatedEdit.php',
+        'Cloudinary\\Transformation\\AnimatedEditTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Animated/AnimatedEditTrait.php',
+        'Cloudinary\\Transformation\\AnimatedFormat' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/AnimatedFormat.php',
+        'Cloudinary\\Transformation\\AnimatedFormatTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/AnimatedFormatTrait.php',
+        'Cloudinary\\Transformation\\AppearanceEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/AppearanceEffect.php',
+        'Cloudinary\\Transformation\\ApplianceObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ApplianceObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\ApplianceObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ApplianceObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\Argument\\AngleTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/AngleTrait.php',
+        'Cloudinary\\Transformation\\Argument\\BaseNamedArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/BaseNamedArgument.php',
+        'Cloudinary\\Transformation\\Argument\\Color' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/Color.php',
+        'Cloudinary\\Transformation\\Argument\\ColorTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/ColorTrait.php',
+        'Cloudinary\\Transformation\\Argument\\ColorValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/ColorValue.php',
+        'Cloudinary\\Transformation\\Argument\\Degree' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/Degree.php',
+        'Cloudinary\\Transformation\\Argument\\GenericArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/GenericArgument.php',
+        'Cloudinary\\Transformation\\Argument\\GenericNamedArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/GenericNamedArgument.php',
+        'Cloudinary\\Transformation\\Argument\\Gradient' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/Gradient.php',
+        'Cloudinary\\Transformation\\Argument\\GradientDirection' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/GradientDirection.php',
+        'Cloudinary\\Transformation\\Argument\\IndexedArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Misc/IndexedArgument.php',
+        'Cloudinary\\Transformation\\Argument\\LimitedGenericNamedArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/LimitedGenericNamedArgument.php',
+        'Cloudinary\\Transformation\\Argument\\PointValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Canvas/PointValue.php',
+        'Cloudinary\\Transformation\\Argument\\RangeArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Misc/RangeArgument.php',
+        'Cloudinary\\Transformation\\Argument\\Range\\PreviewDuration' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Argument/Range/PreviewDuration.php',
+        'Cloudinary\\Transformation\\Argument\\Range\\Range' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Argument/Range/Range.php',
+        'Cloudinary\\Transformation\\Argument\\RotationMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/RotationMode.php',
+        'Cloudinary\\Transformation\\Argument\\RotationModeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/RotationModeTrait.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\FontAntialias' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/FontAntialias.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\FontFamily' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/FontFamily.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\FontHinting' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/FontHinting.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\FontStyle' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/FontStyle.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\FontWeight' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/FontWeight.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\Stroke' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/Stroke.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\Text' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/Text.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\TextAlignment' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/TextAlignment.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\TextDecoration' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/TextDecoration.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\TextStyleTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/TextStyleTrait.php',
+        'Cloudinary\\Transformation\\Argument\\Text\\TextTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/TextTrait.php',
+        'Cloudinary\\Transformation\\ArtisticFilter' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/ArtisticFilter.php',
+        'Cloudinary\\Transformation\\AspectRatio' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/AspectRatio.php',
+        'Cloudinary\\Transformation\\AssetBasedSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/AssetBasedSource.php',
+        'Cloudinary\\Transformation\\AssistColorBlind' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/AssistColorBlind.php',
+        'Cloudinary\\Transformation\\AudioCodec' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Audio/AudioCodec.php',
+        'Cloudinary\\Transformation\\AudioFormatInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/AudioFormatInterface.php',
+        'Cloudinary\\Transformation\\AudioFormatTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/AudioFormatTrait.php',
+        'Cloudinary\\Transformation\\AudioFrequency' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Audio/AudioFrequency.php',
+        'Cloudinary\\Transformation\\AudioOverlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/AudioOverlay.php',
+        'Cloudinary\\Transformation\\AudioQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Audio/AudioQualifierTrait.php',
+        'Cloudinary\\Transformation\\AudioSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/AudioSource.php',
+        'Cloudinary\\Transformation\\AudioSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/AudioSourceQualifier.php',
+        'Cloudinary\\Transformation\\AudioSourceTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/AudioSourceTrait.php',
+        'Cloudinary\\Transformation\\AutoBackground' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/AutoBackground.php',
+        'Cloudinary\\Transformation\\AutoBackgroundMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/AutoBackgroundMode.php',
+        'Cloudinary\\Transformation\\AutoBackgroundTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/AutoBackgroundTrait.php',
+        'Cloudinary\\Transformation\\AutoFocus' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/AutoFocus.php',
+        'Cloudinary\\Transformation\\AutoGradientBackground' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/AutoGradientBackground.php',
+        'Cloudinary\\Transformation\\AutoGradientBackgroundTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/AutoGradientBackgroundTrait.php',
+        'Cloudinary\\Transformation\\AutoGravity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/AutoGravity.php',
+        'Cloudinary\\Transformation\\AutoGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/AutoGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\AutoGravityObject' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/AutoGravityObject.php',
+        'Cloudinary\\Transformation\\Background' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/Background.php',
+        'Cloudinary\\Transformation\\BackgroundColorTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/BackgroundColorTrait.php',
+        'Cloudinary\\Transformation\\BackgroundQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/BackgroundQualifierTrait.php',
+        'Cloudinary\\Transformation\\BackgroundRemoval' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/BackgroundRemoval.php',
+        'Cloudinary\\Transformation\\BackgroundTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/BackgroundTrait.php',
+        'Cloudinary\\Transformation\\BaseAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/BaseAction.php',
+        'Cloudinary\\Transformation\\BaseArgument' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/BaseArgument.php',
+        'Cloudinary\\Transformation\\BaseComponent' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/BaseComponent.php',
+        'Cloudinary\\Transformation\\BaseOffsetQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/BaseOffsetQualifier.php',
+        'Cloudinary\\Transformation\\BasePageAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/BasePageAction.php',
+        'Cloudinary\\Transformation\\BasePosition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/BasePosition.php',
+        'Cloudinary\\Transformation\\BasePositionalSourceContainer' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/BasePositionalSourceContainer.php',
+        'Cloudinary\\Transformation\\BaseResizeAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/BaseResizeAction.php',
+        'Cloudinary\\Transformation\\BaseSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/BaseSource.php',
+        'Cloudinary\\Transformation\\BaseSourceContainer' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/BaseSourceContainer.php',
+        'Cloudinary\\Transformation\\BaseSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/BaseSourceQualifier.php',
+        'Cloudinary\\Transformation\\BitRate' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/BitRate.php',
+        'Cloudinary\\Transformation\\BlendEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/BlendEffectAction.php',
+        'Cloudinary\\Transformation\\BlendEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/BlendEffectQualifier.php',
+        'Cloudinary\\Transformation\\BlendMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/BlendMode.php',
+        'Cloudinary\\Transformation\\Blur' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/Blur.php',
+        'Cloudinary\\Transformation\\BlurredBackground' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/BlurredBackground.php',
+        'Cloudinary\\Transformation\\Border' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Border/Border.php',
+        'Cloudinary\\Transformation\\BorderQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Border/BorderQualifier.php',
+        'Cloudinary\\Transformation\\BorderQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Border/BorderQualifierTrait.php',
+        'Cloudinary\\Transformation\\BorderStyleTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Border/BorderStyleTrait.php',
+        'Cloudinary\\Transformation\\BorderValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Border/BorderValue.php',
+        'Cloudinary\\Transformation\\Cartoonify' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/Cartoonify.php',
+        'Cloudinary\\Transformation\\ChromaSubSampling' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/ChromaSubSampling.php',
+        'Cloudinary\\Transformation\\ClippingPath' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/ClippingPath.php',
+        'Cloudinary\\Transformation\\Codec\\VideoCodecLevel' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Codec/VideoCodecLevel.php',
+        'Cloudinary\\Transformation\\Codec\\VideoCodecProfile' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Codec/VideoCodecProfile.php',
+        'Cloudinary\\Transformation\\ColorEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/ColorEffect.php',
+        'Cloudinary\\Transformation\\ColorQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Color/ColorQualifier.php',
+        'Cloudinary\\Transformation\\ColorQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Color/ColorQualifierTrait.php',
+        'Cloudinary\\Transformation\\ColorSpace' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/ColorSpace/ColorSpace.php',
+        'Cloudinary\\Transformation\\ColorSpaceQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/ColorSpace/ColorSpaceQualifierTrait.php',
+        'Cloudinary\\Transformation\\ColorToReplaceTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Color/ColorToReplaceTrait.php',
+        'Cloudinary\\Transformation\\ColorTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Color/ColorTrait.php',
+        'Cloudinary\\Transformation\\ColoredEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/ColoredEffectAction.php',
+        'Cloudinary\\Transformation\\Colorize' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/Colorize.php',
+        'Cloudinary\\Transformation\\CommonAdjustmentTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/CommonAdjustmentTrait.php',
+        'Cloudinary\\Transformation\\CommonEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/CommonEffectTrait.php',
+        'Cloudinary\\Transformation\\CommonFlag' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/CommonFlag.php',
+        'Cloudinary\\Transformation\\CommonFlagInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/CommonFlagInterface.php',
+        'Cloudinary\\Transformation\\CommonFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/CommonFlagTrait.php',
+        'Cloudinary\\Transformation\\CommonTransformation' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CommonTransformation.php',
+        'Cloudinary\\Transformation\\CommonTransformationFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/CommonTransformationFlagTrait.php',
+        'Cloudinary\\Transformation\\CommonTransformationInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CommonTransformationInterface.php',
+        'Cloudinary\\Transformation\\CommonTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CommonTransformationTrait.php',
+        'Cloudinary\\Transformation\\Compass' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/Compass.php',
+        'Cloudinary\\Transformation\\CompassGravity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/CompassGravity.php',
+        'Cloudinary\\Transformation\\CompassGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/CompassGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\CompassGravityTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/CompassGravityTrait.php',
+        'Cloudinary\\Transformation\\CompassPosition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/CompassPosition.php',
+        'Cloudinary\\Transformation\\CompassPositionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/CompassPositionTrait.php',
+        'Cloudinary\\Transformation\\ComponentInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/ComponentInterface.php',
+        'Cloudinary\\Transformation\\Concatenate' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Edit/Concatenate.php',
+        'Cloudinary\\Transformation\\ConditionQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Condition/ConditionQualifierTrait.php',
+        'Cloudinary\\Transformation\\Conditional' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Condition/Conditional.php',
+        'Cloudinary\\Transformation\\CornerRadius' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/CornerRadius.php',
+        'Cloudinary\\Transformation\\CornerRadiusQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/CornerRadiusQualifierTrait.php',
+        'Cloudinary\\Transformation\\CornerRadiusTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/CornerRadiusTrait.php',
+        'Cloudinary\\Transformation\\Corners' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/Corners.php',
+        'Cloudinary\\Transformation\\CornersTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/CornersTrait.php',
+        'Cloudinary\\Transformation\\Crop' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Crop/Crop.php',
+        'Cloudinary\\Transformation\\CropMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/CropMode.php',
+        'Cloudinary\\Transformation\\CropModeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/CropModeTrait.php',
+        'Cloudinary\\Transformation\\CropTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Crop/CropTrait.php',
+        'Cloudinary\\Transformation\\CustomFunction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CustomFunction/CustomFunction.php',
+        'Cloudinary\\Transformation\\CustomFunctionQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CustomFunction/CustomFunctionQualifierTrait.php',
+        'Cloudinary\\Transformation\\CustomFunctionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CustomFunction/CustomFunctionTrait.php',
+        'Cloudinary\\Transformation\\CustomFunctionValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CustomFunction/CustomFunctionValue.php',
+        'Cloudinary\\Transformation\\CutByImage' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/CutByImage.php',
+        'Cloudinary\\Transformation\\CutOut' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/CutOut.php',
+        'Cloudinary\\Transformation\\DefaultImage' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/DefaultImage.php',
+        'Cloudinary\\Transformation\\Delay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/Delay.php',
+        'Cloudinary\\Transformation\\Delivery' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Delivery.php',
+        'Cloudinary\\Transformation\\DeliveryBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/DeliveryBuilderTrait.php',
+        'Cloudinary\\Transformation\\Density' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/Density.php',
+        'Cloudinary\\Transformation\\Deshake' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/Deshake.php',
+        'Cloudinary\\Transformation\\DetectMultipleTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/DetectMultipleTrait.php',
+        'Cloudinary\\Transformation\\DimensionsQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/DimensionsQualifierTrait.php',
+        'Cloudinary\\Transformation\\Distort' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/Distort.php',
+        'Cloudinary\\Transformation\\Dither' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/Dither.php',
+        'Cloudinary\\Transformation\\DropShadow' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/DropShadow.php',
+        'Cloudinary\\Transformation\\DropShadowQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/DropShadowQualifier.php',
+        'Cloudinary\\Transformation\\Duration' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/Duration.php',
+        'Cloudinary\\Transformation\\DurationEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/DurationEffectAction.php',
+        'Cloudinary\\Transformation\\DurationEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/DurationEffectQualifier.php',
+        'Cloudinary\\Transformation\\Effect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Effect.php',
+        'Cloudinary\\Transformation\\EffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/EffectAction.php',
+        'Cloudinary\\Transformation\\EffectActionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/EffectActionTrait.php',
+        'Cloudinary\\Transformation\\EffectActionTypeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectActionTypeTrait.php',
+        'Cloudinary\\Transformation\\EffectMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectMode.php',
+        'Cloudinary\\Transformation\\EffectModeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectModeTrait.php',
+        'Cloudinary\\Transformation\\EffectName' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectName.php',
+        'Cloudinary\\Transformation\\EffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/EffectQualifier.php',
+        'Cloudinary\\Transformation\\EffectQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/EffectQualifierTrait.php',
+        'Cloudinary\\Transformation\\EffectRange' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectRange.php',
+        'Cloudinary\\Transformation\\EffectType' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectType.php',
+        'Cloudinary\\Transformation\\EffectTypeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Argument/EffectTypeTrait.php',
+        'Cloudinary\\Transformation\\ElectronicObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ElectronicObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\ElectronicObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ElectronicObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\EndIfCondition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Condition/EndIfCondition.php',
+        'Cloudinary\\Transformation\\EndOffset' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/EndOffset.php',
+        'Cloudinary\\Transformation\\ExpressionQualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/ExpressionQualifierMultiValue.php',
+        'Cloudinary\\Transformation\\Expression\\ArithmeticOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/ArithmeticOperator.php',
+        'Cloudinary\\Transformation\\Expression\\ArithmeticOperatorBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/ArithmeticOperatorBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\BaseExpression' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/BaseExpression.php',
+        'Cloudinary\\Transformation\\Expression\\BaseExpressionComponent' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/BaseExpressionComponent.php',
+        'Cloudinary\\Transformation\\Expression\\BaseOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/BaseOperator.php',
+        'Cloudinary\\Transformation\\Expression\\Expression' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Expression.php',
+        'Cloudinary\\Transformation\\Expression\\ExpressionComponent' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/ExpressionComponent.php',
+        'Cloudinary\\Transformation\\Expression\\ExpressionOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/ExpressionOperator.php',
+        'Cloudinary\\Transformation\\Expression\\ExpressionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/ExpressionTrait.php',
+        'Cloudinary\\Transformation\\Expression\\ExpressionUtils' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/ExpressionUtils.php',
+        'Cloudinary\\Transformation\\Expression\\LogicalOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/LogicalOperator.php',
+        'Cloudinary\\Transformation\\Expression\\LogicalOperatorBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/LogicalOperatorBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\Operator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/Operator.php',
+        'Cloudinary\\Transformation\\Expression\\PVar' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Variable/Predefined/PVar.php',
+        'Cloudinary\\Transformation\\Expression\\PredefinedVariableBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Variable/Predefined/PredefinedVariableBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\PredefinedVariableTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Variable/Predefined/PredefinedVariableTrait.php',
+        'Cloudinary\\Transformation\\Expression\\RelationalOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/RelationalOperator.php',
+        'Cloudinary\\Transformation\\Expression\\RelationalOperatorBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/RelationalOperatorBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\StringRelationalOperator' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/StringRelationalOperator.php',
+        'Cloudinary\\Transformation\\Expression\\StringRelationalOperatorBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operator/StringRelationalOperatorBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\UVal' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Value/UVal.php',
+        'Cloudinary\\Transformation\\Expression\\UVar' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Variable/User/UVar.php',
+        'Cloudinary\\Transformation\\Expression\\UserVariableBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Variable/User/UserVariableBuilderTrait.php',
+        'Cloudinary\\Transformation\\Expression\\ValueBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Expression/Operand/Value/ValueBuilderTrait.php',
+        'Cloudinary\\Transformation\\Extract' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/Extract.php',
+        'Cloudinary\\Transformation\\FetchImageSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/FetchImageSource.php',
+        'Cloudinary\\Transformation\\FetchSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/FetchSourceQualifier.php',
+        'Cloudinary\\Transformation\\FetchVideoSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/FetchVideoSource.php',
+        'Cloudinary\\Transformation\\Fill' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Fill/Fill.php',
+        'Cloudinary\\Transformation\\FillLight' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/FillLight.php',
+        'Cloudinary\\Transformation\\FillPad' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Fill/FillPad.php',
+        'Cloudinary\\Transformation\\FillPadTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Fill/FillPadTrait.php',
+        'Cloudinary\\Transformation\\FillTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Fill/FillTrait.php',
+        'Cloudinary\\Transformation\\Flag' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/Flag.php',
+        'Cloudinary\\Transformation\\FlagQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/FlagQualifier.php',
+        'Cloudinary\\Transformation\\FlagQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/FlagQualifierTrait.php',
+        'Cloudinary\\Transformation\\FocalGravity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/FocalGravity.php',
+        'Cloudinary\\Transformation\\FocalGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/FocalGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\FocalGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/FocalGravityInterface.php',
+        'Cloudinary\\Transformation\\FocalGravityTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/FocalGravityTrait.php',
+        'Cloudinary\\Transformation\\FocalPosition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/FocalPosition.php',
+        'Cloudinary\\Transformation\\FocusOn' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/FocusOn.php',
+        'Cloudinary\\Transformation\\FoodObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/FoodObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\FoodObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/FoodObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\ForegroundObject' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Effect/ForegroundObject.php',
+        'Cloudinary\\Transformation\\ForegroundObjectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Effect/ForegroundObjectTrait.php',
+        'Cloudinary\\Transformation\\Format' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/Format.php',
+        'Cloudinary\\Transformation\\FormatInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/FormatInterface.php',
+        'Cloudinary\\Transformation\\FormatQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/FormatQualifier.php',
+        'Cloudinary\\Transformation\\FormatQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/FormatQualifierTrait.php',
+        'Cloudinary\\Transformation\\FormatTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/FormatTrait.php',
+        'Cloudinary\\Transformation\\Fps' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Fps.php',
+        'Cloudinary\\Transformation\\Frame' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/Frame.php',
+        'Cloudinary\\Transformation\\FullListExpressionQualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/FullListExpressionQualifierMultiValue.php',
+        'Cloudinary\\Transformation\\FullListQualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/FullListQualifierMultiValue.php',
+        'Cloudinary\\Transformation\\FurnitureObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/FurnitureObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\FurnitureObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/FurnitureObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\GenerativeEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeEffect.php',
+        'Cloudinary\\Transformation\\GenerativeEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeEffectAction.php',
+        'Cloudinary\\Transformation\\GenerativeEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeEffectTrait.php',
+        'Cloudinary\\Transformation\\GenerativeFillBackground' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Background/GenerativeFillBackground.php',
+        'Cloudinary\\Transformation\\GenerativeRecolor' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeRecolor.php',
+        'Cloudinary\\Transformation\\GenerativeRemove' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeRemove.php',
+        'Cloudinary\\Transformation\\GenerativeReplace' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/GenerativeReplace.php',
+        'Cloudinary\\Transformation\\GenericResize' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Generic/GenericResize.php',
+        'Cloudinary\\Transformation\\GenericResizeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Generic/GenericResizeTrait.php',
+        'Cloudinary\\Transformation\\GradientFade' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/GradientFade.php',
+        'Cloudinary\\Transformation\\GradientFadeQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/GradientFadeQualifier.php',
+        'Cloudinary\\Transformation\\Gravity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/Gravity.php',
+        'Cloudinary\\Transformation\\GravityQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/GravityQualifier.php',
+        'Cloudinary\\Transformation\\GravityQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/GravityQualifierTrait.php',
+        'Cloudinary\\Transformation\\GravityTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/GravityTrait.php',
+        'Cloudinary\\Transformation\\IfCondition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Condition/IfCondition.php',
+        'Cloudinary\\Transformation\\IfElse' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Condition/IfElse.php',
+        'Cloudinary\\Transformation\\ImageAdjustmentTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/ImageAdjustmentTrait.php',
+        'Cloudinary\\Transformation\\ImageColorEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/ImageColorEffectTrait.php',
+        'Cloudinary\\Transformation\\ImageEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ImageEffect.php',
+        'Cloudinary\\Transformation\\ImageEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ImageEffectTrait.php',
+        'Cloudinary\\Transformation\\ImageFlag' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/ImageFlag.php',
+        'Cloudinary\\Transformation\\ImageFlagInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/ImageFlagInterface.php',
+        'Cloudinary\\Transformation\\ImageFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/ImageFlagTrait.php',
+        'Cloudinary\\Transformation\\ImageFormatInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/ImageFormatInterface.php',
+        'Cloudinary\\Transformation\\ImageFormatTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/ImageFormatTrait.php',
+        'Cloudinary\\Transformation\\ImageOverlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/ImageOverlay.php',
+        'Cloudinary\\Transformation\\ImagePixelEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/ImagePixelEffectTrait.php',
+        'Cloudinary\\Transformation\\ImageQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/ImageQualifierTrait.php',
+        'Cloudinary\\Transformation\\ImageQualifierTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/ImageQualifierTransformationTrait.php',
+        'Cloudinary\\Transformation\\ImageSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/ImageSource.php',
+        'Cloudinary\\Transformation\\ImageSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/ImageSourceQualifier.php',
+        'Cloudinary\\Transformation\\ImageSourceTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/ImageSourceTrait.php',
+        'Cloudinary\\Transformation\\ImageSpecificTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/ImageSpecificTransformationTrait.php',
+        'Cloudinary\\Transformation\\ImageTransformation' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/ImageTransformation.php',
+        'Cloudinary\\Transformation\\ImageTransformationFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/ImageTransformationFlagTrait.php',
+        'Cloudinary\\Transformation\\ImageTransformationInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/ImageTransformationInterface.php',
+        'Cloudinary\\Transformation\\ImageTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/ImageTransformationTrait.php',
+        'Cloudinary\\Transformation\\Imagga' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Addon/Imagga.php',
+        'Cloudinary\\Transformation\\ImaggaTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Addon/ImaggaTrait.php',
+        'Cloudinary\\Transformation\\Improve' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/Improve.php',
+        'Cloudinary\\Transformation\\ImproveMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/ImproveMode.php',
+        'Cloudinary\\Transformation\\IndoorObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/IndoorObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\IndoorObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/IndoorObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\JpegMini' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/JpegMini.php',
+        'Cloudinary\\Transformation\\KeyframeInterval' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/KeyframeInterval.php',
+        'Cloudinary\\Transformation\\KitchenObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/KitchenObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\KitchenObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/KitchenObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\LayerFlag' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/LayerFlag.php',
+        'Cloudinary\\Transformation\\LayerFlagInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/LayerFlagInterface.php',
+        'Cloudinary\\Transformation\\LayerFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/LayerFlagTrait.php',
+        'Cloudinary\\Transformation\\LayerName' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/LayerName.php',
+        'Cloudinary\\Transformation\\LayerQualifierFactory' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LayerQualifierFactory.php',
+        'Cloudinary\\Transformation\\LayerQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LayerQualifierTrait.php',
+        'Cloudinary\\Transformation\\LayerSourceTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LayerSourceTrait.php',
+        'Cloudinary\\Transformation\\LayerStackPosition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LayerStackPosition.php',
+        'Cloudinary\\Transformation\\LayeredImageTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/LayeredImageTransformationTrait.php',
+        'Cloudinary\\Transformation\\LevelEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/LevelEffectAction.php',
+        'Cloudinary\\Transformation\\LevelEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/LevelEffectQualifier.php',
+        'Cloudinary\\Transformation\\LightroomEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/LightroomEffect.php',
+        'Cloudinary\\Transformation\\LightroomEffectInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/LightroomEffectInterface.php',
+        'Cloudinary\\Transformation\\LightroomEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/LightroomEffectQualifier.php',
+        'Cloudinary\\Transformation\\LightroomEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/LightroomEffectTrait.php',
+        'Cloudinary\\Transformation\\LimitedEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/LimitedEffectQualifier.php',
+        'Cloudinary\\Transformation\\LiquidRescaling' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/LiquidRescaling.php',
+        'Cloudinary\\Transformation\\ListEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ListEffectQualifier.php',
+        'Cloudinary\\Transformation\\ListExpressionQualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/ListExpressionQualifierMultiValue.php',
+        'Cloudinary\\Transformation\\ListQualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/ListQualifierMultiValue.php',
+        'Cloudinary\\Transformation\\Loop' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/Loop.php',
+        'Cloudinary\\Transformation\\LutLayer' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LutLayer.php',
+        'Cloudinary\\Transformation\\LutSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/LutSourceQualifier.php',
+        'Cloudinary\\Transformation\\MakeTransparent' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/MakeTransparent.php',
+        'Cloudinary\\Transformation\\MatrixValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/MatrixValue.php',
+        'Cloudinary\\Transformation\\MediaOverlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/MediaOverlay.php',
+        'Cloudinary\\Transformation\\MinMaxRange' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Argument/Range/MinMaxRange.php',
+        'Cloudinary\\Transformation\\MiscEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/MiscEffect.php',
+        'Cloudinary\\Transformation\\MiscEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/MiscEffectTrait.php',
+        'Cloudinary\\Transformation\\NamedTransformation' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Named/NamedTransformation.php',
+        'Cloudinary\\Transformation\\NamedTransformationQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Named/NamedTransformationQualifierTrait.php',
+        'Cloudinary\\Transformation\\ObjectGravity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravity.php',
+        'Cloudinary\\Transformation\\ObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\ObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\ObjectGravityPriorityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravityPriorityBuilderTrait.php',
+        'Cloudinary\\Transformation\\ObjectGravityPriorityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravityPriorityInterface.php',
+        'Cloudinary\\Transformation\\ObjectGravityTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/ObjectGravityTrait.php',
+        'Cloudinary\\Transformation\\Offset' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Offset.php',
+        'Cloudinary\\Transformation\\OffsetTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/OffsetTrait.php',
+        'Cloudinary\\Transformation\\Opacity' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/Opacity.php',
+        'Cloudinary\\Transformation\\OpacityQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/OpacityQualifierTrait.php',
+        'Cloudinary\\Transformation\\OutdoorObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/OutdoorObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\OutdoorObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/OutdoorObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\Outline' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/Outline.php',
+        'Cloudinary\\Transformation\\OutlineMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/OutlineMode.php',
+        'Cloudinary\\Transformation\\OutlineQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/OutlineQualifier.php',
+        'Cloudinary\\Transformation\\Overlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/Overlay.php',
+        'Cloudinary\\Transformation\\Pad' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Pad/Pad.php',
+        'Cloudinary\\Transformation\\PadTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Pad/PadTrait.php',
+        'Cloudinary\\Transformation\\Page' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/Page.php',
+        'Cloudinary\\Transformation\\PageAllTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageAllTrait.php',
+        'Cloudinary\\Transformation\\PageIndexTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageIndexTrait.php',
+        'Cloudinary\\Transformation\\PageLayerNameTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageLayerNameTrait.php',
+        'Cloudinary\\Transformation\\PageLayerNamesTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageLayerNamesTrait.php',
+        'Cloudinary\\Transformation\\PageNameTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageNameTrait.php',
+        'Cloudinary\\Transformation\\PageNamesTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageNamesTrait.php',
+        'Cloudinary\\Transformation\\PageNumberTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageNumberTrait.php',
+        'Cloudinary\\Transformation\\PageQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageQualifier.php',
+        'Cloudinary\\Transformation\\PageQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageQualifierTrait.php',
+        'Cloudinary\\Transformation\\PageRangeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageRangeTrait.php',
+        'Cloudinary\\Transformation\\PageValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PageValue.php',
+        'Cloudinary\\Transformation\\Palette' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/Palette.php',
+        'Cloudinary\\Transformation\\PersonObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/PersonObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\PersonObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/PersonObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\PixelEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/PixelEffect.php',
+        'Cloudinary\\Transformation\\PixelEffectRegionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/PixelEffectRegionTrait.php',
+        'Cloudinary\\Transformation\\PixelEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/PixelEffectTrait.php',
+        'Cloudinary\\Transformation\\Pixelate' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/Pixelate.php',
+        'Cloudinary\\Transformation\\PlaybackEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/PlaybackEffect.php',
+        'Cloudinary\\Transformation\\PlaybackEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/PlaybackEffectTrait.php',
+        'Cloudinary\\Transformation\\Point' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Point.php',
+        'Cloudinary\\Transformation\\PointTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/PointTrait.php',
+        'Cloudinary\\Transformation\\Position' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Position.php',
+        'Cloudinary\\Transformation\\PositionFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/PositionFlagTrait.php',
+        'Cloudinary\\Transformation\\PositioningQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/PositioningQualifierTrait.php',
+        'Cloudinary\\Transformation\\PositiveFloatValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Misc/PositiveFloatValue.php',
+        'Cloudinary\\Transformation\\Prefix' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Image/Qualifier/Prefix.php',
+        'Cloudinary\\Transformation\\Preview' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/Preview.php',
+        'Cloudinary\\Transformation\\Progressive' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/Progressive.php',
+        'Cloudinary\\Transformation\\PromptTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Generative/PromptTrait.php',
+        'Cloudinary\\Transformation\\PsdLayer' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PsdLayer.php',
+        'Cloudinary\\Transformation\\PsdTools' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/PsdTools.php',
+        'Cloudinary\\Transformation\\Qualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Qualifier.php',
+        'Cloudinary\\Transformation\\QualifierMultiValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/QualifierMultiValue.php',
+        'Cloudinary\\Transformation\\Qualifier\\BaseExpressionQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/BaseExpressionQualifier.php',
+        'Cloudinary\\Transformation\\Qualifier\\BaseQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/BaseQualifier.php',
+        'Cloudinary\\Transformation\\Qualifier\\Dimensions\\Dimensions' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/Dimensions.php',
+        'Cloudinary\\Transformation\\Qualifier\\Dimensions\\DimensionsTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/DimensionsTrait.php',
+        'Cloudinary\\Transformation\\Qualifier\\Dimensions\\Dpr' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Dpr.php',
+        'Cloudinary\\Transformation\\Qualifier\\Dimensions\\Height' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/Height.php',
+        'Cloudinary\\Transformation\\Qualifier\\Dimensions\\Width' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/Width.php',
+        'Cloudinary\\Transformation\\Qualifier\\GenericQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/GenericQualifier.php',
+        'Cloudinary\\Transformation\\Qualifier\\Misc\\BreakpointsJson' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Misc/BreakpointsJson.php',
+        'Cloudinary\\Transformation\\Qualifier\\Value\\ColorValueTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Color/ColorValueTrait.php',
+        'Cloudinary\\Transformation\\QualifiersAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifiersAction.php',
+        'Cloudinary\\Transformation\\Quality' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/Quality.php',
+        'Cloudinary\\Transformation\\QualityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/QualityBuilderTrait.php',
+        'Cloudinary\\Transformation\\QualityQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/QualityQualifier.php',
+        'Cloudinary\\Transformation\\QualityQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/QualityQualifierTrait.php',
+        'Cloudinary\\Transformation\\QualityTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Quality/QualityTrait.php',
+        'Cloudinary\\Transformation\\RecolorQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/RecolorQualifier.php',
+        'Cloudinary\\Transformation\\RectangleRegion' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Canvas/RectangleRegion.php',
+        'Cloudinary\\Transformation\\Region' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Region.php',
+        'Cloudinary\\Transformation\\RegionEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/RegionEffectAction.php',
+        'Cloudinary\\Transformation\\RegionEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/RegionEffectTrait.php',
+        'Cloudinary\\Transformation\\RegionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/RegionTrait.php',
+        'Cloudinary\\Transformation\\RemoteSourceValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/RemoteSourceValue.php',
+        'Cloudinary\\Transformation\\RemoveBackground' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Pixel/RemoveBackground.php',
+        'Cloudinary\\Transformation\\ReplaceColor' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/ReplaceColor.php',
+        'Cloudinary\\Transformation\\Reshape' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/Reshape.php',
+        'Cloudinary\\Transformation\\ReshapeQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/ReshapeQualifier.php',
+        'Cloudinary\\Transformation\\ReshapeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/ReshapeTrait.php',
+        'Cloudinary\\Transformation\\Resize' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Resize.php',
+        'Cloudinary\\Transformation\\ResizeFactory' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/ResizeFactory.php',
+        'Cloudinary\\Transformation\\ResizeMode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/ResizeMode.php',
+        'Cloudinary\\Transformation\\ResizeModeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/ResizeModeTrait.php',
+        'Cloudinary\\Transformation\\ResizeQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/ResizeQualifierTrait.php',
+        'Cloudinary\\Transformation\\ResizeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/ResizeTrait.php',
+        'Cloudinary\\Transformation\\Rotate' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/Rotate.php',
+        'Cloudinary\\Transformation\\RotationDegreeInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/RotationDegreeInterface.php',
+        'Cloudinary\\Transformation\\RotationModeInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Rotation/RotationModeInterface.php',
+        'Cloudinary\\Transformation\\RoundCorners' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/RoundCorners.php',
+        'Cloudinary\\Transformation\\Scale' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Scale/Scale.php',
+        'Cloudinary\\Transformation\\ScaleTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Scale/ScaleTrait.php',
+        'Cloudinary\\Transformation\\Shadow' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/Shadow.php',
+        'Cloudinary\\Transformation\\ShakeStrength' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/ShakeStrength.php',
+        'Cloudinary\\Transformation\\Shear' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/Shear.php',
+        'Cloudinary\\Transformation\\SimulateColorBlind' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Color/SimulateColorBlind.php',
+        'Cloudinary\\Transformation\\SmartObject' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/SmartObject.php',
+        'Cloudinary\\Transformation\\SmartObjectName' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/SmartObjectName.php',
+        'Cloudinary\\Transformation\\SmartObjectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Page/SmartObjectQualifier.php',
+        'Cloudinary\\Transformation\\Source' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/Source.php',
+        'Cloudinary\\Transformation\\SourceBasedEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/SourceBasedEffectAction.php',
+        'Cloudinary\\Transformation\\SourceValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/SourceValue.php',
+        'Cloudinary\\Transformation\\SquareSizeEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/SquareSizeEffectAction.php',
+        'Cloudinary\\Transformation\\SquareSizeEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/SquareSizeEffectQualifier.php',
+        'Cloudinary\\Transformation\\StartOffset' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/StartOffset.php',
+        'Cloudinary\\Transformation\\StreamingProfile' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/StreamingProfile.php',
+        'Cloudinary\\Transformation\\StrengthEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/StrengthEffectAction.php',
+        'Cloudinary\\Transformation\\StrengthEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/StrengthEffectQualifier.php',
+        'Cloudinary\\Transformation\\StyleTransfer' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/StyleTransfer/StyleTransfer.php',
+        'Cloudinary\\Transformation\\StyleTransferQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/StyleTransfer/StyleTransferQualifier.php',
+        'Cloudinary\\Transformation\\SubtitlesSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/SubtitlesSource.php',
+        'Cloudinary\\Transformation\\SubtitlesSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/SubtitlesSourceQualifier.php',
+        'Cloudinary\\Transformation\\TextColorTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Color/TextColorTrait.php',
+        'Cloudinary\\Transformation\\TextFit' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/TextFit.php',
+        'Cloudinary\\Transformation\\TextFitTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Dimensions/TextFitTrait.php',
+        'Cloudinary\\Transformation\\TextSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/TextSource.php',
+        'Cloudinary\\Transformation\\TextSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/TextSourceQualifier.php',
+        'Cloudinary\\Transformation\\TextStyle' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/QualifierValue/Text/TextStyle.php',
+        'Cloudinary\\Transformation\\ThemeEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/ThemeEffect.php',
+        'Cloudinary\\Transformation\\ThemeEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/ThemeEffectTrait.php',
+        'Cloudinary\\Transformation\\ThemeQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/ThemeQualifier.php',
+        'Cloudinary\\Transformation\\ThresholdEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ThresholdEffectAction.php',
+        'Cloudinary\\Transformation\\ThresholdEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ThresholdEffectQualifier.php',
+        'Cloudinary\\Transformation\\Timeline' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/Timeline.php',
+        'Cloudinary\\Transformation\\TimelineQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/TimelineQualifierTrait.php',
+        'Cloudinary\\Transformation\\ToAnimatedAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/ToAnimated/ToAnimatedAction.php',
+        'Cloudinary\\Transformation\\ToAnimatedActionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/ToAnimated/ToAnimatedActionTrait.php',
+        'Cloudinary\\Transformation\\ToleranceEffectAction' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ToleranceEffectAction.php',
+        'Cloudinary\\Transformation\\ToleranceEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ToleranceEffectQualifier.php',
+        'Cloudinary\\Transformation\\Transcode' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Transcode.php',
+        'Cloudinary\\Transformation\\TranscodeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/TranscodeTrait.php',
+        'Cloudinary\\Transformation\\Transformation' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Transformation.php',
+        'Cloudinary\\Transformation\\TransformationCustomFunctionTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/CustomFunction/TransformationCustomFunctionTrait.php',
+        'Cloudinary\\Transformation\\TransformationDeliveryTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/TransformationDeliveryTrait.php',
+        'Cloudinary\\Transformation\\TransformationResizeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/TransformationResizeTrait.php',
+        'Cloudinary\\Transformation\\TransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/TransformationTrait.php',
+        'Cloudinary\\Transformation\\Transition' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/Transition.php',
+        'Cloudinary\\Transformation\\TrimEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Shape/TrimEffect.php',
+        'Cloudinary\\Transformation\\Underlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/Underlay.php',
+        'Cloudinary\\Transformation\\ValueEffectQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/ValueEffectQualifier.php',
+        'Cloudinary\\Transformation\\Variable\\Variable' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Variable/Variable.php',
+        'Cloudinary\\Transformation\\Variable\\VariableValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Variable/VariableValue.php',
+        'Cloudinary\\Transformation\\Vectorize' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/Vectorize.php',
+        'Cloudinary\\Transformation\\VectorizeTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/VectorizeTrait.php',
+        'Cloudinary\\Transformation\\VectorizeValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Misc/VectorizeValue.php',
+        'Cloudinary\\Transformation\\VehicleObjectGravityBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/VehicleObjectGravityBuilderTrait.php',
+        'Cloudinary\\Transformation\\VehicleObjectGravityInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Gravity/ObjectGravity/VehicleObjectGravityInterface.php',
+        'Cloudinary\\Transformation\\VideoAppearanceEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Appearance/VideoAppearanceEffectTrait.php',
+        'Cloudinary\\Transformation\\VideoCodec' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Codec/VideoCodec.php',
+        'Cloudinary\\Transformation\\VideoCodecTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/Codec/VideoCodecTrait.php',
+        'Cloudinary\\Transformation\\VideoEdit' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Edit/VideoEdit.php',
+        'Cloudinary\\Transformation\\VideoEditBuilderTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Edit/VideoEditBuilderTrait.php',
+        'Cloudinary\\Transformation\\VideoEffect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/VideoEffect.php',
+        'Cloudinary\\Transformation\\VideoEffectTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/VideoEffectTrait.php',
+        'Cloudinary\\Transformation\\VideoFlag' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/VideoFlag.php',
+        'Cloudinary\\Transformation\\VideoFlagInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/VideoFlagInterface.php',
+        'Cloudinary\\Transformation\\VideoFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/VideoFlagTrait.php',
+        'Cloudinary\\Transformation\\VideoFormatInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/VideoFormatInterface.php',
+        'Cloudinary\\Transformation\\VideoFormatTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Delivery/Format/VideoFormatTrait.php',
+        'Cloudinary\\Transformation\\VideoOffset' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Qualifier/Timeline/VideoOffset.php',
+        'Cloudinary\\Transformation\\VideoOverlay' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/VideoOverlay.php',
+        'Cloudinary\\Transformation\\VideoQualifierTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/VideoQualifierTrait.php',
+        'Cloudinary\\Transformation\\VideoSampling' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/Transcode/ToAnimated/VideoSampling.php',
+        'Cloudinary\\Transformation\\VideoSource' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/VideoSource.php',
+        'Cloudinary\\Transformation\\VideoSourceQualifier' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/VideoSourceQualifier.php',
+        'Cloudinary\\Transformation\\VideoSourceTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Layer/VideoSourceTrait.php',
+        'Cloudinary\\Transformation\\VideoSpecificTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/VideoSpecificTransformationTrait.php',
+        'Cloudinary\\Transformation\\VideoTransformation' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/VideoTransformation.php',
+        'Cloudinary\\Transformation\\VideoTransformationFlagTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Flag/VideoTransformationFlagTrait.php',
+        'Cloudinary\\Transformation\\VideoTransformationInterface' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/VideoTransformationInterface.php',
+        'Cloudinary\\Transformation\\VideoTransformationTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Video/VideoTransformationTrait.php',
+        'Cloudinary\\Transformation\\ViesusCorrect' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Adjustment/Addon/ViesusCorrect.php',
+        'Cloudinary\\Transformation\\Volume' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Playback/Volume.php',
+        'Cloudinary\\Transformation\\WhiteBalance' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/WhiteBalance.php',
+        'Cloudinary\\Transformation\\X' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/X.php',
+        'Cloudinary\\Transformation\\Xmp' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/Xmp.php',
+        'Cloudinary\\Transformation\\XmpSourceValue' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Effect/Addon/Lightroom/XmpSourceValue.php',
+        'Cloudinary\\Transformation\\Y' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Positioning/Y.php',
+        'Cloudinary\\Transformation\\Zoom' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/Zoom.php',
+        'Cloudinary\\Transformation\\ZoomTrait' => __DIR__ . '/..' . '/cloudinary/transformation-builder-sdk/src/Transformation/Resize/Parameter/ZoomTrait.php',
+        'Cloudinary\\Utils' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/Utils.php',
+        'Cloudinary\\Utils\\SignatureVerifier' => __DIR__ . '/..' . '/cloudinary/cloudinary_php/src/Utils/SignatureVerifier.php',
         'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
         'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
         'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
@@ -841,6 +1645,16 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
+        'DASPRiD\\Enum\\AbstractEnum' => __DIR__ . '/..' . '/dasprid/enum/src/AbstractEnum.php',
+        'DASPRiD\\Enum\\EnumMap' => __DIR__ . '/..' . '/dasprid/enum/src/EnumMap.php',
+        'DASPRiD\\Enum\\Exception\\CloneNotSupportedException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/CloneNotSupportedException.php',
+        'DASPRiD\\Enum\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/ExceptionInterface.php',
+        'DASPRiD\\Enum\\Exception\\ExpectationException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/ExpectationException.php',
+        'DASPRiD\\Enum\\Exception\\IllegalArgumentException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/IllegalArgumentException.php',
+        'DASPRiD\\Enum\\Exception\\MismatchException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/MismatchException.php',
+        'DASPRiD\\Enum\\Exception\\SerializeNotSupportedException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/SerializeNotSupportedException.php',
+        'DASPRiD\\Enum\\Exception\\UnserializeNotSupportedException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/UnserializeNotSupportedException.php',
+        'DASPRiD\\Enum\\NullValue' => __DIR__ . '/..' . '/dasprid/enum/src/NullValue.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
@@ -935,6 +1749,75 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Doctrine\\Instantiator\\Exception\\UnexpectedValueException' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/UnexpectedValueException.php',
         'Doctrine\\Instantiator\\Instantiator' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Instantiator.php',
         'Doctrine\\Instantiator\\InstantiatorInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/InstantiatorInterface.php',
+        'Dompdf\\Adapter\\CPDF' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/CPDF.php',
+        'Dompdf\\Adapter\\GD' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/GD.php',
+        'Dompdf\\Adapter\\PDFLib' => __DIR__ . '/..' . '/dompdf/dompdf/src/Adapter/PDFLib.php',
+        'Dompdf\\Canvas' => __DIR__ . '/..' . '/dompdf/dompdf/src/Canvas.php',
+        'Dompdf\\CanvasFactory' => __DIR__ . '/..' . '/dompdf/dompdf/src/CanvasFactory.php',
+        'Dompdf\\Cellmap' => __DIR__ . '/..' . '/dompdf/dompdf/src/Cellmap.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'Dompdf\\Css\\AttributeTranslator' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/AttributeTranslator.php',
+        'Dompdf\\Css\\Color' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/Color.php',
+        'Dompdf\\Css\\Style' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/Style.php',
+        'Dompdf\\Css\\Stylesheet' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/Stylesheet.php',
+        'Dompdf\\Dompdf' => __DIR__ . '/..' . '/dompdf/dompdf/src/Dompdf.php',
+        'Dompdf\\Exception' => __DIR__ . '/..' . '/dompdf/dompdf/src/Exception.php',
+        'Dompdf\\Exception\\ImageException' => __DIR__ . '/..' . '/dompdf/dompdf/src/Exception/ImageException.php',
+        'Dompdf\\FontMetrics' => __DIR__ . '/..' . '/dompdf/dompdf/src/FontMetrics.php',
+        'Dompdf\\Frame' => __DIR__ . '/..' . '/dompdf/dompdf/src/Frame.php',
+        'Dompdf\\FrameDecorator\\AbstractFrameDecorator' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/AbstractFrameDecorator.php',
+        'Dompdf\\FrameDecorator\\Block' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Block.php',
+        'Dompdf\\FrameDecorator\\Image' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Image.php',
+        'Dompdf\\FrameDecorator\\Inline' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Inline.php',
+        'Dompdf\\FrameDecorator\\ListBullet' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/ListBullet.php',
+        'Dompdf\\FrameDecorator\\ListBulletImage' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/ListBulletImage.php',
+        'Dompdf\\FrameDecorator\\NullFrameDecorator' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/NullFrameDecorator.php',
+        'Dompdf\\FrameDecorator\\Page' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Page.php',
+        'Dompdf\\FrameDecorator\\Table' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Table.php',
+        'Dompdf\\FrameDecorator\\TableCell' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/TableCell.php',
+        'Dompdf\\FrameDecorator\\TableRow' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/TableRow.php',
+        'Dompdf\\FrameDecorator\\TableRowGroup' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/TableRowGroup.php',
+        'Dompdf\\FrameDecorator\\Text' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameDecorator/Text.php',
+        'Dompdf\\FrameReflower\\AbstractFrameReflower' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/AbstractFrameReflower.php',
+        'Dompdf\\FrameReflower\\Block' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Block.php',
+        'Dompdf\\FrameReflower\\Image' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Image.php',
+        'Dompdf\\FrameReflower\\Inline' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Inline.php',
+        'Dompdf\\FrameReflower\\ListBullet' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/ListBullet.php',
+        'Dompdf\\FrameReflower\\NullFrameReflower' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/NullFrameReflower.php',
+        'Dompdf\\FrameReflower\\Page' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Page.php',
+        'Dompdf\\FrameReflower\\Table' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Table.php',
+        'Dompdf\\FrameReflower\\TableCell' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/TableCell.php',
+        'Dompdf\\FrameReflower\\TableRow' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/TableRow.php',
+        'Dompdf\\FrameReflower\\TableRowGroup' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/TableRowGroup.php',
+        'Dompdf\\FrameReflower\\Text' => __DIR__ . '/..' . '/dompdf/dompdf/src/FrameReflower/Text.php',
+        'Dompdf\\Frame\\Factory' => __DIR__ . '/..' . '/dompdf/dompdf/src/Frame/Factory.php',
+        'Dompdf\\Frame\\FrameListIterator' => __DIR__ . '/..' . '/dompdf/dompdf/src/Frame/FrameListIterator.php',
+        'Dompdf\\Frame\\FrameTree' => __DIR__ . '/..' . '/dompdf/dompdf/src/Frame/FrameTree.php',
+        'Dompdf\\Frame\\FrameTreeIterator' => __DIR__ . '/..' . '/dompdf/dompdf/src/Frame/FrameTreeIterator.php',
+        'Dompdf\\Helpers' => __DIR__ . '/..' . '/dompdf/dompdf/src/Helpers.php',
+        'Dompdf\\Image\\Cache' => __DIR__ . '/..' . '/dompdf/dompdf/src/Image/Cache.php',
+        'Dompdf\\JavascriptEmbedder' => __DIR__ . '/..' . '/dompdf/dompdf/src/JavascriptEmbedder.php',
+        'Dompdf\\LineBox' => __DIR__ . '/..' . '/dompdf/dompdf/src/LineBox.php',
+        'Dompdf\\Options' => __DIR__ . '/..' . '/dompdf/dompdf/src/Options.php',
+        'Dompdf\\PhpEvaluator' => __DIR__ . '/..' . '/dompdf/dompdf/src/PhpEvaluator.php',
+        'Dompdf\\Positioner\\Absolute' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/Absolute.php',
+        'Dompdf\\Positioner\\AbstractPositioner' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/AbstractPositioner.php',
+        'Dompdf\\Positioner\\Block' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/Block.php',
+        'Dompdf\\Positioner\\Fixed' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/Fixed.php',
+        'Dompdf\\Positioner\\Inline' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/Inline.php',
+        'Dompdf\\Positioner\\ListBullet' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/ListBullet.php',
+        'Dompdf\\Positioner\\NullPositioner' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/NullPositioner.php',
+        'Dompdf\\Positioner\\TableCell' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/TableCell.php',
+        'Dompdf\\Positioner\\TableRow' => __DIR__ . '/..' . '/dompdf/dompdf/src/Positioner/TableRow.php',
+        'Dompdf\\Renderer' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer.php',
+        'Dompdf\\Renderer\\AbstractRenderer' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/AbstractRenderer.php',
+        'Dompdf\\Renderer\\Block' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/Block.php',
+        'Dompdf\\Renderer\\Image' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/Image.php',
+        'Dompdf\\Renderer\\Inline' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/Inline.php',
+        'Dompdf\\Renderer\\ListBullet' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/ListBullet.php',
+        'Dompdf\\Renderer\\TableCell' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/TableCell.php',
+        'Dompdf\\Renderer\\TableRowGroup' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/TableRowGroup.php',
+        'Dompdf\\Renderer\\Text' => __DIR__ . '/..' . '/dompdf/dompdf/src/Renderer/Text.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
         'Dotenv\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',
         'Dotenv\\Exception\\InvalidEncodingException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidEncodingException.php',
@@ -1696,6 +2579,44 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
+        'FontLib\\AdobeFontMetrics' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/AdobeFontMetrics.php',
+        'FontLib\\BinaryStream' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/BinaryStream.php',
+        'FontLib\\EOT\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EOT/File.php',
+        'FontLib\\EOT\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EOT/Header.php',
+        'FontLib\\EncodingMap' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/EncodingMap.php',
+        'FontLib\\Exception\\FontNotFoundException' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Exception/FontNotFoundException.php',
+        'FontLib\\Font' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Font.php',
+        'FontLib\\Glyph\\Outline' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/Outline.php',
+        'FontLib\\Glyph\\OutlineComponent' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineComponent.php',
+        'FontLib\\Glyph\\OutlineComposite' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineComposite.php',
+        'FontLib\\Glyph\\OutlineSimple' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Glyph/OutlineSimple.php',
+        'FontLib\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Header.php',
+        'FontLib\\OpenType\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/OpenType/File.php',
+        'FontLib\\OpenType\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/OpenType/TableDirectoryEntry.php',
+        'FontLib\\Table\\DirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/DirectoryEntry.php',
+        'FontLib\\Table\\Table' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Table.php',
+        'FontLib\\Table\\Type\\cmap' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/cmap.php',
+        'FontLib\\Table\\Type\\cvt' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/cvt.php',
+        'FontLib\\Table\\Type\\fpgm' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/fpgm.php',
+        'FontLib\\Table\\Type\\glyf' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/glyf.php',
+        'FontLib\\Table\\Type\\head' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/head.php',
+        'FontLib\\Table\\Type\\hhea' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/hhea.php',
+        'FontLib\\Table\\Type\\hmtx' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/hmtx.php',
+        'FontLib\\Table\\Type\\kern' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/kern.php',
+        'FontLib\\Table\\Type\\loca' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/loca.php',
+        'FontLib\\Table\\Type\\maxp' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/maxp.php',
+        'FontLib\\Table\\Type\\name' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/name.php',
+        'FontLib\\Table\\Type\\nameRecord' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/nameRecord.php',
+        'FontLib\\Table\\Type\\os2' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/os2.php',
+        'FontLib\\Table\\Type\\post' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/post.php',
+        'FontLib\\Table\\Type\\prep' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/Table/Type/prep.php',
+        'FontLib\\TrueType\\Collection' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/Collection.php',
+        'FontLib\\TrueType\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/File.php',
+        'FontLib\\TrueType\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/Header.php',
+        'FontLib\\TrueType\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/TrueType/TableDirectoryEntry.php',
+        'FontLib\\WOFF\\File' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/File.php',
+        'FontLib\\WOFF\\Header' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/Header.php',
+        'FontLib\\WOFF\\TableDirectoryEntry' => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib/WOFF/TableDirectoryEntry.php',
         'Fruitcake\\Cors\\CorsServiceProvider' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/CorsServiceProvider.php',
         'Fruitcake\\Cors\\HandleCors' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/HandleCors.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
@@ -3944,6 +4865,26 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Maatwebsite\\Excel\\Validators\\RowValidator' => __DIR__ . '/..' . '/maatwebsite/excel/src/Validators/RowValidator.php',
         'Maatwebsite\\Excel\\Validators\\ValidationException' => __DIR__ . '/..' . '/maatwebsite/excel/src/Validators/ValidationException.php',
         'Maatwebsite\\Excel\\Writer' => __DIR__ . '/..' . '/maatwebsite/excel/src/Writer.php',
+        'Masterminds\\HTML5' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5.php',
+        'Masterminds\\HTML5\\Elements' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Elements.php',
+        'Masterminds\\HTML5\\Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Entities.php',
+        'Masterminds\\HTML5\\Exception' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Exception.php',
+        'Masterminds\\HTML5\\InstructionProcessor' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/InstructionProcessor.php',
+        'Masterminds\\HTML5\\Parser\\CharacterReference' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/CharacterReference.php',
+        'Masterminds\\HTML5\\Parser\\DOMTreeBuilder' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/DOMTreeBuilder.php',
+        'Masterminds\\HTML5\\Parser\\EventHandler' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/EventHandler.php',
+        'Masterminds\\HTML5\\Parser\\FileInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/FileInputStream.php',
+        'Masterminds\\HTML5\\Parser\\InputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/InputStream.php',
+        'Masterminds\\HTML5\\Parser\\ParseError' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/ParseError.php',
+        'Masterminds\\HTML5\\Parser\\Scanner' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Scanner.php',
+        'Masterminds\\HTML5\\Parser\\StringInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/StringInputStream.php',
+        'Masterminds\\HTML5\\Parser\\Tokenizer' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Tokenizer.php',
+        'Masterminds\\HTML5\\Parser\\TreeBuildingRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/TreeBuildingRules.php',
+        'Masterminds\\HTML5\\Parser\\UTF8Utils' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/UTF8Utils.php',
+        'Masterminds\\HTML5\\Serializer\\HTML5Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/HTML5Entities.php',
+        'Masterminds\\HTML5\\Serializer\\OutputRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/OutputRules.php',
+        'Masterminds\\HTML5\\Serializer\\RulesInterface' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/RulesInterface.php',
+        'Masterminds\\HTML5\\Serializer\\Traverser' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/Traverser.php',
         'Matrix\\Builder' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Builder.php',
         'Matrix\\Decomposition\\Decomposition' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Decomposition/Decomposition.php',
         'Matrix\\Decomposition\\LU' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Decomposition/LU.php',
@@ -5855,6 +6796,49 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'RealRashid\\SweetAlert\\SweetAlertServiceProvider' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/SweetAlertServiceProvider.php',
         'RealRashid\\SweetAlert\\ToSweetAlert' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/ToSweetAlert.php',
         'RealRashid\\SweetAlert\\Toaster' => __DIR__ . '/..' . '/realrashid/sweet-alert/src/Toaster.php',
+        'Sabberworm\\CSS\\CSSElement' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSElement.php',
+        'Sabberworm\\CSS\\CSSList\\AtRuleBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/AtRuleBlockList.php',
+        'Sabberworm\\CSS\\CSSList\\CSSBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/CSSBlockList.php',
+        'Sabberworm\\CSS\\CSSList\\CSSList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/CSSList.php',
+        'Sabberworm\\CSS\\CSSList\\Document' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/Document.php',
+        'Sabberworm\\CSS\\CSSList\\KeyFrame' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/KeyFrame.php',
+        'Sabberworm\\CSS\\Comment\\Comment' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Comment/Comment.php',
+        'Sabberworm\\CSS\\Comment\\Commentable' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Comment/Commentable.php',
+        'Sabberworm\\CSS\\OutputFormat' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/OutputFormat.php',
+        'Sabberworm\\CSS\\OutputFormatter' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/OutputFormatter.php',
+        'Sabberworm\\CSS\\Parser' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parser.php',
+        'Sabberworm\\CSS\\Parsing\\Anchor' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/Anchor.php',
+        'Sabberworm\\CSS\\Parsing\\OutputException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/OutputException.php',
+        'Sabberworm\\CSS\\Parsing\\ParserState' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/ParserState.php',
+        'Sabberworm\\CSS\\Parsing\\SourceException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/SourceException.php',
+        'Sabberworm\\CSS\\Parsing\\UnexpectedEOFException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/UnexpectedEOFException.php',
+        'Sabberworm\\CSS\\Parsing\\UnexpectedTokenException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/UnexpectedTokenException.php',
+        'Sabberworm\\CSS\\Position\\Position' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Position/Position.php',
+        'Sabberworm\\CSS\\Position\\Positionable' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Position/Positionable.php',
+        'Sabberworm\\CSS\\Property\\AtRule' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/AtRule.php',
+        'Sabberworm\\CSS\\Property\\CSSNamespace' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/CSSNamespace.php',
+        'Sabberworm\\CSS\\Property\\Charset' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/Charset.php',
+        'Sabberworm\\CSS\\Property\\Import' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/Import.php',
+        'Sabberworm\\CSS\\Property\\KeyframeSelector' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/KeyframeSelector.php',
+        'Sabberworm\\CSS\\Property\\Selector' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Property/Selector.php',
+        'Sabberworm\\CSS\\Renderable' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Renderable.php',
+        'Sabberworm\\CSS\\RuleSet\\AtRuleSet' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/RuleSet/AtRuleSet.php',
+        'Sabberworm\\CSS\\RuleSet\\DeclarationBlock' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/RuleSet/DeclarationBlock.php',
+        'Sabberworm\\CSS\\RuleSet\\RuleSet' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/RuleSet/RuleSet.php',
+        'Sabberworm\\CSS\\Rule\\Rule' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Rule/Rule.php',
+        'Sabberworm\\CSS\\Settings' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Settings.php',
+        'Sabberworm\\CSS\\Value\\CSSFunction' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CSSFunction.php',
+        'Sabberworm\\CSS\\Value\\CSSString' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CSSString.php',
+        'Sabberworm\\CSS\\Value\\CalcFunction' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CalcFunction.php',
+        'Sabberworm\\CSS\\Value\\CalcRuleValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CalcRuleValueList.php',
+        'Sabberworm\\CSS\\Value\\Color' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Color.php',
+        'Sabberworm\\CSS\\Value\\LineName' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/LineName.php',
+        'Sabberworm\\CSS\\Value\\PrimitiveValue' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/PrimitiveValue.php',
+        'Sabberworm\\CSS\\Value\\RuleValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/RuleValueList.php',
+        'Sabberworm\\CSS\\Value\\Size' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Size.php',
+        'Sabberworm\\CSS\\Value\\URL' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/URL.php',
+        'Sabberworm\\CSS\\Value\\Value' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Value.php',
+        'Sabberworm\\CSS\\Value\\ValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/ValueList.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
         'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',
@@ -6055,6 +7039,94 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\BTC' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/BTC.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\DataTypeInterface' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/DataTypeInterface.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\Email' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/Email.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\Geo' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/Geo.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\PhoneNumber' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/PhoneNumber.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\SMS' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/SMS.php',
+        'SimpleSoftwareIO\\QrCode\\DataTypes\\WiFi' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/DataTypes/WiFi.php',
+        'SimpleSoftwareIO\\QrCode\\Facades\\QrCode' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Facades/QrCode.php',
+        'SimpleSoftwareIO\\QrCode\\Generator' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Generator.php',
+        'SimpleSoftwareIO\\QrCode\\Image' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/Image.php',
+        'SimpleSoftwareIO\\QrCode\\ImageMerge' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/ImageMerge.php',
+        'SimpleSoftwareIO\\QrCode\\QrCodeServiceProvider' => __DIR__ . '/..' . '/simplesoftwareio/simple-qrcode/src/QrCodeServiceProvider.php',
+        'Spatie\\Backup\\BackupDestination\\Backup' => __DIR__ . '/..' . '/spatie/laravel-backup/src/BackupDestination/Backup.php',
+        'Spatie\\Backup\\BackupDestination\\BackupCollection' => __DIR__ . '/..' . '/spatie/laravel-backup/src/BackupDestination/BackupCollection.php',
+        'Spatie\\Backup\\BackupDestination\\BackupDestination' => __DIR__ . '/..' . '/spatie/laravel-backup/src/BackupDestination/BackupDestination.php',
+        'Spatie\\Backup\\BackupDestination\\BackupDestinationFactory' => __DIR__ . '/..' . '/spatie/laravel-backup/src/BackupDestination/BackupDestinationFactory.php',
+        'Spatie\\Backup\\BackupServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-backup/src/BackupServiceProvider.php',
+        'Spatie\\Backup\\Commands\\BackupCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Commands/BackupCommand.php',
+        'Spatie\\Backup\\Commands\\BaseCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Commands/BaseCommand.php',
+        'Spatie\\Backup\\Commands\\CleanupCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Commands/CleanupCommand.php',
+        'Spatie\\Backup\\Commands\\ListCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Commands/ListCommand.php',
+        'Spatie\\Backup\\Commands\\MonitorCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Commands/MonitorCommand.php',
+        'Spatie\\Backup\\Events\\BackupHasFailed' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/BackupHasFailed.php',
+        'Spatie\\Backup\\Events\\BackupManifestWasCreated' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/BackupManifestWasCreated.php',
+        'Spatie\\Backup\\Events\\BackupWasSuccessful' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/BackupWasSuccessful.php',
+        'Spatie\\Backup\\Events\\BackupZipWasCreated' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/BackupZipWasCreated.php',
+        'Spatie\\Backup\\Events\\CleanupHasFailed' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/CleanupHasFailed.php',
+        'Spatie\\Backup\\Events\\CleanupWasSuccessful' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/CleanupWasSuccessful.php',
+        'Spatie\\Backup\\Events\\DumpingDatabase' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/DumpingDatabase.php',
+        'Spatie\\Backup\\Events\\HealthyBackupWasFound' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/HealthyBackupWasFound.php',
+        'Spatie\\Backup\\Events\\UnhealthyBackupWasFound' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Events/UnhealthyBackupWasFound.php',
+        'Spatie\\Backup\\Exceptions\\CannotCreateDbDumper' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/CannotCreateDbDumper.php',
+        'Spatie\\Backup\\Exceptions\\InvalidBackupDestination' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidBackupDestination.php',
+        'Spatie\\Backup\\Exceptions\\InvalidBackupFile' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidBackupFile.php',
+        'Spatie\\Backup\\Exceptions\\InvalidBackupJob' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidBackupJob.php',
+        'Spatie\\Backup\\Exceptions\\InvalidCommand' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidCommand.php',
+        'Spatie\\Backup\\Exceptions\\InvalidConfiguration' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidConfiguration.php',
+        'Spatie\\Backup\\Exceptions\\InvalidHealthCheck' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/InvalidHealthCheck.php',
+        'Spatie\\Backup\\Exceptions\\NotificationCouldNotBeSent' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Exceptions/NotificationCouldNotBeSent.php',
+        'Spatie\\Backup\\Helpers\\ConsoleOutput' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Helpers/ConsoleOutput.php',
+        'Spatie\\Backup\\Helpers\\File' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Helpers/File.php',
+        'Spatie\\Backup\\Helpers\\Format' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Helpers/Format.php',
+        'Spatie\\Backup\\Helpers\\RightAlignedTableStyle' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Helpers/RightAlignedTableStyle.php',
+        'Spatie\\Backup\\Listeners\\EncryptBackupArchive' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Listeners/EncryptBackupArchive.php',
+        'Spatie\\Backup\\Notifications\\BaseNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/BaseNotification.php',
+        'Spatie\\Backup\\Notifications\\Channels\\Discord\\DiscordChannel' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Channels/Discord/DiscordChannel.php',
+        'Spatie\\Backup\\Notifications\\Channels\\Discord\\DiscordMessage' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Channels/Discord/DiscordMessage.php',
+        'Spatie\\Backup\\Notifications\\EventHandler' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/EventHandler.php',
+        'Spatie\\Backup\\Notifications\\Notifiable' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifiable.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\BackupHasFailedNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/BackupHasFailedNotification.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\BackupWasSuccessfulNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/BackupWasSuccessfulNotification.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\CleanupHasFailedNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/CleanupHasFailedNotification.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\CleanupWasSuccessfulNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/CleanupWasSuccessfulNotification.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\HealthyBackupWasFoundNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/HealthyBackupWasFoundNotification.php',
+        'Spatie\\Backup\\Notifications\\Notifications\\UnhealthyBackupWasFoundNotification' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Notifications/Notifications/UnhealthyBackupWasFoundNotification.php',
+        'Spatie\\Backup\\Tasks\\Backup\\BackupJob' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/BackupJob.php',
+        'Spatie\\Backup\\Tasks\\Backup\\BackupJobFactory' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/BackupJobFactory.php',
+        'Spatie\\Backup\\Tasks\\Backup\\DbDumperFactory' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/DbDumperFactory.php',
+        'Spatie\\Backup\\Tasks\\Backup\\FileSelection' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/FileSelection.php',
+        'Spatie\\Backup\\Tasks\\Backup\\Manifest' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/Manifest.php',
+        'Spatie\\Backup\\Tasks\\Backup\\Zip' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Backup/Zip.php',
+        'Spatie\\Backup\\Tasks\\Cleanup\\CleanupJob' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Cleanup/CleanupJob.php',
+        'Spatie\\Backup\\Tasks\\Cleanup\\CleanupStrategy' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Cleanup/CleanupStrategy.php',
+        'Spatie\\Backup\\Tasks\\Cleanup\\Period' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Cleanup/Period.php',
+        'Spatie\\Backup\\Tasks\\Cleanup\\Strategies\\DefaultStrategy' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Cleanup/Strategies/DefaultStrategy.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\BackupDestinationStatus' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/BackupDestinationStatus.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\BackupDestinationStatusFactory' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/BackupDestinationStatusFactory.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\HealthCheck' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/HealthCheck.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\HealthCheckFailure' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/HealthCheckFailure.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\HealthChecks\\IsReachable' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/HealthChecks/IsReachable.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\HealthChecks\\MaximumAgeInDays' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/HealthChecks/MaximumAgeInDays.php',
+        'Spatie\\Backup\\Tasks\\Monitor\\HealthChecks\\MaximumStorageInMegabytes' => __DIR__ . '/..' . '/spatie/laravel-backup/src/Tasks/Monitor/HealthChecks/MaximumStorageInMegabytes.php',
+        'Spatie\\DbDumper\\Compressors\\Bzip2Compressor' => __DIR__ . '/..' . '/spatie/db-dumper/src/Compressors/Bzip2Compressor.php',
+        'Spatie\\DbDumper\\Compressors\\Compressor' => __DIR__ . '/..' . '/spatie/db-dumper/src/Compressors/Compressor.php',
+        'Spatie\\DbDumper\\Compressors\\GzipCompressor' => __DIR__ . '/..' . '/spatie/db-dumper/src/Compressors/GzipCompressor.php',
+        'Spatie\\DbDumper\\Databases\\MongoDb' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/MongoDb.php',
+        'Spatie\\DbDumper\\Databases\\MySql' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/MySql.php',
+        'Spatie\\DbDumper\\Databases\\PostgreSql' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/PostgreSql.php',
+        'Spatie\\DbDumper\\Databases\\Sqlite' => __DIR__ . '/..' . '/spatie/db-dumper/src/Databases/Sqlite.php',
+        'Spatie\\DbDumper\\DbDumper' => __DIR__ . '/..' . '/spatie/db-dumper/src/DbDumper.php',
+        'Spatie\\DbDumper\\DsnParser' => __DIR__ . '/..' . '/spatie/db-dumper/src/DsnParser.php',
+        'Spatie\\DbDumper\\Exceptions\\CannotSetParameter' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/CannotSetParameter.php',
+        'Spatie\\DbDumper\\Exceptions\\CannotStartDump' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/CannotStartDump.php',
+        'Spatie\\DbDumper\\Exceptions\\DumpFailed' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/DumpFailed.php',
+        'Spatie\\DbDumper\\Exceptions\\InvalidDatabaseUrl' => __DIR__ . '/..' . '/spatie/db-dumper/src/Exceptions/InvalidDatabaseUrl.php',
+        'Spatie\\LaravelPackageTools\\Exceptions\\InvalidPackage' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Exceptions/InvalidPackage.php',
+        'Spatie\\LaravelPackageTools\\Package' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Package.php',
+        'Spatie\\LaravelPackageTools\\PackageServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/PackageServiceProvider.php',
         'Spatie\\Permission\\Commands\\CacheReset' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CacheReset.php',
         'Spatie\\Permission\\Commands\\CreatePermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreatePermission.php',
         'Spatie\\Permission\\Commands\\CreateRole' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreateRole.php',
@@ -6084,7 +7156,45 @@ class ComposerStaticInit6422262add6c798ba97b1f09365d819d
         'Spatie\\Permission\\Traits\\HasRoles' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasRoles.php',
         'Spatie\\Permission\\Traits\\RefreshesPermissionCache' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/RefreshesPermissionCache.php',
         'Spatie\\Permission\\WildcardPermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/WildcardPermission.php',
+        'Spatie\\SignalAwareCommand\\Events\\SignalReceived' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/Events/SignalReceived.php',
+        'Spatie\\SignalAwareCommand\\Facades\\Signal' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/Facades/Signal.php',
+        'Spatie\\SignalAwareCommand\\Signal' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/Signal.php',
+        'Spatie\\SignalAwareCommand\\SignalAwareCommand' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/SignalAwareCommand.php',
+        'Spatie\\SignalAwareCommand\\SignalAwareCommandServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/SignalAwareCommandServiceProvider.php',
+        'Spatie\\SignalAwareCommand\\Signals' => __DIR__ . '/..' . '/spatie/laravel-signal-aware-command/src/Signals.php',
+        'Spatie\\TemporaryDirectory\\Exceptions\\InvalidDirectoryName' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/InvalidDirectoryName.php',
+        'Spatie\\TemporaryDirectory\\Exceptions\\PathAlreadyExists' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/PathAlreadyExists.php',
+        'Spatie\\TemporaryDirectory\\TemporaryDirectory' => __DIR__ . '/..' . '/spatie/temporary-directory/src/TemporaryDirectory.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Svg\\CssLength' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/CssLength.php',
+        'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
+        'Svg\\Document' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Document.php',
+        'Svg\\Gradient\\Stop' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Gradient/Stop.php',
+        'Svg\\Style' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Style.php',
+        'Svg\\Surface\\CPdf' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Surface/CPdf.php',
+        'Svg\\Surface\\SurfaceCpdf' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Surface/SurfaceCpdf.php',
+        'Svg\\Surface\\SurfaceInterface' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Surface/SurfaceInterface.php',
+        'Svg\\Surface\\SurfacePDFLib' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Surface/SurfacePDFLib.php',
+        'Svg\\Tag\\AbstractTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/AbstractTag.php',
+        'Svg\\Tag\\Anchor' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Anchor.php',
+        'Svg\\Tag\\Circle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Circle.php',
+        'Svg\\Tag\\ClipPath' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/ClipPath.php',
+        'Svg\\Tag\\Ellipse' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Ellipse.php',
+        'Svg\\Tag\\Group' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Group.php',
+        'Svg\\Tag\\Image' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Image.php',
+        'Svg\\Tag\\Line' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Line.php',
+        'Svg\\Tag\\LinearGradient' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/LinearGradient.php',
+        'Svg\\Tag\\Path' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Path.php',
+        'Svg\\Tag\\Polygon' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Polygon.php',
+        'Svg\\Tag\\Polyline' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Polyline.php',
+        'Svg\\Tag\\RadialGradient' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/RadialGradient.php',
+        'Svg\\Tag\\Rect' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Rect.php',
+        'Svg\\Tag\\Shape' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Shape.php',
+        'Svg\\Tag\\Stop' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Stop.php',
+        'Svg\\Tag\\StyleTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/StyleTag.php',
+        'Svg\\Tag\\Symbol' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Symbol.php',
+        'Svg\\Tag\\Text' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/Text.php',
+        'Svg\\Tag\\UseTag' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/Tag/UseTag.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',
         'Symfony\\Bridge\\PsrHttpMessage\\EventListener\\PsrResponseListener' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/EventListener/PsrResponseListener.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\HttpFoundationFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/HttpFoundationFactory.php',

@@ -40,6 +40,10 @@ class ReportController extends Controller
     {
         return view('admin.report.driverdone');
     }
+    public function drivermonitoring()
+    {
+        return view('admin.report.drivermonitoring');
+    }
 
     public function customer()
     {

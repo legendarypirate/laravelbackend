@@ -61,14 +61,21 @@
                     <label for="status">Жолооч:</label>
                     <select id="filterByDriver" class="form-control inputStatus9">
                         <option value="">Бүгд</option>
-                        <option value="altansukhJ1">altansukhJ1</option>   
+                        <?php $bus=DB::table('users')->where('role','driver')->get(); ?>
+                                        @foreach($bus as $region)
+                                        <option value="{{$region->name}}">{{$region->name}}</option>
+                                        @endforeach
                     </select>
+                    
                 </div>
                 <div class="form-group">
                     <label for="status">Харилцагч:</label>
                     <select id="filterByCustomer" class="form-control inputStatus9">
                         <option value="">Бүгд</option>
-                        <option value="&quot; энхрий онлайн шоп&quot;">&quot; энхрий онлайн шоп&quot;</option>
+                        <?php $bus=DB::table('users')->where('role','customer')->get(); ?>
+                        @foreach($bus as $region)
+                        <option value="{{$region->name}}">{{$region->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -111,14 +118,6 @@
          <button type="button" class="btn btn-default"  id="btnReport">Тайлан нийлэх</button> 
      
     </div> 
-
- 
-                
-        
-        
-    
-
-       
 </div>
 <div id="statusModal" class="modal" >
             <div class="modal-content text-center" style="width:400px !important;height:200px !important;margin-left:700px;margin-top:200px;">
@@ -132,10 +131,6 @@
             </div>
         </div>
 </div>
-
-
-
-
     <div id="print_wrapper" hidden> </div>
     
    
