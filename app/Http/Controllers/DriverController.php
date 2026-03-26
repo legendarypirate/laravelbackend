@@ -1433,15 +1433,13 @@ public function exportDriverExcel(Request $request)
 
             $driverName = $driver->name;
 
-            // Group deliveries by merchant (shop)
+            // Group deliveries by deliveries.shop
             $query = Delivery::query()
                 ->select(
-                    'deliveries.merchant_id',
-                    'merchant.merchantName as shop_name',
+                    'deliveries.shop as shop_name',
                     DB::raw('COUNT(*) as deliveries_count'),
                     DB::raw('COALESCE(SUM(deliveries.deliveryprice), 0) as delivery_price_sum')
                 )
-                ->join('merchant', 'deliveries.merchant_id', '=', 'merchant.id')
                 ->where('deliveries.driver', $driverName);
 
             if ($startDate) {
@@ -1458,7 +1456,7 @@ public function exportDriverExcel(Request $request)
             }
 
             $shops = $query
-                ->groupBy('deliveries.merchant_id', 'merchant.merchantName')
+                ->groupBy('deliveries.shop')
                 ->orderByDesc('deliveries_count')
                 ->get();
 
@@ -1467,7 +1465,6 @@ public function exportDriverExcel(Request $request)
                 'data' => [
                     'shops' => $shops->map(function ($row) {
                         return [
-                            'merchant_id' => (int) $row->merchant_id,
                             'shop_name' => $row->shop_name ?? '-',
                             'deliveries_count' => (int) $row->deliveries_count,
                             'delivery_price_sum' => (float) $row->delivery_price_sum,
