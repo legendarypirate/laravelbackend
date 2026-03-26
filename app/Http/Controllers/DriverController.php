@@ -1355,6 +1355,7 @@ public function exportDriverExcel(Request $request)
                 'cancelled_deliveries' => $allDeliveries->whereIn('status', [4, 5])->count(), // Cancelled, Returned
                 'total_items_carrying' => 0,
                 'total_items_delivered' => 0,
+                'total_delivery_price' => 0,
             ];
             
             // Get driver items (items currently with driver)
@@ -1368,6 +1369,10 @@ public function exportDriverExcel(Request $request)
             
             // Count items in completed deliveries (approximate - using delivery count)
             $stats['total_items_delivered'] = $stats['completed_deliveries']; // Simplified for now
+            // Sum deliveryprice for current filtered driver deliveries
+            $stats['total_delivery_price'] = (float) $allDeliveries->sum(function ($delivery) {
+                return (float) ($delivery->deliveryprice ?? 0);
+            });
             
             // Get driver phone
             $phone = DB::table('phones')->where('userid', $driver->id)->first();

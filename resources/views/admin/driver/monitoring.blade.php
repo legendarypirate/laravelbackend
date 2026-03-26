@@ -27,6 +27,7 @@
         .stats-card.cancelled { border-left-color: #dc3545; }
         .stats-card.items-carrying { border-left-color: #ffc107; }
         .stats-card.items-delivered { border-left-color: #6f42c1; }
+        .stats-card.delivery-price { border-left-color: #20c997; }
         .filter-section {
             background: white;
             padding: 15px;
@@ -170,6 +171,17 @@
                             </div>
                             <div class="icon">
                                 <i class="fas fa-check-double"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-success stats-card delivery-price">
+                            <div class="inner">
+                                <h3 id="statTotalDeliveryPrice">0</h3>
+                                <p>Нийт хүргэлтийн үнэ</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-money-bill-wave"></i>
                             </div>
                         </div>
                     </div>
@@ -426,6 +438,7 @@
                         $('#statCancelledDeliveries').text(stats.cancelled_deliveries || 0);
                         $('#statItemsCarrying').text(stats.total_items_carrying || 0);
                         $('#statItemsDelivered').text(stats.total_items_delivered || 0);
+                        $('#statTotalDeliveryPrice').text(Number(stats.total_delivery_price || 0).toLocaleString());
                     }
                 },
                 error: function() {
