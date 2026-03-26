@@ -1398,6 +1398,92 @@ public function exportDriverExcel(Request $request)
     }
 
     /**
+     * Get "total deliveries" breakdown grouped by shop (merchant).
+     * Used by the right-side drawer on /admin/driver-monitoring
+     */
+    public function getDriverMonitoringShopsBreakdown(Request $request)
+    {
+        try {
+            $driverId = $request->get('driver_id');
+            $driverName = $request->get('driver_name');
+            $startDate = $request->get('start_date');
+            $endDate = $request->get('end_date');
+            $status = $request->get('status');
+            $merchantId = $request->get('merchant_id');
+
+            if (!$driverId && !$driverName) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Driver ID or name is required'
+                ], 400);
+            }
+
+            if ($driverId) {
+                $driver = User::find($driverId);
+            } else {
+                $driver = User::where('name', $driverName)->first();
+            }
+
+            if (!$driver) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Driver not found'
+                ], 404);
+            }
+
+            $driverName = $driver->name;
+
+            // Group deliveries by merchant (shop)
+            $query = Delivery::query()
+                ->select(
+                    'deliveries.merchant_id',
+                    'merchant.merchantName as shop_name',
+                    DB::raw('COUNT(*) as deliveries_count'),
+                    DB::raw('COALESCE(SUM(deliveries.deliveryprice), 0) as delivery_price_sum')
+                )
+                ->join('merchant', 'deliveries.merchant_id', '=', 'merchant.id')
+                ->where('deliveries.driver', $driverName);
+
+            if ($startDate) {
+                $query->whereDate('deliveries.created_at', '>=', $startDate);
+            }
+            if ($endDate) {
+                $query->whereDate('deliveries.created_at', '<=', $endDate);
+            }
+            if ($status) {
+                $query->where('deliveries.status', $status);
+            }
+            if ($merchantId) {
+                $query->where('deliveries.merchant_id', $merchantId);
+            }
+
+            $shops = $query
+                ->groupBy('deliveries.merchant_id', 'merchant.merchantName')
+                ->orderByDesc('deliveries_count')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'shops' => $shops->map(function ($row) {
+                        return [
+                            'merchant_id' => (int) $row->merchant_id,
+                            'shop_name' => $row->shop_name ?? '-',
+                            'deliveries_count' => (int) $row->deliveries_count,
+                            'delivery_price_sum' => (float) $row->delivery_price_sum,
+                        ];
+                    })->values(),
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error loading shops breakdown: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Get driver deliveries with pagination
      */
     public function getDriverDeliveries(Request $request)

@@ -28,6 +28,42 @@
         .stats-card.items-carrying { border-left-color: #ffc107; }
         .stats-card.items-delivered { border-left-color: #6f42c1; }
         .stats-card.delivery-price { border-left-color: #20c997; }
+        .stats-card.total { cursor: pointer; }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.35);
+            z-index: 1040;
+            display: none;
+        }
+        .right-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 420px;
+            background: #fff;
+            z-index: 1050;
+            transform: translateX(100%);
+            transition: transform 0.25s ease;
+            overflow-y: auto;
+            border-left: 1px solid #dee2e6;
+            display: none;
+            padding: 20px;
+        }
+        .right-drawer.open {
+            transform: translateX(0);
+        }
+        .shop-breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
         .filter-section {
             background: white;
             padding: 15px;
@@ -109,7 +145,7 @@
                 <!-- Summary Statistics Cards -->
                 <div class="row" id="statsSection" style="display:none;">
                     <div class="col-lg-3 col-6">
-                        <div class="small-box bg-info stats-card total">
+                        <div class="small-box bg-info stats-card total" id="statTotalDeliveriesCard">
                             <div class="inner">
                                 <h3 id="statTotalDeliveries">0</h3>
                                 <p>Нийт хүргэлт</p>
@@ -273,6 +309,19 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Shop breakdown drawer -->
+                <div class="drawer-overlay" id="shopBreakdownOverlay"></div>
+                <aside id="shopBreakdownDrawer" class="right-drawer" aria-hidden="true">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0"><i class="fas fa-store"></i> Дэлгүүрээрх нийт хүргэлт</h5>
+                        <button type="button" class="btn btn-sm btn-secondary" id="closeShopBreakdownDrawer">Хаах</button>
+                    </div>
+                    <div class="text-muted mb-3" id="shopBreakdownMeta"></div>
+                    <div id="shopBreakdownList" class="list-group">
+                        <p class="text-center text-muted mb-0">Ачааллаж байна...</p>
+                    </div>
+                </aside>
             </div><!-- /.container-fluid -->
         </section>
     </div>
@@ -334,6 +383,17 @@
                 $('#filterStatus').val('');
                 $('#filterMerchant').val('');
                 loadDriverData();
+            });
+
+            // Click on "Нийт хүргэлт" to open shop breakdown drawer
+            $('#statTotalDeliveriesCard').on('click', function() {
+                if (!selectedDriverId && !selectedDriverName) return;
+                openShopBreakdownDrawer();
+            });
+
+            // Close drawer
+            $('#closeShopBreakdownDrawer, #shopBreakdownOverlay').on('click', function() {
+                closeShopBreakdownDrawer();
             });
         });
 
@@ -400,6 +460,73 @@
                 deliveriesTable.destroy();
                 deliveriesTable = null;
             }
+
+            closeShopBreakdownDrawer();
+        }
+
+        function openShopBreakdownDrawer() {
+            $('#shopBreakdownMeta').text('');
+            $('#shopBreakdownList').html('<p class="text-center text-muted mb-0">Ачааллаж байна...</p>');
+
+            $('#shopBreakdownOverlay').show();
+            $('#shopBreakdownDrawer').show().addClass('open');
+
+            loadShopBreakdownList();
+        }
+
+        function closeShopBreakdownDrawer() {
+            $('#shopBreakdownDrawer').removeClass('open').hide();
+            $('#shopBreakdownOverlay').hide();
+        }
+
+        function loadShopBreakdownList() {
+            if (!selectedDriverId && !selectedDriverName) {
+                return;
+            }
+
+            $.ajax({
+                url: '{{ route("admin.driver-monitoring.shops-breakdown") }}',
+                method: 'GET',
+                data: {
+                    driver_id: selectedDriverId,
+                    driver_name: selectedDriverName,
+                    start_date: $('#filterStartDate').val(),
+                    end_date: $('#filterEndDate').val(),
+                    status: $('#filterStatus').val(),
+                    merchant_id: $('#filterMerchant').val()
+                },
+                success: function(response) {
+                    if (response.success && response.data) {
+                        const shops = response.data.shops || [];
+
+                        if (shops.length === 0) {
+                            $('#shopBreakdownList').html('<p class="text-center text-muted mb-0">Мэдээлэл байхгүй</p>');
+                            return;
+                        }
+
+                        $('#shopBreakdownList').empty();
+
+                        shops.forEach(function(shop) {
+                            const deliveriesCount = shop.deliveries_count || 0;
+                            const deliveryPriceSum = shop.delivery_price_sum || 0;
+
+                            const row = $(
+                                '<div class="list-group-item d-flex justify-content-between align-items-center shop-breakdown-row"></div>'
+                            );
+                            row.append('<span class="text-truncate pr-2">' + (shop.shop_name || '-') + '</span>');
+                            row.append('<span class="text-right"><strong>' + deliveriesCount + '</strong></span>');
+                            row.append('<div class="text-right text-muted small">Нийт үнэ: ' + Number(deliveryPriceSum).toLocaleString() + '</div>');
+
+                            $('#shopBreakdownList').append(row);
+                        });
+                    } else {
+                        $('#shopBreakdownList').html('<p class="text-center text-danger mb-0">Мэдээлэл ачаалахад алдаа гарлаа</p>');
+                    }
+                },
+                error: function() {
+                    $('#shopBreakdownList').html('<p class="text-center text-danger mb-0">Алдаа гарлаа</p>');
+                }
+            });
         }
 
         function loadDriverData() {
