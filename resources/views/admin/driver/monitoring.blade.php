@@ -64,6 +64,18 @@
             align-items: center;
             gap: 12px;
         }
+        .shop-breakdown-header {
+            cursor: pointer;
+        }
+        .shop-breakdown-details {
+            background: #f8f9fa;
+            border-left: 3px solid #dee2e6;
+            padding: 10px 12px;
+            display: none;
+        }
+        .shop-breakdown-details.open {
+            display: block;
+        }
         .filter-section {
             background: white;
             padding: 15px;
@@ -506,18 +518,26 @@
 
                         $('#shopBreakdownList').empty();
 
-                        shops.forEach(function(shop) {
+                        shops.forEach(function(shop, idx) {
                             const deliveriesCount = shop.deliveries_count || 0;
                             const deliveryPriceSum = shop.delivery_price_sum || 0;
+                            const shopName = shop.shop_name || '-';
+                            const safeId = 'shopBreakdown_' + idx;
 
-                            const row = $(
-                                '<div class="list-group-item d-flex justify-content-between align-items-center shop-breakdown-row"></div>'
+                            const wrapper = $('<div class="list-group-item"></div>');
+                            const header = $(
+                                '<div class="shop-breakdown-row shop-breakdown-header" data-shop="' + $('<div>').text(shopName).html() + '" data-target="' + safeId + '"></div>'
                             );
-                            row.append('<span class="text-truncate pr-2">' + (shop.shop_name || '-') + '</span>');
-                            row.append('<span class="text-right"><strong>' + deliveriesCount + '</strong></span>');
-                            row.append('<div class="text-right text-muted small">Нийт үнэ: ' + Number(deliveryPriceSum).toLocaleString() + '</div>');
 
-                            $('#shopBreakdownList').append(row);
+                            header.append('<span class="text-truncate pr-2"><strong>' + $('<div>').text(shopName).html() + '</strong></span>');
+                            header.append('<span class="text-right"><strong>' + deliveriesCount + '</strong></span>');
+                            header.append('<span class="text-right text-muted small">Нийт үнэ: ' + Number(deliveryPriceSum).toLocaleString() + '</span>');
+
+                            const details = $('<div class="shop-breakdown-details" id="' + safeId + '"><div class="text-muted small">Дэлгэрэнгүйг харахын тулд дарна уу</div></div>');
+
+                            wrapper.append(header);
+                            wrapper.append(details);
+                            $('#shopBreakdownList').append(wrapper);
                         });
                     } else {
                         $('#shopBreakdownList').html('<p class="text-center text-danger mb-0">Мэдээлэл ачаалахад алдаа гарлаа</p>');
@@ -528,6 +548,65 @@
                 }
             });
         }
+
+        // Expand / shrink shop breakdown row (lazy loads price tiers)
+        $(document).on('click', '.shop-breakdown-header', function() {
+            const shop = $(this).data('shop');
+            const target = $(this).data('target');
+            const $details = $('#' + target);
+
+            if ($details.hasClass('open')) {
+                $details.removeClass('open');
+                return;
+            }
+
+            $details.addClass('open');
+
+            // If already loaded once, do not reload
+            if ($details.data('loaded') === 1) {
+                return;
+            }
+
+            $details.html('<div class="text-center text-muted small">Ачааллаж байна...</div>');
+
+            $.ajax({
+                url: '{{ route("admin.driver-monitoring.shops-breakdown.prices") }}',
+                method: 'GET',
+                data: {
+                    driver_id: selectedDriverId,
+                    driver_name: selectedDriverName,
+                    shop: shop,
+                    start_date: $('#filterStartDate').val(),
+                    end_date: $('#filterEndDate').val(),
+                    merchant_id: $('#filterMerchant').val()
+                },
+                success: function(response) {
+                    if (!response.success || !response.data) {
+                        $details.html('<div class="text-danger small">Алдаа гарлаа</div>');
+                        return;
+                    }
+
+                    const prices = response.data.prices || [];
+                    if (prices.length === 0) {
+                        $details.html('<div class="text-muted small">Мэдээлэл байхгүй</div>');
+                        $details.data('loaded', 1);
+                        return;
+                    }
+
+                    let html = '<div class="small font-weight-bold mb-2">Deliveryprice-р бүлэглэсэн (status=3)</div>';
+                    html += '<table class="table table-sm table-bordered mb-0"><thead><tr><th>Үнэ</th><th>Тоо</th><th>Нийт үнэ</th></tr></thead><tbody>';
+                    prices.forEach(function(p) {
+                        html += '<tr><td>' + Number(p.deliveryprice || 0).toLocaleString() + '</td><td>' + (p.deliveries_count || 0) + '</td><td>' + Number(p.delivery_price_sum || 0).toLocaleString() + '</td></tr>';
+                    });
+                    html += '</tbody></table>';
+                    $details.html(html);
+                    $details.data('loaded', 1);
+                },
+                error: function() {
+                    $details.html('<div class="text-danger small">Алдаа гарлаа</div>');
+                }
+            });
+        });
 
         function loadDriverData() {
             if (!selectedDriverId && !selectedDriverName) {

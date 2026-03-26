@@ -276,6 +276,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/driver-monitoring/drivers', [App\Http\Controllers\DriverController::class, 'getDriversForMonitoring'])->name('admin.driver-monitoring.drivers');
     Route::get('/driver-monitoring/deliveries', [App\Http\Controllers\DriverController::class, 'getDriverDeliveries'])->name('admin.driver-monitoring.deliveries');
     Route::get('/driver-monitoring/shops-breakdown', [App\Http\Controllers\DriverController::class, 'getDriverMonitoringShopsBreakdown'])->name('admin.driver-monitoring.shops-breakdown');
+    Route::get('/driver-monitoring/shops-breakdown/prices', [App\Http\Controllers\DriverController::class, 'getDriverMonitoringShopPriceBreakdown'])->name('admin.driver-monitoring.shops-breakdown.prices');
     Route::get('/driver-monitoring/items/{deliveryId}', [App\Http\Controllers\DriverController::class, 'getDeliveryItems'])->name('admin.driver-monitoring.items');
 });
 
