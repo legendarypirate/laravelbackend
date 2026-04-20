@@ -491,58 +491,64 @@ public function exportDriverExcel(Request $request)
     
     return Excel::download($export, $fileName);
 }
-    public function getDriverCounts()
+    public function getDriverCounts(Request $request)
     {
+        // One aggregated pass over deliveries (JOIN, not per-row correlated subqueries)
+        $ratingAggSub = DB::table('deliveries')
+            ->select(
+                'driver',
+                DB::raw('COUNT(*) as rated_deliveries_count'),
+                DB::raw('AVG(CAST(rating AS DECIMAL(10,2))) as average_rating')
+            )
+            ->where('status', 3)
+            ->whereNotNull('rating')
+            ->whereRaw("TRIM(CAST(rating AS CHAR)) <> ''")
+            ->whereRaw("LOWER(TRIM(CAST(rating AS CHAR))) <> 'null'")
+            ->groupBy('driver');
 
-
-        $ratedDeliveryExpr = "d.rating IS NOT NULL AND TRIM(CAST(d.rating AS CHAR)) <> '' AND LOWER(TRIM(CAST(d.rating AS CHAR))) <> 'null'";
-
-        $mergedDataQuery = DB::table('deliveries')
+        $aggregated = DB::table('deliveries')
             ->join('users', 'users.name', '=', 'deliveries.driver')
             ->leftJoin('addresses', 'users.id', '=', 'addresses.userid')
-            ->leftJoin('phones', 'users.id', '=', 'phones.userid');
+            ->leftJoin('phones', 'users.id', '=', 'phones.userid')
+            ->leftJoinSub($ratingAggSub, 'rating_agg', function ($join) {
+                $join->on('users.name', '=', 'rating_agg.driver');
+            });
 
         if (Schema::hasColumn('users', 'role')) {
-            $mergedDataQuery->where('users.role', 'driver');
+            $aggregated->where('users.role', 'driver');
         }
         if (Schema::hasColumn('users', 'active')) {
-            $mergedDataQuery->where('users.active', 1);
+            $aggregated->where('users.active', 1);
         }
 
-        $mergedData = $mergedDataQuery->select(
-                'users.id as userid',
-                'users.name as driver',
-                'addresses.address as address', // Select the address
-                'phones.phone as phone', // Select the phone number
-
-                DB::raw('SUM(CASE WHEN deliveries.status = 3 THEN 1 ELSE 0 END) as hvrgegdsen'),
-                DB::raw('SUM(CASE WHEN deliveries.status = 4 THEN 1 ELSE 0 END) as tsutsalsan'),
-                DB::raw('SUM(CASE WHEN deliveries.status = 5 THEN 1 ELSE 0 END) as butsaasan'),
-                DB::raw('SUM(CASE WHEN deliveries.status = 2 THEN 1 ELSE 0 END) as huwiarlasan'),
-                DB::raw("(SELECT COUNT(*) FROM deliveries d WHERE d.driver = users.name AND d.status = 3 AND {$ratedDeliveryExpr}) as rated_deliveries_count"),
-                DB::raw("(SELECT AVG(CAST(d.rating AS DECIMAL(10,2))) FROM deliveries d WHERE d.driver = users.name AND d.status = 3 AND {$ratedDeliveryExpr}) as average_rating")
-            )
+        $aggregated->select(
+            'users.id as userid',
+            'users.name as driver',
+            'addresses.address as address',
+            'phones.phone as phone',
+            DB::raw('SUM(CASE WHEN deliveries.status = 3 THEN 1 ELSE 0 END) as hvrgegdsen'),
+            DB::raw('SUM(CASE WHEN deliveries.status = 4 THEN 1 ELSE 0 END) as tsutsalsan'),
+            DB::raw('SUM(CASE WHEN deliveries.status = 5 THEN 1 ELSE 0 END) as butsaasan'),
+            DB::raw('SUM(CASE WHEN deliveries.status = 2 THEN 1 ELSE 0 END) as huwiarlasan'),
+            DB::raw('MAX(COALESCE(rating_agg.rated_deliveries_count, 0)) as rated_deliveries_count'),
+            DB::raw('MAX(rating_agg.average_rating) as average_rating')
+        )
             ->whereIn('deliveries.status', [3, 4, 5, 2])
-            ->groupBy('users.id', 'users.name', 'addresses.address', 'phones.userid', 'phones.phone')
-            ->get();
+            ->groupBy('users.id', 'users.name', 'addresses.address', 'phones.userid', 'phones.phone');
 
+        // Wrap so Yajra can apply LIMIT/OFFSET on the outer query (serverSide: true + skipPaging caused full scans / timeouts)
+        $base = DB::query()->fromSub($aggregated, 'dm');
 
-
-        $table = Datatables::of($mergedData)
+        return Datatables::of($base)
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->userid . '" value="' . $row->userid . '">';
             })
             ->addColumn('phone', function ($row) {
                 return isset($row->phone) ? $row->phone : '';
             })
-
             ->addColumn('actions', function ($row) {
-                $actions = '
-                        <button type="submit" class="btn btn-info"><a href="' . url('/driver/detail/' . $row->driver) . '" style="color:white;">Дэлгэрэнгүй</a></button>';
-
-                return $actions;
+                return '<button type="submit" class="btn btn-info"><a href="' . url('/driver/detail/' . $row->driver) . '" style="color:white;">Дэлгэрэнгүй</a></button>';
             })
-
             ->addColumn('address', function ($row) {
                 return isset($row->address) ? $row->address : '';
             })
@@ -556,17 +562,11 @@ public function exportDriverExcel(Request $request)
 
                 return e(number_format((float) $row->average_rating, 1));
             })
-            ->addColumn('total_revenue', function ($row) {
+            ->addColumn('total_revenue', function () {
                 return '';
             })
             ->rawColumns(['checkbox', 'actions', 'phone', 'address', 'average_rating', 'total_revenue'])
-            // ->setTotalRecords($dataCount)
-            ->skipPaging()
             ->make(true);
-        return $table;
-
-
-        // return response()->json(['data' => $mergedData]);
     }
     // $driverCounts = DB::table('deliveries')
     //         ->join('users', 'users.name', '=', 'deliveries.driver')

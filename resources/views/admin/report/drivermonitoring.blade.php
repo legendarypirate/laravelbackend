@@ -194,20 +194,24 @@
                 processing: true,
                 serverSide: true,
                 destroy: true,
+                order: [[1, 'asc']],
                 ajax: {
                     url: driverTableUrl,
                     type: 'GET',
-
-                    dataSrc: function(json) {
-                        return json.data;
+                    error: function(xhr) {
+                        console.error('getDriverCounts failed', xhr.status, xhr.responseText);
+                        alert('Хүсэлт амжилтгүй: ' + (xhr.status || '') + ' — консолыг шалгана уу.');
                     }
                 },
                 columns: [{
                         name: 'checkbox',
                         data: 'checkbox',
+                        searchable: false,
+                        orderable: false,
                     },
                     {
-                        data: 'driver'
+                        data: 'driver',
+                        name: 'driver',
                     },
                     {
                         name: 'phone',
@@ -218,28 +222,40 @@
                         data: 'address',
                     },
                     {
-                        data: 'huwiarlasan'
+                        data: 'huwiarlasan',
+                        name: 'huwiarlasan',
                     },
                     {
-                        data: 'hvrgegdsen'
+                        data: 'hvrgegdsen',
+                        name: 'hvrgegdsen',
                     },
                     {
-                        data: 'tsutsalsan'
+                        data: 'tsutsalsan',
+                        name: 'tsutsalsan',
                     },
                     {
-                        data: 'butsaasan'
+                        data: 'butsaasan',
+                        name: 'butsaasan',
                     },
                     {
-                        data: 'rated_deliveries_count'
+                        data: 'rated_deliveries_count',
+                        name: 'rated_deliveries_count',
                     },
                     {
-                        data: 'average_rating'
+                        data: 'average_rating',
+                        name: 'average_rating',
                     },
                     {
-                        data: 'total_revenue'
+                        data: 'total_revenue',
+                        name: 'total_revenue',
+                        searchable: false,
+                        orderable: false,
                     },
                     {
-                        data: 'actions'
+                        data: 'actions',
+                        name: 'actions',
+                        searchable: false,
+                        orderable: false,
                     }
                 ],
                 columnDefs: [{
