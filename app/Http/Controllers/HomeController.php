@@ -386,7 +386,7 @@ class HomeController extends Controller
     if(Auth::user()->role == 'customer'){
         $deliveries = Delivery::where('shop', Auth::user()->name)
             ->whereIn('status', [1, 2])
-            ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude', 'download_time')
+            ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'parcel_info', 'number', 'latitude', 'longitude', 'download_time')
             ->orderBy('created_at', 'desc')
             ->limit(100)
             ->get();
@@ -395,7 +395,7 @@ class HomeController extends Controller
         if($merchantFilter){
             $deliveriesQuery->where('shop', $merchantFilter);
         }
-        $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude', 'download_time')
+        $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'parcel_info', 'number', 'latitude', 'longitude', 'download_time')
             ->orderBy('created_at', 'desc')
             ->limit(100)
             ->get();
@@ -668,7 +668,7 @@ class HomeController extends Controller
         if($user->role == 'customer'){
             $deliveries = Delivery::where('shop', $user->name)
                 ->whereIn('status', [1, 2])
-                ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude')
+                ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'parcel_info', 'number', 'latitude', 'longitude')
                 ->orderBy('created_at', 'desc')
                 ->limit(100)
                 ->get();
@@ -677,7 +677,7 @@ class HomeController extends Controller
             if($merchantFilter){
                 $deliveriesQuery->where('shop', $merchantFilter);
             }
-            $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude')
+            $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'parcel_info', 'number', 'latitude', 'longitude')
                 ->orderBy('created_at', 'desc')
                 ->limit(100)
                 ->get();
@@ -695,6 +695,8 @@ class HomeController extends Controller
                 'estimated' => $delivery->estimated ?? 0,
                 'driver' => $delivery->driver ?? '',
                 'comment' => $delivery->comment ?? '',
+                'parcel_info' => $delivery->parcel_info ?? '',
+                'number' => $delivery->number ?? null,
                 'created_at' => $delivery->created_at->toIso8601String(),
                 'latitude' => $delivery->latitude,
                 'longitude' => $delivery->longitude,

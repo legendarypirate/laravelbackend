@@ -334,6 +334,8 @@
                                                 <th>Утас</th>
                                                 <th>Төлөв</th>
                                                 <th>Жолооч</th>
+                                                <th>Барааны мэдээлэл</th>
+                                                <th>Тоо ширхэг</th>
                                                 <th>Тайлбар</th>
                                                 <th>Үйлдэл</th>
                                             </tr>
@@ -418,6 +420,8 @@
                                                         </span>
                                                     </td>
                                                     <td>{{ $delivery->driver ?? '-' }}</td>
+                                                    <td>{{ Str::limit($delivery->parcel_info ?? '-', 60) }}</td>
+                                                    <td>{{ $delivery->number ?? '-' }}</td>
                                                     <td>{{ Str::limit($delivery->comment ?? '-', 50) }}</td>
                                                     <td>
                                                         <a href="{{ url('/delivery/detail/' . $delivery->id) }}" 
