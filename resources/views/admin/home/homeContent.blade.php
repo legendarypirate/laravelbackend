@@ -311,7 +311,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     <i class="fas fa-trophy mr-1"></i>
-                                    Сүүлийн 30 захиалга (Шинэ ба Хүргэлтэнд гарсан)
+                                    Сүүлийн 100 захиалга (Шинэ ба Хүргэлтэнд гарсан)
                                 </h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -437,7 +437,7 @@
                                     </div>
                                 @endif
                             </div>
-                            @if($deliveries && $deliveries->count() >= 30)
+                            @if($deliveries && $deliveries->count() >= 100)
                                 <div class="card-footer">
                                     <a href="{{ url('delivery/index') }}" class="btn btn-primary btn-sm">
                                         Бүх хүргэлтийг харах <i class="fas fa-arrow-right"></i>

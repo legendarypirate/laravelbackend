@@ -381,14 +381,14 @@ class HomeController extends Controller
         'end_date' => $endDate
     ];
 
-    // Get latest 30 deliveries with status 1 and 2 (Шинэ and Хүргэлтэнд гарсан) for the dashboard
-    // These deliveries show the latest 30 regardless of date range, but respect merchant filters
+    // Get latest 100 deliveries with status 1 and 2 (Шинэ and Хүргэлтэнд гарсан) for the dashboard
+    // These deliveries show the latest 100 regardless of date range, but respect merchant filters
     if(Auth::user()->role == 'customer'){
         $deliveries = Delivery::where('shop', Auth::user()->name)
             ->whereIn('status', [1, 2])
             ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude', 'download_time')
             ->orderBy('created_at', 'desc')
-            ->limit(30)
+            ->limit(100)
             ->get();
     } else {
         $deliveriesQuery = Delivery::whereIn('status', [1, 2]);
@@ -397,7 +397,7 @@ class HomeController extends Controller
         }
         $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude', 'download_time')
             ->orderBy('created_at', 'desc')
-            ->limit(30)
+            ->limit(100)
             ->get();
     }
 
@@ -664,13 +664,13 @@ class HomeController extends Controller
             $driverRating = $ratingResult && $ratingResult->average_rating ? round($ratingResult->average_rating, 1) : 0;
         }
 
-        // Get latest 30 deliveries with status 1 and 2
+        // Get latest 100 deliveries with status 1 and 2
         if($user->role == 'customer'){
             $deliveries = Delivery::where('shop', $user->name)
                 ->whereIn('status', [1, 2])
                 ->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude')
                 ->orderBy('created_at', 'desc')
-                ->limit(30)
+                ->limit(100)
                 ->get();
         } else {
             $deliveriesQuery = Delivery::whereIn('status', [1, 2]);
@@ -679,7 +679,7 @@ class HomeController extends Controller
             }
             $deliveries = $deliveriesQuery->select('id', 'track', 'order_code', 'address', 'phone', 'shop', 'status', 'created_at', 'updated_at', 'estimated', 'driver', 'price', 'deliveryprice', 'comment', 'note', 'latitude', 'longitude')
                 ->orderBy('created_at', 'desc')
-                ->limit(30)
+                ->limit(100)
                 ->get();
         }
 
