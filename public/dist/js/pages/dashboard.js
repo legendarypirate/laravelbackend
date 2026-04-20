@@ -10,6 +10,12 @@
 $(function () {
   'use strict'
 
+  // Stock AdminLTE index.html demo only — skip when those widgets are not in the DOM
+  // (master layout loads this on every page; missing #world-map caused vmap/sparkline/chart errors)
+  if (!$('#world-map').length) {
+    return
+  }
+
   // Make the dashboard widgets sortable Using jquery UI
   $('.connectedSortable').sortable({
     placeholder: 'sort-highlight',
