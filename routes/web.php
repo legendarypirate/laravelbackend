@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::post('/driver/join-request', [App\Http\Controllers\DriverController::class, 'storeDriverJoinRequest'])
+    ->middleware('throttle:20,1')
+    ->name('driver.join-request');
+
 Auth::routes();
 
 

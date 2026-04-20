@@ -175,13 +175,11 @@ class DriverController extends Controller
             ->addColumn('comment', function ($row) {
                 return isset($row->comment) ? $row->comment : '';
             })
-            ->addColumn('actions', function ($row) {
-                $actions = '
-                        <button type="submit" class="btn btn-info"><a href="" style="color:white;">Дэлгэрэнгүй</a></button>';
-                return $actions;
+            ->addColumn('gender', function ($row) {
+                return isset($row->gender) ? e($row->gender) : '';
             })
 
-            ->rawColumns(['checkbox', 'actions', 'phone', 'address', 'lastname', 'firstname', 'city', 'email', 'comment'])
+            ->rawColumns(['checkbox', 'phone', 'address', 'lastname', 'firstname', 'city', 'email', 'comment', 'gender'])
             // ->setTotalRecords($dataCount)
             ->skipPaging()
             ->make(true);
@@ -688,6 +686,7 @@ public function exportDriverExcel(Request $request)
                                                 <th class="text-center whitespace-nowrap table-info">Хот</th>
                                                 <th class="text-center whitespace-nowrap table-success">Гэрийн хаяг</th>
                                                 <th class="text-center whitespace-nowrap table-success">Нэмэлт тайлбар</th>
+                                                <th class="text-center whitespace-nowrap table-success">Хүйс</th>
 
                     </tr>
                 </thead>
@@ -702,6 +701,7 @@ public function exportDriverExcel(Request $request)
                                     <td style='border-width: 1px;border-style: solid;border-color: black;'>" . ($row->city ?? '') . "</td>
                                     <td style='border-width: 1px;border-style: solid;border-color: black;'>" .  ($row->address ?? '') . "</td>
                                     <td style='border-width: 1px;border-style: solid;border-color: black;'>" .  ($row->comment ?? '') . "</td>
+                                    <td style='border-width: 1px;border-style: solid;border-color: black;'>" .  ($row->gender ?? '') . "</td>
                     
                                   
                             </tr>";
@@ -964,24 +964,40 @@ public function exportDriverExcel(Request $request)
 
     }
 
-    //Шинэ жолооч хүсэлт
+    /**
+     * Public home page: driver join request (web form, CSRF).
+     */
+    public function storeDriverJoinRequest(Request $request)
+    {
+        $validated = $request->validate([
+            'lastname' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
+            'phone' => 'required|string|max:50',
+            'email' => 'nullable|email|max:255',
+            'city' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:1000',
+            'comment' => 'nullable|string|max:2000',
+            'gender' => 'nullable|string|max:32',
+        ]);
+
+        Driver::create($validated);
+
+        return redirect()->route('welcome')->with('success', 'Жолоочоор элсэх хүсэлт амжилттай илгээгдлээ. Баярлалаа!');
+    }
+
+    //Шинэ жолооч хүсэлт (API — аль талбар ирсэн тэрээр хадгална)
     public function driverRequestApi(Request $request)
     {
-        //  dd($request->all());
         $driver = new Driver();
-        $driver->lastname = $request->lastname;
-        $driver->firstname = $request->firstname;
-        $driver->phone = $request->phone;
-        $driver->email = $request->email;
-        $driver->city = $request->city;
-        $driver->address = $request->address;
-        $driver->comment = $request->comment;
+        $driver->lastname = $request->input('lastname');
+        $driver->firstname = $request->input('firstname');
+        $driver->phone = $request->input('phone');
+        $driver->email = $request->input('email');
+        $driver->city = $request->input('city');
+        $driver->address = $request->input('address');
+        $driver->comment = $request->input('comment');
+        $driver->gender = $request->input('gender');
         $driver->save();
-
-        // $log = new Log();
-        // $log->value = $driver->firstname . ' нэртэй' . $driver->id . ' id-tai жолооч бүртгүүллээ.';
-        // $log->phone = $request->phone;
-        // $log->save();
 
         return response()->json(['data' => $driver, 'message' => 'Хүсэлт амжилттай илгээлээ', 'success' => true]);
     }

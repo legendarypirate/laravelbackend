@@ -50,6 +50,7 @@
                                                 <th class="text-center whitespace-nowrap table-info">Хот</th>
                                                 <th class="text-center whitespace-nowrap table-success">Гэрийн хаяг</th>
                                                 <th class="text-center whitespace-nowrap table-success">Нэмэлт тайлбар</th>
+                                                <th class="text-center whitespace-nowrap table-success">Хүйс</th>
 
                                             </tr>
                                         </thead>
@@ -169,6 +170,10 @@
                         name: 'comment',
                         data: 'comment',
                     },
+                    {
+                        name: 'gender',
+                        data: 'gender',
+                    },
 
                 ],
                 columnDefs: [{
@@ -180,15 +185,11 @@
 
                     },
                     {
-                        targets: [1, 2, 3],
+                        targets: [1, 2, 3, 4, 5],
                         className: 'text-center table-info'
                     },
                     {
-                        targets: [4, 5],
-                        className: 'text-center table-warning'
-                    },
-                    {
-                        targets: [6, 7],
+                        targets: [6, 7, 8],
                         className: 'text-center table-success'
                     },
                 ],
