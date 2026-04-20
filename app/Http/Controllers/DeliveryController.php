@@ -1543,6 +1543,7 @@ public function sign(Request $request)
         $del->address       = $request->address;
         $del->comment       = $request->comment;
         $del->price         = $request->price;
+        $del->number        = $request->number;
         $del->region        = $request->region;
 
         $del->type = $request->type;
