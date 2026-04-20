@@ -24,13 +24,40 @@
         .welcome-card {
             border-radius: 15px !important;
         }
+
+        /* Vertically center page content; nudge driver form slightly downward */
+        .welcome-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 1rem 2rem;
+            box-sizing: border-box;
+        }
+
+        .welcome-page .welcome-inner {
+            width: 100%;
+            max-width: 1140px;
+        }
+
+        .driver-join-column {
+            margin-top: 1.25rem;
+        }
+
+        @media (min-width: 992px) {
+            .driver-join-column {
+                margin-top: 2rem;
+                align-self: center;
+            }
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}?v=3.2.0">
 </head>
 
 <body class="hold-transition">
-    <div class="container-fluid py-4 px-lg-5">
-        <div class="row justify-content-center align-items-start">
+    <div class="welcome-page">
+        <div class="container-fluid px-lg-4 welcome-inner">
+            <div class="row justify-content-center align-items-center">
             <!-- Login -->
             <div class="col-lg-6 col-xl-5 mb-4">
                 <div class="mx-auto" style="max-width: 420px;">
@@ -93,8 +120,8 @@
             </div>
 
             <!-- Driver join request -->
-            <div class="col-lg-6 col-xl-5 mb-4">
-                <div class="card welcome-card shadow h-100">
+            <div class="col-lg-6 col-xl-5 mb-4 driver-join-column">
+                <div class="card welcome-card shadow">
                     <div class="card-body">
                         <p class="login-box-msg text-center font-weight-bold mb-3">Жолоочоор элсэх хүсэлт</p>
 
@@ -174,6 +201,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 
