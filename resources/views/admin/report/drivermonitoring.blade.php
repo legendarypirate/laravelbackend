@@ -230,13 +230,13 @@
                         data: 'butsaasan'
                     },
                     {
+                        data: 'rated_deliveries_count'
+                    },
+                    {
                         data: 'average_rating'
                     },
                     {
                         data: 'total_revenue'
-                    },
-                    {
-                        data: 'total_income'
                     },
                     {
                         data: 'actions'

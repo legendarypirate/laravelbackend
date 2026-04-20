@@ -495,11 +495,21 @@ public function exportDriverExcel(Request $request)
     {
 
 
-        $mergedData = DB::table('deliveries')
+        $ratedDeliveryExpr = "d.rating IS NOT NULL AND TRIM(CAST(d.rating AS CHAR)) <> '' AND LOWER(TRIM(CAST(d.rating AS CHAR))) <> 'null'";
+
+        $mergedDataQuery = DB::table('deliveries')
             ->join('users', 'users.name', '=', 'deliveries.driver')
             ->leftJoin('addresses', 'users.id', '=', 'addresses.userid')
-            ->leftJoin('phones', 'users.id', '=', 'phones.userid')
-            ->select(
+            ->leftJoin('phones', 'users.id', '=', 'phones.userid');
+
+        if (Schema::hasColumn('users', 'role')) {
+            $mergedDataQuery->where('users.role', 'driver');
+        }
+        if (Schema::hasColumn('users', 'active')) {
+            $mergedDataQuery->where('users.active', 1);
+        }
+
+        $mergedData = $mergedDataQuery->select(
                 'users.id as userid',
                 'users.name as driver',
                 'addresses.address as address', // Select the address
@@ -508,10 +518,12 @@ public function exportDriverExcel(Request $request)
                 DB::raw('SUM(CASE WHEN deliveries.status = 3 THEN 1 ELSE 0 END) as hvrgegdsen'),
                 DB::raw('SUM(CASE WHEN deliveries.status = 4 THEN 1 ELSE 0 END) as tsutsalsan'),
                 DB::raw('SUM(CASE WHEN deliveries.status = 5 THEN 1 ELSE 0 END) as butsaasan'),
-                DB::raw('SUM(CASE WHEN deliveries.status = 2 THEN 1 ELSE 0 END) as huwiarlasan')
+                DB::raw('SUM(CASE WHEN deliveries.status = 2 THEN 1 ELSE 0 END) as huwiarlasan'),
+                DB::raw("(SELECT COUNT(*) FROM deliveries d WHERE d.driver = users.name AND d.status = 3 AND {$ratedDeliveryExpr}) as rated_deliveries_count"),
+                DB::raw("(SELECT AVG(CAST(d.rating AS DECIMAL(10,2))) FROM deliveries d WHERE d.driver = users.name AND d.status = 3 AND {$ratedDeliveryExpr}) as average_rating")
             )
             ->whereIn('deliveries.status', [3, 4, 5, 2])
-            ->groupBy('users.id', 'users.name', 'addresses.address', 'phones.userid', 'phones.phone') // Group by address and phone as well
+            ->groupBy('users.id', 'users.name', 'addresses.address', 'phones.userid', 'phones.phone')
             ->get();
 
 
@@ -534,16 +546,20 @@ public function exportDriverExcel(Request $request)
             ->addColumn('address', function ($row) {
                 return isset($row->address) ? $row->address : '';
             })
-            ->addColumn('average_rating', function ($row) {
-                return '';
+            ->editColumn('rated_deliveries_count', function ($row) {
+                return (int) ($row->rated_deliveries_count ?? 0);
+            })
+            ->editColumn('average_rating', function ($row) {
+                if ($row->average_rating === null || $row->average_rating === '') {
+                    return '<span class="text-muted">—</span>';
+                }
+
+                return e(number_format((float) $row->average_rating, 1));
             })
             ->addColumn('total_revenue', function ($row) {
                 return '';
             })
-            ->addColumn('total_income', function ($row) {
-                return '';
-            })
-            ->rawColumns(['checkbox', 'actions', 'phone', 'address', 'average_rating', 'total_revenue', 'total_income'])
+            ->rawColumns(['checkbox', 'actions', 'phone', 'address', 'average_rating', 'total_revenue'])
             // ->setTotalRecords($dataCount)
             ->skipPaging()
             ->make(true);
