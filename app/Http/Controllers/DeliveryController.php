@@ -1164,16 +1164,16 @@ public function sign(Request $request)
         $order->receivername  = $request->receivername;
         $order->size          = $request->size;
         $order->number        = $request->number;
-        $order->price         = $request->price ?? 0;
-        
-        // Merchant-specific pricing logic
-        $merchantName = Auth::user()->name;
-        if ($merchantName === 'EZPAY' && isset($request->number)) {
-            $order->price = $request->number * 640;
-        } elseif ($merchantName === 'Golomt' && isset($request->number)) {
-            $order->price = $request->number * 715;
-        }
-        
+
+        // Web create pricing rule:
+        // - GOLOMT: price = input price * quantity
+        // - others: price = input price
+        $basePrice = (float) ($request->price ?? 0);
+        $quantity = (int) ($request->number ?? 1);
+        $order->price = strtoupper((string) Auth::user()->name) === 'GOLOMT'
+            ? $basePrice * max($quantity, 1)
+            : $basePrice;
+
         $order->region        = $request->region;
         $order->goodtype      = $request->goodtype;
         $order->verified      = 0;
