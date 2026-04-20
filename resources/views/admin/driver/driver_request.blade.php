@@ -51,6 +51,7 @@
                                                 <th class="text-center whitespace-nowrap table-success">Гэрийн хаяг</th>
                                                 <th class="text-center whitespace-nowrap table-success">Нэмэлт тайлбар</th>
                                                 <th class="text-center whitespace-nowrap table-success">Хүйс</th>
+                                                <th class="text-center whitespace-nowrap table-success">Огноо</th>
 
                                             </tr>
                                         </thead>
@@ -174,6 +175,10 @@
                         name: 'gender',
                         data: 'gender',
                     },
+                    {
+                        name: 'created_at',
+                        data: 'created_at',
+                    },
 
                 ],
                 columnDefs: [{
@@ -189,7 +194,7 @@
                         className: 'text-center table-info'
                     },
                     {
-                        targets: [6, 7, 8],
+                        targets: [6, 7, 8, 9],
                         className: 'text-center table-success'
                     },
                 ],
@@ -197,6 +202,7 @@
                 "language": {
                     "search": "Хайх:"
                 },
+                order: [[9, 'desc']],
                 lengthMenu: [50, 100, 150, 300],
             });
         });

@@ -149,7 +149,7 @@ class DriverController extends Controller
 }
     public function getDriverRequest()
     {
-        $driverRequest = Driver::orderBy('id', 'desc')->get();
+        $driverRequest = Driver::orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
         $table = Datatables::of($driverRequest)
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->id . '" value="' . $row->id . '">';
@@ -178,8 +178,11 @@ class DriverController extends Controller
             ->addColumn('gender', function ($row) {
                 return isset($row->gender) ? e($row->gender) : '';
             })
+            ->addColumn('created_at', function ($row) {
+                return !empty($row->created_at) ? date('Y-m-d H:i', strtotime($row->created_at)) : '';
+            })
 
-            ->rawColumns(['checkbox', 'phone', 'address', 'lastname', 'firstname', 'city', 'email', 'comment', 'gender'])
+            ->rawColumns(['checkbox', 'phone', 'address', 'lastname', 'firstname', 'city', 'email', 'comment', 'gender', 'created_at'])
             // ->setTotalRecords($dataCount)
             ->skipPaging()
             ->make(true);
@@ -668,7 +671,7 @@ public function exportDriverExcel(Request $request)
                 $user_id = Auth::user()->id;
                 $role = Auth::user()->role;
                 $arr_ids = explode(",", $request->post('ids'));
-                $driverRequest = Driver::orderBy('id', 'desc')->get();
+                $driverRequest = Driver::orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
 
                 $i = 0;
                 $print_data = array();
