@@ -384,6 +384,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-0">
                                     <label class="small text-muted mb-1">Огноогоор шүүх</label>
+                                    <div class="mb-1">
+                                        <select id="historyDateSource" class="form-control form-control-sm">
+                                            <option value="delivery_delivered_at" selected>Хүргэгдсэн огноо (delivery.delivered_at)</option>
+                                            <option value="delivery_created_at">Үүсгэсэн огноо (delivery.created_at)</option>
+                                            <option value="history_created_at">Түүхийн огноо (history.created_at)</option>
+                                        </select>
+                                    </div>
                                     <div class="input-group input-group-sm">
                                         <input type="date" id="historyDateFrom" class="form-control" placeholder="Эхлэх огноо">
                                         <input type="date" id="historyDateTo" class="form-control" placeholder="Дуусах огноо">
@@ -772,6 +779,19 @@
     // Enhanced History Functions
     let currentHistoryData = [];
     let currentFilteredHistoryData = [];
+
+
+    function getHistoryFilterDate(item) {
+        const source = document.getElementById('historyDateSource')?.value || 'delivery_delivered_at';
+        if (source === 'delivery_created_at') {
+            return item.delivery_created_at || item.history_created_at || item.created_at || null;
+        }
+        if (source === 'history_created_at') {
+            return item.history_created_at || item.created_at || item.delivery_created_at || null;
+        }
+        // default: delivery_delivered_at
+        return item.delivery_delivered_at || item.delivery_created_at || item.history_created_at || item.created_at || null;
+    }
     let currentSort = { field: 'created_at', direction: 'desc' };
     let currentPage = 1;
     const itemsPerPage = 20;
@@ -1035,12 +1055,18 @@
         const dateFrom = document.getElementById('historyDateFrom').value;
         const dateTo = document.getElementById('historyDateTo').value;
         if (dateFrom) {
-            filteredData = filteredData.filter(item => new Date(item.created_at) >= new Date(dateFrom));
+            filteredData = filteredData.filter(item => {
+                const dateValue = getHistoryFilterDate(item);
+                return dateValue ? new Date(dateValue) >= new Date(dateFrom) : false;
+            });
         }
         if (dateTo) {
             const endDate = new Date(dateTo);
             endDate.setHours(23, 59, 59, 999);
-            filteredData = filteredData.filter(item => new Date(item.created_at) <= endDate);
+            filteredData = filteredData.filter(item => {
+                const dateValue = getHistoryFilterDate(item);
+                return dateValue ? new Date(dateValue) <= endDate : false;
+            });
         }
 
         // Apply sorting
@@ -1049,8 +1075,8 @@
             let bValue = b[currentSort.field];
 
             if (currentSort.field === 'created_at') {
-                aValue = new Date(aValue);
-                bValue = new Date(bValue);
+                aValue = new Date(getHistoryFilterDate(a));
+                bValue = new Date(getHistoryFilterDate(b));
             }
 
             if (currentSort.direction === 'asc') {
@@ -1110,13 +1136,14 @@
                 '<span class="badge badge-success">Орлого</span>' :
                 '<span class="badge badge-danger">Зарлага</span>';
             
-            const date = new Date(record.created_at).toLocaleString('mn-MN', {
+            const recordDateValue = getHistoryFilterDate(record);
+            const date = recordDateValue ? new Date(recordDateValue).toLocaleString('mn-MN', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
                 hour: '2-digit',
                 minute: '2-digit'
-            });
+            }) : '-';
             
             const driverDisplay = record.driver_name || (record.driver_id ? `Жолооч #${record.driver_id}` : '-');
             const deliveryDisplay = (record.delivery_display_id != null)
@@ -1227,6 +1254,7 @@
             'historyDriverFilter',
             'quantityMin',
             'quantityMax',
+            'historyDateSource',
             'historyDateFrom',
             'historyDateTo'
         ];

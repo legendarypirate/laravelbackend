@@ -1604,6 +1604,7 @@ public function sign(Request $request)
     {
         $delivery         = Delivery::find($id);
         $delivery->status = 3;
+        $delivery->delivered_at = now();
         $delivery->save();
 
         $log        = new Log();
@@ -1737,7 +1738,7 @@ public function sign(Request $request)
                     $ids       = implode(',', $array_ids);
                     $array_ids = array_filter(explode(',', $request->ids));
 
-                    Delivery::whereIn('id', $idss)->update(['status' => '3']);
+                    Delivery::whereIn('id', $idss)->update(['status' => '3', 'delivered_at' => now()]);
 
                     $cc = Delivery::whereIn('id', $array_ids)->get();
                     // $data=Order::where('reqid','=',$ids)->get();

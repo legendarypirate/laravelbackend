@@ -510,12 +510,15 @@ public function create(Request $request)
                 ->where('histories.item_id', $id)
                 ->select(
                     'histories.*',
+                    'histories.created_at as history_created_at',
                     'users.name as driver_name',
                     'deliveries.id as delivery_display_id',
                     'deliveries.address as delivery_address',
                     'deliveries.phone as delivery_phone',
                     'deliveries.number as delivery_number',
-                    'deliveries.shop as delivery_shop'
+                    'deliveries.shop as delivery_shop',
+                    'deliveries.created_at as delivery_created_at',
+                    'deliveries.delivered_at as delivery_delivered_at'
                 )
                 ->orderBy('histories.created_at', 'desc')
                 ->get();
