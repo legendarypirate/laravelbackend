@@ -393,15 +393,9 @@
 ;color:white;"><span id="y">0 </span>
                                         </button>
                                         @if (auth()->user()->role != 'customer')
-                                            <button type="button" class="btn btn-default" id="btnStatusModal"
-                                                style="background-color:#7B22FC
-;color:white;">Төлөв солих</button>
                                             <button type="button" class="btn btn-default" id="btnBusModal"
                                                 style="background-color:#7B22FC
 ;color:white;">Бүс солих</button>
-                                            <button type="button" class="btn btn-default" id="btnDriverModal"
-                                                style="background-color:#7B22FC
-;color:white;">Жолооч солих</button>
                                             <button type="button" class="btn btn-default" id="btnVerifyModal"
                                                 style="background-color:#7B22FC
 ;color:white;">Баталгаажуулах</button>
@@ -417,30 +411,6 @@
                                     <div class="modal-content">
                                         <span class="closing">&times;</span>
                                         <div id="excel-wrapper">......</div>
-                                    </div>
-                                </div>
-                                <div id="statusModal" class="modal">
-                                    <div class="modal-content text-center"
-                                        style="width:400px !important;height:250px !important;margin-top:200px;">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Төлөв солих</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <select class="form-control inputStatus1">
-                                                <option value="1">Бүртгэгдсэн</option>
-                                                <option value="3">Хүргэгдсэн</option>
-                                                <option value="4">Цуцалсан</option>
-                                                <option value="5">Буцаасан</option>
-                                                <option value="6">Хүлээгдэж буй</option>
-                                                <option value="10">Хүлээн авсан</option>
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default closing"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button"
-                                                class="btn btn-primary btn_change_status">Солих</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div id="busModal" class="modal">
@@ -461,31 +431,6 @@
                                             <button type="button" class="btn btn-default closing"
                                                 data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-primary btn_change_bus">Солих</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="driverModal" class="modal">
-                                    <div class="modal-content text-center"
-                                        style="width:400px !important;height:250px !important;margin-top:200px;">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Жолооч солих</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <select class="form-control inputStatus4">
-                                                <?php $bus = DB::table('users')
-                                                    ->where('role', 'driver')
-                                            ->where('active', 1)
-                                                    ->get(); ?>
-                                                @foreach ($bus as $region)
-                                                    <option value="{{ $region->name }}">{{ $region->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default closing"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary btn_change_drive">Солих</button>
                                         </div>
                                     </div>
                                 </div>
@@ -894,13 +839,7 @@
                     not_100, merchant, type, estimated, start_date, end_date);
             });
 
-            var selected_status = 1;
             var selected_bus = 1;
-            var selected_driver = 1;
-            $(document).on('click', '#btnStatusModal', function() {
-                $('#statusModal').attr('style', 'display:block');
-            });
-
             $(document).on('click', '#btnBusModal', function() {
                 $('#busModal').attr('style', 'display:block');
                 console.log("hi");
@@ -916,12 +855,6 @@
                 console.log(x);
                 document.getElementById("y").innerHTML = 'Нийт ' + x + ' мөр сонгосон байна';
             };
-
-            $(document).on('click', '#btnDriverModal', function() {
-                $('#driverModal').attr('style', 'display:block');
-                console.log("btnDeleteModal");
-
-            });
 
             $(document).on('click', '#btnDeleteModal', function() {
                 $('#deleteModal').attr('style', 'display:block');
@@ -942,29 +875,6 @@
 
                 loadDeliveryDataTable(status, region, driver, customer, not_2, not_1, not_6, not_10,
                     not_100, merchant, type, estimated, start_date, end_date);
-            });
-
-            $('.btn_change_status').click(function() {
-                console.log("btn_change_status click");
-                console.log(rows_selected);
-                const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
-                var ids = rows_selected.join(",");
-                selected_status = $('.inputStatus1').val();
-
-                $.ajax({
-                    type: 'GET',
-                    url: changeStatusUrl,
-                    data: {
-                        ids: ids,
-                        status: selected_status
-                    },
-                    beforeSend: function() {
-                        console.log("Loading");
-                    }
-                }).done(function(result) {
-                    $('#customModal').attr('style', 'display:none');
-                    window.location.reload();
-                });
             });
 
             $('.btn_verify').click(function() {
@@ -1024,31 +934,6 @@
                     data: {
                         ids: ids,
                         region: selected_bus
-                    },
-                    beforeSend: function() {
-                        console.log("Loading");
-                    }
-                }).done(function(result) {
-                    $('#customModal').attr('style', 'display:none');
-                    window.location.reload();
-                });
-            });
-
-
-
-            $('.btn_change_drive').click(function() {
-                console.log("btn_change_drive click");
-                console.log(rows_selected);
-                const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
-                var ids = rows_selected.join(",");
-                selected_driver = $('.inputStatus4').val();
-
-                $.ajax({
-                    type: 'GET',
-                    url: changeDriverUrl,
-                    data: {
-                        ids: ids,
-                        driverselected: selected_driver
                     },
                     beforeSend: function() {
                         console.log("Loading");
@@ -1350,11 +1235,10 @@
         // When the user clicks on <span> (x), close the modal
         $(document).on('click', '.closing', function() {
             $('#customModal').attr('style', 'display:none');
-            $('#statusModal').attr('style', 'display:none');
-            $('#driverModal').attr('style', 'display:none');
             $('#deleteModal').attr('style', 'display:none');
             $('#reorderModal').attr('style', 'display:none');
             $('#busModal').attr('style', 'display:none');
+            $('#verifyModal').attr('style', 'display:none');
         });
 
 
@@ -1365,22 +1249,12 @@
         });
         $(document).keydown(function(event) {
             if (event.keyCode == 27) {
-                $('#statusModal').hide();
-            }
-        });
-        $(document).keydown(function(event) {
-            if (event.keyCode == 27) {
                 $('#deleteModal').hide();
             }
         });
         $(document).keydown(function(event) {
             if (event.keyCode == 13) {
                 $('#dri').submit();
-            }
-        });
-        $(document).keydown(function(event) {
-            if (event.keyCode == 27) {
-                $('#driveModal').hide();
             }
         });
         $(document).keydown(function(event) {
