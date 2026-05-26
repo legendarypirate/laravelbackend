@@ -123,6 +123,18 @@
     z-index: 999 !important;
 }
 
+/* Hide duplicate length/filter/pagination injected into scroll clones */
+.dataTables_scroll .dataTables_length,
+.dataTables_scroll .dataTables_filter,
+.dataTables_scroll .dataTables_info,
+.dataTables_scroll .dataTables_paginate {
+    display: none !important;
+}
+
+.card-body.table-wrapper > .dataTables_wrapper ~ .dataTables_wrapper {
+    display: none !important;
+}
+
         /* Modal Content */
         .modal-content {
             background-color: #fefefe;
@@ -252,7 +264,6 @@
                                 Загвар татаж
                                 авах</a></button>
                         <div class="row">
-                            <div class="row">
                                 <div class="form-group myform">
                                     <label for="status">Төрөл:</label>
                                     <select id="filterByCustomerType" class="form-control inputStatus9">
@@ -334,7 +345,7 @@
                                                 href="#" style="color:white;">Шүүх</a></button>
                                     </div>
                                 @endif
-                            </div>
+                        </div>
 
                             <div class="card">
                                 <div class="card-header">
@@ -596,17 +607,40 @@
     var $j = jQuery.noConflict();
     $(document).ready(function($j) {
         const deliveryTableUrl = '{{ route('datatable-delivery') }}';
+
+        const destroyDeliveryDataTable = () => {
+            if ($j.fn.DataTable.isDataTable('#datatable')) {
+                $j('#datatable').DataTable().destroy(true);
+            }
+            $j('#datatable').closest('.card-body').find('.dataTables_wrapper').remove();
+        };
+
+        const removeDuplicateDataTableControls = () => {
+            var $wrapper = $j('#datatable').closest('.dataTables_wrapper');
+            if (!$wrapper.length) {
+                return;
+            }
+            $wrapper.find('.dataTables_length').not(':first').remove();
+            $wrapper.find('.dataTables_filter').not(':first').remove();
+            $wrapper.find('.dataTables_info').not(':first').remove();
+            $wrapper.find('.dataTables_paginate').not(':first').remove();
+            $j('#datatable').closest('.card-body').find('.dataTables_wrapper').not($wrapper).remove();
+        };
+
         const loadDeliveryDataTable = (status, region, driver, customer, type, status_1, status_2, status_3,
             status_4, status_5, status_6, status_10, status_100, start_date, end_date) => {
+
+            destroyDeliveryDataTable();
 
             var table = $j('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                bDestroy: true,
                 scrollX: true,
                 scrollY: "70vh",
                 scrollCollapse: true,
-                fixedHeader: true,
+                pageLength: 1000,
+                searching: false,
+                dom: 'lrtip',
                 ajax: {
                     type: 'GET',
                     url: deliveryTableUrl,
@@ -825,9 +859,25 @@
                 ],
                 paginationType: 'numbers',
                 "language": {
-                    "search": "Хайх:"
+                    "search": "Хайх:",
+                    "lengthMenu": "Харуулах _MENU_ мөр",
+                    "info": "_START_-_END_ / Нийт _TOTAL_",
+                    "infoEmpty": "0 мөр",
+                    "infoFiltered": "(_MAX_-с шүүсэн)",
+                    "paginate": {
+                        "first": "Эхнийх",
+                        "last": "Сүүлийнх",
+                        "next": "Дараах",
+                        "previous": "Өмнөх"
+                    }
                 },
-                lengthMenu: [1000, 1500, 2500, 3500],
+                lengthMenu: [[1000, 1500, 2500, 3500], [1000, 1500, 2500, 3500]],
+                initComplete: function () {
+                    removeDuplicateDataTableControls();
+                },
+                drawCallback: function () {
+                    removeDuplicateDataTableControls();
+                },
             });
         }
 
