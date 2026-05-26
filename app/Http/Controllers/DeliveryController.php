@@ -2065,7 +2065,10 @@ public function change_driver_on_delivery(Request $request)
 
     try {
         if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
-            return json_encode($data);
+            return response()->json([
+                'status' => 0,
+                'message' => 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.',
+            ], 422);
         }
 
         // Validate inputs
@@ -2077,6 +2080,13 @@ public function change_driver_on_delivery(Request $request)
         
         if (empty($ids)) {
             throw new \Exception('Хүргэлтийн ID олдсонгүй');
+        }
+
+        if ($this->hasDeliveredAmongIds($ids)) {
+            return response()->json([
+                'status' => 0,
+                'message' => 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.',
+            ], 422);
         }
 
         // Update database
@@ -2816,6 +2826,12 @@ public function change_driver_on_delivery(Request $request)
                         return '<button type="submit" class="btn btn-info" style="margin-bottom:2px;"><a href="' . url('/delivery/recover/' . $row->id) . '"style="color:white;">Сэргээх</a></button><br>
                                         <button type="submit" class="btn btn-info"><a href="' . url('/delivery/detail/' . $row->id) . '" style="color:white;">Дэлгэрэнгүй</a></button>
                             ';
+                    })
+                    ->addColumn('delivery_status', function ($row) {
+                        return (int) ($row->status ?? 0);
+                    })
+                    ->addRowAttr('data-delivery-status', function ($row) {
+                        return (int) ($row->status ?? 0);
                     })
                     ->rawColumns(['checkbox', 'track', 'merchantAddress', 'region', 'mergedMerchantParcel', 'actions', 'note', 'comment', 'address', 'status', 'recover', 'shop', 'rating', 'type', 'receivername', 'order_code', 'invoice_number', 'invoice_date', 'customer_register', 'customer_email', 'merchantName', 'merchantPhone1', 'phone', 'number'])
 

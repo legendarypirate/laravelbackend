@@ -322,7 +322,7 @@
             cursor: not-allowed !important;
         }
     </style>
-    <script src="{{ asset('js/delivery-delivered-lock.js') }}?v=1"></script>
+    <script src="{{ asset('js/delivery-delivered-lock.js') }}?v=2"></script>
 @endif
 </body>
 

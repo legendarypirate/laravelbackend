@@ -920,14 +920,23 @@
         var selected_driver = 1;
         
         $(document).on('click', '#btnStatusModal', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             $('#statusModal').attr('style', 'display:block');
         });
 
         $(document).on('click', '#btnBusModal', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             $('#busModal').attr('style', 'display:block');
         });
 
         $(document).on('click', '#btnVerifyModal', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             $('#verifyModal').attr('style', 'display:block');
         });
 
@@ -937,14 +946,23 @@
         };
 
         $(document).on('click', '#btnDriverModal', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             $('#driverModal').attr('style', 'display:block');
         });
 
         $(document).on('click', '#btnDeleteModal', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             $('#deleteModal').attr('style', 'display:block');
         });
 
         $('.btn_change_status').click(function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const changeStatusUrl = '{{ route('change_status_on_delivery') }}';
             var ids = rows_selected.join(",");
             selected_status = $('.inputStatus1').val();
@@ -966,6 +984,9 @@
         });
 
         $('.btn_verify').click(function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const changeVerifyUrl = '{{ route('change_verify_on_delivery') }}';
             var ids = rows_selected.join(",");
             verified = $('.inputStatus15').val();
@@ -987,6 +1008,9 @@
         });
 
         $('.btn_delete').click(function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const changeVerifyUrl = '{{ route('change_delete_on_delivery') }}';
             var ids = rows_selected.join(",");
 
@@ -1006,6 +1030,9 @@
         });
 
         $('.btn_change_bus').click(function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const changeBusUrl = '{{ route('change_bus_on_delivery') }}';
             var ids = rows_selected.join(",");
             selected_bus = $('.inputStatus3').val();
@@ -1027,6 +1054,9 @@
         });
 
         $('.btn_change_drive').click(function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const changeDriverUrl = '{{ route('change_driver_on_delivery') }}';
             var ids = rows_selected.join(",");
             selected_driver = $('.inputStatus4').val();
@@ -1062,6 +1092,9 @@
         });
 
      $(document).on('click', '#__btnExcelExport', function() {
+    if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+        return false;
+    }
     var ids = rows_selected.join(",");
     
     console.log('Exporting these IDs:', ids);
@@ -1089,6 +1122,9 @@
         }
 
         $(document).on('click', '#__btnPrint', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const printDataDeliveryURL = '{{ route('print-data-delivery_item') }}';
             var ids = rows_selected.join(",");
             $.ajax({
@@ -1109,6 +1145,9 @@
         });
 
         $(document).on('click', '#__btnTootsooNiilvvleh', function() {
+            if (window.blockIfDeliveredSelected && window.blockIfDeliveredSelected()) {
+                return false;
+            }
             const tootsooNiilvvlsenEseh = '{{ route('tootsooNiilvvlsenEseh') }}';
             var ids = rows_selected.join(",");
             $.ajax({
