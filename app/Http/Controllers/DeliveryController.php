@@ -30,6 +30,36 @@ use Firebase\JWT\JWT;
 
 class DeliveryController extends Controller
 {
+    protected const DELIVERED_STATUS = 3;
+
+    protected function deliveryCheckboxHtml($row): string
+    {
+        $status = (int) ($row->status ?? 0);
+
+        return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->id . '" data-status="' . $status . '" value="' . $row->id . '">';
+    }
+
+    protected function hasDeliveredAmongIds(array $ids): bool
+    {
+        $ids = array_filter($ids);
+
+        if (empty($ids)) {
+            return false;
+        }
+
+        return Delivery::whereIn('id', $ids)->where('status', self::DELIVERED_STATUS)->exists();
+    }
+
+    protected function abortIfDeliveredAmongIds(array $ids): bool
+    {
+        if ($this->hasDeliveredAmongIds($ids)) {
+            Alert::error('Хүргэлт', 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.');
+
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Show the application dashboard.
@@ -841,6 +871,11 @@ public function deductQuantities(Request $request)
         if ($request->ajax()) {
 
             $id   = $request->get('id', 0);
+            if ($this->hasDeliveredAmongIds([(int) $id])) {
+                return response()->json([
+                    'message' => 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.',
+                ], 422);
+            }
             $note = $request->get('note');
             Delivery::where('id', $id)->update(['note' => $note]);
         }
@@ -849,6 +884,11 @@ public function deductQuantities(Request $request)
     {
         if ($request->ajax()) {
             $id      = $request->get('id', 0);
+            if ($this->hasDeliveredAmongIds([(int) $id])) {
+                return response()->json([
+                    'message' => 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.',
+                ], 422);
+            }
             $comment = $request->get('comment');
             Delivery::where('id', $id)->update(['comment' => $comment]);
             // Alert::success('Comment', 'Амжилттай шинэчлэгдлээ');
@@ -1467,7 +1507,7 @@ public function sign(Request $request)
         // dd($deliveryDownloaded);
         $table = Datatables::of($deliveryDownloaded)
             ->addColumn('checkbox', function ($row) {
-                return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->id . '" value="' . $row->id . '">';
+                return $this->deliveryCheckboxHtml($row);
             })
             ->addColumn('driver_id', function ($row) {
                 return $row->driver_id;
@@ -1652,6 +1692,10 @@ public function sign(Request $request)
 
         $data           = [];
         $data['status'] = 0;
+
+        if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
+            return json_encode($data);
+        }
 
         if ($request->ids && $request->status) {
             $ids   = explode(',', $request->ids);
@@ -1900,6 +1944,11 @@ public function sign(Request $request)
 
         $data           = [];
         $data['status'] = 0;
+
+        if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
+            return json_encode($data);
+        }
+
         if ($request->ids && $request->region) {
             $ids = explode(',', $request->ids);
             Delivery::whereIn('id', $ids)->update(['region' => $request->region]);
@@ -2015,6 +2064,10 @@ public function change_driver_on_delivery(Request $request)
     $data = ['status' => 0, 'message' => ''];
 
     try {
+        if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
+            return json_encode($data);
+        }
+
         // Validate inputs
         if (!$request->ids || !$request->driverselected) {
             throw new \Exception('IDs болон Жолооч хоосон байна');
@@ -2156,6 +2209,10 @@ public function change_driver_on_delivery(Request $request)
         $data           = [];
         $data['status'] = 0;
 
+        if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
+            return json_encode($data);
+        }
+
         if ($request->ids) {
             $ids       = explode(',', $request->ids);
             $array_ids = array_filter(explode(',', $request->ids));
@@ -2216,6 +2273,13 @@ public function change_driver_on_delivery(Request $request)
                     'success' => false,
                     'message' => 'Хүргэлт олдсонгүй'
                 ], 404);
+            }
+
+            if ((int) $delivery->status === self::DELIVERED_STATUS) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Хүргэгдсэн захиалгад ямар ч үйлдэл хийх боломжгүй.',
+                ], 422);
             }
 
             $userid = Auth::user()->id;
@@ -2292,6 +2356,11 @@ public function change_driver_on_delivery(Request $request)
 
         $data           = [];
         $data['status'] = 0;
+
+        if ($request->ids && $this->abortIfDeliveredAmongIds(explode(',', $request->ids))) {
+            return json_encode($data);
+        }
+
         $ids            = explode(',', $request->ids);
         $dddd           = Delivery::whereIn('id', $ids)->where('verified', '1')->count();
         $st             = Delivery::whereIn('id', $ids)->where('status', '10')->count();
@@ -2360,6 +2429,9 @@ public function change_driver_on_delivery(Request $request)
     public function showQRData(Request $request)
     {
         $arr_ids = explode(",", $request->post('ids'));
+        if ($this->abortIfDeliveredAmongIds($arr_ids)) {
+            return back();
+        }
         $ids     = implode(",", array_filter($arr_ids));
         $user_id = Auth::user()->id;
         $role    = Auth::user()->role;
@@ -2504,7 +2576,7 @@ public function change_driver_on_delivery(Request $request)
 
                 $table = Datatables::of($data)
                     ->addColumn('checkbox', function ($row) {
-                        return '<input type="checkbox" style="width:20px;height:20px;" class="checkbox" onclick="updateCount()" name="foo" data-id="' . $row->id . '" value="' . $row->id . '">';
+                        return $this->deliveryCheckboxHtml($row);
                     })
                     ->addColumn('id', function ($row) {
                         return $row->id;
@@ -2632,7 +2704,7 @@ public function change_driver_on_delivery(Request $request)
                         return '
                                 <input class="font-medium whitespace-nowrap input" id="note_' . $row->id . '"  style="width:150px;"  value="' . $row->comment . '" name="comment"/>
                                 <input type="hidden" value="' . $row->id . '" name="realid">
-                                <button data-id="' . $row->id . '" class="btn btn-primary button_edit_comment" >  Засах </button>
+                                <button data-id="' . $row->id . '" data-status="' . (int) ($row->status ?? 0) . '" class="btn btn-primary button_edit_comment" >  Засах </button>
 
                                 <a class="font-medium whitespace-nowrap"></a>
                         ';
@@ -2641,7 +2713,7 @@ public function change_driver_on_delivery(Request $request)
                         return '
                                 <input class="font-medium whitespace-nowrap input" id="not_' . $row->id . '"  style="width:150px;"  value="' . $row->note . '" name="note"/>
                                 <input type="hidden" value="' . $row->id . '" name="realid">
-                                <button data-id="' . $row->id . '" class="btn btn-primary button_edit_note" >  Засах </button>
+                                <button data-id="' . $row->id . '" data-status="' . (int) ($row->status ?? 0) . '" class="btn btn-primary button_edit_note" >  Засах </button>
 
                                 <a class="font-medium whitespace-nowrap"></a>
                         ';
@@ -2735,7 +2807,7 @@ public function change_driver_on_delivery(Request $request)
                     ->addColumn('actions', function ($row) {
                         $actions = '
                                                         <button type="submit" class="btn btn-info"><a href="' . url('/delivery/detail/' . $row->id) . '" style="color:white;">Дэлгэрэнгүй</a></button>
-                                                        <button type="button" class="btn btn-warning btn-reorder-row" data-id="' . $row->id . '" data-number="' . ($row->number ?? '') . '" style="margin-top:5px;"><i class="fa fa-redo" style="margin-right:5px"></i>Дахин захиалах</button>';
+                                                        <button type="button" class="btn btn-warning btn-reorder-row" data-id="' . $row->id . '" data-status="' . (int) ($row->status ?? 0) . '" data-number="' . ($row->number ?? '') . '" style="margin-top:5px;"><i class="fa fa-redo" style="margin-right:5px"></i>Дахин захиалах</button>';
 
                         return $actions;
                     })

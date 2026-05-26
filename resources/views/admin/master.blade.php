@@ -315,6 +315,15 @@
         crossorigin="anonymous"></script>
 <!-- Alertify JS -->
 <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+@if (request()->is('delivery*'))
+    <style>
+        .delivery-action-locked {
+            opacity: 0.55 !important;
+            cursor: not-allowed !important;
+        }
+    </style>
+    <script src="{{ asset('js/delivery-delivered-lock.js') }}?v=1"></script>
+@endif
 </body>
 
 </html>
